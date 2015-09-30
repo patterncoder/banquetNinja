@@ -1,1 +1,5 @@
-alert('hello from page');
+import angular from 'angular';
+
+angular.module('app', []);
+
+
