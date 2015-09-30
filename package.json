@@ -6,13 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "postinstall": "node deploy",
+    "postinstall": "node deploy.js",
     "prodStart": "set NODE_ENV=production webpack -p --config webpack.production.config.js"
   },
   "author": "Christopher J. Baily",
   "license": "ISC",
   "dependencies": {
     "http-proxy": "^1.11.2",
+    "webpack": "^1.12.2",
     "express": "^4.13.3"
   },
   "devDependencies": {
