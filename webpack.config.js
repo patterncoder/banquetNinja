@@ -39,11 +39,7 @@ var config = {
 
     // I highly recommend using the babel-loader as it gives you
     // ES6/7 syntax and JSX transpiling out of the box
-    {
-      test: /\.js$/,
-      loaders: ['ng-annotate', 'babel-loader' ],
-      exclude: [nodeModulesPath]
-    },
+    
 
     // Let us also add the style-loader and css-loader, which you can
     // expand with less-loader etc.
@@ -55,6 +51,11 @@ var config = {
         test: /\.styl$/, 
         resolveLoader: { fallback: path.join(__dirname, "node_modules") },  
         loader: 'style!css!stylus'
+    },
+    {
+      test: /\.js$/,
+      loaders: ['ng-annotate', 'babel-loader' ],
+      exclude: [nodeModulesPath]
     },
     { 
         test: /\.(png|woff|woff2|eot|ttf|svg)$/, 
