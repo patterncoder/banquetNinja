@@ -41,7 +41,7 @@ var config = {
     // ES6/7 syntax and JSX transpiling out of the box
     {
       test: /\.js$/,
-      loader: 'babel',
+      loaders: ['ng-annotate', 'babel-loader' ],
       exclude: [nodeModulesPath]
     },
 
@@ -50,14 +50,29 @@ var config = {
     {
       test: /\.css$/,
       loader: 'style!css'
+    },
+    {
+        test: /\.styl$/, 
+        resolveLoader: { fallback: path.join(__dirname, "node_modules") },  
+        loader: 'style!css!stylus'
+    },
+    { 
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/, 
+        loader: 'url-loader?limit=100000' 
     }
 
     ]
   },
+  
 
   // We have to manually add the Hot Replacement plugin when running
   // from Node
-  plugins: [new Webpack.HotModuleReplacementPlugin()]
+  plugins: [new Webpack.HotModuleReplacementPlugin(),
+    new Webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        })
+  ]
 };
 
 module.exports = config;
