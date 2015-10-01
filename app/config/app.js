@@ -1,3 +1,3 @@
 import angular from 'angular';
-
-module.exports = angular.module('app', []);
+import Datasource from '../../dataNinja';
+module.exports = angular.module('app', [Datasource]);
