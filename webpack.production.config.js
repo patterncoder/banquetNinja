@@ -14,15 +14,40 @@ var config = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [{
+    loaders: [
+
+    // I highly recommend using the babel-loader as it gives you
+    // ES6/7 syntax and JSX transpiling out of the box
+    {
       test: /\.js$/,
-      loader: 'babel',
+      loaders: ['ng-annotate', 'babel-loader' ],
       exclude: [nodeModulesPath]
-    },{
+    },
+
+    // Let us also add the style-loader and css-loader, which you can
+    // expand with less-loader etc.
+    {
       test: /\.css$/,
       loader: 'style!css'
-    }]
-  }
+    },
+    {
+        test: /\.styl$/, 
+        resolveLoader: { fallback: path.join(__dirname, "node_modules") },  
+        loader: 'style!css!stylus'
+    },
+    { 
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/, 
+        loader: 'url-loader?limit=100000' 
+    }
+
+    ]
+  },
+  plugins: [
+      new Webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        })
+  ]
 };
 
 module.exports = config;
