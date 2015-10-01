@@ -19,6 +19,7 @@
     "bootstrap": "^3.3.5",
     "css-loader": "^0.19.0",
     "express": "^4.13.3",
+    "file-loader": "^0.8.4",
     "http-proxy": "^1.11.2",
     "jquery": "^2.1.4",
     "ng-annotate-loader": "0.0.10",
