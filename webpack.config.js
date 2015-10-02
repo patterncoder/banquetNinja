@@ -16,7 +16,9 @@ var config = {
 
     // The script refreshing the browser on none hot updates
     'webpack-dev-server/client?http://localhost:8080',
-
+    
+    'file?name=index.html!jade-html!./public/index.jade',
+    
     // Our application
     mainPath],
   output: {

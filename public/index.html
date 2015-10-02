@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <base href="/"></base>
 </head>
 <body>
-  {{1+1 === 2}}
+    <div class="container">
+        <div class="row">
+            <div ui-view="header"></div>
+        </div>
+        <div class="row">
+            <div ui-view="content"></div>
+        </div>
+        <div class="row">
+            <div ui-view="footer"></div>
+        </div>
+    </div>
   <script src="/build/bundle.js"></script>
 </body>
 </html>
