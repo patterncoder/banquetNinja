@@ -3,6 +3,8 @@ var path = require('path');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, 'public', 'build');
 var mainPath = path.resolve(__dirname, 'app', 'main.js');
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 
 var config = {
 
@@ -48,7 +50,12 @@ var config = {
             $: "jquery",
             jQuery: "jquery"
         })
-  ]
+  ],
+  resolve: {
+      alias: {
+          config: path.join(__dirname, '/app/config', env)
+      }
+  }
 };
 
 module.exports = config;

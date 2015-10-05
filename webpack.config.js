@@ -3,6 +3,7 @@ var path = require('path');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, 'public', 'build');
 var mainPath = path.resolve(__dirname, 'app', 'main.js');
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var config = {
 
@@ -13,14 +14,18 @@ var config = {
 
     // For hot style updates
     'webpack/hot/dev-server',
+    
+    
 
     // The script refreshing the browser on none hot updates
     'webpack-dev-server/client?http://localhost:8080',
     
-    'file?name=index.html!jade-html!./public/index.jade',
+    
     
     // Our application
-    mainPath],
+    mainPath,
+    
+    'file?name=index.html!jade-html!./public/index.jade'],
   output: {
 
     // We need to give Webpack a path. It does not actually need it,
@@ -75,7 +80,12 @@ var config = {
             $: "jquery",
             jQuery: "jquery"
         })
-  ]
+  ],
+  resolve: {
+      alias: {
+          config: path.join(__dirname, '/app/config', env)
+      }
+  }
 };
 
 module.exports = config;

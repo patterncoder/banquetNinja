@@ -5,11 +5,20 @@
 // $resourc is passed in from the 
 import angular from 'angular';
 
+
 export default class CachedResource {
     constructor ($resource, $q, definition) {
         this.List;
         this.$q = $q;
+        
         this.Resource = new $resource(definition.url, definition.defaults, definition.methods);
+        // extend resource if has extentions.
+        if(definition.extentions){
+            for (var i = 0; i < definition.extentions.length; i++){
+                this.Resource.prototype[definition.extentions[i].key] = definition.extentions[i].method;
+            }
+        }
+        
     }
     
     query (queryString) {
@@ -100,7 +109,7 @@ export default class CachedResource {
     remove (id) {
                 
                 var self = this;
-                var deferred = $q.defer();
+                var deferred = this.$q.defer();
                 
                 this.Resource.remove({ _id: id }, function () {
                     var item = self.List.map(function (i) {
