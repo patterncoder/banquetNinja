@@ -1,5 +1,5 @@
 states.$inject = ['$stateProvider'];
-
+//comment
 export default function states($stateProvider) {
     $stateProvider
         .state('root', {
@@ -7,13 +7,12 @@ export default function states($stateProvider) {
             abstract: true,
             views: {
                 'header': {
-                    template: require('jade!./header/header.jade'),
-                    controller: function(){}
+                    template: require('./header/header.jade')
                 },
                 'footer': {
-                    template: require('jade!./footer/footer.jade')
+                    template: require('./footer/footer.jade')
                 }
-            },
+            }, 
             
             
         })

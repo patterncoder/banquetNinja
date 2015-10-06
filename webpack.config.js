@@ -23,9 +23,11 @@ var config = {
     
     
     // Our application
-    mainPath,
+    mainPath
     
-    'file?name=index.html!jade-html!./public/index.jade'],
+    //,'file?name=index.html!jade-html!./public/index.jade'
+    
+    ],
   output: {
 
     // We need to give Webpack a path. It does not actually need it,
@@ -35,7 +37,7 @@ var config = {
     // in production
     path: buildPath,
     filename: 'bundle.js',
-
+    
     // Everything related to Webpack should go through a build path,
     // localhost:3000/build. That makes proxying easier to handle
     publicPath: '/build/'
@@ -67,6 +69,11 @@ var config = {
     { 
         test: /\.(png|woff|woff2|eot|ttf|svg)$/, 
         loader: 'url-loader?limit=100000' 
+    }
+    ,
+    {
+        test: /\.jade$/,
+        loader: "jade-loader"
     }
 
     ]

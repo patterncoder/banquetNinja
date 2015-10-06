@@ -1,48 +1,9 @@
+
+
 #top-nav.navbar.navbar-inverse.navbar-fixed-top
-        //ng-controller="tmNavBarLoginCtrl"
-        .container()
-            .navbar-header
-                a.navbar-brand(href="/")
-                    h4 BANQUET.NINJA
-                a.pull-right.btn.btn-navbar.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-ex1-collapse")
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                a.pull-right.navbar-toggle(data-toggle="collapse" name="myname" ng-click="loginClick()" ng-hide="identity.isAuthenticated()") Login
-                a.pull-right.btn.btn-navbar.navbar-toggle(data-toggle="collapse" ng-click="signout()" ng-show="identity.isAuthenticated()" href="") Sign Out
-            .navbar-collapse.collapse.navbar-ex1-collapse
-                ul.nav.navbar-nav
-                    li
-                        a(href="/") Home
-                    li
-                        a.hidden-lg.hidden-md.hidden-sm(href="/signup" ng-hide="identity.isAuthenticated()") Signup
-                    li
-                        a.hidden-lg.hidden-md.hidden-sm(href="/profile" ng-show="identity.isAuthenticated()") Profile
-                .navbar-right.navbar-collapse.collapse
-                    ul.nav.navbar-nav.navbar-right(ng-hide="identity.isAuthenticated()")
-                        li
-                            a(href="/signup") Sign Up
-                        li#menuLogin.dropdown
-                            a#navLogin.dropdown-toggle(href="#") Login
-                            div.dropdown-menu(style="padding: 17px;")
-                                form#formLogin.form
-                                    .form-group
-                                        input#username.form-control(name="username",type="text",placeholder="Username",ng-model="username")
-                                    .form-group
-                                        input#password.form-control(name="password", type="password", placeholder="Password",ng-model="password")
-                                    .form-group
-                                        input(type="checkbox" name="remember" ng-model="remember")
-                                        | &nbsp; Remember Me
-                                    button#btnLogin.btn.btn-default(type="button",ng-click="signin(username, password, remember)") Login
-                    ul.nav.navbar-nav.navbar-right(ng-show="identity.isAuthenticated()")
-                        
-                        li.dropdown
-                            a.dropdown-toggle(href="") {{identity.currentUser.firstName+' '+identity.currentUser.lastName}}
-                                b.caret
-                            ul.dropdown-menu
-                                li
-                                    a(href="/profile") Profile
-                                li
-                                    a(href="", ng-click="signout()") Sign Out
-            // .row(ng-show="identity.currentUser.accountLockout" )
-            //     h5(style="{color: red}") Pay Now!
+    .container#login(ng-controller="HeaderCtrl as vm")
+        p(style="color: white") Hello Again...and again
+        input(type="text" ng-model="vm.username")
+        input(type="password" ng-model="vm.password")
+        button.btn.btn-default(type="button" ng-click="vm.login(vm.username, vm.password)") Login2
+        p(style="color: white") {{vm.loggedIn}}
