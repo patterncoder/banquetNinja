@@ -1,6 +1,6 @@
 import config from 'config';
 
-export default ['$http', '$q', '$window', function ($http, $q, $window){
+export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $window, tmIdentity){
     var userInfo;
     
     function login(username, password) {
@@ -16,11 +16,28 @@ export default ['$http', '$q', '$window', function ($http, $q, $window){
                 user: result.data.user
             };
             $window.sessionStorage['userInfo'] = JSON.stringify(userInfo);
+            tmIdentity.currentUser = userInfo;
             deferred.resolve(userInfo);
         }, function(error) {
             deferred.reject(error);
         });
         
+        return deferred.promise;
+    }
+    
+    function logout(){
+        var deferred = $q.defer();
+        
+        $http.post(config.apiBase + '/logout', {
+            headers: {"access_token": userInfo.accessToken}
+        }).then(function(result){
+            $window.sessionStorage["userInfo"] = null;
+            userInfo = null;
+            tmIdentity.currentUser = undefined;
+            deferred.resolve(result);
+        }, function(error){
+            deferred.reject(error);
+        });
         return deferred.promise;
     }
     
@@ -38,6 +55,7 @@ export default ['$http', '$q', '$window', function ($http, $q, $window){
     
     return {
         login: login,
+        logout: logout,
         getUserInfo: getUserInfo
     }
 }];

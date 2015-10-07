@@ -2,20 +2,34 @@
 //comment
 //comment
 
-export default ['bnAuth', function(bnAuth) {
+function HeaderCtrl (tmAuth, tmIdentity) {
     var vm = this;
     vm.name = 'banquetninja';
     vm.loggedIn = false;
-    console.log('userInfo' + bnAuth.getUserInfo);
-    if(bnAuth.getUserInfo()){
+    vm.identity = tmIdentity;
+    console.log('userInfo' + tmAuth.getUserInfo);
+    if(tmAuth.getUserInfo()){
         vm.loggedIn = true;
     }
-    vm.login = function (username, password){
+    vm.signin = function (username, password){
         console.log('in login');
-        bnAuth.login(username, password).then(
+        tmAuth.login(username, password).then(
             function(){vm.loggedIn = true;}
         );
     };
-    
-}];
+    vm.signout = function () {
+        tmAuth.logout().then(function(result){
+            if (result.success)
+            {
+                console.log('logged out!!!');
+            }
+            
+        });
+    };
+}
+
+
+HeaderCtrl.$inject = ['tmAuth', 'tmIdentity'];
+export default HeaderCtrl;
+
 

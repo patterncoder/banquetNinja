@@ -13,9 +13,9 @@ export default class CachedResource {
         
         this.Resource = new $resource(definition.url, definition.defaults, definition.methods);
         // extend resource if has extentions.
-        if(definition.extentions){
-            for (var i = 0; i < definition.extentions.length; i++){
-                this.Resource.prototype[definition.extentions[i].key] = definition.extentions[i].method;
+        if(definition.extensions){
+            for (var i = 0; i < definition.extensions.length; i++){
+                this.Resource.prototype[definition.extensions[i].key] = definition.extensions[i].method;
             }
         }
         

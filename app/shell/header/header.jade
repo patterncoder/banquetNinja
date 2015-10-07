@@ -1,9 +1,47 @@
-
-
 #top-nav.navbar.navbar-inverse.navbar-fixed-top
-    .container#login(ng-controller="HeaderCtrl as vm")
-        p(style="color: white") Hello Again...and again
-        input(type="text" ng-model="vm.username")
-        input(type="password" ng-model="vm.password")
-        button.btn.btn-default(type="button" ng-click="vm.login(vm.username, vm.password)") Login2
-        p(style="color: white") {{vm.loggedIn}}
+    .container(ng-controller="HeaderCtrl as vm")
+        .navbar-header
+            a.navbar-brand(href="/")
+                h4 BANQUET.NINJA
+            a.pull-right.btn.btn-navbar.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-ex1-collapse")
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+            a.pull-right.navbar-toggle(data-toggle="collapse" name="myname" ng-click="loginClick()" ng-hide="identity.isAuthenticated()") Login
+            a.pull-right.btn.btn-navbar.navbar-toggle(data-toggle="collapse" ng-click="signout()" ng-show="identity.isAuthenticated()" href="") Sign Out
+        .navbar-collapse.collapse.navbar-ex1-collapse
+            ul.nav.navbar-nav
+                li
+                    a(href="/") Home
+                li
+                    a.hidden-lg.hidden-md.hidden-sm(href="/signup" ng-hide="vm.identity.isAuthenticated()") Signup
+                li
+                    a.hidden-lg.hidden-md.hidden-sm(href="/profile" ng-show="vm.identity.isAuthenticated()") Profile
+            div
+                .navbar-right.navbar-collapse.collapse
+                    ul.nav.navbar-nav.navbar-right(ng-hide="vm.identity.isAuthenticated()")
+                        li
+                            a(ui-sref="root.signup") Sign Up
+                        li#menuLogin.dropdown
+                            a#navLogin.dropdown-toggle(data-toggle="dropdown") Login
+                            div.dropdown-menu(style="padding: 17px;")
+                                form#formLogin.form
+                                    .form-group
+                                        input#username.form-control(name="username",type="text",placeholder="Username",ng-model="vm.username")
+                                    .form-group
+                                        input#password.form-control(name="password", type="password", placeholder="Password",ng-model="vm.password")
+                                    .form-group
+                                        input(type="checkbox" name="remember" ng-model="vm.remember")
+                                        | &nbsp; Remember Me
+                                    button#btnLogin.btn.btn-default(type="button",ng-click="vm.signin(vm.username, vm.password, vm.remember)") Login
+                    ul.nav.navbar-nav.navbar-right(ng-show="vm.identity.isAuthenticated()")
+                        li.dropdown
+                            a.dropdown-toggle(data-toggle="dropdown") {{vm.identity.currentUser.user.firstName+' '+ vm.identity.currentUser.user.lastName}}
+                                b.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href="/profile") Profile
+                                li
+                                    a(href="", ng-click="vm.signout()") Sign Out
+            // .row(ng-show="identity.currentUser.accountLockout" )
+            //     h5(style="{color: red}") Pay Now!

@@ -8,7 +8,7 @@ export default [
             url: config.apiBase + '/users/:id', 
             defaults: { _id: "@id" },
             methods: {update: { method: 'PUT', isArray: false }},
-            extentions: [{key: "isAdmin", method: function () {
+            extensions: [{key: "isAdmin", method: function () {
                 return this.roles && this.roles.indexOf("admin") > -1;}}]
         });
     }
