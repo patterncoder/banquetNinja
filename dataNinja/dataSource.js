@@ -40,7 +40,7 @@ export default class DataSource {
     init() {
             for (var i = 0; i < this.definitions.length; i++)
             {
-                console.log(this.definitions[i]);
+                
                 this.registerResource(this.definitions[i]);
             }
         }

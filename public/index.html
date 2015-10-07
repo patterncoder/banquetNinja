@@ -5,17 +5,12 @@
   <base href="/"></base>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div ui-view="header"></div>
-        </div>
-        <div class="row">
-            <div ui-view="content"></div>
-        </div>
-        <div class="row">
-            <div ui-view="footer"></div>
-        </div>
+    <div class="wrapper">
+        <div ui-view="header"></div>
+        <div ui-view="content"></div>
     </div>
+    <div ui-view="footer"></div>
+    
   <script src="/build/bundle.js"></script>
 </body>
 </html>

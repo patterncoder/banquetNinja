@@ -2,6 +2,7 @@
 'use strict';
 // load style sheets
 import 'bootstrap/dist/css/bootstrap.css';
+import 'toastr/build/toastr.css';
 //window.jQuery = window.$ = require('jquery/dist/jquery');
 import 'bootstrap/dist/js/bootstrap';
 import './site.styl';

@@ -88,6 +88,7 @@ var config = {
             jQuery: "jquery"
         })
   ],
+  // This sets up config based on environment 
   resolve: {
       alias: {
           config: path.join(__dirname, '/app/config', env)

@@ -1,7 +1,7 @@
 #top-nav.navbar.navbar-inverse.navbar-fixed-top
     .container(ng-controller="HeaderCtrl as vm")
         .navbar-header
-            a.navbar-brand(href="/")
+            a.navbar-brand(ui-sref="root.home")
                 h4 BANQUET.NINJA
             a.pull-right.btn.btn-navbar.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-ex1-collapse")
                     span.icon-bar
@@ -12,7 +12,7 @@
         .navbar-collapse.collapse.navbar-ex1-collapse
             ul.nav.navbar-nav
                 li
-                    a(href="/") Home
+                    a(ui-sref="root.home") Home
                 li
                     a.hidden-lg.hidden-md.hidden-sm(href="/signup" ng-hide="vm.identity.isAuthenticated()") Signup
                 li
