@@ -1,5 +1,5 @@
 #top-nav.navbar.navbar-inverse.navbar-fixed-top
-    .container(ng-controller="HeaderCtrl as vm")
+    .container(ng-controller="tmLoginCtrl as vm")
         .navbar-header
             a.navbar-brand(ui-sref="root.home")
                 h4 BANQUET.NINJA
@@ -7,16 +7,16 @@
                     span.icon-bar
                     span.icon-bar
                     span.icon-bar
-            a.pull-right.navbar-toggle(data-toggle="collapse" name="myname" ng-click="loginClick()" ng-hide="identity.isAuthenticated()") Login
-            a.pull-right.btn.btn-navbar.navbar-toggle(data-toggle="collapse" ng-click="signout()" ng-show="identity.isAuthenticated()" href="") Sign Out
+            a.pull-right.navbar-toggle(data-toggle="collapse" name="myname" ng-click="vm.goLogin()" ng-hide="vm.identity.isAuthenticated()") Login
+            a.pull-right.btn.btn-navbar.navbar-toggle(data-toggle="collapse" ng-click="vm.signout()" ng-show="vm.identity.isAuthenticated()" href="") Sign Out
         .navbar-collapse.collapse.navbar-ex1-collapse
             ul.nav.navbar-nav
                 li
                     a(ui-sref="root.home") Home
                 li
-                    a.hidden-lg.hidden-md.hidden-sm(href="/signup" ng-hide="vm.identity.isAuthenticated()") Signup
+                    a.hidden-lg.hidden-md.hidden-sm(ui-sref="root.signup" ng-hide="vm.identity.isAuthenticated()") Signup
                 li
-                    a.hidden-lg.hidden-md.hidden-sm(href="/profile" ng-show="vm.identity.isAuthenticated()") Profile
+                    a.hidden-lg.hidden-md.hidden-sm(ui-sref="root.profile" ng-show="vm.identity.isAuthenticated()") Profile
             div
                 .navbar-right.navbar-collapse.collapse
                     ul.nav.navbar-nav.navbar-right(ng-hide="vm.identity.isAuthenticated()")

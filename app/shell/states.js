@@ -16,6 +16,14 @@ export default function states($stateProvider) {
             
             
         })
+        .state('root.login',{
+            url: '/login',
+            views: {
+                'content@': {
+                    template: require('./account/login.jade')
+                }
+            }
+        })
         
        
 }

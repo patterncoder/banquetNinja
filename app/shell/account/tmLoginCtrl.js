@@ -2,7 +2,7 @@
 //comment
 //comment
 
-function HeaderCtrl (tmAuth, tmIdentity, tmNotifier) {
+function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state) {
     var vm = this;
     vm.name = 'banquetninja';
     vm.loggedIn = false;
@@ -31,10 +31,13 @@ function HeaderCtrl (tmAuth, tmIdentity, tmNotifier) {
             
         });
     };
+    vm.goLogin = function () {
+        $state.go('root.login');
+    };
 }
 
 
-HeaderCtrl.$inject = ['tmAuth', 'tmIdentity', 'tmNotifier'];
-export default HeaderCtrl;
+tmLoginCtrl.$inject = ['tmAuth', 'tmIdentity', 'tmNotifier', '$state'];
+export default tmLoginCtrl;
 
 

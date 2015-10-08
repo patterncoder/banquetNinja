@@ -4,7 +4,7 @@ import uibs from 'angular-ui-bootstrap';
 import dataNinja from '../../dataNinja';
 import tmAuth from './account/tmAuth';
 import tmIdentity from './account/tmIdentity';
-import HeaderCtrl from './header/headerCtrl';
+import tmLoginCtrl from './account/tmLoginCtrl';
 import data from './data';
 import states from './states';
 
@@ -14,5 +14,5 @@ export default angular.module('shell', [uirouter, uibs, dataNinja])
     
     .config(states)
     .config(data)
-    .controller('HeaderCtrl', HeaderCtrl)
+    .controller('tmLoginCtrl', tmLoginCtrl)
     .name;
