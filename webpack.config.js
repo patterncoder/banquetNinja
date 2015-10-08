@@ -4,6 +4,7 @@ var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, 'public', 'build');
 var mainPath = path.resolve(__dirname, 'app', 'main.js');
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var Promise = require('es6-promise').Promise;
 
 var config = {
 
