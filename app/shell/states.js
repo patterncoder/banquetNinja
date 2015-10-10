@@ -24,6 +24,14 @@ export default function states($stateProvider) {
                 }
             }
         })
+        .state('root.signup', {
+            url: '/signup',
+            views: {
+                'content@': {
+                    template: require('./account/signup.jade')
+                }
+            }
+        })
         
        
 }

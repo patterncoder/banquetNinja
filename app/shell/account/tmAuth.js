@@ -11,13 +11,20 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
             password: password
         }).then(function(result){
             console.log(result);
-            userInfo = {
-                accessToken: result.data.token,
-                user: result.data.user
-            };
-            $window.sessionStorage['userInfo'] = JSON.stringify(userInfo);
-            tmIdentity.currentUser = userInfo;
-            deferred.resolve(userInfo);
+            if(result.data.success){
+                    userInfo = {
+                    accessToken: result.data.token,
+                    user: result.data.user
+                };
+                $window.sessionStorage['userInfo'] = JSON.stringify(userInfo);
+                tmIdentity.currentUser = userInfo;
+                deferred.resolve(userInfo);
+            } else {
+                deferred.resolve({success: false});
+            }
+            
+            
+            
         }, function(error) {
             deferred.reject(error);
         });

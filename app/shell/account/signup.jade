@@ -1,0 +1,43 @@
+.container.col-md-12
+    h1 Become a Member!
+    p TipMiner is dedicated to your success.  As an independent restaurant owners ourselves, we have crafted workflows that make our company run.  TipMiner wants you to participate in an ecosystem where ideas for success are shared and the workflows put those ideas into practice.
+    p Running a restaurant is hard.  Really hard.  TipMiner can help make it easier.
+    h3 What is Membership?
+    p TipMiner is a paid service that provides you with tools to manage restaurants.  For a monthly or annual fee you gain access to these tools.
+    hr
+.container.col-md-12
+    .well.col-md-8
+        form.form-horizontal(name="signupForm")
+            fieldset
+                legend Enter Account Information
+                p To start a tipminer account enter your company information.  A credit card is required to start your 30-day free trial.  After you create a company account individual user accounts are created.  The user information collected here will be assigned the Administrator status.
+                .form-group
+                    label.col-md-3.control-label(for="company") Company Name
+                    .col-md-9
+                        input.form-control(name="company", type="text", placeholder="Company Name", ng-model="company", required)
+                .form-group
+                    label.col-md-3.control-label(for="email") Email
+                    .col-md-9
+                        input.form-control(name="email", type="email", placeholder="Email", ng-model="email", required)
+                .form-group
+                    label.col-md-3.control-label(for="password") Password
+                    .col-md-9
+                        input.form-control(name="password", type="password", placeholder="Password", ng-model="password", required equals="{{confirmPassword}}")
+                .form-group
+                    label.col-md-3.control-label(for="confirmPassword") Confirm Password
+                    .col-md-9
+                        input.form-control(name="confirmPassword", type="password", placeholder="Confirm Password", ng-model="confirmPassword", required equals="{{password}}")
+                .form-group
+                    label.col-md-3.control-label(for="fname") First Name
+                    .col-md-9
+                        input.form-control(name="fname", type="text", placeholder="First Name", ng-model="fname", required)
+                .form-group
+                    label.col-md-3.control-label(for="email") Last Name
+                    .col-md-9
+                        input.form-control(name="lname", type="text", placeholder="Last Name", ng-model="lname", required)
+                .form-group
+                    label.col-md-9.col-md-offset-3
+                        .pull-right
+                            button.btn.btn-primary(ng-click="createAccount()", ng-disabled="signupForm.$invalid") Submit
+                            | &nbsp;
+                            a.btn.btn-default(href="/") Cancel

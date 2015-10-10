@@ -14,7 +14,7 @@ export default function states($stateProvider){
             url:'/gatewood',
             views: {
                 'content@': {
-                    template: "<h1> hello from gatewood 443940 </h1>"
+                    template: "<div class=\"container-fluid\"><h1> hello from gatewood 443940 </h1></div>"
                 }
             }
             

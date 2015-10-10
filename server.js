@@ -10,7 +10,9 @@ var port = isProduction ? process.env.PORT : 3000;
 var publicPath = path.resolve(__dirname, 'public');
 
 app.use(express.static(publicPath));
-
+app.get('*', function(req, res){
+  res.sendFile(__dirname + '/public/index.html');
+});
 // We only want to run the workflow when not in production
 if (!isProduction) {
 
