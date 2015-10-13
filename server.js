@@ -11,10 +11,10 @@ var publicPath = path.resolve(__dirname, 'public');
 
 app.use(express.static(publicPath));
 
-console.log(isProduction + "this is the variable");
+
 // We only want to run the workflow when not in production
 if (!isProduction) {
-    console.log('intheifstatement');
+    
   // We require the bundler inside the if block because
   // it is only needed in a development environment. Later
   // you will see why this is a good idea
