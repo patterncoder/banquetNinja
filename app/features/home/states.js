@@ -6,7 +6,7 @@ export default function states($stateProvider){
             url:'/',
             
             views: {
-                'content@': {template: require('./home.jade')},
+                'content@': {template: require('./home.jade'), controller: 'navCtrl'},
             }
             
         })
