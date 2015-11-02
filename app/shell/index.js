@@ -6,6 +6,7 @@ import dataNinja from '../../dataNinja';
 import tmAuth from './account/tmAuth';
 import tmIdentity from './account/tmIdentity';
 import tmLoginCtrl from './account/tmLoginCtrl';
+import tmSignupCtrl from './account/tmSignupCtrl';
 import data from './data';
 import nav from './nav';
 import states from './states';
@@ -17,4 +18,5 @@ export default angular.module('shell', [uirouter, uibs, dataNinja, navNinja])
     .config(data)
     .config(nav)
     .controller('tmLoginCtrl', tmLoginCtrl)
+    .controller('tmSignupCtrl', tmSignupCtrl)
     .name;

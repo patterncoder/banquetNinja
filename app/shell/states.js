@@ -28,7 +28,9 @@ export default function states($stateProvider) {
             url: '/signup',
             views: {
                 'content@': {
-                    template: require('./account/signup.jade')
+                    template: require('./account/signup.jade'),
+                    controller: 'tmSignupCtrl',
+                    controllerAs: 'vm'
                 }
             }
         })

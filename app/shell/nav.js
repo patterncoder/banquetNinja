@@ -28,9 +28,3 @@ export default ['navigationProvider', function(navigationProvider){
         });
     }]
     
-// name: String
-// ui-sref: String
-// sortOrder: Number
-// parent: String
-// endSection: Boolean
-// securityLevel: string
