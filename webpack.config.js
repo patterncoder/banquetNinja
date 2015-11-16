@@ -43,6 +43,11 @@ var config = {
     // localhost:3000/build. That makes proxying easier to handle
     publicPath: '/build/'
   },
+  externals: [
+    {
+      "window": "window"
+    }
+  ],
   module: {
 
     loaders: [
@@ -75,6 +80,10 @@ var config = {
     {
         test: /\.jade$/,
         loader: "jade-loader"
+    },
+    {
+        test: /\.node$/,
+        loader: "node-loader"
     }
 
     ]
@@ -93,7 +102,9 @@ var config = {
   resolve: {
       alias: {
           config: path.join(__dirname, '/app/config', env)
-      }
+          
+      },
+      extensions: ['', '.js', '.node']
   }
 };
 

@@ -11,72 +11,76 @@
             fieldset
                 legend Enter Account Information
                 p To start a tipminer account enter your company information.  A credit card is required to start your 30-day free trial.  After you create a company account individual user accounts are created.  The user information collected here will be assigned the Administrator status.
-                .form-group
+                .form-group(ng-class="{'has-error': vm.validationError.errors['companyName'].kind}")
                     label.col-md-3.control-label(for="companyName") Company Name
+                    // .alert.alert-danger(ng-if="vm.validationError.errors['companyName'].kind")
+                    //         {{vm.validationError.errors['companyName'].message}}
                     .col-md-9
-                        input.form-control(name="companyName", type="text", placeholder="Company Name", ng-model="vm.companyName", required)
-                .form-group
+                        input.form-control(name="companyName", type="text", placeholder="Company Name", ng-model="vm.accountData.companyName")
+                        span.help-block(id="companyName-helpBlock" ng-show="vm.validationError.errors['companyName'].kind") Company Name must be unique
+                .form-group(ng-class="{'has-error': vm.validationError.errors['email'].kind}")
                     label.col-md-3.control-label(for="email") Email
                     .col-md-9
-                        input.form-control(name="email", type="email", placeholder="Email", ng-model="vm.email", required)
-                .form-group
+                        input.form-control(name="email", type="email", placeholder="Email", ng-model="vm.accountData.email")
+                        span.help-block(id="email-helpBlock" ng-show="vm.validationError.errors['email'].kind") Must enter a valid email address.
+                .form-group(ng-class="{'has-error': vm.validationError.errors['password'].kind}")
                     label.col-md-3.control-label(for="password") Password
                     .col-md-9
-                        input.form-control(name="password", type="password", placeholder="Password", ng-model="vm.password", required equals="{{confirmPassword}}")
-                .form-group
+                        input.form-control(name="password", type="password", placeholder="Password", ng-model="vm.accountData.password")
+                .form-group(ng-class="{'has-error': vm.validationError.errors['confirmPassword'].kind}")
                     label.col-md-3.control-label(for="confirmPassword") Confirm Password
                     .col-md-9
-                        input.form-control(name="confirmPassword", type="password", placeholder="Confirm Password", ng-model="vm.confirmPassword", required equals="{{password}}")
-                .form-group
+                        input.form-control(name="confirmPassword", type="password", placeholder="Confirm Password", ng-model="vm.accountData.confirmPassword")
+                .form-group(ng-class="{'has-error': vm.validationError.errors['firstName'].kind}")
                     label.col-md-3.control-label(for="fname") First Name
                     .col-md-9
-                        input.form-control(name="fname", type="text", placeholder="First Name", ng-model="vm.firstName", required)
-                .form-group
+                        input.form-control(name="fname", type="text", placeholder="First Name", ng-model="vm.accountData.firstName")
+                .form-group(ng-class="{'has-error': vm.validationError.errors['lastName'].kind}")
                     label.col-md-3.control-label(for="email") Last Name
                     .col-md-9
-                        input.form-control(name="lname", type="text", placeholder="Last Name", ng-model="vm.lastName", required)
+                        input.form-control(name="lname", type="text", placeholder="Last Name", ng-model="vm.accountData.lastName")
             fieldset
                 legend Billing Address
                 p Enter the billing address for the credit card
-                .form-group
+                .form-group(ng-class="{'has-error': vm.validationError.errors['address1'].kind}")
                     label.col-md-3.control-label(for="address1") Address
                     .col-md-9
-                        input.form-control(name="address1", type="text", placeholder="Address Line 1", ng-model="vm.address1", required)
-                .form-group
+                        input.form-control(name="address1", type="text", placeholder="Address Line 1", ng-model="vm.accountData.address1")
+                .form-group(ng-class="{'has-error': vm.validationError.errors['address2'].kind}")
                     label.col-md-3.control-label(for="address2") Address
                     .col-md-9
-                        input.form-control(name="address2", type="text", placeholder="Address Line 2", ng-model="vm.address2", required)
-                .form-group
+                        input.form-control(name="address2", type="text", placeholder="Address Line 2", ng-model="vm.accountData.address2")
+                .form-group(ng-class="{'has-error': vm.validationError.errors['city'].kind}")
                     label.col-md-3.control-label(for="city") City
                     .col-md-9
-                        input.form-control(name="city", type="text", placeholder="City", ng-model="vm.city", required)
-                .form-group
+                        input.form-control(name="city", type="text", placeholder="City", ng-model="vm.accountData.city")
+                .form-group(ng-class="{'has-error': vm.validationError.errors['state'].kind}")
                     label.col-md-3.control-label(for="state") State
                     .col-md-9
-                        input.form-control(name="state", type="text", placeholder="State", ng-model="vm.state", required)
-                .form-group
+                        input.form-control(name="state", type="text", placeholder="State", ng-model="vm.accountData.state")
+                .form-group(ng-class="{'has-error': vm.validationError.errors['zip'].kind}")
                     label.col-md-3.control-label(for="zip") Zip Code
                     .col-md-9
-                        input.form-control(name="zip", type="text", placeholder="Zip Code", ng-model="vm.zip", required)
+                        input.form-control(name="zip", type="text", placeholder="Zip Code", ng-model="vm.accountData.zip")
             fieldset
                 legend Credit Card Information
                 p M/C | Visa
-                .form-group
+                .form-group(ng-class="{'has-error': vm.validationError.errors['cardNumber'].kind}")
                     label.col-md-3.control-label(for="cardNumber") Card Number
                     .col-md-9
-                        input.form-control(name="cardNumber", type="text", placeholder="Card Number", ng-model="vm.cardNumber", required)
-                .form-group
+                        input.form-control(name="cardNumber", type="text", placeholder="Card Number", ng-model="vm.accountData.cardNumber")
+                .form-group(ng-class="{'has-error': vm.validationError.errors['expirationDate'].kind}")
                     label.col-md-3.control-label(for="expirationDate") Expiration Date
                     .col-md-9
-                        input.form-control(name="expirationDate", type="text", placeholder="MMYY", ng-model="vm.expirationDate", required)
-                .form-group
+                        input.form-control(name="expirationDate", type="text", placeholder="MMYY", ng-model="vm.accountData.expirationDate")
+                .form-group(ng-class="{'has-error': vm.validationError.errors['cardCode'].kind}")
                     label.col-md-3.control-label(for="cardCode") Card Number
                     .col-md-9
-                        input.form-control(name="cardCode", type="text", placeholder="xxx", ng-model="vm.cardCode", required)
+                        input.form-control(name="cardCode", type="text", placeholder="xxx", ng-model="vm.accountData.cardCode")
                 br
                 .form-group
                     label.col-md-9.col-md-offset-3
                         .pull-right
-                            button.btn.btn-primary(ng-click="vm.submitSignup()", ng-disabled="signupForm.$invalid") Submit
+                            button.btn.btn-primary(ng-click="vm.submitSignup()") Submit
                             | &nbsp;
                             a.btn.btn-default(href="/") Cancel
