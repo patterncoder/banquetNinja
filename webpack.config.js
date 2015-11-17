@@ -48,8 +48,8 @@ var config = {
       "window": "window"
     }
   ],
-  module: {
-
+  module: { 
+    
     loaders: [
 
     // I highly recommend using the babel-loader as it gives you

@@ -1,10 +1,11 @@
 import config from 'config';
-import mongoose from '../../../vendor/mongoose';
+var mongoose = require('../../../vendor/mongoose');
 
 class SignupCtrl {
-    constructor($http, $scope){
+    constructor($http, $scope, tmMongoose){
         this.$http = $http;
         this.$scope = $scope;
+        
         console.log('in the signup controller');
         var newAccountSchema = new mongoose.Schema({
             companyName: {type:String,required:true,match: /Holy Grail/i},

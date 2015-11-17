@@ -12,6 +12,7 @@ import nav from './nav';
 import states from './states';
 
 export default angular.module('shell', [uirouter, uibs, dataNinja, navNinja])
+    
     .factory('tmAuth', tmAuth)
     .factory('tmIdentity', tmIdentity)
     .config(states)

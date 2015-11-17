@@ -3,13 +3,14 @@
  */
 
 var driver;
-driver = require('./browser');
-// if (typeof window === 'undefined') {
-  
-//   driver = require(global.MONGOOSE_DRIVER_PATH || './node-mongodb-native');
-// } else {
-//   driver = require('./browser');
-// }
+//driver = require('./browser');
+if (typeof window === 'undefined') {
+  // global.MONGOOSE_DRIVER_PATH
+  //driver = require(global.MONGOOSE_DRIVER_PATH || './node-mongodb-native');
+  driver = require('./browser');
+} else {
+  driver = require('./browser');
+}
 
 /*!
  * ignore
