@@ -6,7 +6,7 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
     function login(username, password) {
         var deferred = $q.defer();
         
-        $http.post(config.apiBase + '/login', {
+        $http.post(config.apiBase + '/account/login', {
             username: username,
             password: password
         }).then(function(result){
@@ -35,7 +35,7 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
     function logout(){
         var deferred = $q.defer();
         
-        $http.post(config.apiBase + '/logout', {
+        $http.post(config.apiBase + '/account/logout', {
             headers: {"access_token": userInfo.accessToken}
         }).then(function(result){
             $window.sessionStorage["userInfo"] = null;

@@ -1,0 +1,12 @@
+{
+    "name": "ninjaApiDomain",
+    "version": "0.0.1",
+    "private": true,
+    "main": "index.js",
+    "dependencies": {
+        "mongoose": "^4.1.4"
+    },
+    "engines": {
+    "node": "v0.12.x"
+    }
+  }

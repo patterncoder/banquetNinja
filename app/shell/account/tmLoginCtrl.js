@@ -1,6 +1,4 @@
 
-//comment
-//comment
 
 function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state) {
     var vm = this;
