@@ -4,7 +4,7 @@ var validate = require('../validators');
 var companySchema = new mongoose.Schema({
     companyName: {
         type: String,
-        required: "{PATH} is required.",
+        required: 'Company Name is required.',
         unique: true
     },
     addresses: [{

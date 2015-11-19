@@ -1,5 +1,5 @@
 import config from 'config';
-import signUpSchema from '../../../domainModels/schemas/account/Signup';
+import {signup as signUpSchema} from '../../../schemas/account';
 import _ from 'lodash';
 
 
@@ -31,7 +31,6 @@ class SignupCtrl {
     submitSignup () {
         var self = this;
         this.accountData.validate(function(err){
-            
             if(err){
                 console.log(err);
                 self.validationError = err;
@@ -40,14 +39,8 @@ class SignupCtrl {
             }
             self.$http.post(config.apiBase + '/account',  self.accountData).then(function(result){
                 console.log(result);
-                
             });
-            
         });
-        
-        
-        
-        
     }
 }
 
