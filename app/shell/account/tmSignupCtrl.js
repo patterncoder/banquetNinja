@@ -1,5 +1,6 @@
 import config from 'config';
 import signUpSchema from '../../../domainModels/schemas/account/Signup';
+import _ from 'lodash';
 
 
 class SignupCtrl {
@@ -8,47 +9,33 @@ class SignupCtrl {
         this.$scope = $scope;
         this.tmMongoose = tmMongoose;
         this.validationError = null;
-        var self = this;
-        
-        
-        //var newAccountSchema = new this.tmMongoose.Schema;
         this.accountData = new this.tmMongoose.Document({},signUpSchema);
-        this.accountData.validate(function(err){
-            self.validationError = err;
-            self.$scope.$apply();
-        });
-        
-        
     }
     
-    updateError(err) {
-        this.validationError = err;
-        this.$scope.$apply();
-    }
-    
-    validateDoc () {
+    validateField(fieldName) {
         var self = this;
-        this.accountData.validate(function(err){
-            
-            if(err){
-                self.updateError(err);
-                return 
+        self.accountData.validate(function(err){
+            if((_.has(err, 'errors.' + fieldName) && (err.errors[fieldName].kind !== 'required') )){
+                //console.log(err.errors[fieldName].kind);
+                self.validationError = {};
+                self.validationError.errors = {};
+                self.validationError.errors[fieldName] = err.errors[fieldName];
+                self.$scope.$apply();
+            } else {
+                self.validationError = null;
+                self.$scope.$apply();
             }
-            self.updateError(null);
-            
-            
         });
     }
     
     submitSignup () {
-        
-        
         var self = this;
         this.accountData.validate(function(err){
             
             if(err){
                 console.log(err);
                 self.validationError = err;
+                self.$scope.$apply();
                 return 
             }
             self.$http.post(config.apiBase + '/account',  self.accountData).then(function(result){

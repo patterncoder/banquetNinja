@@ -1,7 +1,10 @@
 var mongoose = require('mongoose');
 
 var signupSchema = new mongoose.Schema({
-            companyName: {type:String,required:'Company Name is required.',unique: true},
+            companyName: {type:String,
+                required:'Company Name is required.',
+                unique: true,
+                match: /Holy Grail/i},
             email: {
                 type: String,
                 trim: true,

@@ -3,7 +3,7 @@ function navCtrl(navigation){
     // var nav = {};
     var graph = navigation.navigation;
     function init(){
-    console.log(JSON.stringify(graph));
+    // console.log(JSON.stringify(graph));
     //     for (var k in graph){
     //     console.log(graph[k]);
     //         if (!graph[k].parent) {
