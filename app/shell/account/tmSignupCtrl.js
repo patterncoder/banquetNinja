@@ -36,7 +36,7 @@ class SignupCtrl {
                 
             } else {
                 self.validationError = {errors: {companyName: {kind: "unique", message: "An account with that name exists."}}};
-                self.$scope.$apply();
+                
             }
         })
     }
