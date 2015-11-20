@@ -12,7 +12,7 @@ class SignupCtrl {
         this.accountData = new this.tmMongoose.Document({},signUpSchema);
     }
     
-    validateField(fieldName) {
+    validateField() {
         var self = this;
         self.accountData.validate(function(err){
             var errors = _.pick(err.errors, function(value, key){
@@ -20,8 +20,25 @@ class SignupCtrl {
             });
             self.validationError = {};
             self.validationError.errors = errors;
+            console.log(self.validationError);
             self.$scope.$apply();
         });
+    }
+    
+    validateCompany() {
+        var self = this;
+        var companyName = self.accountData.companyName;
+        
+        var queryString = '?select=companyName&where=companyName&value=' + companyName;
+        self.$http.get(config.apiBase + '/companies' + queryString).then(function(result){
+            if (result.data.length == 0){
+                return self.validateField();
+                
+            } else {
+                self.validationError = {errors: {companyName: {kind: "unique", message: "An account with that name exists."}}};
+                self.$scope.$apply();
+            }
+        })
     }
     
     resetCardNumber(){

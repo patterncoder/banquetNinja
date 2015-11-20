@@ -14,32 +14,32 @@
                 .form-group(ng-class="{'has-error': vm.validationError.errors['companyName'].kind}")
                     label.col-md-3.control-label(for="companyName") Company Name 
                     .col-md-9
-                        input.form-control(name="companyName", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('companyName')", type="text", placeholder="Company Name", ng-model="vm.accountData.companyName")
+                        input.form-control(name="companyName", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateCompany()", type="text", placeholder="Company Name", ng-model="vm.accountData.companyName")
                         span.help-block(id="companyName-helpBlock" ng-show="vm.validationError.errors['companyName'].kind") {{vm.validationError.errors['companyName'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['email'].kind}")
                     label.col-md-3.control-label(for="email") Email
                     .col-md-9
-                        input.form-control(name="email", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('email')", placeholder="Email", ng-model="vm.accountData.email")
+                        input.form-control(name="email", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", placeholder="Email", ng-model="vm.accountData.email")
                         span.help-block(id="email-helpBlock" ng-show="vm.validationError.errors['email'].kind") {{vm.validationError.errors['email'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['password'].kind}")
                     label.col-md-3.control-label(for="password") Password
                     .col-md-9
-                        input.form-control(name="password", type="password", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('password')", placeholder="Password", ng-model="vm.accountData.password")
+                        input.form-control(name="password", type="password", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", placeholder="Password", ng-model="vm.accountData.password")
                         span.help-block(id="password-helpBlock" ng-show="vm.validationError.errors['password'].kind") {{vm.validationError.errors['password'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['confirmPassword'].kind}")
                     label.col-md-3.control-label(for="confirmPassword") Confirm Password
                     .col-md-9
-                        input.form-control(name="confirmPassword", type="password", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('confirmPassword')", placeholder="Confirm Password", ng-model="vm.accountData.confirmPassword")
+                        input.form-control(name="confirmPassword", type="password", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", placeholder="Confirm Password", ng-model="vm.accountData.confirmPassword")
                         span.help-block(id="confirmPassword-helpBlock" ng-show="vm.validationError.errors['confirmPassword'].kind") {{vm.validationError.errors['confirmPassword'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['firstName'].kind}")
                     label.col-md-3.control-label(for="fname") First Name
                     .col-md-9
-                        input.form-control(name="firstName", type="text", placeholder="First Name", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('firstName')", ng-model="vm.accountData.firstName")
+                        input.form-control(name="firstName", type="text", placeholder="First Name", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", ng-model="vm.accountData.firstName")
                         span.help-block(id="firstName-helpBlock" ng-show="vm.validationError.errors['firstName'].kind") {{vm.validationError.errors['firstName'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['lastName'].kind}")
                     label.col-md-3.control-label(for="email") Last Name
                     .col-md-9
-                        input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('lastName')", ng-model="vm.accountData.lastName")
+                        input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", ng-model="vm.accountData.lastName")
                         span.help-block(id="lastName-helpBlock" ng-show="vm.validationError.errors['lastName'].kind") {{vm.validationError.errors['lastName'].message}}
             fieldset
                 legend Billing Address
@@ -47,27 +47,27 @@
                 .form-group(ng-class="{'has-error': vm.validationError.errors['address1'].kind}")
                     label.col-md-3.control-label(for="address1") Address
                     .col-md-9
-                        input.form-control(name="address1", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('address1')", placeholder="Address Line 1", ng-model="vm.accountData.address1")
+                        input.form-control(name="address1", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", placeholder="Address Line 1", ng-model="vm.accountData.address1")
                         span.help-block(id="address1-helpBlock" ng-show="vm.validationError.errors['address1'].kind") {{vm.validationError.errors['address1'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['address2'].kind}")
                     label.col-md-3.control-label(for="address2") Address
                     .col-md-9
-                        input.form-control(name="address2", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('address2')", placeholder="Address Line 2", ng-model="vm.accountData.address2")
+                        input.form-control(name="address2", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", placeholder="Address Line 2", ng-model="vm.accountData.address2")
                         span.help-block(id="address2-helpBlock" ng-show="vm.validationError.errors['address2'].kind") {{vm.validationError.errors['address2'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['city'].kind}")
                     label.col-md-3.control-label(for="city") City
                     .col-md-9
-                        input.form-control(name="city", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('city')", placeholder="City", ng-model="vm.accountData.city")
+                        input.form-control(name="city", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", placeholder="City", ng-model="vm.accountData.city")
                         span.help-block(id="city-helpBlock" ng-show="vm.validationError.errors['city'].kind") {{vm.validationError.errors['city'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['state'].kind}")
                     label.col-md-3.control-label(for="state") State
                     .col-md-9
-                        input.form-control(name="state", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('state')", placeholder="State", ng-model="vm.accountData.state")
+                        input.form-control(name="state", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", placeholder="State", ng-model="vm.accountData.state")
                         span.help-block(id="state-helpBlock" ng-show="vm.validationError.errors['state'].kind") {{vm.validationError.errors['state'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['zip'].kind}")
                     label.col-md-3.control-label(for="zip") Zip Code
                     .col-md-9
-                        input.form-control(name="zip", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('zip')", placeholder="Zip Code", ng-model="vm.accountData.zip")
+                        input.form-control(name="zip", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", placeholder="Zip Code", ng-model="vm.accountData.zip")
                         span.help-block(id="zip-helpBlock" ng-show="vm.validationError.errors['zip'].kind") {{vm.validationError.errors['zip'].message}}
             fieldset
                 legend Credit Card Information
@@ -86,17 +86,17 @@
                 .form-group(ng-class="{'has-error': vm.validationError.errors['cardNumber'].kind}")
                     label.col-md-3.control-label(for="cardNumber") Card Number
                     .col-md-9
-                        input.form-control(name="cardNumber", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('cardNumber')", placeholder="Card Number", ng-model="vm.accountData.cardNumber")
+                        input.form-control(name="cardNumber", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", placeholder="Card Number", ng-model="vm.accountData.cardNumber")
                         span.help-block(id="cardNumber-helpBlock" ng-show="vm.validationError.errors['cardNumber'].kind") {{vm.validationError.errors['cardNumber'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['expirationDate'].kind}")
                     label.col-md-3.control-label(for="expirationDate") Expiration Date
                     .col-md-9
-                        input.form-control(name="expirationDate", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('expirationDate')", placeholder="MMYY", ng-model="vm.accountData.expirationDate")
+                        input.form-control(name="expirationDate", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", placeholder="MMYY", ng-model="vm.accountData.expirationDate")
                         span.help-block(id="expirationDate-helpBlock" ng-show="vm.validationError.errors['expirationDate'].kind") {{vm.validationError.errors['expirationDate'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['cardCode'].kind}")
                     label.col-md-3.control-label(for="cardCode") Card Number
                     .col-md-9
-                        input.form-control(name="cardCode", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField('cardCode')", placeholder="xxx", ng-model="vm.accountData.cardCode")
+                        input.form-control(name="cardCode", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", placeholder="xxx", ng-model="vm.accountData.cardCode")
                         span.help-block(id="cardCode-helpBlock" ng-show="vm.validationError.errors['cardCode'].kind") {{vm.validationError.errors['cardCode'].message}}
                 br
                 .form-group
