@@ -15,17 +15,17 @@ class SignupCtrl {
     validateField(fieldName) {
         var self = this;
         self.accountData.validate(function(err){
-            if((_.has(err, 'errors.' + fieldName) && (err.errors[fieldName].kind !== 'required') )){
-                //console.log(err.errors[fieldName].kind);
-                self.validationError = {};
-                self.validationError.errors = {};
-                self.validationError.errors[fieldName] = err.errors[fieldName];
-                self.$scope.$apply();
-            } else {
-                self.validationError = null;
-                self.$scope.$apply();
-            }
+            var errors = _.pick(err.errors, function(value, key){
+                return value.kind !== 'required';
+            });
+            self.validationError = {};
+            self.validationError.errors = errors;
+            self.$scope.$apply();
         });
+    }
+    
+    resetCardNumber(){
+        this.accountData.cardNumber = '';
     }
     
     submitSignup () {

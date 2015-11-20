@@ -71,7 +71,18 @@
                         span.help-block(id="zip-helpBlock" ng-show="vm.validationError.errors['zip'].kind") {{vm.validationError.errors['zip'].message}}
             fieldset
                 legend Credit Card Information
-                p M/C | Visa
+                .form-group
+                    label.col-md-3.control-label(for="cardType") Card Type
+                    .col-md-9
+                        label.radio-inline
+                            input(type="radio", id="cardType1" name="cardType", ng-change="vm.resetCardNumber()" ng-model="vm.accountData.cardType" value="vi")
+                            | Visa
+                        label.radio-inline
+                            input(type="radio", id="cardType1"  name="cardType", ng-change="vm.resetCardNumber()", ng-model="vm.accountData.cardType" value="mc")
+                            | M/C
+                        label.radio-inline
+                            input(type="radio", id="cardType1"  name="cardType", ng-change="vm.resetCardNumber()", ng-model="vm.accountData.cardType" value="am")
+                            | Amex
                 .form-group(ng-class="{'has-error': vm.validationError.errors['cardNumber'].kind}")
                     label.col-md-3.control-label(for="cardNumber") Card Number
                     .col-md-9
