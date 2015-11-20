@@ -41,6 +41,11 @@
                     .col-md-9
                         input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", ng-model="vm.accountData.lastName")
                         span.help-block(id="lastName-helpBlock" ng-show="vm.validationError.errors['lastName'].kind") {{vm.validationError.errors['lastName'].message}}
+                .form-group(ng-class="{'has-error': vm.validationError.errors['phoneNumber'].kind}")
+                    label.col-md-3.control-label(for="phoneNumber") Phone Number
+                    .col-md-9
+                        input.form-control(name="phoneNumber", type="text", placeholder="Phone Number xxx-xxx-xxxx", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", ng-model="vm.accountData.phoneNumber")
+                        span.help-block(id="phoneNumber-helpBlock" ng-show="vm.validationError.errors['phoneNumber'].kind") {{vm.validationError.errors['phoneNumber'].message}}
             fieldset
                 legend Billing Address
                 p Enter the billing address for the credit card
@@ -101,6 +106,6 @@
                 br
                 .form-group
                     .col-md-9.col-md-offset-3
-                        button.btn.btn-primary(ng-click="vm.submitSignup()") Submit
+                        button.btn.btn-primary(type="button", ng-click="vm.submitSignup()") Submit
                         | &nbsp;
                         a.btn.btn-default(href="/") Cancel

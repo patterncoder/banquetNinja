@@ -52,6 +52,11 @@ var signupSchema = new mongoose.Schema({
             validate: validate.validators.zipCodeValidator, 
             required:'Zip code is required'
             },
+        phoneNumber: {
+            type:String,
+            validate: validate.validators.phoneNumberValidator,
+            required: 'Phone number is required'
+        },
         cardType: {
                 // set by radio buttons in the ui
             type:String

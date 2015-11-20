@@ -15,13 +15,18 @@ class SignupCtrl {
     validateField() {
         var self = this;
         self.accountData.validate(function(err){
-            var errors = _.pick(err.errors, function(value, key){
-                return value.kind !== 'required';
-            });
-            self.validationError = {};
-            self.validationError.errors = errors;
-            console.log(self.validationError);
-            self.$scope.$apply();
+            if(err){
+                var errors = _.pick(err.errors, function(value, key){
+                    return value.kind !== 'required';
+                });
+                self.validationError = {};
+                self.validationError.errors = errors;
+                console.log(self.validationError);
+                return self.$scope.$apply();
+            }
+            self.validationError = null;
+            return self.$scope.$apply();
+           
         });
     }
     

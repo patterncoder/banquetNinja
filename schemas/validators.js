@@ -11,6 +11,11 @@ var validateZipCode = function (zipcode) {
     return re.test(zipcode);
 };
 
+var validatePhoneNumber = function(phoneNumber) {
+    var re = /^((([0-9]{3}))|([0-9]{3}))[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$/;
+    return re.test(phoneNumber);
+};
+
 var validateVisa = function(cardNumber) {
     var re = /^4[0-9]{12}(?:[0-9]{3})?$/;
     return re.test(cardNumber);
@@ -25,7 +30,7 @@ var validateAmex = function(cardNumber) {
 };
 
 var validateExpirationDate = function(expirationDate) {
-    var re = /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/;
+    var re = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/;
     return re.test(expirationDate);
 }
 
@@ -42,6 +47,7 @@ exports.validators = {
     stateCodes: stateCodes,
     emailValidator: [validateEmail, 'Email address is invalid'],
     zipCodeValidator: [validateZipCode, 'Zip code is invalid'],
+    phoneNumberValidator: [validatePhoneNumber, 'The phone number entered is invalid'],
     expirationDateValidator: [validateExpirationDate, 'Expiration Date is invalid'],
     cvvValidator: [validateCVV, 'Card code is invalid'],
     validateVisa: validateVisa,
