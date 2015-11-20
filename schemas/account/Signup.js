@@ -4,14 +4,14 @@ var validate = require('../validators');
 var signupSchema = new mongoose.Schema({
         companyName: {
             type:String,
-            required:'Company Name is required.',
+            required:'Company Name is required',
             unique: true
             },
         email: {
             type: String,
             trim: true,
             unique: true,
-            required: 'Email is required.',
+            required: 'Email is required',
             validate: validate.validators.emailValidator
             },
         password: {
@@ -45,7 +45,10 @@ var signupSchema = new mongoose.Schema({
         state: { 
             type: String, 
             required:'State is required', 
-            enum: validate.validators.stateCodes 
+            enum: {
+                values:validate.validators.stateCodes,
+                message: "Enter a valid state code in uppercase"
+                } 
             },            
         zip: {
             type:String, 
@@ -78,7 +81,7 @@ var signupSchema = new mongoose.Schema({
         
 signupSchema.path('confirmPassword').validate(function(v){
         if(this.password !== this.confirmPassword) {
-                this.invalidate('confirmPassword', 'The passwords do not match.');
+                this.invalidate('confirmPassword', 'The passwords do not match');
         }
 });
 

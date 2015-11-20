@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 
 class SignupCtrl {
+    
     constructor($http, $scope, tmMongoose){
         this.$http = $http;
         this.$scope = $scope;
@@ -26,7 +27,6 @@ class SignupCtrl {
             }
             self.validationError = null;
             return self.$scope.$apply();
-           
         });
     }
     
