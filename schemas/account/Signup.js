@@ -5,8 +5,7 @@ var signupSchema = new mongoose.Schema({
         companyName: {
             type:String,
             required:'Company Name is required',
-            unique: true,
-            match: [/^holy grail2$/, 'match this bitch!' ]
+            unique: true
             },
         email: {
             type: String,
