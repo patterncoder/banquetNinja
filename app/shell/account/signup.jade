@@ -11,11 +11,12 @@
             fieldset
                 legend Enter Account Information
                 p To start a tipminer account enter your company information.  A credit card is required to start your 30-day free trial.  After you create a company account individual user accounts are created.  The user information collected here will be assigned the Administrator status.
-                .form-group(ng-class="{'has-error': vm.validationError.errors['companyName'].kind}")
+                .form-group(ng-class="{'has-error': vm.validationError.errors['companyName'].kind || vm.httpValidationError.errors['companyName'].kind}")
                     label.col-md-3.control-label(for="companyName") Company Name 
                     .col-md-9
                         input.form-control(name="companyName", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateCompany()", type="text", placeholder="Company Name", ng-model="vm.accountData.companyName")
                         span.help-block(id="companyName-helpBlock" ng-show="vm.validationError.errors['companyName'].kind") {{vm.validationError.errors['companyName'].message}}
+                        span.help-block(id="companyName-helpBlock" ng-show="vm.httpValidationError.errors['companyName'].kind") {{vm.httpValidationError.errors['companyName'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['email'].kind}")
                     label.col-md-3.control-label(for="email") Email
                     .col-md-9

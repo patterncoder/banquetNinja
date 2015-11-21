@@ -5,7 +5,8 @@ var signupSchema = new mongoose.Schema({
         companyName: {
             type:String,
             required:'Company Name is required',
-            unique: true
+            unique: true,
+            match: [/^holy grail2$/, 'match this bitch!' ]
             },
         email: {
             type: String,
@@ -84,6 +85,8 @@ signupSchema.path('confirmPassword').validate(function(v){
                 this.invalidate('confirmPassword', 'The passwords do not match');
         }
 });
+
+
 
 signupSchema.path('cardNumber').validate(function(v){
         if (!this.cardType){

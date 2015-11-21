@@ -10,6 +10,7 @@ class SignupCtrl {
         this.$scope = $scope;
         this.tmMongoose = tmMongoose;
         this.validationError = null;
+        this.httpValidationError = null;
         this.accountData = new this.tmMongoose.Document({},signUpSchema);
     }
     
@@ -17,12 +18,13 @@ class SignupCtrl {
         var self = this;
         self.accountData.validate(function(err){
             if(err){
+                // while filling in the form we omit required errors and are just interested
+                // in the other type of errors
                 var errors = _.pick(err.errors, function(value, key){
                     return value.kind !== 'required';
                 });
                 self.validationError = {};
                 self.validationError.errors = errors;
-                console.log(self.validationError);
                 return self.$scope.$apply();
             }
             self.validationError = null;
@@ -36,19 +38,17 @@ class SignupCtrl {
         
         var queryString = '?select=companyName&where=companyName&value=' + companyName;
         self.$http.get(config.apiBase + '/companies' + queryString).then(function(result){
+            self.httpValidationError = {};
             if (result.data.length == 0){
                 return self.validateField();
-                
             } else {
-                self.validationError = {errors: {companyName: {kind: "unique", message: "An account with that name exists."}}};
-                
+                self.httpValidationError = {errors: {companyName: {kind: "unique", message: "An account with that name exists."}}};
+                return self.validateField();
             }
         })
     }
     
-    resetCardNumber(){
-        this.accountData.cardNumber = '';
-    }
+    
     
     submitSignup () {
         var self = this;
