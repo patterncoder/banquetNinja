@@ -3,6 +3,35 @@ import config from 'config';
 export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $window, tmIdentity){
     var userInfo;
     
+    function urlBase64Decode(str) {
+        var output = str.replace('-', '+').replace('_', '/');
+        switch (output.length % 4) {
+            case 0:
+                break;
+            case 2:
+                output += '==';
+                break;
+            case 3:
+                output += '=';
+                break;
+            default:
+                throw 'Illegal base64url string!';
+        }
+        return window.atob(output);
+    }
+    
+    function getClaimsFromToken(newToken) {
+        var token = newToken || $window.sessionStorage['token'];
+        var user = {};
+        if (typeof token !== 'undefined') {
+            var encoded = token.split('.')[1];
+            user = JSON.parse(urlBase64Decode(encoded));
+        }
+        return user;
+    }
+
+
+    
     function login(username, password) {
         var deferred = $q.defer();
         
@@ -12,11 +41,12 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
         }).then(function(result){
             console.log(result);
             if(result.data.success){
-                    userInfo = {
+                userInfo = {
                     accessToken: result.data.token,
-                    user: result.data.user
+                    user: getClaimsFromToken(result.data.token)
                 };
-                $window.sessionStorage['userInfo'] = JSON.stringify(userInfo);
+                $window.sessionStorage['token'] = result.data.token;
+                $http.defaults.headers.common['x-access-token'] = result.data.token;
                 tmIdentity.currentUser = userInfo;
                 deferred.resolve(userInfo);
             } else {
@@ -38,7 +68,7 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
         $http.post(config.apiBase + '/account/logout', {
             headers: {"access_token": userInfo.accessToken}
         }).then(function(result){
-            $window.sessionStorage["userInfo"] = null;
+            $window.sessionStorage["token"] = null;
             userInfo = null;
             tmIdentity.currentUser = undefined;
             deferred.resolve(result);
@@ -53,16 +83,26 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
     }
     
     function init(){
-        if($window.sessionStorage['userInfo']){
-            userInfo = JSON.parse($window.sessionStorage['userInfo']);
+        if($window.sessionStorage['token']){
+            userInfo = {
+                    accessToken: $window.sessionStorage['token'],
+                    user: getClaimsFromToken($window.sessionStorage['token'])
+                };
         }
+        
     }
+    
+    var tokenClaims = getClaimsFromToken();
+    
     
     init();
     
     return {
         login: login,
         logout: logout,
-        getUserInfo: getUserInfo
+        getUserInfo: getUserInfo,
+        getTokenClaims: function () {
+            return tokenClaims;
+        }
     }
 }];

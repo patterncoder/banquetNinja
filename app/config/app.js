@@ -16,7 +16,7 @@ module.exports = angular.module('app', [Shell, Features, Common])
         $dataSource.init();
     }])
     .run(['$http', function($http){
-        //wake up api server
+        //wake up api server...not sure if this is doing the trick
         $http.get(config.apiBase + '/wakeup', function(err, result){
             console.log(result);
         })

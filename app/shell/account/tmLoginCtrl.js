@@ -1,6 +1,6 @@
 
 
-function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state) {
+function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state, $timeout) {
     var vm = this;
     vm.name = 'banquetninja';
     vm.loggedIn = false;
@@ -14,9 +14,14 @@ function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state) {
         tmAuth.login(username, password).then(
             function(){
                 vm.loggedIn = true;
+                
                 tmNotifier.notify("You have successfully signed in!");
                 }
         );
+        $timeout(function(){
+            console.log(tmAuth.getTokenClaims());
+        }, 2000)
+        
     };
     vm.signout = function () {
         tmAuth.logout().then(function(result){
@@ -35,7 +40,7 @@ function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state) {
 }
 
 
-tmLoginCtrl.$inject = ['tmAuth', 'tmIdentity', 'tmNotifier', '$state'];
+tmLoginCtrl.$inject = ['tmAuth', 'tmIdentity', 'tmNotifier', '$state', '$timeout'];
 export default tmLoginCtrl;
 
 
