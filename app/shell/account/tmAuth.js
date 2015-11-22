@@ -68,7 +68,8 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
         $http.post(config.apiBase + '/account/logout', {
             headers: {"access_token": userInfo.accessToken}
         }).then(function(result){
-            $window.sessionStorage["token"] = null;
+            //$window.sessionStorage["token"] = null;
+            delete $window.sessionStorage.token;
             userInfo = null;
             tmIdentity.currentUser = undefined;
             deferred.resolve(result);
