@@ -16,12 +16,13 @@
                     .col-md-9
                         input.form-control(name="companyName", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateCompany()", type="text", placeholder="Company Name", ng-model="vm.accountData.companyName")
                         span.help-block(id="companyName-helpBlock" ng-show="vm.validationError.errors['companyName'].kind") {{vm.validationError.errors['companyName'].message}}
-                        span.help-block(id="companyName-helpBlock" ng-show="vm.httpValidationError.errors['companyName'].kind") {{vm.httpValidationError.errors['companyName'].message}}
-                .form-group(ng-class="{'has-error': vm.validationError.errors['email'].kind}")
+                        span.help-block(id="companyNameHttp-helpBlock" ng-show="vm.httpValidationError.errors['companyName'].kind") {{vm.httpValidationError.errors['companyName'].message}}
+                .form-group(ng-class="{'has-error': vm.validationError.errors['email'].kind || vm.httpValidationError.errors['email'].kind}")
                     label.col-md-3.control-label(for="email") Email
                     .col-md-9
-                        input.form-control(name="email", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateField()", placeholder="Email", ng-model="vm.accountData.email")
+                        input.form-control(name="email", type="text", ng-model-options="{updateOn: 'blur'}", ng-change="vm.validateEmail()", placeholder="Email", ng-model="vm.accountData.email")
                         span.help-block(id="email-helpBlock" ng-show="vm.validationError.errors['email'].kind") {{vm.validationError.errors['email'].message}}
+                        span.help-block(id="emailHttp-helpBlock" ng-show="vm.httpValidationError.errors['email'].kind") {{vm.httpValidationError.errors['email'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['password'].kind}")
                     label.col-md-3.control-label(for="password") Password
                     .col-md-9

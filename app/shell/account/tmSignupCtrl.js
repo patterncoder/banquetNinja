@@ -10,7 +10,7 @@ class SignupCtrl {
         this.$scope = $scope;
         this.tmMongoose = tmMongoose;
         this.validationError = null;
-        this.httpValidationError = null;
+        this.httpValidationError = {errors: {}};
         this.accountData = new this.tmMongoose.Document({},signUpSchema);
     }
     
@@ -32,17 +32,40 @@ class SignupCtrl {
         });
     }
     
+    validateHttp() {
+        
+    }
+    
     validateCompany() {
         var self = this;
         var companyName = self.accountData.companyName;
         
         var queryString = '?select=companyName&where=companyName&value=' + companyName;
         self.$http.get(config.apiBase + '/companies' + queryString).then(function(result){
-            self.httpValidationError = {};
+            delete self.httpValidationError.errors.companyName;
             if (result.data.length == 0){
                 return self.validateField();
             } else {
-                self.httpValidationError = {errors: {companyName: {kind: "unique", message: "An account with that name exists."}}};
+                //self.httpValidationError = {errors: {companyName: {kind: "unique", message: "An account with that name exists."}}};
+                self.httpValidationError.errors.companyName = {kind: "unique", message: "An account with that name exists."};
+                return self.validateField();
+            }
+        })
+    }
+    
+    
+    
+    validateEmail() {
+        var self = this;
+        var email = self.accountData.email;
+        
+        
+        self.$http.get(config.apiBase + '/users/exists/' + email).then(function(result){
+            delete self.httpValidationError.errors.email;
+            if (result.status == 200){
+                return self.validateField();
+            } else {
+                self.httpValidationError.errors.email = {kind: "unique", message: "Email is not available"};
                 return self.validateField();
             }
         })
