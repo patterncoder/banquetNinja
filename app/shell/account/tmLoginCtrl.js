@@ -29,6 +29,7 @@ function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state) {
             
             if (result.data.success)
             {
+                $state.go('root.home');
                 tmNotifier.notify("You have successfully signed out!");
             }
             

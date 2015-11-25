@@ -7,7 +7,9 @@ export default function states($stateProvider){
             
             views: {
                 'content@': {
-                    template: require('./users.jade')
+                    template: require('./users/users.jade'),
+                    controller: 'tmUsersCtrl',
+                    controllerAs: 'vm'
                 }
                 // ,
                 // 'navigation@': {

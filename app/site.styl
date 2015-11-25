@@ -108,3 +108,17 @@ html
 @media (min-width: 768px)
     .modal-fs .modal-content
         margin -30px 0 0 0
+        
+@keyframes slideInRight {
+    from    { transform:translateX(100%); }
+    to      { transform: translateX(0); }
+}
+@keyframes scaleUp {
+    from    { opacity: 0.3; -webkit-transform: scale(0.8); }
+}
+@keyframes slideOutLeft {
+    to      { transform: translateX(-100%); }
+}
+
+.ng-enter { animation: scaleUp 0.5s both ease-in; z-index: 8888; }
+.ng-leave { animation: slideOutLeft 0.5s both ease-in; z-index: 9999; }
