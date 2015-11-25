@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.4.7",
+    "angular-animate": "^1.4.8",
     "angular-ui-bootstrap": "^0.13.4",
     "angular-ui-router": "^0.2.15",
     "babel": "^5.8.23",

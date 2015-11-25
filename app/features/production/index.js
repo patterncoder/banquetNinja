@@ -1,10 +1,11 @@
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import states from './states';
-import tmHomeCtrl from './homeCtrl';
+import nav from './nav';
 
-export default angular.module('home', [uirouter])
+
+export default angular.module('production', [uirouter])
     
     .config(states)
-    .controller('tmHomeCtrl', tmHomeCtrl)
+    .config(nav)
     .name

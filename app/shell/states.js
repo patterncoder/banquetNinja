@@ -11,7 +11,11 @@ export default function states($stateProvider) {
                 },
                 'footer': {
                     template: require('./footer/footer.jade')
+                },
+                'navigation': {
+                    template: require('./content/navigation.jade')
                 }
+                
             }, 
             
             
@@ -21,6 +25,9 @@ export default function states($stateProvider) {
             views: {
                 'content@': {
                     template: require('./account/login.jade')
+                },
+                'footer@': {
+                    template: require('./footer/footer2.jade')
                 }
             }
         })

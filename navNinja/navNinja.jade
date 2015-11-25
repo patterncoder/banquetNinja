@@ -1,4 +1,4 @@
-accordion(close-others="true")
+accordion(close-others="true", ng-show="vm.show")
     accordion-group(heading="{{nav.name}}" ng-repeat="nav in vm.nav |orderBy: 'sortOrder'")
         div(ng-repeat="link in nav.links | orderBy: 'sortOrder'")
             a(ui-sref="{{link.sref}}") {{link.name}}

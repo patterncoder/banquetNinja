@@ -39,7 +39,6 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
             username: username,
             password: password
         }).then(function(result){
-            console.log(result);
             if(result.data.success){
                 userInfo = {
                     accessToken: result.data.token,
@@ -47,7 +46,9 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
                 };
                 $window.sessionStorage['token'] = result.data.token;
                 $http.defaults.headers.common['x-access-token'] = result.data.token;
+                
                 tmIdentity.currentUser = userInfo;
+                
                 deferred.resolve(userInfo);
             } else {
                 deferred.resolve({success: false});

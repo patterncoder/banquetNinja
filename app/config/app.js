@@ -22,5 +22,9 @@ module.exports = angular.module('app', [Shell, Features, Common])
         //wake up api server...not sure if this is doing the trick
         $http.get(config.apiBase + '/wakeup', function(err, result){
             console.log(result);
-        })
+        });
+        
+        $(document).on('click', '.navbar-collapse.in', function (e) { if ($(e.target).is('a')) { $(this).collapse('hide'); } });
+        
+        
     }]);

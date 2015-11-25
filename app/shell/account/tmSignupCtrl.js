@@ -32,9 +32,7 @@ class SignupCtrl {
         });
     }
     
-    validateHttp() {
-        
-    }
+    
     
     validateCompany() {
         var self = this;
@@ -81,6 +79,9 @@ class SignupCtrl {
                 self.validationError = err;
                 self.$scope.$apply();
                 return 
+            } else if (self.httpValidationError.errors.email || self.httpValidationError.errors.companyName){
+                console.log("i have custom errors");
+                return;
             }
             self.$http.post(config.apiBase + '/account',  self.accountData).then(function(result){
                 console.log(result);

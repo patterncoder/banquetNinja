@@ -1,7 +1,14 @@
 
-var Controller =  ['navigation', function(navigation){
+var Controller =  ['navigation', 'tmIdentity', '$scope', function(navigation, tmIdentity, $scope){
     var vm = this;
+    vm.show = tmIdentity.isAuthenticated();
+    
     vm.nav = navigation.navigation;
+    $scope.$watch(function(){
+            return tmIdentity.isAuthenticated()
+        }, function(newValue, oldValue){
+            vm.show = newValue;
+    });
 }];
 
 function Directive(){

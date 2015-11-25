@@ -1,17 +1,18 @@
-.container-fluid(ng-controller="tmLoginCtrl as vm")
-    .row
-        .well.col-md-6.col-md-offset-3
-            h1 Login Page
-            p Enter username and password.  If you are not a paying member sign up here.
-            .form
-                .form-group
-                    input.form-control(placeholder="Email", ng-model="vm.username")
-                .form-group
-                    input.form-control(type="password",placeholder="Password",ng-model="vm.password")
-                .form-group
-                    input(type="checkbox" name="remember" ng-model="vm.remember")
-                    | &nbsp; Remember Me
-                button.btn.btn-primary(ng-click="vm.signin(vm.username, vm.password,vm.remember)") Sign In
-    .row
-        .container.col-md-6.col-md-offset-3
-            a(ui-sref="root.signup").pull-right Signup
+.col-md-10
+    .container-fluid(ng-controller="tmLoginCtrl as vm")
+        .row
+            .well.col-md-6.col-md-offset-3
+                h1 Login Page
+                p Enter username and password.  If you are not a paying member sign up here.
+                .form
+                    .form-group
+                        input.form-control(placeholder="Email", ng-model="vm.username")
+                    .form-group
+                        input.form-control(type="password",placeholder="Password",ng-model="vm.password")
+                    .form-group
+                        input(type="checkbox" name="remember" ng-model="vm.remember")
+                        | &nbsp; Remember Me
+                    button.btn.btn-primary(ng-click="vm.signin(vm.username, vm.password,vm.remember)") Sign In
+        .row
+            .container.col-md-6.col-md-offset-3
+                a(ui-sref="root.signup").pull-right Signup
