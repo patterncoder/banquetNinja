@@ -39,7 +39,9 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
             username: username,
             password: password
         }).then(function(result){
-            if(result.data.success){
+            
+            if(result.data.success == true){
+                
                 userInfo = {
                     accessToken: result.data.token,
                     user: getClaimsFromToken(result.data.token)
@@ -51,7 +53,7 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
                 
                 deferred.resolve(userInfo);
             } else {
-                deferred.resolve({success: false});
+                deferred.reject({success: false});
             }
             
             
@@ -72,6 +74,8 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
             //$window.sessionStorage["token"] = null;
             delete $window.sessionStorage.token;
             userInfo = null;
+            // remove token from default headers
+            $http.defaults.headers.common['x-access-token'] = null;
             tmIdentity.currentUser = undefined;
             deferred.resolve(result);
         }, function(error){
