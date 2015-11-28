@@ -8,6 +8,7 @@ var Controller =  ['navigation', 'tmIdentity', '$scope', function(navigation, tm
             return tmIdentity.isAuthenticated()
         }, function(newValue, oldValue){
             vm.show = newValue;
+            vm.nav = navigation.reloadNav();
     });
 }];
 

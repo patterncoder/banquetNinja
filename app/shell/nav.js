@@ -41,13 +41,5 @@ export default ['navigationProvider', function(navigationProvider){
             endSection: false,
             roles: ['superUser']
         });
-        // navigationProvider.addNav({
-        //     name: 'Login',
-        //     sortOrder: 30,
-        //     sref: 'root.login',
-        //     parent: 'Events',
-        //     endSection: false,
-        //     roles: ['bronze', 'silver', 'gold', 'admin', 'superUser']
-        // });
     }]
     

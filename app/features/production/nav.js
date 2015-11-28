@@ -8,7 +8,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: 'root.menugroups',
             parent: 'Production',
             endSection: false,
-            roles: ['bronze', 'silver', 'gold', 'admin', 'superUser']
+            roles: [ 'gold', 'admin', 'superUser']
         });
         navigationProvider.addNav({
             name: 'Menus',
@@ -16,7 +16,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: 'root.menus',
             parent: 'Production',
             endSection: false,
-            roles: ['bronze', 'silver', 'gold', 'admin', 'superUser']
+            roles: ['gold', 'admin', 'superUser']
         });
         navigationProvider.addNav({
             name: 'Menu Items',
@@ -24,7 +24,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: 'root.menuitems',
             parent: 'Production',
             endSection: false,
-            roles: ['bronze', 'silver', 'gold', 'admin', 'superUser']
+            roles: [ 'gold', 'admin', 'superUser']
         });
         
     }]

@@ -8,7 +8,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: 'root.users',
             parent: 'User Admin',
             endSection: false,
-            roles: ['bronze', 'silver', 'gold', 'admin', 'superUser']
+            roles: [ 'admin', 'superUser']
         });
         
     }]
