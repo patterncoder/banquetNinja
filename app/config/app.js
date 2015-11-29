@@ -4,6 +4,7 @@ import Shell from '../shell';
 import Features from '../features';
 import Common from '../common';
 import config from 'config';
+import _ from 'lodash';
 
 //think import config should be deleted
 //import config from 'config';
@@ -23,8 +24,31 @@ module.exports = angular.module('app', [Shell, Features, Common])
         $http.get(config.apiBase + '/wakeup', function(err, result){
             console.log(result);
         });
-        
+        //make collapse menu collapse after menu item selection
         $(document).on('click', '.navbar-collapse.in', function (e) { if ($(e.target).is('a')) { $(this).collapse('hide'); } });
         
         
+    }])
+    .run(['$rootScope', '$state', 'tmIdentity', 'tmNotifier', function($rootScope, $state, tmIdentity, tmNotifier){
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+            // does route require auth
+            // if yes
+            
+            if(toState.roles) {
+                
+                if(tmIdentity.isAuthenticated()){
+                    if(_.intersection(tmIdentity.currentUser.user.roles, toState.roles).length == 0){
+                        tmNotifier.notify('You are not authorized for that route');
+                        $state.transitionTo(fromState.name);
+                        event.preventDefault();
+                    }
+                    
+                } else {
+                    tmNotifier.notify('You must be authenticated to navigate to that route');
+                    $state.transitionTo('root.login');
+                    event.preventDefault();
+                }
+            }
+            
+        });
     }]);

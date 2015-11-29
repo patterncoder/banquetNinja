@@ -5,4 +5,7 @@ div(ng-class="{'col-md-10': vm.tmIdentity.isAuthenticated(), 'col-md-12': vm.tmI
     .col-md-6
         h3 Column 1
     .col-md-6
-        h3 Column 2
+        a(ui-sref="root.users") users
+        a(ui-sref="root.menugroups") menu groups
+        a(ui-sref="root.menus") menus
+        a(ui-sref="root.menuitems") menu items

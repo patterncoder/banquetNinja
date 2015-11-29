@@ -15,7 +15,7 @@ export default ['navigationProvider', function(navigationProvider){
             sortOrder: 40,
             sref: 'root.menus',
             parent: 'Production',
-            endSection: false,
+            endSection: true,
             roles: ['gold', 'admin', 'superUser']
         });
         navigationProvider.addNav({

@@ -21,9 +21,10 @@ export default function Navigation(graph, tmIdentity){
         
         var lookup = {};
         
-        if(tmIdentity.currentUser){
+        if(tmIdentity.isAuthenticated()){
             list.forEach(function(obj) {
                 if(_.intersection(tmIdentity.currentUser.user.roles, obj['roles']).length > 0){
+                    
                     lookup[obj[idAttr]] = obj;
                     obj[childrenAttr] = [];
                 }
