@@ -7,7 +7,9 @@ export default function states($stateProvider){
         roles: ['gold', 'admin', 'superUser'],
         views: {
             'content@': {
-                template: require('./menugroups/menugroups.jade')
+                template: require('./menugroups/menugroups.jade'),
+                controller: 'tmMenuGroupsCtrl',
+                conrollerAs: 'vm'
             }
         }
     })

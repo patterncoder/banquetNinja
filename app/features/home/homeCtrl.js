@@ -1,9 +1,9 @@
 
 
 class tmHomeCtrl {
-	constructor (tmIdentity) {
-		this.tmIdentity = tmIdentity;
-	}
+    constructor (tmIdentity) {
+        this.tmIdentity = tmIdentity;
+    }
 } 
 
 tmHomeCtrl.$inject = ['tmIdentity'];
