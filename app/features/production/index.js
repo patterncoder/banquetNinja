@@ -6,6 +6,8 @@ import nav from './nav';
 import data from './data';
 // controllers
 import tmMenuGroupsCtrl from './menugroups/tmMenuGroupsCtrl';
+import tmMenuItemsCtrl from './menuitems/tmMenuItemsCtrl';
+import tmMenusCtrl from './menus/tmMenusCtrl';
 
 
 export default angular.module('production', [uirouter])
@@ -14,4 +16,6 @@ export default angular.module('production', [uirouter])
     .config(nav)
     .config(data)
     .controller('tmMenuGroupsCtrl', tmMenuGroupsCtrl)
+    .controller('tmMenuItemsCtrl', tmMenuItemsCtrl)
+    .controller('tmMenusCtrl', tmMenusCtrl)
     .name

@@ -1,5 +1,4 @@
 .col-md-10
-    h1 an H1 {{vm.title}}
-    h2 an h2 {{vm.subTitle}}
-    p Here is where some menu groups will go.
+    h1 Menu Groups
+    p(ng-repeat="item in vm.items") {{item.title}}
     

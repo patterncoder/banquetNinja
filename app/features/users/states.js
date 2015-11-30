@@ -12,6 +12,6 @@ export default function states($stateProvider){
                     controllerAs: 'vm'
                 }
             }
-        })
+        });
         
 }

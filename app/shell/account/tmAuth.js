@@ -27,6 +27,7 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
             var encoded = token.split('.')[1];
             user = JSON.parse(urlBase64Decode(encoded));
         }
+        
         return user;
     }
 

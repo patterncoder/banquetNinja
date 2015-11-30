@@ -9,7 +9,7 @@ export default function states($stateProvider){
             'content@': {
                 template: require('./menugroups/menugroups.jade'),
                 controller: 'tmMenuGroupsCtrl',
-                conrollerAs: 'vm'
+                controllerAs: 'vm'
             }
         }
     })
@@ -18,7 +18,9 @@ export default function states($stateProvider){
         roles: ['gold', 'admin', 'superUser'],
         views: {
             'content@': {
-                template: require('./menus/menus.jade')
+                template: require('./menus/menus.jade'),
+                controller: 'tmMenusCtrl',
+                controllerAs: 'vm'
             }
         }
     })
@@ -27,9 +29,11 @@ export default function states($stateProvider){
         roles: ['gold', 'admin', 'superUser'],
         views: {
             'content@': {
-                template: require('./menuitems/menuitems.jade')
+                template: require('./menuitems/menuitems.jade'),
+                controller: 'tmMenuItemsCtrl',
+                controllerAs: 'vm'
             }
         }
-    })
+    });
         
 }
