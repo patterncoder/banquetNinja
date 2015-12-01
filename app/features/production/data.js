@@ -4,19 +4,19 @@ export default [
         
         $dataSourceProvider.addApiRoute({
             key: 'MenuGroup', 
-            url: config.apiBase + '/production/menugroups/:id', 
+            url: config.apiBase + '/production/menugroups/:_id', 
             defaults: { _id: "@id" },
             methods: {update: { method: 'PUT', isArray: false }}
         });
         $dataSourceProvider.addApiRoute({
             key: 'MenuItem', 
-            url: config.apiBase + '/production/menuitems/:id', 
+            url: config.apiBase + '/production/menuitems/:_id', 
             defaults: { _id: "@id" },
             methods: {update: { method: 'PUT', isArray: false }}
         });
         $dataSourceProvider.addApiRoute({
             key: 'Menu', 
-            url: config.apiBase + '/production/menus/:id', 
+            url: config.apiBase + '/production/menus/:_id', 
             defaults: { _id: "@id" },
             methods: {update: { method: 'PUT', isArray: false }}
         });

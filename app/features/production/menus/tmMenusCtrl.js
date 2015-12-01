@@ -2,12 +2,12 @@
 
 class tmMenusCtrl {
     constructor($dataSource){
-        var vm = this;
-        vm.$dataSource = $dataSource;
-        vm.test = "this is test";
-        var Menu = vm.$dataSource.load('Menu');
+        var self = this;
+        this.$dataSource = $dataSource;
+        this.test = "this is test";
+        var Menu = this.$dataSource.load('Menu');
         Menu.query().then(function(items){
-            vm.items = items;
+            self.items = items;
         });
     }
 }

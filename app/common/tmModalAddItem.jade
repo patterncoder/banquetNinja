@@ -1,0 +1,12 @@
+.modal-header
+    h3 {{vm.modalOptions.headerText}}
+.modal-body
+    form(name="addItemForm" )
+        div(ng-repeat="field in vm.fields")
+            .form-group
+                label.control-label(for="field.name") {{field.label}}
+                input.form-control(name="field.name", type="text", ng-model="field.value", ng-required="field.required")
+.modal-footer
+    button.btn.btn-default(type="button",  ng-click="vm.addItem('quick')", ng-disabled="addItemForm.$invalid") Quick Add
+    button.btn.btn-default(type="button",  ng-click="vm.addItem('details')", ng-disabled="addItemForm.$invalid") Go Details
+    button.btn.btn-primary(type="button", ng-click="vm.cancel()") Cancel

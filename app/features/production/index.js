@@ -8,6 +8,7 @@ import data from './data';
 import tmMenuGroupsCtrl from './menugroups/tmMenuGroupsCtrl';
 import tmMenuItemsCtrl from './menuitems/tmMenuItemsCtrl';
 import tmMenusCtrl from './menus/tmMenusCtrl';
+import tmModalMenuItemAdd from './menuitems/tmModalMenuItemAdd';
 
 
 export default angular.module('production', [uirouter])
@@ -18,4 +19,5 @@ export default angular.module('production', [uirouter])
     .controller('tmMenuGroupsCtrl', tmMenuGroupsCtrl)
     .controller('tmMenuItemsCtrl', tmMenuItemsCtrl)
     .controller('tmMenusCtrl', tmMenusCtrl)
+    .controller('tmModalMenuItemAdd', tmModalMenuItemAdd)
     .name

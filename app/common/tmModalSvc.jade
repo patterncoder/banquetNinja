@@ -1,0 +1,7 @@
+.modal-header
+    h3 {{modalOptions.headerText}}
+.modal-body
+    p {{modalOptions.bodyText}}
+.modal-footer
+    button.btn.btn-default(type="button" ng-click="modalOptions.close()") {{modalOptions.closeButtonText}}
+    button.btn.btn-primary(type="button" ng-click="modalOptions.ok()") {{modalOptions.actionButtonText}}
