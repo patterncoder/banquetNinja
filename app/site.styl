@@ -70,6 +70,7 @@ html
     width 100%
     padding 0
     margin 0
+    overflow-y hidden
 
 .detailHeader
     position absolute
@@ -92,6 +93,7 @@ html
     left 0
     right 0
     overflow-y auto
+    overflow-x hidden
 
 .detailFooter
     position absolute
@@ -120,5 +122,5 @@ html
     to      { transform: translateX(-100%); }
 }
 
-.ng-enter { animation: scaleUp 0.5s both ease-in; z-index: 8888; }
-.ng-leave { animation: slideOutLeft 0.5s both ease-in; z-index: 9999; }
+//[ui-view].ng-enter { animation: slideInRight 0.5s both ease-in; z-index: 8888; }
+//[ui-view].ng-leave { animation: slideOutLeft 0.5s both ease-in; z-index: 9999; }

@@ -24,7 +24,7 @@
                 td {{menuItem.description}}
                 td.text-right
                     //button.btn.btn-primary.btn-xs(ng-click="vm.details(menuItem._id)") Edit
-                    a(href="/production/menuItems/{{menuItem._id}}")
+                    a(href="" ng-click="vm.details(menuItem._id)")
                         span.glyphicon.glyphicon-pencil
                     | &nbsp; | &nbsp;
                     a(href="" ng-click="vm.deleteMenuItem(menuItem._id)")

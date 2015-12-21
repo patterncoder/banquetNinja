@@ -7,7 +7,7 @@ class tmModalSvc{
             backdrop: true,
             keyboard: true,
             modalFade: true,
-            template: require('./tmModalSvc.jade')
+            template: require('apply!./tmModalSvc.jade')
         };
         this.modalOptions = {
             closeButtonText: 'Close',

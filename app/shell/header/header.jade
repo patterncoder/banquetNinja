@@ -1,47 +1,20 @@
-#top-nav.navbar.navbar-inverse.navbar-fixed-top
-    .container-fluid(ng-controller="tmLoginCtrl as vm")
-        .navbar-header
-            a.navbar-brand(ui-sref="root.home")
-                h4 BANQUET.NINJA
-            a.pull-right.btn.btn-navbar.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-ex1-collapse")
-                    span.icon-bar
-                    span.icon-bar
-                    span.icon-bar
-            a.pull-right.navbar-toggle(data-toggle="collapse" name="myname" ng-click="vm.goLogin()" ng-hide="vm.identity.isAuthenticated()") Login
-            a.pull-right.btn.btn-navbar.navbar-toggle(data-toggle="collapse" ng-click="vm.signout()" ng-show="vm.identity.isAuthenticated()" href="") Sign Out
-        .navbar-collapse.collapse.navbar-ex1-collapse
-            ul.nav.navbar-nav
-                li
-                    a(ui-sref="root.home") Home
-                li
-                    a.hidden-lg.hidden-md.hidden-sm(ui-sref="root.signup" ng-hide="vm.identity.isAuthenticated()") Signup
-                li
-                    a.hidden-lg.hidden-md.hidden-sm(ui-sref="root.profile" ng-show="vm.identity.isAuthenticated()") Profile
-            div
-                .navbar-right.navbar-collapse.collapse
-                    ul.nav.navbar-nav.navbar-right(ng-hide="vm.identity.isAuthenticated()")
-                        li
-                            a(ui-sref="root.signup") Sign Up
-                        li#menuLogin.dropdown
-                            a#navLogin.dropdown-toggle(data-toggle="dropdown") Login
-                            div.dropdown-menu(style="padding: 17px;")
-                                form#formLogin.form
-                                    .form-group
-                                        input#username.form-control(name="username",type="text",placeholder="Username",ng-model="vm.username")
-                                    .form-group
-                                        input#password.form-control(name="password", type="password", placeholder="Password",ng-model="vm.password")
-                                    .form-group
-                                        input(type="checkbox" name="remember" ng-model="vm.remember")
-                                        | &nbsp; Remember Me
-                                    button#btnLogin.btn.btn-default(type="button",ng-click="vm.signin(vm.username, vm.password, vm.remember)") Login
-                    ul.nav.navbar-nav.navbar-right(ng-show="vm.identity.isAuthenticated()")
-                        li.dropdown
-                            a.dropdown-toggle(data-toggle="dropdown") {{vm.identity.currentUser.user.firstName+' '+ vm.identity.currentUser.user.lastName}}
-                                b.caret
-                            ul.dropdown-menu
-                                li
-                                    a(href="/profile") Profile
-                                li
-                                    a(href="", ng-click="vm.signout()") Sign Out
-            // .row(ng-show="identity.currentUser.accountLockout" )
-            //     h5(style="{color: red}") Pay Now!
+.md-toolbar-tools(ng-controller="tmLoginCtrl as vm")
+    h2
+        span banquet.ninja
+    md-button(ui-sref="root.home") Home
+    md-button(ui-sref="root.home") Home2
+    md-button(ui-sref="root.home") Home3
+    span(flex="")
+    md-button.md-raised Sign Up
+    md-menu
+        md-button.md-raised(ng-click="$mdOpenMenu($event)") Login
+        md-menu-content
+            div(layout="column" layout-margin)
+                md-input-container
+                    label Username
+                    input(type="text" ng-model="vm.username")
+                md-input-container
+                    label Password
+                    input(type="password" ng-model="vm.password")
+                md-button.md-raised(ng-click="vm.signin(vm.username, vm.password, vm.remember)") Sign In
+                

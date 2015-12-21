@@ -1,2 +1,0 @@
-
-exports.accountSchemas = require('./account');

@@ -1,12 +1,13 @@
 
 class tmMenuItemsCtrl {
-    constructor ($dataSource, tmNotifier, tmModalSvc) {
+    constructor ($dataSource, tmNotifier, tmModalSvc, $state) {
         var self = this;
         this.$dataSource = $dataSource;
+        this.$state = $state;
         self.tmNotifier = tmNotifier;
         this.tmModalSvc = tmModalSvc;
         this.MenuItem = this.$dataSource.load('MenuItem');
-        this.sortOptions = [{ value: "menuItemName", text: "Sort by Menu Item Name" }, { value: "menuItemDateCreate", text: "Sort by Date Created" }];
+        this.sortOptions = [{ value: "name", text: "Sort by Menu Item Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
         this.MenuItem.query().then(function(items){
             self.items = items;
         });
@@ -21,6 +22,10 @@ class tmMenuItemsCtrl {
         this.tmModalSvc.showModal(modalConfig);
     }
     
+    details(id){
+        this.$state.go('menuItemDetail', {id: id});
+    }
+    
     deleteMenuItem (id) {
         var self = this;
         this.MenuItem.remove(id).then(function(collection){
@@ -32,6 +37,6 @@ class tmMenuItemsCtrl {
     }
 }
 
-tmMenuItemsCtrl.$inject = ['$dataSource', 'tmNotifier', 'tmModalSvc' ];
+tmMenuItemsCtrl.$inject = ['$dataSource', 'tmNotifier', 'tmModalSvc', '$state' ];
 
 export default tmMenuItemsCtrl;

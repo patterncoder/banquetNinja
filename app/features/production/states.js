@@ -29,11 +29,28 @@ export default function states($stateProvider){
         roles: ['gold', 'admin', 'superUser'],
         views: {
             'content@': {
-                template: require('./menuitems/menuitems.jade'),
+                template: require('./menuitems/menuItems-list.jade'),
                 controller: 'tmMenuItemsCtrl',
                 controllerAs: 'vm'
             }
         }
-    });
+    })
+    .state('menuItemDetail', {
+            url: '/production/menuitems/:id',
+            roles: ['gold', 'admin', 'superUser'],
+            onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal){
+                $modal.open({
+                    animation: true,
+                    template: require('apply!./menuitems/menuItem-detail.jade'),
+                    controller: 'tmMenuItemDetailCtrl as vm',
+                    resolve: {itemId: function(){return $stateParams.id;}},
+                    size: 'fs'
+                }).result.finally(function(){
+                    $state.go('^');
+                })
+            }]
+        }
+        
+    );
         
 }

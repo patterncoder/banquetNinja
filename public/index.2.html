@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <base href="/"></base>
+</head>
+<body>
+    <div class="wrapper">
+        <div ui-view="header"></div>
+        <div class="container-fluid">
+            <div class="container-fluid">
+                <div ui-view="navigation"></div>
+                <div ui-view="content"></div>
+                <!--<div class="col-md-2">
+                    <div ui-view="navigation"></div>
+                </div>
+                <div class="col-md-10">
+                    <div ui-view="content"></div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" ui-view="footer"></div>
+    
+  <script src="/build/bundle.js"></script>
+</body>
+</html>

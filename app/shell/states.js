@@ -15,10 +15,7 @@ export default function states($stateProvider) {
                 'navigation': {
                     template: require('./content/navigation.jade')
                 }
-                
             }, 
-            
-            
         })
         .state('root.login',{
             url: '/login',
