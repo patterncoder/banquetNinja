@@ -1,6 +1,6 @@
 
 
-function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state) {
+function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state, $rootScope) {
     var vm = this;
     vm.name = 'banquetninja';
     vm.loggedIn = false;
@@ -15,7 +15,7 @@ function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state) {
         tmAuth.login(username, password).then(
             function(){
                 vm.loggedIn = true;
-                
+                $rootScope.$broadcast('loggedIn');
                 tmNotifier.notify("You have successfully signed in!");
                 }, function() {
                     tmNotifier.notify('login failed');
@@ -29,6 +29,7 @@ function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state) {
             
             if (result.data.success)
             {
+                $rootScope.$broadcast('loggedOut');
                 $state.go('root.home');
                 tmNotifier.notify("You have successfully signed out!");
             }
@@ -42,7 +43,7 @@ function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state) {
 }
 
 
-tmLoginCtrl.$inject = ['tmAuth', 'tmIdentity', 'tmNotifier', '$state'];
+tmLoginCtrl.$inject = ['tmAuth', 'tmIdentity', 'tmNotifier', '$state', '$rootScope'];
 export default tmLoginCtrl;
 
 

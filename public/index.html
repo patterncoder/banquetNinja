@@ -12,8 +12,8 @@
         <h1>Hello World</h1>-->
     </md-toolbar>
     <div layout="row" layout-margin>
-        <div flex="20" ui-view="navigation"></div>
-        <div flex="80" ui-view="content"></div>
+        <div flex="20" ng-show="vm.showNav" ui-view="navigation"></div>
+        <div flex="" ui-view="content"></div>
     </div>
     
     <div layout="row" layout-align="center end" flex ui-view="footer"></div>

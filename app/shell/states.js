@@ -13,7 +13,9 @@ export default function states($stateProvider) {
                     template: require('./footer/footer.jade')
                 },
                 'navigation': {
-                    template: require('./content/navigation.jade')
+                    template: require('./content/navigation.jade'),
+                    controller: 'tmNavigationCtrl',
+                    controllerAs: 'vm'
                 }
             }, 
         })

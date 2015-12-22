@@ -13,8 +13,13 @@ import routing from './routing';
 
 module.exports = angular.module('app', [Shell, Features, Common])
     .config(routing)
-    .run(['$dataSource', function($dataSource){
+    .run(['$dataSource','$rootScope', function($dataSource, $rootScope){
         $dataSource.init();
+        $rootScope.$on('loggedOut', function () {
+            $dataSource.clearCache();
+
+        });
+        
     }])
     .run(['$http', '$window', function($http, $window){
         if($window.sessionStorage['token']){
@@ -30,6 +35,9 @@ module.exports = angular.module('app', [Shell, Features, Common])
         
     }])
     .run(['$rootScope', '$state', 'tmIdentity', 'tmNotifier', function($rootScope, $state, tmIdentity, tmNotifier){
+        
+        
+        
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
             // does route require auth
             // if yes

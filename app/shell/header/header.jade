@@ -5,9 +5,10 @@
     md-button(ui-sref="root.home") Home2
     md-button(ui-sref="root.home") Home3
     span(flex="")
-    md-button.md-raised Sign Up
+    md-button(ng-hide="vm.identity.isAuthenticated()" ui-sref="root.signup") Sign Up
+    md-button(ng-show="vm.identity.isAuthenticated()" ng-click="vm.signout()") Logout
     md-menu
-        md-button.md-raised(ng-click="$mdOpenMenu($event)") Login
+        md-button(ng-hide="vm.identity.isAuthenticated()" ng-click="$mdOpenMenu($event)") Login
         md-menu-content
             div(layout="column" layout-margin)
                 md-input-container
