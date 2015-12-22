@@ -1,5 +1,6 @@
 import angular from 'angular';
-import {menuitem as menuItemSchema} from '../../../../schemas/production';
+import productionSchemas from '../../../../schemas/production';
+//import {menuitem as menuItemSchema} from '../../../../schemas/production';
 
 class tmMenuItemDetailCtrl {
     constructor($dataSource, 
@@ -25,7 +26,7 @@ class tmMenuItemDetailCtrl {
                 self.$modalInstance.close();
                 $state.go('root.menuitems')
             }
-            self.menuItem = new self.tmMongoose.Document(data,menuItemSchema);
+            self.menuItem = new self.tmMongoose.Document(data,productionSchemas.menuitem);
             //self.menuItem = data;
             self.master = angular.copy(data);
         });
