@@ -1,15 +1,20 @@
 
 class tmMenuItemsCtrl {
-    constructor ($dataSource, tmNotifier, tmModalSvc, $state) {
+    constructor ($dataSource, tmNotifier, tmModalSvc, $state, $timeout) {
         var self = this;
         this.$dataSource = $dataSource;
         this.$state = $state;
         self.tmNotifier = tmNotifier;
+        self.loading = false;
         this.tmModalSvc = tmModalSvc;
         this.MenuItem = this.$dataSource.load('MenuItem');
         this.sortOptions = [{ value: "name", text: "Sort by Menu Item Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
         this.MenuItem.query().then(function(items){
+            self.loading = true;
             self.items = items;
+            self.loading = false;
+            
+            
         });
         this.test = "hello there from tmMenuItemsCtrl";
     }
@@ -37,6 +42,6 @@ class tmMenuItemsCtrl {
     }
 }
 
-tmMenuItemsCtrl.$inject = ['$dataSource', 'tmNotifier', 'tmModalSvc', '$state' ];
+tmMenuItemsCtrl.$inject = ['$dataSource', 'tmNotifier', 'tmModalSvc', '$state', '$timeout'];
 
 export default tmMenuItemsCtrl;
