@@ -1,34 +1,46 @@
 
 class tmMenuItemsCtrl {
-    constructor ($dataSource, tmNotifier, tmModalSvc, $state, $timeout) {
-        var self = this;
+    constructor ($dataSource, tmNotifier, tmDialogSvc, tmModalSvc, $state) {
+        //injected dependencies
         this.$dataSource = $dataSource;
         this.$state = $state;
-        self.tmNotifier = tmNotifier;
-        self.loading = false;
+        this.tmNotifier = tmNotifier;
+        this.tmDialogSvc = tmDialogSvc;
         this.tmModalSvc = tmModalSvc;
-        this.MenuItem = this.$dataSource.load('MenuItem');
+        // local vars
+        this.loading = false;
+        this.isLoading = false;
         this.sortOptions = [{ value: "name", text: "Sort by Menu Item Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
+        // initialize
+        this.loadData();
+        
+    }
+    
+    setLoading (loading) {
+        this.isLoading = loading;
+    }
+    
+    loadData () {
+        var self = this;
+        this.setLoading(true);
+        this.MenuItem = this.$dataSource.load('MenuItem');
         this.MenuItem.query().then(function(items){
-            self.loading = true;
+            self.setLoading(false);
             self.items = items;
-            self.loading = false;
-            
-            
         });
-        this.test = "hello there from tmMenuItemsCtrl";
     }
     
     addItem(){
-        var modalConfig = {
-            template: require('apply!../../../common/tmModalAddItem.jade'),
-            controller: 'tmModalMenuItemAdd as vm'
-        };
-        this.tmModalSvc.showModal(modalConfig);
+        // var modalConfig = {
+        //     template: require('apply!../../../common/tmModalAddItem.jade'),
+        //     controller: 'tmModalMenuItemAdd as vm'
+        // };
+        // this.tmModalSvc.showModal(modalConfig);
+        this.tmDialogSvc.showDialog();
     }
     
     details(id){
-        this.$state.go('menuItemDetail', {id: id});
+        this.$state.go('root.menuItemDetail', {id: id});
     }
     
     deleteMenuItem (id) {
@@ -42,6 +54,6 @@ class tmMenuItemsCtrl {
     }
 }
 
-tmMenuItemsCtrl.$inject = ['$dataSource', 'tmNotifier', 'tmModalSvc', '$state', '$timeout'];
+tmMenuItemsCtrl.$inject = ['$dataSource', 'tmNotifier', 'tmDialogSvc', 'tmModalSvc', '$state'];
 
 export default tmMenuItemsCtrl;

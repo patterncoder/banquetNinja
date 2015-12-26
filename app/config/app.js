@@ -34,13 +34,15 @@ module.exports = angular.module('app', [Shell, Features, Common])
         
         
     }])
+    
     .run(['$rootScope', '$state', 'tmIdentity', 'tmNotifier', function($rootScope, $state, tmIdentity, tmNotifier){
         
-        
-        
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-            // does route require auth
-            // if yes
+            
+            if(tmIdentity.isAuthenticated() && toState.prohibitStateWhenLoggedIn){
+                $state.transitionTo(fromState.name);
+                event.preventDefault();
+            }
             
             if(toState.roles) {
                 
@@ -60,6 +62,7 @@ module.exports = angular.module('app', [Shell, Features, Common])
             
         });
     }])
+    
     .run(['$rootScope', '$modalStack', function($rootScope, $modalStack) {
         $rootScope.$on('$stateChangeStart', function() {
         var top = $modalStack.getTop();

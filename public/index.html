@@ -5,37 +5,14 @@
   <base href="/"></base>
 </head>
 <body layout="column">
-    <md-toolbar layout="row" ui-view="header">
-        <!--<md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
-          <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
-        </md-button>
-        <h1>Hello World</h1>-->
+    <md-toolbar layout="row" ui-view="header" ng-hide="vm.isModal()">
     </md-toolbar>
     <div layout="row" layout-margin>
-        <div flex="20" ng-show="vm.showNav" ui-view="navigation"></div>
-        <div flex="" ui-view="content"></div>
+        <div flex="15"  ng-hide="vm.hideNavigation() || vm.isModal()" ui-view="navigation"></div>
+        <div flex ui-view="content"></div>
     </div>
     
     <div layout="row" layout-align="center end" flex ui-view="footer"></div>
-    
-    
-    <!--<div class="wrapper">
-        <div ui-view="header"></div>
-        <div class="container-fluid">
-            <div class="container-fluid">
-                <div ui-view="navigation"></div>
-                <div ui-view="content"></div>-->
-                <!--<div class="col-md-2">
-                    <div ui-view="navigation"></div>
-                </div>
-                <div class="col-md-10">
-                    <div ui-view="content"></div>
-                </div>-->
-            <!--</div>
-        </div>
-    </div>
-    <div class="container-fluid" ui-view="footer"></div>-->
-    
   <script src="/build/bundle.js"></script>
 </body>
 </html>

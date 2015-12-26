@@ -1,9 +1,9 @@
-.md-toolbar-tools(ng-controller="tmLoginCtrl as vm")
+.md-toolbar-tools
     h2
         span banquet.ninja
     md-button(ui-sref="root.home") Home
-    md-button(ui-sref="root.home") Home2
-    md-button(ui-sref="root.home") Home3
+    // md-button(ui-sref="root.home") Home2
+    // md-button(ui-sref="root.home") Home3
     span(flex="")
     md-button(ng-hide="vm.identity.isAuthenticated()" ui-sref="root.signup") Sign Up
     md-button(ng-show="vm.identity.isAuthenticated()" ng-click="vm.signout()") Logout

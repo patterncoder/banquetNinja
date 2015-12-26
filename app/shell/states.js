@@ -7,7 +7,8 @@ export default function states($stateProvider) {
             abstract: true,
             views: {
                 'header': {
-                    template: require('./header/header.jade')
+                    template: require('./header/header.jade'),
+                    controller: 'tmLoginCtrl as vm'
                 },
                 'footer': {
                     template: require('./footer/footer.jade')
@@ -21,6 +22,7 @@ export default function states($stateProvider) {
         })
         .state('root.login',{
             url: '/login',
+            prohibitStateWhenLoggedIn: true,
             views: {
                 'content@': {
                     template: require('./account/login.jade')
@@ -32,6 +34,7 @@ export default function states($stateProvider) {
         })
         .state('root.signup', {
             url: '/signup',
+            prohibitStateWhenLoggedIn: true,
             views: {
                 'content@': {
                     template: require('./account/signup.jade'),

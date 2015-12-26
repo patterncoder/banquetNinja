@@ -10,15 +10,20 @@ function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state, $rootScope) {
         vm.loggedIn = true;
     }
     
+    vm.isModal = function (){
+        return $state.current.isModal;
+    }
+    
     vm.signin = function (username, password){
         
         tmAuth.login(username, password).then(
             function(){
                 vm.loggedIn = true;
+                $state.go('root.home');
                 $rootScope.$broadcast('loggedIn');
                 tmNotifier.notify("You have successfully signed in!");
                 }, function() {
-                    tmNotifier.notify('login failed');
+                    tmNotifier.error('login failed');
                 }
         );
         

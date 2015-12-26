@@ -1,11 +1,26 @@
-div(ng-class="{'col-md-10': vm.tmIdentity.isAuthenticated(), 'col-md-12': vm.tmIdentity.isAuthenticated()}")
+//div(ng-class="{'col-md-10': vm.tmIdentity.isAuthenticated(), 'col-md-12': vm.tmIdentity.isAuthenticated()}")
+div(layout="column" flex="100")
     .jumbotron
         img.img-responsive(src=require("../../assets/banquetNinja2.png"))
         p Welcome to banquet.ninja!  Buttery smooth banquet management for you and your customers.
-    .col-md-6
-        h3 Column 1
-    .col-md-6
-        a(ui-sref="root.users") users
-        a(ui-sref="root.menugroups") menu groups
-        a(ui-sref="root.menus") menus
-        a(ui-sref="root.menuitems") menu items
+div(layout="row" flex="100")
+    md-card(flex="20")
+        md-card-title
+            md-card-title-text 
+                md-headline Some Test Links
+                md-subhead These will be deleted
+        md-card-content
+            p
+                a(ui-sref="root.menuitems") Menu Items
+            p
+                a(ui-sref="root.signup") Signup
+            p
+                a(ui-sref="root.login") Login
+    md-card(flex="20")
+        md-card-title
+            md-card-title-text 
+                md-headline Some Test Links
+                md-subhead These will be deleted
+        md-card-content
+            a(ui-sref="root.menuitems") Menu Items
+        

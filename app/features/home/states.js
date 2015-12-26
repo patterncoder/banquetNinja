@@ -9,7 +9,6 @@ export default function states($stateProvider){
                 'content@': {template: require('./home.jade'),
                     controller: 'tmHomeCtrl',
                     controllerAs: 'vm'
-                    
                 }
             }
             
