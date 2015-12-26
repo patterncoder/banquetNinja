@@ -1,0 +1,9 @@
+md-dialog(aria-label="Dialog Service")
+    md-toolbar(layout-padding)
+        div.md-tooolbar-tools
+            h4 {{dialogOptions.headerText}}
+    md-dialog-content(layout-padding)
+        p {{dialogOptions.bodyText}}
+    md-dialog-actions(layout="row")
+        md-button(ng-click="dialogOptions.close('cancel')") {{dialogOptions.closeButtonText}}
+        md-button(ng-click="dialogOptions.ok('ok')") {{dialogOptions.actionButtonText}}
