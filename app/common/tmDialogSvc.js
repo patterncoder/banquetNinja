@@ -31,7 +31,7 @@ class tmDialogSvc{
             angular.extend(tempDialogOptions, this.dialogOptions, customDialogOptions);
             
             if(!tempDialogDefaults.controller){
-                tempDialogDefaults.controller = function($scope, $mdDialog){
+                tempDialogDefaults.controller = ['$scope','$mdDialog',function($scope, $mdDialog){
                     $scope.dialogOptions = tempDialogOptions;
                     $scope.dialogOptions.ok = function(result){
                         $mdDialog.hide(result);
@@ -39,7 +39,7 @@ class tmDialogSvc{
                     $scope.dialogOptions.close = function(result){
                         $mdDialog.cancel(result);
                     };
-                };
+                }];
                 // function ($scope, $modalInstance) {
                 //     $scope.modalOptions = tempModalOptions;
                 //     $scope.modalOptions.ok = function(result) {
