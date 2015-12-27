@@ -8,7 +8,9 @@ div(flex="100")
             | &nbsp;
             .form-group.margin-left-med
                 select.form-control(ng-model="sortOrder", ng-options="item.value as item.text for item in vm.sortOptions")
-    md-progress-circular(md-mode="indeterminate" ng-show="vm.isLoading")
+    div(layout="row" ng-show="vm.isLoading" layout-align="start end")
+        md-progress-circular(md-mode="indeterminate")
+        p Loading data...
     table.table.table-responsive
         colgroup
             col(span="1")

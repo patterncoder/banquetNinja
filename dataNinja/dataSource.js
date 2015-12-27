@@ -3,6 +3,7 @@ export default class DataSource {
     constructor($cachedResource, definitions){
         this.definitions = definitions;
         this.$cachedResource = $cachedResource;
+        
         this.stack = {};
     }
     

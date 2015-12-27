@@ -22,21 +22,23 @@ class tmMenuItemsCtrl {
     
     loadData () {
         var self = this;
-        this.setLoading(true);
+        //this.setLoading(true);
+        //this.tmNotifier.waiting('loading data...');
         this.MenuItem = this.$dataSource.load('MenuItem');
         this.MenuItem.query().then(function(items){
-            self.setLoading(false);
+            //self.setLoading(false);
+            //self.tmNotifier.clear();
             self.items = items;
         });
     }
     
     addItem(){
-        // var modalConfig = {
-        //     template: require('apply!../../../common/tmModalAddItem.jade'),
-        //     controller: 'tmModalMenuItemAdd as vm'
-        // };
-        // this.tmModalSvc.showModal(modalConfig);
-        this.tmDialogSvc.showDialog();
+        var modalConfig = {
+            template: require('apply!../../../common/tmModalAddItem.jade'),
+            controller: 'tmModalMenuItemAdd as vm'
+        };
+        this.tmModalSvc.showModal(modalConfig);
+        //this.tmDialogSvc.showDialog();
     }
     
     details(id){

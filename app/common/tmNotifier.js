@@ -1,4 +1,6 @@
-function tmNotifier(tmToastr){
+function tmNotifier(tmToastr, $timeout){
+    var timer = 0;
+    
     return {
         conlog: function (msg) {
                 console.log(msg);
@@ -31,9 +33,23 @@ function tmNotifier(tmToastr){
                 };
                 tmToastr.error(msg);
                 console.log(msg);
+            },
+            
+            waiting: function (msg) {
+                
+                tmToastr.options = {
+                    "positionClass": "toast-top-right"
+                };
+                tmToastr.info(msg);
+                console.log(msg);
+                
+                
+            },
+            clear: function(){
+                tmToastr.clear();
             }
     }
 }
 
-tmNotifier.$inject = ['tmToastr'];
+tmNotifier.$inject = ['tmToastr', '$timeout'];
 export default tmNotifier;

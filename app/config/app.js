@@ -13,6 +13,30 @@ import routing from './routing';
 
 module.exports = angular.module('app', [Shell, Features, Common])
     .config(routing)
+    // below here adds notification on every http request...
+    .config(['$httpProvider', function($httpProvider){
+        $httpProvider.interceptors.push(['$q', '$timeout', 'tmNotifier', function($q, $timeout, tmNotifier){
+            var promiseCompleted;
+            return {
+                'request': function(config){
+                    promiseCompleted = false;
+                    $timeout(function(){
+                        if (!promiseCompleted) {
+                            tmNotifier.waiting('loading data...')
+                        }
+                        
+                    }, 1000)
+                    
+                    return config;
+                },
+                'response': function(response){
+                    promiseCompleted = true;
+                    tmNotifier.clear();
+                    return response;
+                }
+            }
+        }])
+    }])
     .run(['$dataSource','$rootScope', function($dataSource, $rootScope){
         $dataSource.init();
         $rootScope.$on('loggedOut', function () {
