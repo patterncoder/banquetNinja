@@ -22,7 +22,7 @@ module.exports = angular.module('app', [Shell, Features, Common])
                     promiseCompleted = false;
                     $timeout(function(){
                         if (!promiseCompleted) {
-                            tmNotifier.waiting('loading data...')
+                            tmNotifier.waiting('communicating with server...');
                         }
                         
                     }, 1000)

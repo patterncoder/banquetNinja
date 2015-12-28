@@ -11,7 +11,8 @@ export default function states($stateProvider) {
                     controller: 'tmLoginCtrl as vm'
                 },
                 'footer': {
-                    template: require('./footer/footer.jade')
+                    template: require('./footer/footer.jade'),
+                    controller: 'tmFooterCtrl as vm'
                 },
                 'navigation': {
                     template: require('./content/navigation.jade'),

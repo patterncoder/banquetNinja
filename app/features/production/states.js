@@ -73,8 +73,8 @@ export default function states($stateProvider){
                 template: require('./menuitems/menuItem-detail.jade'),
                 controller: 'tmMenuItemDetailCtrl',
                 controllerAs: 'vm'
+                }
             }
-        }
         }
     );
         

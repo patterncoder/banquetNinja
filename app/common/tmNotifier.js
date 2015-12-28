@@ -38,7 +38,13 @@ function tmNotifier(tmToastr, $timeout){
             waiting: function (msg) {
                 
                 tmToastr.options = {
-                    "positionClass": "toast-top-right"
+                    "debug": false,
+                    "positionClass": "toast-bottom-full-width",
+                    "onclick": null,
+                    "fadeIn": 300,
+                    "fadeOut": 1000,
+                    "timeOut": 10000,
+                    "extendedTimeOut": 1000
                 };
                 tmToastr.info(msg);
                 console.log(msg);

@@ -9,20 +9,21 @@ class tmMenuItemDetailCtrl {
             $state,
             //$mdDialog,
             //tmDialogSvc,
-            //tmModalSvc,
+            tmModalSvc,
             $scope,
             tmMongoose){
         var self = this;
-        self.err = {};
-        self.$dataSource = $dataSource;
-        self.$scope = $scope;
-        self.$state = $state;
-        self.tmMongoose = tmMongoose;
-        //self.tmModalSvc = tmModalSvc;
+        this.err = {};
+        this.$dataSource = $dataSource;
+        this.$scope = $scope;
+        this.$state = $state;
+        this.tmMongoose = tmMongoose;
+        this.tmModalSvc = tmModalSvc;
         //self.tmDialogSvc = tmDialogSvc;
         //self.$mdDialog = $mdDialog;
-        self.MenuItem = $dataSource.load('MenuItem');
-        self.MenuItem.getOne($stateParams.id, true).then(function(data,status){
+        this.MenuItem = $dataSource.load('MenuItem');
+        this.MenuItem.getOne($stateParams.id, true).then(function(data,status){
+            
             if(data.noData){
                 tmNotifier.notify('That request was not found');
                 //self.$modalInstance.close();
@@ -41,42 +42,25 @@ class tmMenuItemDetailCtrl {
         self.detailForm.$setPristine();
     }
     
+    back(){
+        this.close();
+    }
+    
     close(){
         var self = this;
-        // //self.$mdDialog.hide();
-        // var dialogOptions = {
-        //     closeButtonText: 'No',
-        //     actionButtonText: 'Yes',
-        //     headerText: 'Wait!',
-        //     bodyText: 'Do you want to leave without saving?'
-        // };
-        
-        // self.tmDialogSvc.showDialog({}, dialogOptions);
-        
-        var modalOptions = {
+        if (self.detailForm.$pristine){
+            self.$state.go('root.menuitems');
+        } else {
+            var modalOptions = {
                 closeButtonText: 'No',
                 actionButtonText: 'Yes',
                 headerText: 'Wait!',
                 bodyText: 'Do you want to leave without saving??'
             };
             self.tmModalSvc.showModal({}, modalOptions).then(function(result){
-                    
-                    self.reset();
-                    self.$modalInstance.close();
                     self.$state.go('root.menuitems');
                 });
-            // if(self.detailForm.$pristine) {
-            //     self.$modalInstance.close();
-            //     self.$state.go('root.menuitems');
-            // } 
-            // else {
-            //     self.tmModalSvc.showModal({}, modalOptions).then(function(result){
-                    
-            //         self.reset();
-            //         self.$modalInstance.close();
-            //         self.$state.go('root.menuitems');
-            //     });
-            // }
+        }
     }
     
     saveChanges(){
@@ -101,7 +85,7 @@ tmMenuItemDetailCtrl.$inject = ['$dataSource',
             '$state',
             //'$mdDialog',
             //'tmDialogSvc',
-            //'tmModalSvc',
+            'tmModalSvc',
             '$scope',
             'tmMongoose'];
 

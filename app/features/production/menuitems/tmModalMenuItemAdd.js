@@ -50,7 +50,7 @@ class tmModalMenuItemAdd {
                 self.tmNotifier.notify(data.title + " was successfully added.")
                 self.$modalInstance.dismiss();
                 if (nextView === 'details') {
-                    self.$state.go('menuItemDetail', { id: data._id});
+                    self.$state.go('root.menuItemDetail', { id: data._id});
                 }
         });
     }
