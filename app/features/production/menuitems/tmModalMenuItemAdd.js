@@ -1,3 +1,5 @@
+import productionSchemas from 'ninjaSchemas';
+
 class tmModalMenuItemAdd {
     constructor($dataSource, tmNotifier,
         $modalInstance, $modal, $state){
@@ -11,26 +13,35 @@ class tmModalMenuItemAdd {
         this.modalOptions = {
             headerText: "Add Menu Item"
         };
-        this.fields = [
-            {
-                name: 'name',
-                label: 'Menu Name',
-                value: '',
-                required: true
-            },
-            {
-                name: 'title',
-                label: 'Menu Title',
-                value: '',
-                required: true
-            },
-            {
-                name: 'description',
-                label: 'Menu Description',
-                value: '',
-                required: false
+        //this.requiredSchema = {};
+        for(var k in productionSchemas.menuitem.paths) {
+            if(productionSchemas.menuitem.paths.hasOwnProperty(k) && productionSchemas.menuitem.paths[k].isRequired){
+                //this.requiredSchema[k] = productionSchemas.menuitem.paths[k];
+                console.log(productionSchemas.menuitem.paths[k]);
+                this.fields.push(productionSchemas.menuitem.paths[k]);
             }
-        ];
+        }
+        console.log(this.fields);
+        // this.fields = [
+        //     {
+        //         name: 'name',
+        //         label: 'Menu Name',
+        //         value: '',
+        //         required: true
+        //     },
+        //     {
+        //         name: 'title',
+        //         label: 'Menu Title',
+        //         value: '',
+        //         required: true
+        //     },
+        //     {
+        //         name: 'description',
+        //         label: 'Menu Description',
+        //         value: '',
+        //         required: false
+        //     }
+        // ];
         
     }
     

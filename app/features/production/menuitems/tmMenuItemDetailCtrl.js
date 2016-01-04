@@ -1,4 +1,5 @@
 import angular from 'angular';
+import _ from 'lodash';
 // import productionSchemas from '../../../../schemas/production';
 import {productionSchemas} from 'ninjaSchemas';
 
@@ -32,7 +33,15 @@ class tmMenuItemDetailCtrl {
     loadData () {
         var self = this;
         this.setLoading(true);
+        
+        //console.log(requiredSchema);
         //this.tmNotifier.waiting('loading data...');
+        // _.forEach(productionSchemas.menuitem.paths, function(n, key){
+        //     console.log(n, key);
+        // })
+        // console.log(productionSchemas.menuitem);
+        
+        //console.log(_.pick(productionSchemas.menuitem.paths, 'isRequired'))
         this.MenuItem = this.$dataSource.load('MenuItem');
         this.MenuItem.getOne(this.$stateParams.id, true).then(function(data,status){
             self.setLoading(false);
