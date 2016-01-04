@@ -2,95 +2,28 @@
 
 div.md-dialog-fullscreen(layout="column" layout-fill)
     md-toolbar(layout="row")
-        .md-toolbar-tools
+        .md-toolbar-tools.tm-detailToolbar
             h3 
                 span Menu Item Detail
             span(flex)
             md-button(ng-click="vm.close()" aria-label="close")
                 span.glyphicon.glyphicon-remove
     md-content(flex layout-padding)
-        form.form-horizontal(name="vm.detailForm")
-            fieldset
-                legend Menu Item Detail
-                .form-group
-                    label.col-md-2.control-label(for="name") Name
-                    .col-md-10
-                        input.form-control(name="name", type="text", placeholder="Name", ng-model="vm.menuItem.name", required)
-                .form-group
-                    label.col-md-2.control-label(for="description") Description
-                    .col-md-10
-                        textarea.form-control(name="description", rows="5", placeholder="Description", ng-model="vm.menuItem.description")
-                .form-group
-                    label.col-md-2.control-label(for="category") Categories
-                    .col-md-10
-                        p.form-control-static {{vm.menuItem.category}}
-                        //input.form-control(name="category", type="text", placeholder="Category", ng-model="vm.menuItem.category", required)
-                .form-group
-                    label.col-md-2.control-label(for="selectCategory") Add Category
-                    .col-md-10
-                        select.form-control(name="selectCategory",ng-model="vm.tagSelect", ng-options="item as item for item in vm.miTagList[0].menuItemTags" ng-change="vm.addTag(vm.tagSelect)")
-                .form-group
-                    label.col-md-10.col-md-offset-2
-                        .pull-right
-                            // this button is active if the form is valid and dirty
-                            button.btn.btn-primary(ng-click="vm.submitMenuItem()", ng-disabled="vm.detailForm.$invalid || vm.detailForm.$pristine") Submit
-                            | &nbsp;
-                            //if form is pristine then we allow back without warning
-                            // else we fire the rootScope back method in app.js
-                            a.btn.btn-default(ng-click="vm.back()") Back
-                            //a.btn.btn-default(ng-click="vm.close()") Close
-    div
-        md-toolbar
-//.container-fluid(style="{overflow: scroll; padding-top: 20px}")
-// md-dialog
-//     md-dialog-content
-//         p some text
-//     md-dialog-actions
-//         md-button.md-primary(ng-click="vm.close()") Close Dialog
-// .container-fluid.detailForm
-//     .row.detailHeader
-//         .pull-left
-//             h4 Menu Item Detail
-//         .pull-right
-//                 button.btn.btn-primary(ng-click="vm.close()")
-//                     span.glyphicon.glyphicon-remove
-//     .row.detailContent
-//         form.form-horizontal(name="vm.detailForm")
-//             fieldset
-//                 legend Menu Item Detail
-//                 .form-group
-//                     label.col-md-2.control-label(for="name") Name
-//                     .col-md-10
-//                         input.form-control(name="name", type="text", placeholder="Name", ng-model="vm.menuItem.name", required)
-//                 .form-group
-//                     label.col-md-2.control-label(for="description") Description
-//                     .col-md-10
-//                         textarea.form-control(name="description", rows="5", placeholder="Description", ng-model="vm.menuItem.description")
-//                 .form-group
-//                     label.col-md-2.control-label(for="category") Categories
-//                     .col-md-10
-//                         p.form-control-static {{vm.menuItem.category}}
-//                         //input.form-control(name="category", type="text", placeholder="Category", ng-model="vm.menuItem.category", required)
-//                 .form-group
-//                     label.col-md-2.control-label(for="selectCategory") Add Category
-//                     .col-md-10
-//                         select.form-control(name="selectCategory",ng-model="vm.tagSelect", ng-options="item as item for item in vm.miTagList[0].menuItemTags" ng-change="vm.addTag(vm.tagSelect)")
-//                 .form-group
-//                     label.col-md-10.col-md-offset-2
-//                         .pull-right
-//                             // this button is active if the form is valid and dirty
-//                             button.btn.btn-primary(ng-click="vm.submitMenuItem()", ng-disabled="vm.detailForm.$invalid || vm.detailForm.$pristine") Submit
-//                             | &nbsp;
-//                             //if form is pristine then we allow back without warning
-//                             // else we fire the rootScope back method in app.js
-//                             a.btn.btn-default(ng-click="back(vm.detailForm.$pristine)") Back
-//                             //a.btn.btn-default(ng-click="vm.close()") Close
-//     .row.detailFooter
-//         .pull-left
-//             button.btn.btn-default(ng-click="vm.close()") Cancel
-//         .pull-right
-//             button.btn.btn-primary(ng-click="vm.reset()" ng-disabled="vm.detailForm.$invalid || vm.detailForm.$pristine") Undo Changes
-//             | &nbsp;
-//             button.btn.btn-primary(ng-click="vm.saveChangesAndClose()" ng-disabled="vm.detailForm.$invalid || vm.detailForm.$pristine") Save & Close
-//             | &nbsp;
-//             button.btn.btn-primary(ng-click="vm.saveChanges()" ng-disabled="vm.detailForm.$invalid || vm.detailForm.$pristine") Save & Stay
+        is-loading
+        form(name="vm.detailForm")
+            md-input-container.md-block
+                label Menu Item Name
+                input(ng-model="vm.menuItem.name")
+            md-input-container.md-block
+                label Description
+                input(ng-model="vm.menuItem.description")
+            md-input-container.md-block
+                label Categories
+                input(ng-model="vm.menuItem.category")
+    md-toolbar(layout="row")
+        .md-toolbar-tools.tm-detailToolbar
+            md-button.md-raised(ng-click="vm.close()" aria-label="close") Cancel
+            span(flex)
+            md-button.md-raised(ng-click="vm.reset()" aria-label="" ng-disabled="vm.detailForm.$invalid || vm.detailForm.$pristine") Undo Changes
+            md-button.md-raised(ng-click="" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Stay
+            md-button.md-raised(ng-click="" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Close

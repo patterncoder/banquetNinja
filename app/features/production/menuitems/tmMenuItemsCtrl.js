@@ -1,12 +1,11 @@
 
 class tmMenuItemsCtrl {
-    constructor ($dataSource, tmNotifier, tmDialogSvc, tmModalSvc, $state) {
+    constructor ($dataSource, tmNotifier, tmDialogSvc, $state) {
         //injected dependencies
         this.$dataSource = $dataSource;
         this.$state = $state;
         this.tmNotifier = tmNotifier;
-        this.tmDialogSvc = tmDialogSvc;
-        this.tmModalSvc = tmModalSvc;
+        this.tmDialogSvc = tmDialogSvc
         // local vars
         this.loading = false;
         this.isLoading = false;
@@ -22,11 +21,11 @@ class tmMenuItemsCtrl {
     
     loadData () {
         var self = this;
-        //this.setLoading(true);
+        this.setLoading(true);
         //this.tmNotifier.waiting('loading data...');
         this.MenuItem = this.$dataSource.load('MenuItem');
         this.MenuItem.query().then(function(items){
-            //self.setLoading(false);
+            self.setLoading(false);
             //self.tmNotifier.clear();
             self.items = items;
         });
@@ -38,7 +37,15 @@ class tmMenuItemsCtrl {
             controller: 'tmModalMenuItemAdd as vm'
         };
         this.tmModalSvc.showModal(modalConfig);
-        //this.tmDialogSvc.showDialog();
+    }
+    
+    addItemDialog(){
+        var dialogConfig = {
+            template: require('apply!../../../common/tmDialogAddItem.jade'),
+            controller: 'tmDialogMenuItemAdd as vm',
+            headerText: 'Add Menu Item'
+        };
+        this.tmDialogSvc.showDialog(dialogConfig);
     }
     
     details(id){
@@ -56,6 +63,6 @@ class tmMenuItemsCtrl {
     }
 }
 
-tmMenuItemsCtrl.$inject = ['$dataSource', 'tmNotifier', 'tmDialogSvc', 'tmModalSvc', '$state'];
+tmMenuItemsCtrl.$inject = ['$dataSource', 'tmNotifier', 'tmDialogSvc', '$state'];
 
 export default tmMenuItemsCtrl;

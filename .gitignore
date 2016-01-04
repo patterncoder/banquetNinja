@@ -2,4 +2,7 @@
 
 
 node_modules/*
+
+# These are modules we are in control of 
 !node_modules/mongoose/
+!node_modules/ninjaSchemas

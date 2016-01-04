@@ -4,6 +4,8 @@ import toastr from 'toastr';
 import tmModalSvc from './tmModalSvc';
 import tmDialogSvc from './tmDialogSvc';
 import mongoose from 'mongoose';
+// common directives
+import isLoading from './widgets/isLoading.js';
 
 
 export default angular.module('common', [])
@@ -12,5 +14,6 @@ export default angular.module('common', [])
     .factory('tmNotifier', tmNotifier)
     .service('tmModalSvc', tmModalSvc)
     .service('tmDialogSvc', tmDialogSvc)
+    .directive('isLoading', isLoading)
     .name;
 

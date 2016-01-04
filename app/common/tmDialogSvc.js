@@ -40,15 +40,7 @@ class tmDialogSvc{
                         $mdDialog.cancel(result);
                     };
                 }];
-                // function ($scope, $modalInstance) {
-                //     $scope.modalOptions = tempModalOptions;
-                //     $scope.modalOptions.ok = function(result) {
-                //         $modalInstance.close(result);
-                //     };
-                //     $scope.modalOptions.close = function(result){
-                //         $modalInstance.dismiss('cancel');
-                //     };
-                // };
+                
             }
             return this.$mdDialog.show(tempDialogDefaults);
     }

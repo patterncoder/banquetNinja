@@ -1,5 +1,5 @@
 div(flex="100")
-    .breadcrumb Production > Menu Items
+    ///.breadcrumb Production > Menu Items
     legend Menu Items
     .pull-right
         form.form-inline
@@ -8,9 +8,7 @@ div(flex="100")
             | &nbsp;
             .form-group.margin-left-med
                 select.form-control(ng-model="sortOrder", ng-options="item.value as item.text for item in vm.sortOptions")
-    div(layout="row" ng-show="vm.isLoading" layout-align="start end")
-        md-progress-circular(md-mode="indeterminate")
-        p Loading data...
+    is-loading
     table.table.table-responsive
         colgroup
             col(span="1")
@@ -20,7 +18,7 @@ div(flex="100")
             th Menu Item
             th Description
             th.text-right
-                button.btn.btn-primary.btn-xs(ng-click="vm.addItem()") Add Menu Item
+                button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") Add Menu Item
         tbody
             tr(ng-repeat="menuItem in vm.items | filter:searchText | orderBy:sortOrder")
                 td {{menuItem.name}}

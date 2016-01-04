@@ -1,0 +1,14 @@
+
+md-dialog(aria-label="Dialog Service")
+    md-toolbar(layout-padding)
+        div.md-tooolbar-tools
+            h4 {{vm.dialogOptions.headerText}}
+    md-dialog-content(layout-padding)
+        form(name="addItemForm")
+            md-input-container.md-block(ng-repeat="field in vm.fields")
+                label {{field.label}}
+                input(ng-model="field.value")
+    md-dialog-actions(layout="row")
+        md-button(ng-click="vm.addItem('quick')") Quick Add
+        md-button(ng-click="vm.addItem('details')") Go Details
+        md-button(ng-click="vm.cancel()") Cancel

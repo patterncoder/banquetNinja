@@ -1,5 +1,5 @@
 function tmNotifier(tmToastr, $timeout){
-    var timer = 0;
+    
     
     return {
         conlog: function (msg) {
