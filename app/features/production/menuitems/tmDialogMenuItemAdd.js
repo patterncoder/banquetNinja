@@ -11,26 +11,9 @@ class tmDialogMenuItemAdd {
         this.dialogOptions = {
             headerText: "Add Menu Item"
         };
-        this.fields = [
-            {
-                name: 'name',
-                label: 'Menu Name',
-                value: '',
-                required: true
-            },
-            {
-                name: 'title',
-                label: 'Menu Title',
-                value: '',
-                required: true
-            },
-            {
-                name: 'description',
-                label: 'Menu Description',
-                value: '',
-                required: false
-            }
-        ];
+        this.newItem = {};
+        this.fields = [];
+        this.getFields();
         
     }
     
@@ -38,16 +21,29 @@ class tmDialogMenuItemAdd {
         this.$mdDialog.cancel();
     }
     
+    
+    
+    getFields() {
+        
+        for(var k in productionSchemas.menuitem.paths) {
+            if(productionSchemas.menuitem.paths.hasOwnProperty(k) && productionSchemas.menuitem.paths[k].isRequired){
+                
+                this.fields.push(productionSchemas.menuitem.paths[k]);
+                this.newItem[k] = null;
+            }
+        }
+    }
+    
     addItem (nextView) {
         var self = this;
-        var newMenu = {};
-        for(var i = 0; i < this.fields.length; i++)
-        {
-            newMenu[this.fields[i].name] = this.fields[i].value;
-        }
+        // var newMenu = {};
+        // for(var i = 0; i < this.fields.length; i++)
+        // {
+        //     newMenu[this.fields[i].name] = this.fields[i].value;
+        // }
         
-        this.MenuItem.add(newMenu).then(function(data){
-                self.tmNotifier.notify(data.title + " was successfully added.")
+        this.MenuItem.add(this.newItem).then(function(data){
+                self.tmNotifier.notify(data.name + " was successfully added.")
                 self.$mdDialog.hide();
                 if (nextView === 'details') {
                     self.$state.go('root.menuItemDetail', { id: data._id});
