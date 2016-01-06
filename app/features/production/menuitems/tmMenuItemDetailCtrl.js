@@ -9,7 +9,7 @@ class tmMenuItemDetailCtrl {
             tmNotifier,
             $state,
             //$mdDialog,
-            //tmDialogSvc,
+            tmDialogSvc,
             tmModalSvc,
             $scope,
             tmMongoose){
@@ -19,6 +19,7 @@ class tmMenuItemDetailCtrl {
         this.$stateParams = $stateParams;
         this.$scope = $scope;
         this.$state = $state;
+        this.tmDialogSvc = tmDialogSvc;
         this.tmMongoose = tmMongoose;
         this.tmModalSvc = tmModalSvc;
         this.isLoading = false;
@@ -54,7 +55,14 @@ class tmMenuItemDetailCtrl {
         });
     }
     
-    
+    addItemDialog(){
+        var dialogConfig = {
+            template: require('apply!../../../common/tmDialogAddItem.jade'),
+            controller: 'tmDialogMenuItemAdd as vm',
+            headerText: 'Add Menu Item'
+        };
+        this.tmDialogSvc.showDialog(dialogConfig);
+    }
     
     reset(){
         var self = this;
@@ -71,15 +79,24 @@ class tmMenuItemDetailCtrl {
         if (self.detailForm.$pristine){
             self.$state.go('root.menuitems');
         } else {
-            var modalOptions = {
-                closeButtonText: 'No',
-                actionButtonText: 'Yes',
-                headerText: 'Wait!',
-                bodyText: 'Do you want to leave without saving??'
+            var dialogOptions = {
+                    closeButtonText: 'No',
+                    actionButtonText: 'Yes',
+                    headerText: 'Wait!',
+                    bodyText: 'Do you want to leave without saving??'
             };
-            self.tmModalSvc.showModal({}, modalOptions).then(function(result){
-                    self.$state.go('root.menuitems');
-                });
+            self.tmDialogSvc.showDialog({},dialogOptions).then(function(result){
+                self.$state.go('root.menuitems');
+            });
+            // var modalOptions = {
+            //     closeButtonText: 'No',
+            //     actionButtonText: 'Yes',
+            //     headerText: 'Wait!',
+            //     bodyText: 'Do you want to leave without saving??'
+            // };
+            // self.tmModalSvc.showModal({}, modalOptions).then(function(result){
+            //         self.$state.go('root.menuitems');
+            //     });
         }
     }
     
@@ -104,7 +121,7 @@ tmMenuItemDetailCtrl.$inject = ['$dataSource',
             'tmNotifier', 
             '$state',
             //'$mdDialog',
-            //'tmDialogSvc',
+            'tmDialogSvc',
             'tmModalSvc',
             '$scope',
             'tmMongoose'];

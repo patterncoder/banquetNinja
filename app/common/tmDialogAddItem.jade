@@ -5,9 +5,11 @@ md-dialog(aria-label="Dialog Service")
             h4 {{vm.dialogOptions.headerText}}
     md-dialog-content(layout-padding)
         form(name="addItemForm")
-            md-input-container.md-block(ng-repeat="field in vm.fields | orderBy: 'options.tabOrder'")
+            md-input-container.md-block(ng-class="{'has-error': vm.validationError.errors[field.path].kind}" ng-repeat="field in vm.fields | orderBy: 'options.tabOrder'")
                 label {{field.options.caption}}
                 input(ng-model="vm.newItem[field.path]")
+                .hint(ng-hide="vm.validationError.errors[field.path].kind") {{field.options.hint}}
+                span.help-block(id="field.path" ng-show="vm.validationError.errors[field.path].kind") {{vm.validationError.errors[field.path].message}}
     md-dialog-actions(layout="row")
         md-button(ng-click="vm.addItem('quick')") Quick Add
         md-button(ng-click="vm.addItem('details')") Go Details

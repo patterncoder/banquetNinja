@@ -4,7 +4,6 @@ class tmModalMenuItemAdd {
     constructor($dataSource, tmNotifier,
         $modalInstance, $modal, $state){
         
-        this.getFields();
         this.$modalInstance = $modalInstance;
         this.$dataSource = $dataSource;
         this.tmNotifier = tmNotifier;

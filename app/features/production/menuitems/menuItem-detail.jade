@@ -11,19 +11,40 @@ div.md-dialog-fullscreen(layout="column" layout-fill)
     md-content(flex layout-padding)
         is-loading
         form(name="vm.detailForm")
-            md-input-container.md-block
-                label Menu Item Name
-                input(ng-model="vm.menuItem.name")
-            md-input-container.md-block
-                label Description
-                input(ng-model="vm.menuItem.description")
-            md-input-container.md-block
-                label Categories
-                input(ng-model="vm.menuItem.category")
+            div(layout="row")
+                .md-whiteframe-2dp(flex )
+                    md-content(layout-padding layout="row")
+                        md-input-container.md-block
+                            label Menu Item Name
+                            input(ng-model="vm.menuItem.name" )
+                        md-input-container.md-block
+                            label Description
+                            input(ng-model="vm.menuItem.description")
+                        md-input-container.md-block
+                            label Categories
+                            input(ng-model="vm.menuItem.category")
+            div
+                md-tabs(md-border-bottom)
+                    md-tab(label="Descriptions")
+                        md-content.md-padding
+                            h1 Descriptions
+                    md-tab(label="Linked Items")
+                        md-content.md-padding
+                            h1 Linked Items
+                    md-tab(label="Notes")
+                        md-content.md-padding
+                            h1 Notes
+                    md-tab(label="Pictures")
+                        md-content.md-padding
+                            h1 Pictures
+                    md-tab(label="Directions")
+                        md-content.md-padding
+                            h1 Directions
     md-toolbar(layout="row")
         .md-toolbar-tools.tm-detailToolbar
             md-button.md-raised(ng-click="vm.close()" aria-label="close") Cancel
             span(flex)
+            md-button.md-raised(ng-click="vm.addItemDialog()") Add Menu Item
             md-button.md-raised(ng-click="vm.reset()" aria-label="" ng-disabled="vm.detailForm.$invalid || vm.detailForm.$pristine") Undo Changes
             md-button.md-raised(ng-click="" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Stay
             md-button.md-raised(ng-click="" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Close
