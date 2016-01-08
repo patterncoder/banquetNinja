@@ -26,7 +26,6 @@ class tmMenuItemsCtrl {
         this.MenuItem = this.$dataSource.load('MenuItem');
         this.MenuItem.query().then(function(items){
             self.setLoading(false);
-            //self.tmNotifier.clear();
             self.items = items;
         });
     }

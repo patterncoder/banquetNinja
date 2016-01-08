@@ -24,7 +24,6 @@ class tmDialogMenuItemAdd {
         for(var k in productionSchemas.menuitem.paths) {
             if(productionSchemas.menuitem.paths.hasOwnProperty(k) && productionSchemas.menuitem.paths[k].isRequired){
                 this.fields.push(productionSchemas.menuitem.paths[k]);
-                console.log(productionSchemas.menuitem.paths[k]);
                 this.newItem[k] = null;
             }
         }
@@ -37,7 +36,6 @@ class tmDialogMenuItemAdd {
     
     addItem (nextView) {
         var self = this;
-        console.log(self.newItem);
         self.newItem.validate(function(err){
             if(err){
                 self.validationError = err;

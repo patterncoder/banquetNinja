@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var httpProxy = require('http-proxy');
 
-var proxy = httpProxy.createProxyServer();
+var proxy = httpProxy.createProxyServer({});
 var app = express();
 
 var isProduction = process.env.NODE_ENV === 'production';
@@ -18,6 +18,7 @@ if (!isProduction) {
   // We require the bundler inside the if block because
   // it is only needed in a development environment. Later
   // you will see why this is a good idea
+  console.log("in !production block");
   var bundle = require('./server/bundle.js');
   bundle();
 
@@ -25,7 +26,7 @@ if (!isProduction) {
   // to webpack-dev-server
   app.all('/build/*', function (req, res) {
     console.log('a request that will be proxied');
-    console.log(req);
+    //console.log(req);
     proxy.web(req, res, {
         target: 'http://localhost:8080'
     });
@@ -45,6 +46,11 @@ proxy.on('error', function(e) {
   console.log('Could not connect to proxy, please try again...');
 });
 
+proxy.on('proxyReq', function(proxyReq, req, res, options) {
+    console.log("proxy request coming in");
+  //proxyReq.setHeader('X-Special-Proxy-Header', 'foobar');
+});
+
 app.listen(port, function () {
-  console.log('Server running on port ' + port);
+  console.log('Server.js server running on port ' + port);
 });

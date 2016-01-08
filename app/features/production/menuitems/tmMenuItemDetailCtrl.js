@@ -3,28 +3,36 @@ import _ from 'lodash';
 // import productionSchemas from '../../../../schemas/production';
 import {productionSchemas} from 'ninjaSchemas';
 
+
+
 class tmMenuItemDetailCtrl {
     constructor($dataSource, 
             $stateParams, 
             tmNotifier,
             $state,
-            //$mdDialog,
             tmDialogSvc,
-            tmModalSvc,
             $scope,
             tmMongoose){
         
         this.err = {};
+        this.lookups = {categories:['Soup', 'Salad', 'Entree', 'Dessert']};
+        this.selectedItem = null;
         this.$dataSource = $dataSource;
         this.$stateParams = $stateParams;
+        this.menuItem = {categories:[]};
         this.$scope = $scope;
         this.$state = $state;
         this.tmDialogSvc = tmDialogSvc;
         this.tmMongoose = tmMongoose;
-        this.tmModalSvc = tmModalSvc;
         this.isLoading = false;
         this.loadData();
         
+    }
+    
+    addCategory (category) {
+        this.menuItem.categories.push(this.selectedItem);
+        console.log(this.selectedItem);
+        this.selectedItem = null;
     }
     
     setLoading (loading) {
@@ -34,15 +42,6 @@ class tmMenuItemDetailCtrl {
     loadData () {
         var self = this;
         this.setLoading(true);
-        
-        //console.log(requiredSchema);
-        //this.tmNotifier.waiting('loading data...');
-        // _.forEach(productionSchemas.menuitem.paths, function(n, key){
-        //     console.log(n, key);
-        // })
-        // console.log(productionSchemas.menuitem);
-        
-        //console.log(_.pick(productionSchemas.menuitem.paths, 'isRequired'))
         this.MenuItem = this.$dataSource.load('MenuItem');
         this.MenuItem.getOne(this.$stateParams.id, true).then(function(data,status){
             self.setLoading(false);
@@ -51,6 +50,7 @@ class tmMenuItemDetailCtrl {
                 self.$state.go('root.menuitems')
             }
             self.menuItem = new self.tmMongoose.Document(data, productionSchemas.menuitem);
+            console.log(self.menuItem);
             self.master = angular.copy(data);
         });
     }
@@ -120,9 +120,7 @@ tmMenuItemDetailCtrl.$inject = ['$dataSource',
             '$stateParams', 
             'tmNotifier', 
             '$state',
-            //'$mdDialog',
             'tmDialogSvc',
-            'tmModalSvc',
             '$scope',
             'tmMongoose'];
 

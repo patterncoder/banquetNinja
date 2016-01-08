@@ -3,11 +3,11 @@ import angular from 'angular';
 import Shell from '../shell';
 import Features from '../features';
 import Common from '../common';
+// config is aliased in webpack.config based on environment
 import config from 'config';
 import _ from 'lodash';
 
-//think import config should be deleted
-//import config from 'config';
+
 
 import routing from './routing';
 

@@ -9,25 +9,31 @@ div.md-dialog-fullscreen(layout="column" layout-fill)
             md-button(ng-click="vm.close()" aria-label="close")
                 span.glyphicon.glyphicon-remove
     md-content(flex layout-padding)
-        is-loading
-        form(name="vm.detailForm")
-            div(layout="row")
-                .md-whiteframe-2dp(flex )
-                    md-content(layout-padding layout="row")
+        div
+            form(name="vm.detailForm")
+                div(layout-gt-xs="row")
                         md-input-container.md-block
                             label Menu Item Name
                             input(ng-model="vm.menuItem.name" )
-                        md-input-container.md-block
+                        md-input-container.md-block(flex-gt-sm)
                             label Description
                             input(ng-model="vm.menuItem.description")
-                        md-input-container.md-block
-                            label Categories
-                            input(ng-model="vm.menuItem.category")
+                        // md-input-container.md-block
+                        //     label Categories
+                        //     input(ng-model="vm.menuItem.category")
             div
                 md-tabs(md-border-bottom)
-                    md-tab(label="Descriptions")
-                        md-content.md-padding
-                            h1 Descriptions
+                    md-tab(label="Categories")
+                        // md-content.md-padding(layout="row")
+                        //     div(flex="25")
+                        //         md-chips(ng-model="vm.menuItem.categories" )
+                        //             md-chip-template
+                        //                 {{$chip}}
+                        //         md-select(ng-model="vm.selectedItem" ng-change="vm.addCategory()" aria-label="Assign categories")
+                        //             md-option(ng-repeat="item in vm.lookups.categories") {{item}}
+                            // md-autocomplete(md-input-name="autocompleteField" md-input-minlength="2" md-input-maxlength="18" md-no-cache="vm.noCache" md-selected-item="vm.selectedItem" md-items="item in vm.lookups.categories" md-item-text="item" md-floating-label="Assign Categories")
+                            //     md-item-template
+                            //         span {{item}}
                     md-tab(label="Linked Items")
                         md-content.md-padding
                             h1 Linked Items
