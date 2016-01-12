@@ -21,10 +21,12 @@ div.md-dialog-fullscreen(layout="column" layout-fill)
             div
                 md-tabs(md-border-bottom)
                     md-tab(label="Categories")
-                        md-content.md-padding
+                        md-content.md-padding(flex)
                             h1 Dude you have errors
                             p {{vm.tmMenuItemDocSvc.validationError}}
                             p {{vm.detailForm.$pristine}}
+                            lookups(select-list="menuItemTags" selected-list="categories" doc-service="tmMenuItemDocSvc")
+                            p(ng-repeat="item in vm.tmMenuItemDocSvc.doc.categories") {{item}}
                         // md-content.md-padding(layout="row")
                         //     div(flex="25")
                         //         md-chips(ng-model="vm.menuItem.categories" )

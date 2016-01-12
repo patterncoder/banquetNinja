@@ -58,11 +58,30 @@ function tmMenuItemDocSvc ($q, $dataSource, tmMongoose){
         
     }
     
+    function addCategory(category){
+        var index = this.doc.categories.indexOf(category);
+        if (index === -1) {
+            this.doc.categories.push(category);
+        } else {
+            throw new Error("Category already exists");
+        }
+        
+    }
+    
+    function removeCategory(category){
+        var index = this.doc.categories.indexOf(category);
+        if (index > -1) {
+            this.doc.categories.splice(index, 1);
+        }
+    }
+    
     return {
         loadDocument: loadDocument,
         clearDocument: clearDocument,
         undoChanges: undoChanges,
         saveChanges: saveChanges,
+        addCategory: addCategory,
+        removeCategory: removeCategory,
         isDirty: isDirty,
         doc: doc
     }
