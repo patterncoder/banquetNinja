@@ -12,7 +12,8 @@ export default [
             key: 'MenuItem', 
             url: config.apiBase + '/production/menuitems/:_id', 
             defaults: { _id: "@id" },
-            methods: {update: { method: 'PUT', isArray: false }}
+            methods: {update: { method: 'PUT', isArray: false },
+                        query: { method: 'GET', isArray: false}}
         });
         $dataSourceProvider.addApiRoute({
             key: 'Menu', 

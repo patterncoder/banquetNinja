@@ -22,21 +22,22 @@ export default class CachedResource {
     }
     
     query (queryString) {
-        var deferred = this.$q.defer();
-                var self = this;
-                
-                if (!self.List) {
-                    self.Resource.query(function(data){
-                        self.List = data;
-                        deferred.resolve(self.List);
-                    });
+            var deferred = this.$q.defer();
+            var self = this;
+            
+            if (!self.List) {
+                self.Resource.query(function(data){
                     
-                }
-                else {
+                    self.List = data.data;
                     deferred.resolve(self.List);
-                }
+                });
                 
-                return deferred.promise;
+            }
+            else {
+                deferred.resolve(self.List);
+            }
+            
+            return deferred.promise;
     }
     
     getOne (id,fullDocumentFromDb){
@@ -47,34 +48,37 @@ export default class CachedResource {
                     // this case is pretty rare...it requires putting in a details url with a record
                     // id so we have to first populate the the full list then get the full record of the detail
                     self.Resource.query(function(data){
-                        self.List = data;
-                        self.Resource.get({_id: id}, function (data) {
-                    
+                        self.List = data.data;
+                        self.Resource.get({_id: id}, function (response) {
                             var itemIndex = self.List.map(function (i) {
                                 return i._id;
                                 }).indexOf(id);
-                            self.List[itemIndex] = data;
-                            deferred.resolve(data);
+                            self.List[itemIndex] = response.data;
+                            var dataCopy = angular.copy(response.data);
+                            deferred.resolve(dataCopy);
+                        }, function(error){
+                            console.log(error);
+                            console.log('in reject');
+                            deferred.reject(error);
                         });
                         
                     });
-                    // self.Resource.get({_id: id}, function(data){
-                    //     self.List = data;
-                    //     console.log(data);
-                    //     deferred.resolve(data);
-                        
-                    // });
                 } 
                 else {
                     if (fullDocumentFromDb){
-                        self.Resource.get({_id: id}, function (data) {
-                    
+                        self.Resource.get({_id: id}, function (response) {
+                            if (response.noData){
+                                deferred.reject(response.noData);
+                            }
+                            
                             var itemIndex = self.List.map(function (i) {
                                 return i._id;
                                 }).indexOf(id);
-                            self.List[itemIndex] = data;
-                            var dataCopy = angular.copy(data);
+                            self.List[itemIndex] = response.data;
+                            var dataCopy = angular.copy(response.data);
                             deferred.resolve(dataCopy);
+                            
+                        }, function(error){
                             
                         });
                     }
@@ -85,53 +89,49 @@ export default class CachedResource {
                         }});
                     }
                 }
-                
-                
-                
                 return deferred.promise;
                 
                 
     }
     
     update (item) {
-                //put revised object back in the cache
                 var self = this;
-                var itemIndex = self.List.map(function (i) {
+                return self.Resource.update({ _id: item._id }, item).$promise.then(function(response){
+                    
+                    var itemIndex = self.List.map(function (i) {
                                 return i._id;
-                                }).indexOf(item._id);
-                self.List[itemIndex] = item;
-                delete item.$resolved;
-                var promise = this.Resource.update({ _id: item._id }, item).$promise;
-                console.log(self.List);
-                return promise;
+                                }).indexOf(response.data._id);
+                    self.List[itemIndex] = response.data;
+                    return response.data;
+                },function(err){
+                    return err;
+                });
     }
     
     remove (id) {
                 
                 var self = this;
-                var deferred = this.$q.defer();
-                
-                this.Resource.remove({ _id: id }, function () {
+                return this.Resource.remove({ _id: id }).$promise.then(function () {
                     var item = self.List.map(function (i) {
-                        return i._id;
-                    }).indexOf(id);
+                            return i._id;
+                        }).indexOf(id);
                     self.List.splice(item, 1);
-                    
-                    deferred.resolve(self.List);
-
+                    return self.List;
+                }, function(err){
+                    return err;
                 });
-                
-                return deferred.promise;
-                
 
     }
     
     add (item) {
                 var newItem = new this.Resource(item);
                 var self = this;
-                var promise = newItem.$save(function (i) { self.List.push(i); });
-
-                return promise;
+                return newItem.$save(function(item){
+                    self.List.push(item);
+                    return item;
+                }, function(err){
+                    return err;
+                })
     }
     
     clear () {

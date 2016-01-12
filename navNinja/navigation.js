@@ -1,18 +1,10 @@
 
-// name: 'Users',
-// sortOrder: 30,
-// sref: 'root.users',
-// parent: 'User Admin',
-// endSection: false,
-// roles: ['bronze', 'silver', 'gold', 'admin', 'superUser']
 import _ from 'lodash';
 
 export default function Navigation(graph, tmIdentity){
     
     function treeify(list, idAttr, parentAttr, childrenAttr) {
-        // if (!idAttr) idAttr = 'name';
-        // if (!parentAttr) parentAttr = 'parent';
-        // if (!childrenAttr) childrenAttr = 'links';
+        
         idAttr = idAttr || 'name';
         parentAttr = parentAttr || 'parent';
         childrenAttr = childrenAttr || 'links';

@@ -34,7 +34,7 @@ function tmIdentity($window){
             currentUser = {};
             currentUser.user = getClaimsFromToken($window.sessionStorage['token']);
             //currentUser = JSON.parse($window.sessionStorage['userInfo']);
-        }
+    }
     
     return {
         currentUser: currentUser,

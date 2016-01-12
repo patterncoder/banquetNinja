@@ -25,6 +25,7 @@ class tmMenuItemsCtrl {
         //this.tmNotifier.waiting('loading data...');
         this.MenuItem = this.$dataSource.load('MenuItem');
         this.MenuItem.query().then(function(items){
+            
             self.setLoading(false);
             self.items = items;
         });

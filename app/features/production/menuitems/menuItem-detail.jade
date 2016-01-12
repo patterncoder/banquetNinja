@@ -14,16 +14,17 @@ div.md-dialog-fullscreen(layout="column" layout-fill)
                 div(layout-gt-xs="row")
                         md-input-container.md-block
                             label Menu Item Name
-                            input(ng-model="vm.menuItem.name" )
+                            input(ng-model="vm.tmMenuItemDocSvc.doc.name" )
                         md-input-container.md-block(flex-gt-sm)
                             label Description
-                            input(ng-model="vm.menuItem.description")
-                        // md-input-container.md-block
-                        //     label Categories
-                        //     input(ng-model="vm.menuItem.category")
+                            input(ng-model="vm.tmMenuItemDocSvc.doc.description")
             div
                 md-tabs(md-border-bottom)
                     md-tab(label="Categories")
+                        md-content.md-padding
+                            h1 Dude you have errors
+                            p {{vm.tmMenuItemDocSvc.validationError}}
+                            p {{vm.detailForm.$pristine}}
                         // md-content.md-padding(layout="row")
                         //     div(flex="25")
                         //         md-chips(ng-model="vm.menuItem.categories" )
@@ -34,9 +35,10 @@ div.md-dialog-fullscreen(layout="column" layout-fill)
                             // md-autocomplete(md-input-name="autocompleteField" md-input-minlength="2" md-input-maxlength="18" md-no-cache="vm.noCache" md-selected-item="vm.selectedItem" md-items="item in vm.lookups.categories" md-item-text="item" md-floating-label="Assign Categories")
                             //     md-item-template
                             //         span {{item}}
-                    md-tab(label="Linked Items")
+                    md-tab(label="Errors")
                         md-content.md-padding
-                            h1 Linked Items
+                            h1 Dude you have errors
+                            p {{vm.tmMenuItemDocSvc.validationError}}
                     md-tab(label="Notes")
                         md-content.md-padding
                             h1 Notes
@@ -46,11 +48,12 @@ div.md-dialog-fullscreen(layout="column" layout-fill)
                     md-tab(label="Directions")
                         md-content.md-padding
                             h1 Directions
+    is-loading
     md-toolbar(layout="row")
         .md-toolbar-tools.tm-detailToolbar
             md-button.md-raised(ng-click="vm.close()" aria-label="close") Cancel
             span(flex)
-            md-button.md-raised(ng-click="vm.addItemDialog()") Add Menu Item
-            md-button.md-raised(ng-click="vm.reset()" aria-label="" ng-disabled="vm.detailForm.$invalid || vm.detailForm.$pristine") Undo Changes
-            md-button.md-raised(ng-click="" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Stay
-            md-button.md-raised(ng-click="" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Close
+            md-button.md-raised(ng-click="vm.addItem()") Add Menu Item
+            md-button.md-raised(ng-click="vm.reset()" aria-label="" ng-disabled="vm.detailForm.$pristine") Undo Changes
+            md-button.md-raised(ng-click="vm.saveChanges()" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Stay
+            md-button.md-raised(ng-click="vm.saveChanges(true)" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Close

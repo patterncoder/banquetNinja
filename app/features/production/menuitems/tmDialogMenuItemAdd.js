@@ -49,6 +49,9 @@ class tmDialogMenuItemAdd {
                 if (nextView === 'details') {
                     self.$state.go('root.menuItemDetail', { id: data._id});
                 }
+                if (nextView === 'quick') {
+                    self.$state.go('root.menuitems');
+                }
             });
         });
     }

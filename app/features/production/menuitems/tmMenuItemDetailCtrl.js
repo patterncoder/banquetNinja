@@ -6,33 +6,28 @@ import {productionSchemas} from 'ninjaSchemas';
 
 
 class tmMenuItemDetailCtrl {
-    constructor($dataSource, 
+    constructor( 
+            $q,
+            $dataSource, 
             $stateParams, 
             tmNotifier,
             $state,
             tmDialogSvc,
             $scope,
-            tmMongoose){
-        
-        this.err = {};
-        this.lookups = {categories:['Soup', 'Salad', 'Entree', 'Dessert']};
-        this.selectedItem = null;
+            tmMongoose,
+            tmMenuItemDocSvc){
+        this.$q = $q;
+        this.tmNotifier = tmNotifier;
         this.$dataSource = $dataSource;
         this.$stateParams = $stateParams;
-        this.menuItem = {categories:[]};
         this.$scope = $scope;
         this.$state = $state;
         this.tmDialogSvc = tmDialogSvc;
         this.tmMongoose = tmMongoose;
+        this.tmMenuItemDocSvc = tmMenuItemDocSvc;
         this.isLoading = false;
         this.loadData();
         
-    }
-    
-    addCategory (category) {
-        this.menuItem.categories.push(this.selectedItem);
-        console.log(this.selectedItem);
-        this.selectedItem = null;
     }
     
     setLoading (loading) {
@@ -42,16 +37,18 @@ class tmMenuItemDetailCtrl {
     loadData () {
         var self = this;
         this.setLoading(true);
-        this.MenuItem = this.$dataSource.load('MenuItem');
-        this.MenuItem.getOne(this.$stateParams.id, true).then(function(data,status){
+        this.tmMenuItemDocSvc.loadDocument(this.$stateParams.id).then(function(){
             self.setLoading(false);
-            if(data.noData){
-                self.tmNotifier.notify('That request was not found');
-                self.$state.go('root.menuitems')
+        });
+        
+    }
+    
+    addItem(){
+        var self = this;
+        this.canILeave().then(function(canILeave){
+            if(canILeave){
+                self.addItemDialog();
             }
-            self.menuItem = new self.tmMongoose.Document(data, productionSchemas.menuitem);
-            console.log(self.menuItem);
-            self.master = angular.copy(data);
         });
     }
     
@@ -60,24 +57,24 @@ class tmMenuItemDetailCtrl {
             template: require('apply!../../../common/tmDialogAddItem.jade'),
             controller: 'tmDialogMenuItemAdd as vm',
             headerText: 'Add Menu Item'
-        };
-        this.tmDialogSvc.showDialog(dialogConfig);
+            };
+            this.tmDialogSvc.showDialog(dialogConfig);
     }
     
     reset(){
         var self = this;
-        self.menuItem = angular.copy(self.master);
+        console.log({controllerBeforeReset: self.tmMenuItemDocSvc.doc});
+        self.tmMenuItemDocSvc.undoChanges();
+        console.log({controllerAfterReset:self.tmMenuItemDocSvc.doc});
         self.detailForm.$setPristine();
     }
     
-    back(){
-        this.close();
-    }
-    
-    close(){
-        var self = this;
-        if (self.detailForm.$pristine){
-            self.$state.go('root.menuitems');
+    canILeave(){
+        var deferred = this.$q.defer();
+        var canILeave = false;
+        if (this.allowTransitionAway()) {
+            canILeave = true;
+            deferred.resolve(canILeave);
         } else {
             var dialogOptions = {
                     closeButtonText: 'No',
@@ -85,43 +82,60 @@ class tmMenuItemDetailCtrl {
                     headerText: 'Wait!',
                     bodyText: 'Do you want to leave without saving??'
             };
-            self.tmDialogSvc.showDialog({},dialogOptions).then(function(result){
-                self.$state.go('root.menuitems');
+            this.tmDialogSvc.showDialog({}, dialogOptions).then(function(result){
+                canILeave = true;
+                deferred.resolve(canILeave);
+            },function(result){
+                canILeave = false;
+                deferred.resolve(canILeave);
             });
-            // var modalOptions = {
-            //     closeButtonText: 'No',
-            //     actionButtonText: 'Yes',
-            //     headerText: 'Wait!',
-            //     bodyText: 'Do you want to leave without saving??'
-            // };
-            // self.tmModalSvc.showModal({}, modalOptions).then(function(result){
-            //         self.$state.go('root.menuitems');
-            //     });
         }
+        return deferred.promise;
     }
     
-    saveChanges(){
-        var self = this;
-        self.menuItem.validate(function(err){
-            if(err){
-                self.err = err;
-                console.log(self.err);
-                console.log(err);
-                self.$scope.$apply();
-                return;
-            }
-            console.log('theoretically I could be saved');
-        })
+    allowTransitionAway(){
+        return this.detailForm.$pristine;
     }
+    
+    close(){
+        var self = this;
+        this.canILeave().then(function(canILeave){
+            if(canILeave){
+                self.tmMenuItemDocSvc.clearDocument();
+                self.$state.go('root.menuitems');
+            }
+        });
+    }
+    
+    saveChanges(saveAndGo){
+        var self = this;
+        this.tmMenuItemDocSvc.saveChanges().then(function(){
+            self.detailForm.$setPristine();
+            self.detailForm.$setUntouched();
+            if(saveAndGo){
+                self.close();
+                //self.$state.go('root.menuitems');
+            }
+        }, function(err){
+            console.log('something went wrong');
+        });
+        
+        
+    }
+    
+   
 }
 
 
-tmMenuItemDetailCtrl.$inject = ['$dataSource', 
+tmMenuItemDetailCtrl.$inject = [
+            '$q',
+            '$dataSource', 
             '$stateParams', 
             'tmNotifier', 
             '$state',
             'tmDialogSvc',
             '$scope',
-            'tmMongoose'];
+            'tmMongoose',
+            'tmMenuItemDocSvc'];
 
 export default tmMenuItemDetailCtrl;
