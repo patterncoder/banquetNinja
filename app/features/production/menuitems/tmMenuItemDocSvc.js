@@ -12,10 +12,12 @@ function tmMenuItemDocSvc ($q, $dataSource, tmMongoose){
     function loadDocument(id){
         var self = this;
         return MenuItem.getOne(id, true).then(function(data, status){
-            var tempId = data._id;
-            self.doc = new tmMongoose.Document(data, productionSchemas.menuitem);
-            self.doc._id.id = tempId;
+            //self.doc = new tmMongoose.Document(data, productionSchemas.menuitem);
+            self.validationError = null;
+            self.doc = data;
+            
             self.master = angular.copy(data);
+            
             return data;
         });
     }
@@ -23,19 +25,18 @@ function tmMenuItemDocSvc ($q, $dataSource, tmMongoose){
     function saveChanges(){
         var self = this;
         var deferred = $q.defer();
-        self.doc.validate(function(err){
+        var monDoc = new tmMongoose.Document(self.doc, productionSchemas.menuitem);
+        monDoc.validate(function(err){
             if(err){
                 console.log(err);
                 self.validationError = err;
                 deferred.reject('has errors');
                 return
             }
-            var updatedObject = self.doc.toObject();
-            MenuItem.update(updatedObject).then(function(data){
-                self.doc = null;
-                self.doc = new tmMongoose.Document(data, productionSchemas.menuitem);
-                var tempId = data._id;
-                self.doc._id.id = tempId;
+            
+            MenuItem.update(self.doc).then(function(data){
+                
+                self.doc = data;
                 self.master = angular.copy(data);
                 deferred.resolve();
             });
@@ -53,7 +54,7 @@ function tmMenuItemDocSvc ($q, $dataSource, tmMongoose){
     
     function undoChanges(){
         var self = this;
-        self.doc = new tmMongoose.Document(self.master, productionSchemas.menuitem);
+        self.doc = angular.copy(self.master);
         self.validationError = null;
         
     }

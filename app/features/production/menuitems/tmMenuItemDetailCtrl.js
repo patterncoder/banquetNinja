@@ -16,6 +16,7 @@ class tmMenuItemDetailCtrl {
             $scope,
             tmMongoose,
             tmMenuItemDocSvc){
+        var self = this;
         this.$q = $q;
         this.tmNotifier = tmNotifier;
         this.$dataSource = $dataSource;
@@ -25,6 +26,18 @@ class tmMenuItemDetailCtrl {
         this.tmDialogSvc = tmDialogSvc;
         this.tmMongoose = tmMongoose;
         this.tmMenuItemDocSvc = tmMenuItemDocSvc;
+        
+        this.$scope.$watch(function(){
+            return self.tmMenuItemDocSvc.isDirty();
+        }, function(newVal, oldVal, scope){
+            if(newVal){
+                self.detailForm.$setDirty();
+            } else {
+                self.detailForm.$setPristine();
+                self.detailForm.$setUntouched();
+            }
+        });
+        
         this.isLoading = false;
         this.loadData();
         
@@ -63,10 +76,9 @@ class tmMenuItemDetailCtrl {
     
     reset(){
         var self = this;
-        console.log({controllerBeforeReset: self.tmMenuItemDocSvc.doc});
         self.tmMenuItemDocSvc.undoChanges();
-        console.log({controllerAfterReset:self.tmMenuItemDocSvc.doc});
         self.detailForm.$setPristine();
+        self.detailForm.$setUntouched();
     }
     
     canILeave(){

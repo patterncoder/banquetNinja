@@ -1,33 +1,36 @@
 
-var Controller = ['$dataSource', '$attrs', '$injector', function($dataSource, $attrs, $injector){
+var Controller = ['$dataSource', '$attrs', '$injector', '$scope', function($dataSource, $attrs, $injector, $scope){
+
     var self = this;
-    var Data = $dataSource.load('Lookups');
-    var docService = $injector.get($attrs.docService);
-    console.dir(docService);
+    var docSvc = $attrs.docServiceAddMethod.split('.')[0];
+    var addMethod = $attrs.docServiceAddMethod.split('.')[1];
+    var list = $attrs.list;
+    var Data = $dataSource.load($attrs.tmDataSource);
+    var docService = $injector.get(docSvc);
+    
     Data.query().then(function(data){
-        self.List = data[$attrs.selectList];
+        self.data = data[list];
     });
     
-    this.addItem = function (category){
-        console.log(category);
-        docService.addCategory(category);
-    }
-    
+    this.addItem = function(item){
+        docService[addMethod](item);
+        console.log(item);
+    };
 }];
 
 function tmLookupsDirective (){
-    return {
-        scope: {
-            selectList: '@',
-            selectedList: '@',
-            docService: '@'
-            
-        },
-        restrict: 'E',
+    var DDO = {
         controller: Controller,
-        controllerAs: 'vm',
-        template: require('./lookups.jade')
+        controllerAs: 'ctrl',
+        bindToController: true,
+        compile: function compile(tElement, tAttrs, transclude){
+            return {
+                pre: function preLink(scope, iElement, iAttrs, controller) {  },
+                post: function postLink(scope, iElement, iAttrs, controller) {  }
+            }
+        }
     }
+    return DDO
 }
 
 export default tmLookupsDirective;
