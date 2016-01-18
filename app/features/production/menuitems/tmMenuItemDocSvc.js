@@ -12,12 +12,9 @@ function tmMenuItemDocSvc ($q, $dataSource, tmMongoose){
     function loadDocument(id){
         var self = this;
         return MenuItem.getOne(id, true).then(function(data, status){
-            //self.doc = new tmMongoose.Document(data, productionSchemas.menuitem);
             self.validationError = null;
             self.doc = data;
-            
             self.master = angular.copy(data);
-            
             return data;
         });
     }
@@ -59,14 +56,28 @@ function tmMenuItemDocSvc ($q, $dataSource, tmMongoose){
         
     }
     
+    function addContactType(contactType){
+        var index = this.doc.contactTypes.indexOf(contactType);
+        if(index === -1){
+            this.doc.contactTypes.push(contactType);
+            
+        } else {
+            throw new Error("Contact Type alread exists");
+        }
+    }
+    
     function addCategory(category){
         var index = this.doc.categories.indexOf(category);
         if (index === -1) {
             this.doc.categories.push(category);
+            return this.doc.categories;
         } else {
             throw new Error("Category already exists");
         }
-        
+    }
+    
+    function getCategories(){
+        return this.doc.categories;
     }
     
     function removeCategory(category){
@@ -76,13 +87,23 @@ function tmMenuItemDocSvc ($q, $dataSource, tmMongoose){
         }
     }
     
+    function removeContactType(contactType){
+        var index = this.doc.contactTypes.indexOf(contactType);
+        if (index > -1) {
+            this.doc.contactTypes.splice(index, 1);
+        }
+    }
+    
     return {
         loadDocument: loadDocument,
         clearDocument: clearDocument,
         undoChanges: undoChanges,
         saveChanges: saveChanges,
         addCategory: addCategory,
+        getCategories: getCategories,
         removeCategory: removeCategory,
+        addContactType: addContactType,
+        removeContactType: removeContactType,
         isDirty: isDirty,
         doc: doc
     }

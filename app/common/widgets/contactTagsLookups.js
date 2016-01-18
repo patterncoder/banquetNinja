@@ -2,6 +2,10 @@
 var Controller = ['$dataSource', '$attrs', '$injector', '$scope', function($dataSource, $attrs, $injector, $scope){
 
     var self = this;
+    // var instances = {};
+    // instances[$attrs.id] = {};
+    // instances[$attrs.id][docSvc] = $attrs.docServiceAddMethod.split('.')[0];
+    // instances[$attrs.id]
     var docSvc = $attrs.docServiceAddMethod.split('.')[0];
     var addMethod = $attrs.docServiceAddMethod.split('.')[1];
     var list = $attrs.list;
@@ -14,15 +18,16 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', function($data
     
     this.addItem = function(item){
         docService[addMethod](item);
-        console.log(item);
     };
 }];
 
 function tmLookupsDirective (){
     var DDO = {
+        
         controller: Controller,
-        controllerAs: 'ctrl',
+        controllerAs: 'contactTagsCtrl',
         bindToController: true,
+        template: require('./contactTagsLookup.jade'),
         compile: function compile(tElement, tAttrs, transclude){
             return {
                 pre: function preLink(scope, iElement, iAttrs, controller) {  },

@@ -1,79 +1,121 @@
-
-
 div.md-dialog-fullscreen(layout="column" layout-fill)
     md-toolbar(layout="row")
         .md-toolbar-tools.tm-detailToolbar
             h3 
-                span Menu Item Detail
+                span {{vm.tmMenuItemDocSvc.doc.name}} Detail
             span(flex)
             md-button(ng-click="vm.close()" aria-label="close")
                 span.glyphicon.glyphicon-remove
-    md-content(flex layout-padding)
-        div
-            form(name="vm.detailForm")
-                div(layout-gt-xs="row")
-                        md-input-container.md-block
-                            label Menu Item Name
-                            input(ng-model="vm.tmMenuItemDocSvc.doc.name" )
-                        md-input-container.md-block(flex-gt-sm)
-                            label Description
-                            input(ng-model="vm.tmMenuItemDocSvc.doc.description")
-            div(layout-fill)
-                md-tabs(md-border-bottom)
-                    md-tab(label="Categories")
-                        div(layout="row")
-                            div(flex=33)
-                                p(ng-repeat="item in vm.tmMenuItemDocSvc.doc.categories") {{item}}
-                            div(flex=33)
-                                p(ng-repeat="item in vm.tmMenuItemDocSvc.doc.contactTypes") {{item}}
-                                lookups(tm-data-source="Lookups" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
-                                    p(ng-repeat="item in ctrl.data") 
-                                        a(href="" ng-click="ctrl.addItem(item)") 
-                                            span.glyphicon.glyphicon-circle-arrow-left 
-                                        span &nbsp; {{item}}
-                                        
-                                //lookups(select-list="menuItemTags" selected-list="categories" doc-service="tmMenuItemDocSvc")
-                                // lookups(doc-service="tmMenuItemDocSvc" add-method="addCategory" tm-data-source="Lookups" list="vm.data")
-                                //     p {{item}}
-                                    // a(href="" ng-click="testClick(item)") 
-                                    //     span.glyphicon.glyphicon-circle-arrow-left 
-                                    // span &nbsp; {{item}}
-                                    
-                                    // ul
-                                    //     li(ng-repeat="item in list.menuItemTags") {{item}}
-                                // lookups(doc-service="tmMenuItemDocSvc" add-method="addCategory" tm-data-source="Lookups" list="list")
-                                //     p Add Contact Type
-                                //     ul
-                                //         li(ng-repeat="item in list.contactTags") {{item}}
-                            div(flex=33)
+    div(flex layout="row")
+        // doc content
+        div(flex="80" )
+            md-content()
+                div(layout-padding style="background-color:#f0f0f0")
+                    form(name="vm.detailForm")
+                        div(layout-gt-xs="row")
+                                md-input-container.md-block
+                                    label Menu Item Name
+                                    input(ng-model="vm.tmMenuItemDocSvc.doc.name" )
+                                md-input-container.md-block(flex-gt-sm)
+                                    label Description
+                                    input(ng-model="vm.tmMenuItemDocSvc.doc.description")
+                div(layout-padding layout-fill)
+                    md-tabs(md-border-bottom md-selected="vm.tabIndex")
+                        md-tab(label="Categories")
+                            div(layout="row" layout-padding)
+                                div(flex=33)
+                                    h3 Categories
+                                    div(ng-repeat="item in vm.tmMenuItemDocSvc.doc.categories")
+                                        div(layout="row")
+                                            span  {{item}} 
+                                            span(flex)
+                                            a(href="" ng-click="vm.tmMenuItemDocSvc.removeCategory(item)")
+                                                span.glyphicon.glyphicon-remove
+                                div(flex=33)
+                                    h3 Contact Types
+                                    div(ng-repeat="item in vm.tmMenuItemDocSvc.doc.contactTypes")
+                                        div(layout="row")
+                                            span  {{item}} 
+                                            span(flex)
+                                            a(href="" ng-click="vm.tmMenuItemDocSvc.removeContactType(item)")
+                                                span.glyphicon.glyphicon-remove
+                                div(flex=33)
+                                    h1 Dude you have errors
+                                    p {{vm.tmMenuItemDocSvc.validationError}}
+                                    a(href="" ng-click="vm.toggleRight()") Show nav
+                        md-tab(label="Errors")
+                            div(layout="row" layout-padding)
                                 h1 Dude you have errors
                                 p {{vm.tmMenuItemDocSvc.validationError}}
-                                //p form Is pristine {{vm.detailForm.$pristine}}
-                                //p docService is Dirty {{vm.tmMenuItemDocSvc.isDirty()}}
-                        // md-content.md-padding(layout="row")
-                        //     div(flex="25")
-                        //         md-chips(ng-model="vm.menuItem.categories" )
-                        //             md-chip-template
-                        //                 {{$chip}}
-                        //         md-select(ng-model="vm.selectedItem" ng-change="vm.addCategory()" aria-label="Assign categories")
-                        //             md-option(ng-repeat="item in vm.lookups.categories") {{item}}
-                            // md-autocomplete(md-input-name="autocompleteField" md-input-minlength="2" md-input-maxlength="18" md-no-cache="vm.noCache" md-selected-item="vm.selectedItem" md-items="item in vm.lookups.categories" md-item-text="item" md-floating-label="Assign Categories")
-                            //     md-item-template
-                            //         span {{item}}
-                    md-tab(label="Errors")
-                        md-content.md-padding
-                            h1 Dude you have errors
-                            p {{vm.tmMenuItemDocSvc.validationError}}
-                    md-tab(label="Notes")
-                        md-content.md-padding
-                            h1 Notes
-                    md-tab(label="Pictures")
-                        md-content.md-padding
-                            h1 Pictures
-                    md-tab(label="Directions")
-                        md-content.md-padding
-                            h1 Directions
-    is-loading
+                        md-tab(label="Notes")
+                            div(layout="row" layout-padding)
+                                h1 Notes
+                        md-tab(label="Pictures")
+                            div(layout="row" layout-padding)
+                                h1 Pictures
+                        md-tab(label="Directions")
+                            div(layout="row" layout-padding)
+                                h1 Directions
+        // selectors content
+        div.md-border-left(flex="20" layout-padding style="background-color:#CCFFFF" )
+            md-content(layout-padding style="background: transparent")
+                div(ng-show="vm.tabIndex === 0")
+                    categorylookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
+                div(ng-show="vm.tabIndex === 0")
+                    categorylookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.contactTypes" list="contactTags" doc-service-add-method="tmMenuItemDocSvc.addContactType")
+                // div(ng-show="vm.tabIndex === 1")
+                //     contacttagslookups(tm-data-source="Lookups" list="contactTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
+                        
+                
+
+
+
+
+    // md-content(flex layout-padding)
+    //     div
+    //         form(name="vm.detailForm")
+    //             div(layout-gt-xs="row")
+    //                     md-input-container.md-block
+    //                         label Menu Item Name
+    //                         input(ng-model="vm.tmMenuItemDocSvc.doc.name" )
+    //                     md-input-container.md-block(flex-gt-sm)
+    //                         label Description
+    //                         input(ng-model="vm.tmMenuItemDocSvc.doc.description")
+    //         div(layout-fill)
+    //             md-tabs(md-border-bottom)
+    //                 md-tab(label="Categories")
+    //                     div(layout="row")
+    //                         div(flex=33)
+    //                             p(ng-repeat="item in vm.tmMenuItemDocSvc.doc.categories") {{item}}
+    //                                 a(href="" ng-click="vm.tmMenuItemDocSvc.removeCategory(item)")
+    //                                     span.glyphicon.glyphicon-remove
+    //                         div(flex=33)
+    //                             p(ng-repeat="item in vm.tmMenuItemDocSvc.doc.contactTypes") {{item}}
+                                
+    //                             lookups(tm-data-source="Lookups" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
+    //                                 div(layout="row")
+    //                                     div(ng-repeat="item in dCtrl.data") 
+    //                                         a(href="" ng-click="dCtrl.addItem(item)") 
+    //                                             span.glyphicon.glyphicon-circle-arrow-left 
+    //                                         span &nbsp; {{item}}
+    //                         div(flex=33)
+    //                             h1 Dude you have errors
+    //                             p {{vm.tmMenuItemDocSvc.validationError}}
+    //                             a(href="" ng-click="vm.toggleRight()") Show nav
+    //                 md-tab(label="Errors")
+    //                     md-content.md-padding
+    //                         h1 Dude you have errors
+    //                         p {{vm.tmMenuItemDocSvc.validationError}}
+    //                 md-tab(label="Notes")
+    //                     md-content.md-padding
+    //                         h1 Notes
+    //                 md-tab(label="Pictures")
+    //                     md-content.md-padding
+    //                         h1 Pictures
+    //                 md-tab(label="Directions")
+    //                     md-content.md-padding
+    //                         h1 Directions
+    // is-loading
     md-toolbar(layout="row")
         .md-toolbar-tools.tm-detailToolbar
             md-button.md-raised(ng-click="vm.close()" aria-label="close") Cancel

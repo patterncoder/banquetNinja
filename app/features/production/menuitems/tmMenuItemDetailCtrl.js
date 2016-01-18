@@ -1,6 +1,5 @@
 import angular from 'angular';
 import _ from 'lodash';
-// import productionSchemas from '../../../../schemas/production';
 import {productionSchemas} from 'ninjaSchemas';
 
 
@@ -26,6 +25,9 @@ class tmMenuItemDetailCtrl {
         this.tmDialogSvc = tmDialogSvc;
         this.tmMongoose = tmMongoose;
         this.tmMenuItemDocSvc = tmMenuItemDocSvc;
+        this.tabIndex = 0;
+        // this.$mdSidenav = $mdSidenav;
+        // this.toggleRight = this.buildToggler('right');
         
         this.$scope.$watch(function(){
             return self.tmMenuItemDocSvc.isDirty();
@@ -42,7 +44,16 @@ class tmMenuItemDetailCtrl {
         this.loadData();
         
     }
-    
+    // buildToggler(navId){
+    //     var self = this;
+    //     return function(){
+    //         self.$mdSidenav(navId)
+    //             .toggle()
+    //             .then(function(){
+                    
+    //             });
+    //     }
+    // }
     setLoading (loading) {
         this.isLoading = loading;
     }
@@ -121,12 +132,12 @@ class tmMenuItemDetailCtrl {
     
     saveChanges(saveAndGo){
         var self = this;
+        //if(this.allowTransitionAway()) {this.close()}
         this.tmMenuItemDocSvc.saveChanges().then(function(){
             self.detailForm.$setPristine();
             self.detailForm.$setUntouched();
             if(saveAndGo){
                 self.close();
-                //self.$state.go('root.menuitems');
             }
         }, function(err){
             console.log('something went wrong');
