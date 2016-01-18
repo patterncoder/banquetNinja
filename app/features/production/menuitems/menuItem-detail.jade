@@ -9,7 +9,7 @@ div.md-dialog-fullscreen(layout="column" layout-fill)
     div(flex layout="row")
         // doc content
         div(flex="80" )
-            md-content()
+            md-content(layout="column")
                 div(layout-padding style="background-color:#f0f0f0")
                     form(name="vm.detailForm")
                         div(layout-gt-xs="row")
@@ -60,9 +60,14 @@ div.md-dialog-fullscreen(layout="column" layout-fill)
         div.md-border-left(flex="20" layout-padding style="background-color:#CCFFFF" )
             md-content(layout-padding style="background: transparent")
                 div(ng-show="vm.tabIndex === 0")
-                    categorylookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
-                div(ng-show="vm.tabIndex === 0")
-                    categorylookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.contactTypes" list="contactTags" doc-service-add-method="tmMenuItemDocSvc.addContactType")
+                    h3 Add Category
+                    lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
+                        a(href="" ng-click="dCtrl.addItem(item)") 
+                            span.glyphicon.glyphicon-circle-arrow-left 
+                        span &nbsp; {{item}}
+                    
+                // div(ng-show="vm.tabIndex === 0")
+                //     categorylookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.contactTypes" list="contactTags" doc-service-add-method="tmMenuItemDocSvc.addContactType")
                 // div(ng-show="vm.tabIndex === 1")
                 //     contacttagslookups(tm-data-source="Lookups" list="contactTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
                         

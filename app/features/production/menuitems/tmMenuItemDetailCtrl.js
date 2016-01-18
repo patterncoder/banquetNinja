@@ -1,6 +1,6 @@
 import angular from 'angular';
 import _ from 'lodash';
-import {productionSchemas} from 'ninjaSchemas';
+import {production} from 'ninjaSchemas';
 
 
 

@@ -1,4 +1,4 @@
-import {productionSchemas} from 'ninjaSchemas';
+import {production} from 'ninjaSchemas';
 
 class tmDialogMenuItemAdd {
     constructor($scope, $dataSource, tmNotifier, $state, $mdDialog, tmMongoose){
@@ -13,7 +13,7 @@ class tmDialogMenuItemAdd {
         this.dialogOptions = {
             headerText: "Add Menu Item"
         };
-        this.newItem = new this.tmMongoose.Document({},productionSchemas.menuitem);
+        this.newItem = new this.tmMongoose.Document({},production.MenuItem);
         this.fields = [];
         this.validationError = null;
         this.getFields();
@@ -21,9 +21,9 @@ class tmDialogMenuItemAdd {
     }
     
     getFields() {
-        for(var k in productionSchemas.menuitem.paths) {
-            if(productionSchemas.menuitem.paths.hasOwnProperty(k) && productionSchemas.menuitem.paths[k].isRequired){
-                this.fields.push(productionSchemas.menuitem.paths[k]);
+        for(var k in production.MenuItem.paths) {
+            if(production.MenuItem.paths.hasOwnProperty(k) && production.MenuItem.paths[k].isRequired){
+                this.fields.push(production.MenuItem.paths[k]);
                 this.newItem[k] = null;
             }
         }
@@ -44,6 +44,7 @@ class tmDialogMenuItemAdd {
             }
             delete self.newItem._id;
             self.MenuItem.add(self.newItem).then(function(data){
+                console.log(data);
                 self.tmNotifier.notify(data.name + " was successfully added.")
                 self.$mdDialog.hide();
                 if (nextView === 'details') {

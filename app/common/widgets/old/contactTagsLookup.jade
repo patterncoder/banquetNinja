@@ -1,0 +1,5 @@
+h3 Add Contact Type
+div(ng-repeat="item in contactTagsCtrl.data") 
+    a(href="" ng-click="contactTagsCtrl.addItem(item)") 
+        span.glyphicon.glyphicon-circle-arrow-left 
+    span &nbsp; {{item}}

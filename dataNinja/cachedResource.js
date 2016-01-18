@@ -124,14 +124,23 @@ export default class CachedResource {
     }
     
     add (item) {
-                var newItem = new this.Resource(item);
                 var self = this;
-                return newItem.$save(function(item){
-                    self.List.push(item);
-                    return item;
+                return this.Resource.save(item).$promise.then(function(response){
+                    console.log(response);
+                    self.List.push(response.data);
+                    return response.data;
                 }, function(err){
                     return err;
-                })
+                });
+                // var newItem = new this.Resource(item);
+                // var self = this;
+                // return newItem.$save(function(item){
+                //     console.log(item.data);
+                //     self.List.push(item.data);
+                //     return item.data;
+                // }, function(err){
+                //     return err;
+                // })
     }
     
     clear () {

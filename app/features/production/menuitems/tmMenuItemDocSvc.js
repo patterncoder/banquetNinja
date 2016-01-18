@@ -1,4 +1,4 @@
-import {productionSchemas} from 'ninjaSchemas';
+import ninjaSchemas from 'ninjaSchemas';
 import angular from 'angular';
 
 function tmMenuItemDocSvc ($q, $dataSource, tmMongoose){
@@ -22,7 +22,7 @@ function tmMenuItemDocSvc ($q, $dataSource, tmMongoose){
     function saveChanges(){
         var self = this;
         var deferred = $q.defer();
-        var monDoc = new tmMongoose.Document(self.doc, productionSchemas.menuitem);
+        var monDoc = new tmMongoose.Document(self.doc, ninjaSchemas.production.MenuItem);
         monDoc.validate(function(err){
             if(err){
                 console.log(err);

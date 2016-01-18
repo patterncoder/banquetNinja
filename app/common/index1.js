@@ -8,8 +8,8 @@ import mongoose from 'mongoose';
 import data from './data';
 // common directives
 import isLoading from './widgets/isLoading.js';
-import lookups from './widgets/lookups';
-import inject from './widgets/inject';
+import categoryLookups from './widgets/categoryLookups';
+import contacttagslookups from './widgets/contactTagsLookups';
 
 
 export default angular.module('common', [])
@@ -20,7 +20,7 @@ export default angular.module('common', [])
     .service('tmModalSvc', tmModalSvc)
     .service('tmDialogSvc', tmDialogSvc)
     .directive('isLoading', isLoading)
-    .directive('lookups', lookups)
-    .directive('inject', inject)
+    .directive('categorylookups', categoryLookups)
+    .directive('contacttagslookups', contacttagslookups)
     .name;
 
