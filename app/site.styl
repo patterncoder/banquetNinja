@@ -1,3 +1,13 @@
+ribbonLightBlue = #e3eaf3
+detailPanelVeryLightBlue = #f9fafb
+detailPanelBorder = #e3eaf3
+tableHeaderBlue = #c0d0e4
+buttonBlue = #486c8f
+leftPanelMenuDarkBlue = #193048
+detailHeaderBlue = #486c8f
+detailFooterDarkBlue = #193048
+rightPanelLightBlue = #dae7f1
+
 body
     height 100%
     
@@ -81,6 +91,17 @@ html
 .tm-detailToolbar
     // background-color #6699FF
 
+// Detail Form Style
+// Creates a modalish full size screen
+//  That has scrollable sections
+
+md-toolbar
+    background detailHeaderBlue !important
+
+md-ink-bar
+    color detailHeaderBlue !important
+    background detailHeaderBlue !important
+
 .detailForm
     height 100%
     width 100%
@@ -97,7 +118,8 @@ html
     right 0px
     overflow hidden
     height 50px
-    background-color #c9c9c9
+    color white
+    background-color detailHeaderBlue
     vertical-align middle
 
 .detailContent
@@ -105,11 +127,11 @@ html
     top 50px
     margin 0
     bottom 50px
-    padding 10px
+    //padding 10px
     left 0
     right 0
-    overflow-y auto
-    overflow-x hidden
+    //overflow-y auto
+    //overflow-x hidden
 
 .detailFooter
     position absolute
@@ -120,8 +142,32 @@ html
     left 0
     right 0
     bottom 0
-    background-color #c9c9c9
+    color white
+    background-color detailFooterDarkBlue
     vertical-align middle
+    
+.detailTopPanel
+    background-color ribbonLightBlue
+    border-bottom solid 1px detailPanelBorder
+    //background-image: linear-gradient(to top, #f6f8fb 0%, #f9fafb 100%);
+
+.detailSection
+    //background-color ribbonLightBlue
+    height 100%
+    width 100%
+    min-height 100%
+    overflow-y auto
+    overflow-x hidden
+    
+.detailLeftPanel
+    overflow-y auto
+    overflow-x hidden
+    
+.detailRightPanel
+    background-color rightPanelLightBlue
+    border-left solid 1px detailFooterDarkBlue
+    overflow-y auto
+    overflow-x hidden
 
 @media (min-width: 768px)
     .modal-fs .modal-content
@@ -138,5 +184,39 @@ html
     to      { transform: translateX(-100%); }
 }
 
+@keyframes slideOutRight {
+    from    {  transform: translateX(0); }
+    to      { transform:translateX(100%); }
+}
+
 //[ui-view].ng-enter { animation: slideInRight 0.5s both ease-in; z-index: 8888; }
 //[ui-view].ng-leave { animation: slideOutLeft 0.5s both ease-in; z-index: 9999; }
+
+.flexAnimate
+    transition: all 500ms linear;
+    //flex-grow: 1;
+    //flex-shrink: 1;
+    //flex-basis: auto;
+    //transition: all 2s;
+
+.animate-show {
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px;
+  border-left: 1px solid black;
+  background: white;
+}
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+  //transition: all linear 0.5s;
+  animation: slideInRight 0.5s both ease-in; 
+  z-index: 9999;
+}
+
+.animate-show.ng-hide {
+  //line-height: 0;
+  //opacity: 0;
+  //padding: 0 10px;
+  animation: slideOutRight 0.5s both ease-in; 
+  z-index: 9999;
+}

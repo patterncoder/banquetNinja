@@ -9,7 +9,7 @@ export default function states($stateProvider){
         roles: ['gold', 'admin', 'superUser'],
         views: {
             'content@': {
-                template: require('./menugroups/menugroups.jade'),
+                template: require('./menugroups/menugroups-list.jade'),
                 controller: 'tmMenuGroupsCtrl',
                 controllerAs: 'vm'
             }
@@ -18,10 +18,9 @@ export default function states($stateProvider){
     .state('root.menus', {
         url:'/menus',
         roles: ['gold', 'admin', 'superUser'],
-        isModal: true,
         views: {
             'content@': {
-                template: require('./menus/menus.jade'),
+                template: require('./menus/menus-list.jade'),
                 controller: 'tmMenusCtrl',
                 controllerAs: 'vm'
             }
@@ -75,6 +74,38 @@ export default function states($stateProvider){
             'content@': {
                 template: require('./menuitems/menuItem-detail.jade'),
                 controller: 'tmMenuItemDetailCtrl',
+                controllerAs: 'vm'
+                }
+            }
+        }
+    )
+    .state('root.menuDetail', {
+            url: '/production/menus/:id',
+            roles: ['gold', 'admin', 'superUser'],
+            // Can't remember how the isModal flag works...I'm getting alzheimers!
+            // Oh yeah!!! in the index.html master page the header/nav/footer are visible
+            // when the isModal is false
+            isModal: true,
+            views: {
+            'content@': {
+                template: require('./menus/menu-detail.jade'),
+                controller: 'tmMenuDetailCtrl',
+                controllerAs: 'vm'
+                }
+            }
+        }
+    )
+    .state('root.menuGroupDetail', {
+            url: '/production/menusgroups/:id',
+            roles: ['gold', 'admin', 'superUser'],
+            // Can't remember how the isModal flag works...I'm getting alzheimers!
+            // Oh yeah!!! in the index.html master page the header/nav/footer are visible
+            // when the isModal is false
+            isModal: true,
+            views: {
+            'content@': {
+                template: require('./menugroups/menugroup-detail.jade'),
+                controller: 'tmMenuGroupDetailCtrl',
                 controllerAs: 'vm'
                 }
             }

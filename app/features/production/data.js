@@ -6,7 +6,8 @@ export default [
             key: 'MenuGroup', 
             url: config.apiBase + '/production/menugroups/:_id', 
             defaults: { _id: "@id" },
-            methods: {update: { method: 'PUT', isArray: false }}
+            methods: {update: { method: 'PUT', isArray: false },
+                        query: { method: 'GET', isArray: false}}
         });
         $dataSourceProvider.addApiRoute({
             key: 'MenuItem', 
@@ -19,7 +20,8 @@ export default [
             key: 'Menu', 
             url: config.apiBase + '/production/menus/:_id', 
             defaults: { _id: "@id" },
-            methods: {update: { method: 'PUT', isArray: false }}
+            methods: {update: { method: 'PUT', isArray: false },
+                        query: { method: 'GET', isArray: false}}
         });
     }
 ]

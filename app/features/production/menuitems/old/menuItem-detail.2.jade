@@ -1,0 +1,103 @@
+div.md-dialog-fullscreen(layout="column" layout-fill)
+    md-toolbar(layout="row")
+        .md-toolbar-tools.tm-detailToolbar
+            h3 
+                span {{vm.tmMenuItemDocSvc.doc.name}} Detail
+            span(flex)
+            md-button(ng-click="vm.close()" aria-label="close")
+                span.glyphicon.glyphicon-remove
+    div(flex layout="row")
+        // doc content
+        div(flex)
+            md-content(layout="column")
+                div(layout-padding style="background-color:#f0f0f0")
+                    form(name="vm.detailForm")
+                        div(layout-gt-xs="row")
+                                md-input-container.md-block
+                                    label Menu Item Name
+                                    input(ng-model="vm.tmMenuItemDocSvc.doc.name" )
+                                md-input-container.md-block(flex-gt-sm)
+                                    label Description
+                                    input(ng-model="vm.tmMenuItemDocSvc.doc.description")
+                div(flex layout="column")
+                    md-content(flex)
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        p hello
+                        // md-tabs(layout-fill layout="column" flex md-selected="vm.tabIndex")
+                        //     md-tab(layout-fill flex label="Descriptions")
+                        //             div(layout="row" flex layout-fill layout-padding)
+                        //                 div(flex='33')
+                        //                     h3 Menu Descriptions
+                        //                     p Depending on menu printing requirements each menu item can save multiple descriptions.  
+                        //                         | <em>Romaine lettuce tossed with Caesar dressing</em>
+                        //                         | <em>Romaine | Caesar Dressing | Croutons</em>
+                        //                 div(flex)
+                        //                     h3 Titles
+                        //                     input(ng-Model="vm.newTitle")
+                        //                     md-button(ng-click="vm.addTitle()")
+                        //                         md-icon.glyphicon.glyphicon-plus
+                        //                         | Add Title
+                        //                     div(ng-repeat="title in vm.tmMenuItemDocSvc.doc.title track by $index")
+                        //                         div(layout="row" style="width: 150px")
+                        //                             span {{title}}
+                        //                             span(flex)
+                        //                             a(href="" ng-click="vm.tmMenuItemDocSvc.removeTitle(title)")
+                        //                                 span.glyphicon.glyphicon-remove
+                        //     md-tab(label="Categories")
+                        //         div(layout="row" layout-padding)
+                        //             div(flex=33)
+                        //                 h3 Categories
+                        //                 div(ng-repeat="item in vm.tmMenuItemDocSvc.doc.categories")
+                        //                     div(layout="row" style="width: 150px")
+                        //                         span  {{item}} 
+                        //                         span(flex)
+                        //                         a(href="" ng-click="vm.tmMenuItemDocSvc.removeCategory(item)")
+                        //                             span.glyphicon.glyphicon-remove
+                        //     md-tab(label="Errors")
+                        //         div(layout="row" layout-padding)
+                        //             h3 Tab 1
+                        //     md-tab(label="Notes")
+                        //         div(layout="row" layout-padding)
+                        //             h1 Notes
+                        //     md-tab(label="Pictures")
+                        //         div(layout="row" layout-padding)
+                        //             h1 Pictures
+                        //     md-tab(label="Directions")
+                        //         div(layout="row" layout-padding)
+                        //             h1 Directions
+        div(ng-show="vm.tabIndex === 1" flex="20" layout-padding style="background-color:#CCFFFF" )
+            md-content(layout-padding style="background: transparent")
+                div()
+                    h3 Add Category
+                    lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
+                        a(href="" ng-click="dCtrl.addItem(item)") 
+                            span.glyphicon.glyphicon-circle-arrow-left 
+                        span &nbsp; {{item}}
+    //is-loading
+    md-toolbar(layout="row")
+        .md-toolbar-tools.tm-detailToolbar
+            md-button.md-raised(ng-click="vm.close()" aria-label="close") Cancel
+            span(flex)
+            md-button.md-raised(ng-click="vm.addItem()") Add Menu Item
+            md-button.md-raised(ng-click="vm.reset()" aria-label="" ng-disabled="vm.detailForm.$pristine") Undo Changes
+            md-button.md-raised(ng-click="vm.saveChanges()" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Stay
+            md-button.md-raised(ng-click="vm.saveChanges(true)" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Close

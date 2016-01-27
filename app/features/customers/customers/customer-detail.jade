@@ -1,9 +1,10 @@
 .detailForm
     .detailHeader(layout="row" layout-align="center center" layout-padding)
         div(flex="33" layout="row" layout-align="start center") 
-            h4 {{::vm.tmMenuItemDocSvc.doc.name}} Detail
+            // Header Name Value Here
+            h4 {{vm.docSvc.doc.name}} Detail
         div(flex="33" layout="row" layout-align="center center") 
-            md-button(ng-click="vm.tmMenuItemDocSvc.refreshFromServer()") Refresh
+            md-button(ng-click="vm.docSvc.refreshFromServer()") Refresh
         div(flex="33" layout="row" layout-align="end center") 
             md-button(ng-click="vm.close()" aria-label="close")
                 span.glyphicon.glyphicon-remove
@@ -14,44 +15,35 @@
                     div()
                         form(name="vm.detailForm")
                             div(layout-gt-xs="row" layout-padding)
-                                div(flex="50" layout="column")
+                                div(flex layout="row")
                                     md-input-container.md-block.md-body-2
-                                        label Menu Item Name
-                                        input(ng-model="vm.tmMenuItemDocSvc.doc.name" )
-                                    md-input-container.md-block.md-body-2
-                                        label Description
-                                        input(ng-model="vm.tmMenuItemDocSvc.doc.description")
+                                        label First Name
+                                        input(ng-model="vm.docSvc.doc.firstName" )
+                                    md-input-container.md-block.md-body-2(flex-gt-sm)
+                                        label Last Name
+                                        input(ng-model="vm.docSvc.doc.lastName")
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         md-tab( label="Descriptions")
                                 div(layout="row" flex layout-fill layout-padding)
-                                    div(flex='33')
-                                        h3 Menu Descriptions
-                                        p Depending on menu printing requirements each menu item can save multiple descriptions.  
-                                            | <em>Romaine lettuce tossed with Caesar dressing</em>
-                                            | <em>Romaine | Caesar Dressing | Croutons</em>
-                                    div(flex)
-                                        h3 Titles
-                                        input(ng-Model="vm.newTitle")
-                                        md-button(ng-click="vm.addTitle()")
-                                            md-icon.glyphicon.glyphicon-plus
-                                            | Add Title
-                                        div(ng-repeat="title in vm.tmMenuItemDocSvc.doc.title track by $index")
-                                            div(layout="row" style="width: 150px")
-                                                span {{title}}
-                                                span(flex)
-                                                a(href="" ng-click="vm.tmMenuItemDocSvc.removeTitle(title)")
-                                                    span.glyphicon.glyphicon-remove
-                        md-tab(label="Categories")
+                                    div(layout="column" flex)
+                                        md-input-container.md-block(flex)
+                                            label Title
+                                            input(ng-model="vm.docSvc.doc.firstName")
+                                        md-input-container.md-block(flex)
+                                            label Sub Title
+                                            input(ng-model="vm.docSvc.doc.lastName")
+                        md-tab(label="Sections")
                             div(layout="row" layout-padding)
                                 div(flex=33)
-                                    h3 Categories
-                                    p Categories are used to filter menu items and help with searching.  Categories are added from the Selector Bar over there on the left.
-                                    div(ng-repeat="item in vm.tmMenuItemDocSvc.doc.categories")
+                                    h3 Sections
+                                    p Sections are used for grouping menu items.  Example Appetizers, Soups & Salads, Entrees, etc.
+                                    md-button(ng-click="vm.docSvc.addSection()") Add Section
+                                    div(ng-repeat="item in vm.docSvc.doc.sections track by $index")
                                         div(layout="row" style="width: 150px")
-                                            span  {{item}} 
+                                            span  {{item.title}} 
                                             span(flex)
-                                            a(href="" ng-click="vm.tmMenuItemDocSvc.removeCategory(item)")
+                                            a(href="" ng-click="vm.docSvc.removeSection($index)")
                                                 span.glyphicon.glyphicon-remove
                         md-tab(label="Notes")
                             md-content

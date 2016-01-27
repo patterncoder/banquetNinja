@@ -1,6 +1,5 @@
 div(flex="100")
-    ///.breadcrumb Production > Menu Items
-    legend Menu Items
+    legend Menus
     .pull-right
         form.form-inline
             .form-group
@@ -15,10 +14,10 @@ div(flex="100")
             col(span="1")
             col.tableNav(span="1")
         thead
-            th Menu Item
+            th Menu
             th Description
             th.text-right
-                button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") Add Menu Item
+                button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") Add Menu
         tbody
             tr(ng-repeat="menuItem in vm.items | filter:searchText | orderBy:sortOrder")
                 td {{::menuItem.name}}
@@ -28,5 +27,5 @@ div(flex="100")
                     a(href="" ng-click="vm.details(menuItem._id)")
                         span.glyphicon.glyphicon-pencil
                     | &nbsp; | &nbsp;
-                    a(href="" ng-click="vm.deleteMenuItem(menuItem._id)")
+                    a(href="" ng-click="vm.deleteItem(menuItem._id)")
                         span.glyphicon.glyphicon-remove

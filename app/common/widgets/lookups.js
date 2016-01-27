@@ -8,23 +8,23 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', '$timeout', fu
     var docSvc = $attrs.docServiceAddMethod.split('.')[0];
     var addMethod = $attrs.docServiceAddMethod.split('.')[1];
     var list = $attrs.list;
-    console.log({docSvc: docSvc, addMethod: addMethod, list: list});
+    //console.log({docSvc: docSvc, addMethod: addMethod, list: list});
     self.docList = [];
     var Data = $dataSource.load($attrs.tmDataSource);
     self.docService = $injector.get(docSvc);
     self.fullList = [];
     self.data = [];
     self.dataTest = [];
-    console.log($scope);
+    //console.log($scope);
     
     this.updateList = function(){
-        console.log(self.docList);
+        //console.log(self.docList);
         self.data = _.difference(self.fullList, self.docList);
     };
     
     $scope.$watchCollection('dCtrl.docList', function(newValue, oldValue){
         self.updateList();
-        console.log('asdfasdf');
+        //console.log('asdfasdf');
     });
     
     Data.query().then(function(data){

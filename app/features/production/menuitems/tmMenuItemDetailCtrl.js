@@ -1,6 +1,6 @@
 import angular from 'angular';
 import _ from 'lodash';
-import {production} from 'ninjaSchemas';
+import ninjaSchemas from 'ninjaSchemas';
 
 
 
@@ -14,8 +14,11 @@ class tmMenuItemDetailCtrl {
             tmDialogSvc,
             $scope,
             tmMongoose,
-            tmMenuItemDocSvc){
+            tmMenuItemDocSvc,
+            tmWindowStorage,
+            tmDocFactory){
         var self = this;
+        // DI
         this.$q = $q;
         this.tmNotifier = tmNotifier;
         this.$dataSource = $dataSource;
@@ -25,10 +28,11 @@ class tmMenuItemDetailCtrl {
         this.tmDialogSvc = tmDialogSvc;
         this.tmMongoose = tmMongoose;
         this.tmMenuItemDocSvc = tmMenuItemDocSvc;
+        this.tmWindowStorage = tmWindowStorage;
+        // Vars
+        this.closeDropDown = 'saveStay';
         this.tabIndex = 0;
-        // this.$mdSidenav = $mdSidenav;
-        // this.toggleRight = this.buildToggler('right');
-        
+        // 
         this.$scope.$watch(function(){
             return self.tmMenuItemDocSvc.isDirty();
         }, function(newVal, oldVal, scope){
@@ -39,7 +43,11 @@ class tmMenuItemDetailCtrl {
                 self.detailForm.$setUntouched();
             }
         });
-        
+        // this.setUISettings();
+        // setTimeout(function(){
+        //     console.log(self.getUISettings());
+        // },1000);
+        console.log(tmMenuItemDocSvc);
         this.isLoading = false;
         this.loadData();
         
@@ -92,6 +100,11 @@ class tmMenuItemDetailCtrl {
         self.detailForm.$setUntouched();
     }
     
+    addTitle(item){
+        this.tmMenuItemDocSvc.addTitle(this.newTitle);
+        this.newTitle = null;
+    }
+    
     canILeave(){
         var deferred = this.$q.defer();
         var canILeave = false;
@@ -130,17 +143,30 @@ class tmMenuItemDetailCtrl {
         });
     }
     
+    setUISettings() {
+        this.tmWindowStorage.setLocalKey('closeDropDown', this.closeDropDown)
+    }
+    
+    getUISettings() {
+        this.closeDropDown = this.tmWindowStorage.getLocalKey('closeDropDown');
+    }
+    
+    openSaveMenu ($mdOpenMenu, ev) {
+        $mdOpenMenu(ev);
+    }
+    
     saveChanges(saveAndGo){
         var self = this;
         //if(this.allowTransitionAway()) {this.close()}
         this.tmMenuItemDocSvc.saveChanges().then(function(){
             self.detailForm.$setPristine();
             self.detailForm.$setUntouched();
+            self.tmNotifier.notify("Menu Item has been saved.")
             if(saveAndGo){
                 self.close();
             }
         }, function(err){
-            console.log('something went wrong');
+            self.tmNotifier.error("There was  problem with saving...try again.")
         });
         
         
@@ -148,7 +174,6 @@ class tmMenuItemDetailCtrl {
     
    
 }
-
 
 tmMenuItemDetailCtrl.$inject = [
             '$q',
@@ -159,6 +184,8 @@ tmMenuItemDetailCtrl.$inject = [
             'tmDialogSvc',
             '$scope',
             'tmMongoose',
-            'tmMenuItemDocSvc'];
+            'tmMenuItemDocSvc',
+            'tmWindowStorage',
+            'tmDocFactory'];
 
 export default tmMenuItemDetailCtrl;

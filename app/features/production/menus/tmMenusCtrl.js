@@ -1,17 +1,25 @@
 
+import ninjaSchemas from 'ninjaSchemas';
 
 class tmMenusCtrl {
-    constructor($dataSource){
-        var self = this;
-        this.$dataSource = $dataSource;
-        this.test = "this is test";
-        var Menu = this.$dataSource.load('Menu');
-        Menu.query().then(function(items){
-            self.items = items;
-        });
+    constructor($scope, tmListFactory){
+        
+        var constructorArgs = {
+            schema: ninjaSchemas.production.Menu,
+            model: 'Menu',
+            listView: 'root.menus',
+            detailView: 'root.menuDetail',
+            addHeaderText: 'Add Menu',
+            
+        };
+        
+        this.__proto__ = tmListFactory(constructorArgs);
+        this.loadData();
+        
     }
+    
 }
 
-tmMenusCtrl.$inject = ['$dataSource'];
+tmMenusCtrl.$inject = ['$scope', 'tmListFactory'];
 
 export default tmMenusCtrl;

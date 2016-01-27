@@ -41,7 +41,8 @@ class tmDialogSvc{
                     };
                 }];
                 
-            }
+            } 
+            
             return this.$mdDialog.show(tempDialogDefaults);
     }
 }

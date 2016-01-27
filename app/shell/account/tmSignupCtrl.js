@@ -1,6 +1,6 @@
 import config from 'config';
 //import {signup as signUpSchema} from '../../../schemas/account';
-import accountSchemas from '../../../schemas/account';
+import ninjaSchemas from 'ninjaSchemas';
 import _ from 'lodash';
 
 
@@ -12,7 +12,7 @@ class SignupCtrl {
         this.tmMongoose = tmMongoose;
         this.validationError = null;
         this.httpValidationError = {errors: {}};
-        this.accountData = new this.tmMongoose.Document({},accountSchemas.signup);
+        this.accountData = new this.tmMongoose.Document({},ninjaSchemas.account.Signup);
     }
     
     validateField() {

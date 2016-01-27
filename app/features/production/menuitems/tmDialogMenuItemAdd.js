@@ -44,7 +44,6 @@ class tmDialogMenuItemAdd {
             }
             delete self.newItem._id;
             self.MenuItem.add(self.newItem).then(function(data){
-                console.log(data);
                 self.tmNotifier.notify(data.name + " was successfully added.")
                 self.$mdDialog.hide();
                 if (nextView === 'details') {

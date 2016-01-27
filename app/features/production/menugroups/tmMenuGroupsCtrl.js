@@ -1,18 +1,25 @@
-
+import ninjaSchemas from 'ninjaSchemas';
 
 class tmMenuGroupsCtrl {
-    constructor ($dataSource) {
-        var vm = this;
-        vm.$dataSource = $dataSource;
-        vm.title = "hello";
-        vm.subTitle = "whats up";
-        var MenuGroup = vm.$dataSource.load('MenuGroup');
-        MenuGroup.query().then(function(items){
-            vm.items = items;
-        });
+    constructor($scope, tmListFactory){
+        
+        var constructorArgs = {
+            schema: ninjaSchemas.production.MenuGroup,
+            model: 'MenuGroup',
+            listView: 'root.menugroups',
+            detailView: 'root.menuGroupDetail',
+            addHeaderText: 'Add Menu Group',
+            
+        };
+        
+        this.__proto__ = tmListFactory(constructorArgs);
+        this.loadData();
+        
     }
+    
 }
 
-tmMenuGroupsCtrl.$inject = ['$dataSource'];
+tmMenuGroupsCtrl.$inject = ['$scope', 'tmListFactory'];
 
 export default tmMenuGroupsCtrl;
+

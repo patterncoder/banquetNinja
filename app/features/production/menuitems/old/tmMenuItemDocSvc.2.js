@@ -3,10 +3,10 @@ import angular from 'angular';
 
 function tmMenuItemDocSvc (tmDocFactory){
     
-    this.__proto__ = tmDocFactory('MenuItem', ninjaSchemas.production.MenuItem);
+    var baseDoc = tmDocFactory('MenuItem', ninjaSchemas.production.MenuItem);
     
     
-    this.addContactType = function (contactType){
+    function addContactType(contactType){
         var index = this.doc.contactTypes.indexOf(contactType);
         if(index === -1){
             this.doc.contactTypes.push(contactType);
@@ -15,7 +15,7 @@ function tmMenuItemDocSvc (tmDocFactory){
         }
     }
     
-    this.addCategory = function (category){
+    function addCategory(category){
         var index = this.doc.categories.indexOf(category);
         if (index === -1) {
             this.doc.categories.push(category);
@@ -25,7 +25,7 @@ function tmMenuItemDocSvc (tmDocFactory){
         }
     }
     
-    this.addTitle = function (title){
+    function addTitle(title){
         var index = this.doc.title.indexOf(title)
         if (index === -1) {
             this.doc.title.push(title);
@@ -35,18 +35,18 @@ function tmMenuItemDocSvc (tmDocFactory){
         }
     }
     
-    this.removeTitle = function (title){
+    function removeTitle(title){
         var index = this.doc.title.indexOf(title);
         if (index > -1) {
             this.doc.title.splice(index, 1);
         }
     }
     
-    this.getCategories = function (){
+    function getCategories(){
         return this.doc.categories;
     }
     
-    this.removeCategory = function (category){
+    function removeCategory(category){
         var index = this.doc.categories.indexOf(category);
         if (index > -1) {
             this.doc.categories.splice(index, 1);
@@ -55,8 +55,17 @@ function tmMenuItemDocSvc (tmDocFactory){
     
     
     
+    var menuItemDocSvc = {
+        addCategory: addCategory,
+        getCategories: getCategories,
+        removeCategory: removeCategory,
+        addTitle: addTitle,
+        removeTitle: removeTitle
+    };
     
-    return this;
+    menuItemDocSvc.__proto__ = baseDoc;
+    
+    return  menuItemDocSvc;
     
 }
 

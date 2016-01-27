@@ -126,7 +126,7 @@ export default class CachedResource {
     add (item) {
                 var self = this;
                 return this.Resource.save(item).$promise.then(function(response){
-                    console.log(response);
+                    
                     self.List.push(response.data);
                     return response.data;
                 }, function(err){
