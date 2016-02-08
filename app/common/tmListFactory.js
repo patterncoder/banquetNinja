@@ -72,9 +72,20 @@ function BaseList (
     
     this.deleteItem = function(id){
         var self = this;
-        self.Model.remove(id).then(function(collection){
+        var dialogOptions = {
+                    closeButtonText: 'No',
+                    actionButtonText: 'Yes',
+                    headerText: 'Delete?',
+                    bodyText: 'Do you want to delete this record and all associated data?'
+            };
+        self.tmDialogSvc.showDialog({},dialogOptions).then(function(){
+            self.Model.remove(id).then(function(collection){
             self.tmNotifier.notify("The item has been deleted");
             self.items = collection;
-        })
+            });
+        },function(){
+            
+        });
+        
     }
 }

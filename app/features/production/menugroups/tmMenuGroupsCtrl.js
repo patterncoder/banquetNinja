@@ -9,7 +9,7 @@ class tmMenuGroupsCtrl {
             listView: 'root.menugroups',
             detailView: 'root.menuGroupDetail',
             addHeaderText: 'Add Menu Group',
-            
+            listTitle: 'Menu Groups'
         };
         
         this.__proto__ = tmListFactory(constructorArgs);

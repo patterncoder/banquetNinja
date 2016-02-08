@@ -11,6 +11,6 @@ md-dialog(aria-label="Dialog Service")
                 .hint(ng-hide="vm.validationError.errors[field.path].kind") {{field.options.hint}}
                 span.help-block(id="field.path" ng-show="vm.validationError.errors[field.path].kind") {{vm.validationError.errors[field.path].message}}
     md-dialog-actions(layout="row")
-        md-button(ng-click="vm.addItem('quick')") Quick Add
-        md-button(ng-click="vm.addItem('details')") Go Details
-        md-button(ng-click="vm.cancel()") Cancel
+        md-button.md-raised(ng-click="vm.addItem('quick')") Quick Add
+        md-button.md-raised(ng-click="vm.addItem('details')") Go Details
+        md-button.md-raised(ng-click="vm.cancel()") Cancel

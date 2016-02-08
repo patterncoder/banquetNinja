@@ -18,7 +18,7 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
     this.doc = {};
     this.master = {};
     this.validationError = null;
-    
+    this.tmMongoose = tmMongoose;
     // Set data source model item here
     //var docModel;
     this.docModel = $dataSource.load(model);
@@ -49,6 +49,7 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
             if(err){
                 console.log(err);
                 self.validationError = err;
+                console.log(self.validationError);
                 deferred.reject('has errors');
                 return
             }

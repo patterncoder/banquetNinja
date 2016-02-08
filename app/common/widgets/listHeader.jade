@@ -1,0 +1,12 @@
+legend {{::vm.constructorArgs.listTitle}}
+.listHeaderFilters(layout="row")
+    div(flex="50")
+        is-loading
+    div(flex="50" layout="row" layout-align="end")
+        form.form-inline
+            .form-group
+                input.form-control(ng-model="searchText", placeholder="Filter")
+            | &nbsp;
+            .form-group.margin-left-med
+                select.form-control(ng-model="sortOrder", ng-options="item.value as item.text for item in vm.sortOptions")
+    

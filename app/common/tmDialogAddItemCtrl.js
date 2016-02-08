@@ -58,7 +58,7 @@ class tmDialogAddItem {
             }
             delete self.newItem._id;
             self.model.add(self.newItem).then(function(data){
-                self.tmNotifier.notify(data.name + " was sucessfully added.")
+                self.tmNotifier.notify("Item was sucessfully added.")
                 self.$mdDialog.hide();
                 if (nextView === 'details') {
                     self.$state.go(self.detailView, { id: data._id});

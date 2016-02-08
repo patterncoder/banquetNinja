@@ -1,32 +1,23 @@
 div(flex="100")
-    ///.breadcrumb Production > Menu Items
-    legend Menu Items
-    .pull-right
-        form.form-inline
-            .form-group
-                input.form-control(ng-model="searchText", placeholder="Filter")
-            | &nbsp;
-            .form-group.margin-left-med
-                select.form-control(ng-model="sortOrder", ng-options="item.value as item.text for item in vm.sortOptions")
-    is-loading
+    list-header
     table.table.table-responsive
         colgroup
             col(span="1")
             col(span="1")
             col.tableNav(span="1")
         thead
-            th Menu Item
+            th Menu Group
             th Description
             th.text-right
-                button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") Add Menu Item
+                button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
         tbody
-            tr(ng-repeat="menuItem in vm.items | filter:searchText | orderBy:sortOrder")
-                td {{::menuItem.name}}
-                td {{::menuItem.description}}
+            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
+                td {{::item.name}}
+                td {{::item.description}}
                 td.text-right
                     //button.btn.btn-primary.btn-xs(ng-click="vm.details(menuItem._id)") Edit
-                    a(href="" ng-click="vm.details(menuItem._id)")
+                    a(href="" ng-click="vm.details(item._id)")
                         span.glyphicon.glyphicon-pencil
                     | &nbsp; | &nbsp;
-                    a(href="" ng-click="vm.deleteMenuItem(menuItem._id)")
+                    a(href="" ng-click="vm.deleteItem(item._id)")
                         span.glyphicon.glyphicon-remove

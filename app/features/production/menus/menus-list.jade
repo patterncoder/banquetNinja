@@ -1,13 +1,5 @@
 div(flex="100")
-    legend Menus
-    .pull-right
-        form.form-inline
-            .form-group
-                input.form-control(ng-model="searchText", placeholder="Filter")
-            | &nbsp;
-            .form-group.margin-left-med
-                select.form-control(ng-model="sortOrder", ng-options="item.value as item.text for item in vm.sortOptions")
-    is-loading
+    list-header
     table.table.table-responsive
         colgroup
             col(span="1")
@@ -17,7 +9,7 @@ div(flex="100")
             th Menu
             th Description
             th.text-right
-                button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") Add Menu
+                button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
         tbody
             tr(ng-repeat="menuItem in vm.items | filter:searchText | orderBy:sortOrder")
                 td {{::menuItem.name}}

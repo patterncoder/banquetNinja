@@ -1,13 +1,5 @@
 .detailForm
-    .detailHeader(layout="row" layout-align="center center" layout-padding)
-        div(flex="33" layout="row" layout-align="start center") 
-            // Header Name Value Here
-            h4 {{vm.docSvc.doc.name}} Detail
-        div(flex="33" layout="row" layout-align="center center") 
-            md-button(ng-click="vm.docSvc.refreshFromServer()") Refresh
-        div(flex="33" layout="row" layout-align="end center") 
-            md-button(ng-click="vm.close()" aria-label="close")
-                span.glyphicon.glyphicon-remove
+    detail-header
     .detailContent(layout="row" flex)
         div.detailLeftPanel(flex layout="column")
             div.detailLeftPanelContainer(layout-fill)
@@ -61,21 +53,4 @@
                         a(href="" ng-click="dCtrl.addItem(item)") 
                             span.glyphicon.glyphicon-circle-arrow-left 
                         span &nbsp; {{item}}
-    .detailFooter(layout="row" layout-align="center center" layout-padding)
-        div(flex="33" layout="row" layout-align="start center") 
-            md-button.md-raised(ng-click="vm.close()" aria-label="close") Cancel
-        div(flex="33" layout="row" layout-align="center center") 
-            div Middle Footer
-        div(flex="33" layout="row" layout-align="end center") 
-            md-button.md-raised(ng-click="vm.addItem()") Add
-            md-button.md-raised(ng-click="vm.reset()" aria-label="" ng-disabled="vm.detailForm.$pristine") Undo
-            // md-menu
-            //     md-button(ng-click="vm.openSaveMenu($mdOpenMenu, $event)") Save
-            //     md-menu-content
-            //         md-menu-item
-            //             md-button(ng-click="vm.setSaveButton('close')") Save & Close
-            //         md-menu-item
-            //             md-button(ng-click="vm.setSaveButton('stay')") Save & Stay
-                    
-            md-button.md-raised(ng-click="vm.saveChanges()" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Stay
-            md-button.md-raised(ng-click="vm.saveChanges(true)" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Close
+    detail-footer

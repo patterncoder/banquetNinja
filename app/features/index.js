@@ -1,13 +1,15 @@
 import angular from 'angular';
 
 import Home from './home';
-import Users from './users'
+import Administration from './administration'
 import Production from './production';
 import Customers from './customers';
+import Events from './events';
 
 export default angular.module('Features', [
     Home,
-    Users,
+    Administration,
     Production,
-    Customers
+    Customers,
+    Events
 ]).name;

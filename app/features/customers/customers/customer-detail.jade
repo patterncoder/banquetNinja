@@ -1,30 +1,74 @@
 .detailForm
-    .detailHeader(layout="row" layout-align="center center" layout-padding)
-        div(flex="33" layout="row" layout-align="start center") 
-            // Header Name Value Here
-            h4 {{vm.docSvc.doc.name}} Detail
-        div(flex="33" layout="row" layout-align="center center") 
-            md-button(ng-click="vm.docSvc.refreshFromServer()") Refresh
-        div(flex="33" layout="row" layout-align="end center") 
-            md-button(ng-click="vm.close()" aria-label="close")
-                span.glyphicon.glyphicon-remove
+    detail-header
     .detailContent(layout="row" flex)
         div.detailLeftPanel(flex layout="column")
             div.detailLeftPanelContainer(layout-fill)
                 div.detailTopPanel(layout-padding)
-                    div()
-                        form(name="vm.detailForm")
-                            div(layout-gt-xs="row" layout-padding)
-                                div(flex layout="row")
-                                    md-input-container.md-block.md-body-2
-                                        label First Name
-                                        input(ng-model="vm.docSvc.doc.firstName" )
-                                    md-input-container.md-block.md-body-2(flex-gt-sm)
-                                        label Last Name
-                                        input(ng-model="vm.docSvc.doc.lastName")
-                div.detailSection(layout-padding)
+                    form(name="vm.detailForm")
+                        div(layout-gt-xs="row" layout-padding)
+                            div(flex layout="row")
+                                .form-group
+                                    label.control-label(for="firstName") First Name
+                                    input.form-control(name="firstName" placeholder="First Name" ng-model="vm.docSvc.doc.firstName")
+                                .form-group
+                                    label.control-label(for="lastName") Last Name
+                                    input.form-control(name="lastName" placeholder="Last Name" ng-model="vm.docSvc.doc.lastName")
+                div.detailSection(layout-padding style="min-height: 400px")
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
-                        md-tab( label="Descriptions")
+                        md-tab( label="Contact Information")
+                                div(layout="row" flex layout-fill layout-padding)
+                                    div(layout="column" flex="33")
+                                        div.itemCardHeader(layout="row")
+                                            div
+                                                h4 Phone Numbers
+                                            div(flex)
+                                            div
+                                                h4
+                                                    a(href="" ng-click="vm.addPhoneNumber()")
+                                                        span.glyphicon.glyphicon-plus
+                                        div.itemCard(ng-repeat="phoneNumber in vm.docSvc.doc.phoneNumbers")
+                                            div.pull-right
+                                                a(href="" ng-click="vm.addPhoneNumber($index, phoneNumber)" style="padding-right: 5px") Edit
+                                                    //span.glyphicon.glyphicon-pencil
+                                                a(href="" ng-click="vm.removePhoneNumber($index)") Delete
+                                                    //span.glyphicon.glyphicon-remove
+                                            div {{::phoneNumber.number | tmPhoneFilter}} ({{::phoneNumber.contactType}})
+                                    div(layout="column" flex="33")
+                                        div.itemCardHeader(layout="row")
+                                            div
+                                                h4 Emails
+                                            div(flex)
+                                            div
+                                                h4
+                                                    a(href="" ng-click="vm.addEmail()")
+                                                        span.glyphicon.glyphicon-plus
+                                        div.itemCard(ng-repeat="email in vm.docSvc.doc.emails")
+                                            div.pull-right
+                                                a(href="" ng-click="vm.addEmail($index, email)" style="padding-right: 5px") Edit
+                                                    //span.glyphicon.glyphicon-pencil
+                                                a(href="" ng-click="vm.removeEmail($index)") Delete
+                                                    //span.glyphicon.glyphicon-remove
+                                            div {{::email.email}} ({{::email.emailType}})
+                                    div(layout="column" flex="33")
+                                        div.itemCardHeader(layout="row")
+                                            div
+                                                h4 Addresses
+                                            div(flex)
+                                            div
+                                                h4
+                                                    a(href="" ng-click="vm.addAddress()")
+                                                        span.glyphicon.glyphicon-plus
+                                        div.itemCard(ng-repeat="address in vm.docSvc.doc.addresses")
+                                            div.pull-right 
+                                                a(href="" ng-click="vm.addAddress($index, address)" style="padding-right: 5px") Edit
+                                                    //span.glyphicon.glyphicon-pencil
+                                                a(href="" ng-click="vm.removeAddress($index)") Delete
+                                                    //span.glyphicon.glyphicon-remove
+                                            div {{::address.address1}}
+                                            div {{::address.address2}}
+                                            div {{::address.city}}, {{::address.state}} {{::address.zip}}
+                                            div ({{::address.addressType}})
+                        md-tab( label="Contract History")
                                 div(layout="row" flex layout-fill layout-padding)
                                     div(layout="column" flex)
                                         md-input-container.md-block(flex)
@@ -33,49 +77,13 @@
                                         md-input-container.md-block(flex)
                                             label Sub Title
                                             input(ng-model="vm.docSvc.doc.lastName")
-                        md-tab(label="Sections")
+                        md-tab(label="General Notes")
                             div(layout="row" layout-padding)
-                                div(flex=33)
-                                    h3 Sections
-                                    p Sections are used for grouping menu items.  Example Appetizers, Soups & Salads, Entrees, etc.
-                                    md-button(ng-click="vm.docSvc.addSection()") Add Section
-                                    div(ng-repeat="item in vm.docSvc.doc.sections track by $index")
-                                        div(layout="row" style="width: 150px")
-                                            span  {{item.title}} 
-                                            span(flex)
-                                            a(href="" ng-click="vm.docSvc.removeSection($index)")
-                                                span.glyphicon.glyphicon-remove
-                        md-tab(label="Notes")
-                            md-content
-                                md-input-container.md-block
-                                    label Notes
-                                    textarea(ng-model="vm.tmMenuItemDocSvc.doc.notes") 
-                div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
-                    div Some footer text here
-        div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
-            md-content(layout-padding style="background: transparent")
-                div()
-                    h3 Add Category
-                    a(href="") Add categories to the list
-                    lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
-                        a(href="" ng-click="dCtrl.addItem(item)") 
-                            span.glyphicon.glyphicon-circle-arrow-left 
-                        span &nbsp; {{item}}
-    .detailFooter(layout="row" layout-align="center center" layout-padding)
-        div(flex="33" layout="row" layout-align="start center") 
-            md-button.md-raised(ng-click="vm.close()" aria-label="close") Cancel
-        div(flex="33" layout="row" layout-align="center center") 
-            div Middle Footer
-        div(flex="33" layout="row" layout-align="end center") 
-            md-button.md-raised(ng-click="vm.addItem()") Add
-            md-button.md-raised(ng-click="vm.reset()" aria-label="" ng-disabled="vm.detailForm.$pristine") Undo
-            // md-menu
-            //     md-button(ng-click="vm.openSaveMenu($mdOpenMenu, $event)") Save
-            //     md-menu-content
-            //         md-menu-item
-            //             md-button(ng-click="vm.setSaveButton('close')") Save & Close
-            //         md-menu-item
-            //             md-button(ng-click="vm.setSaveButton('stay')") Save & Stay
-                    
-            md-button.md-raised(ng-click="vm.saveChanges()" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Stay
-            md-button.md-raised(ng-click="vm.saveChanges(true)" aria-label="" ng-disabled="vm.detailForm.$invalid") Save & Close
+                                div(flex)
+                                    p Keep track of miscellaneous information about you customer
+                                    .form-group
+                                        label.control-label(for="notes") Notes
+                                        textarea.form-control(name="notes" placeholder="Add notes here" rows="10" ng-model="vm.docSvc.doc.notes")
+                // div.insideDetailFooter(layout="row" layout-padding layout-align="start start" style="border-top: solid black 1px")
+                //     div Some footer text here
+    detail-footer

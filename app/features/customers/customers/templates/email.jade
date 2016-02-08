@@ -1,0 +1,36 @@
+md-dialog(aria-lable="Add Email")
+    md-toolbar(layout-padding)
+        div.md-tooolbar-tools
+            h4 {{vm.dialogOptions.headerText}}
+    md.dialog-content(layout-padding)
+        div(style="min-width: 600px")
+            form.form-horizontal(name="addDocPartForm")
+                .form-group
+                    label.col-md-3.control-label(for="emailType") Email Type
+                    .col-md-9
+                        label.radio-inline
+                            input(type="radio", id="emailType" name="emailType",  ng-model="vm.item.emailType" value="personal")
+                            | Personal
+                        label.radio-inline
+                            input(type="radio", id="emailType"  name="emailType", ng-model="vm.item.emailType" value="work")
+                            | Work
+                        label.radio-inline
+                            input(type="radio", id="emailType"  name="emailType", ng-model="vm.item.emailType" value="other")
+                            | Other
+                .form-group(ng-class="{'has-error': vm.validationError.errors['email'].kind }")
+                    label.col-sm-3.control-label(for="email") Address 1
+                    div.col-sm-9
+                        input.form-control(name="email" ng-model="vm.item.email" placeholder="Email")
+                        span.help-block(id="email-helpBlock" ng-show="vm.validationError.errors['email'].kind") {{vm.validationError.errors['email'].message}}
+                .form-group
+                    label.col-md-3.control-label(for="emailPrimary") Primary Address?
+                    .col-md-9
+                        label.radio-inline
+                            input(type="radio" id="emailPrimary" name="emailPrimary" ng-model="vm.item.primary" value="true")
+                            | True
+                        label.radio-inline
+                            input(type="radio" id="emailPrimary" name="emailPrimary" ng-model="vm.item.primary" value="false")
+                            | False
+    md-dialog-actions(layout="row")
+        md-button(ng-click="vm.cancel()") Cancel
+        md-button(ng-click="vm.addDocPart()") OK

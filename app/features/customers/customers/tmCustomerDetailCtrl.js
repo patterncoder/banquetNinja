@@ -20,6 +20,15 @@ function tmCustomerDetailCtrl (
     
     this.__proto__ = tmDetailFactory(constructorArgs);
     
+    //this.moreFunctions.push({label: "test", method: function(){console.log('whatsup')}});
+    
+    this.dialogOptions =  {
+            closeButtonText: 'No',
+            actionButtonText: 'Yes',
+            headerText: 'Wait!',
+            bodyText: 'Delete this item?'
+        };
+    
     this.$scope.$watch(function(){
         return self.docSvc.isDirty();
     }, function(newVal, oldVal,  scope){
@@ -31,7 +40,113 @@ function tmCustomerDetailCtrl (
         }
     });
     
-    this.loadData();
+    this.loadData().then(function(){
+        // running code here happens after the detail doc has been loaded
+        self.getDetailTitle();
+    });
+    
+    this.getDetailTitle = function(){
+        self.detailTitle = tmCustomerDocSvc.doc.lastName + ', ' + tmCustomerDocSvc.doc.firstName;
+    };
+    
+    
+    
+    this.addAddress = function(index, item){
+        var itemCopy;
+        if(!item){
+            itemCopy = {};
+        } else {
+            itemCopy = angular.copy(item);
+        }
+        var dialogConfig = {
+            template: require('apply!./templates/address.jade'),
+            controller: 'tmDialogAddDocPartCtrl as vm',
+            locals: {schema: ninjaSchemas.sharedSchemas.address,
+                    headerText: 'Add Address',
+                    item: itemCopy}
+        };
+        self.tmDialogSvc.showDialog(dialogConfig).then(function(item){
+            if(!index && index != 0){
+                self.docSvc.addAddress(item);
+            } else {
+                self.docSvc.updateAddress(index, item);
+            }
+        });
+    };
+    
+    
+    this.addEmail = function(index, item){
+        var itemCopy;
+        if(!item){
+            itemCopy = {};
+        } else {
+            itemCopy = angular.copy(item);
+        }
+        var dialogConfig = {
+            template: require('apply!./templates/email.jade'),
+            controller: 'tmDialogAddDocPartCtrl as vm',
+            locals: {schema: ninjaSchemas.sharedSchemas.email,
+                    headerText: 'Add Email',
+                    item: itemCopy}
+        };
+        self.tmDialogSvc.showDialog(dialogConfig).then(function(item){
+            if(!index && index != 0){
+                self.docSvc.addEmail(item);
+            } else {
+                self.docSvc.updateEmail(index, item);
+            }
+        });
+    };
+    
+    this.addPhoneNumber = function(index, item){
+        var itemCopy;
+        if(!item){
+            itemCopy = {};
+        } else {
+            itemCopy = angular.copy(item);
+        }
+        var dialogConfig = {
+            template: require('apply!./templates/phoneNumber.jade'),
+            controller: 'tmDialogAddDocPartCtrl as vm',
+            locals: {schema: ninjaSchemas.sharedSchemas.phoneNumber,
+                    headerText: 'Add Phone Number',
+                    item: itemCopy}
+        };
+        self.tmDialogSvc.showDialog(dialogConfig).then(function(item){
+            if(!index  && index != 0){
+                self.docSvc.addPhoneNumber(item);
+            } else {
+                self.docSvc.updatePhoneNumber(index, item);
+            }
+        });
+    };
+    
+    
+    this.removeAddress = function(index){
+        var self = this;
+        self.tmDialogSvc.showDialog({}, self.dialogOptions).then(function(){
+            self.docSvc.removeAddress(index);
+        });
+        
+    };
+    
+    this.removeEmail = function(index){
+        var self = this;
+        self.tmDialogSvc.showDialog({}, self.dialogOptions).then(function(){
+            self.docSvc.removeEmail(index);
+        });
+        
+    };
+    
+    this.removePhoneNumber = function(index){
+        var self = this;
+        self.tmDialogSvc.showDialog({}, self.dialogOptions).then(function(){
+            self.docSvc.removePhoneNumber(index);
+        });
+        
+    };
+    
+    
     
     return this;
     

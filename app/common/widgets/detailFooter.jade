@@ -1,0 +1,20 @@
+.detailFooter(layout="row" layout-align="center center" layout-padding)
+    div(flex="33" layout="row" layout-align="start center") 
+        md-button.md-raised(ng-click="vm.close()" aria-label="close") Cancel
+        md-button.md-raised(ng-click="vm.reset()" aria-label="" ng-disabled="vm.detailForm.$pristine") Undo
+    div(flex="33" layout="row" layout-align="center center") 
+        md-menu(md-offset="-120 0")
+            a(href="" ng-click="vm.openMoreMenu($mdOpenMenu, $event)") MORE
+            md-menu-content(width="4")
+                md-menu-item(ng-repeat="menuItem in vm.moreFunctions")
+                    md-button(ng-click="menuItem.method()") {{menuItem.label}}
+    div(flex="33" layout="row" layout-align="end center")
+        md-button.md-raised(ng-click="vm.closeButton()") {{vm.closeButtonText}}
+        md-menu()
+            a(href="" ng-click="vm.openSaveMenu($mdOpenMenu, $event)")
+                span.glyphicon.glyphicon-triangle-bottom
+            md-menu-content
+                md-menu-item
+                    md-button(ng-click="vm.setSaveButton('Save and Close')") Save and Close
+                md-menu-item
+                    md-button(ng-click="vm.setSaveButton('Save and Stay')") Save and Stay

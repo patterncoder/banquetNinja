@@ -12,6 +12,17 @@ export default function states($stateProvider){
                     controllerAs: 'vm'
                 }
             }
+        })
+    .state('root.lookups', {
+            url:'/lookups',
+            roles: ['admin', 'superUser'],
+            views: {
+                'content@': {
+                    template: require('./lookups/lookups-detail.jade'),
+                    controller: 'tmLookupsDetailCtrl',
+                    controllerAs: 'vm'
+                }
+            }
         });
         
 }

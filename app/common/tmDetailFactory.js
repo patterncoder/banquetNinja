@@ -3,7 +3,9 @@ function tmDetailFactory (
     $state, 
     $stateParams, 
     tmNotifier,
-    tmDialogSvc 
+    tmDialogSvc,
+    tmWindowStorage
+     
     ) {
     return function (constructorArgs) {
         return new BaseDetail(
@@ -12,6 +14,7 @@ function tmDetailFactory (
             $stateParams, 
             tmNotifier,
             tmDialogSvc,
+            tmWindowStorage,
             constructorArgs
         );
     }
@@ -23,6 +26,7 @@ tmDetailFactory.$inject = [
     '$stateParams',
     'tmNotifier',
     'tmDialogSvc',
+    'tmWindowStorage'
 ];
 
 export default tmDetailFactory
@@ -33,6 +37,7 @@ function BaseDetail (
             $stateParams, 
             tmNotifier,
             tmDialogSvc,
+            tmWindowStorage,
             constructorArgs
         ) {
     var self = this;
@@ -41,12 +46,27 @@ function BaseDetail (
     this.$stateParams = $stateParams;
     this.tmNotifier = tmNotifier;
     this.tmDialogSvc = tmDialogSvc;
+    this.tmWindowStorage = tmWindowStorage;
     this.$state = $state;
     this.$q = $q;
     this.docSvc = constructorArgs.docSvc;
     this.docSvc.loadDocument($stateParams.id);
     this.constructorArgs = constructorArgs;
-    console.log(this.$scope);
+    
+    this.moreFunctions = [
+        {   
+            label: "Add Item", 
+            method: function(){
+                self.addItem(); 
+                }
+        },
+        {
+            label: "Refresh",
+            method: function(){
+                self.docSvc.refreshFromServer();
+            }
+        }
+    ];
     
     
     
@@ -55,10 +75,15 @@ function BaseDetail (
         this.isLoading = loading;
     };
     
+    this.getDetailTitle = function(){
+        self.detailTitle = 'Detail';
+    };
+    
     this.loadData = function(){
         var self = this;
         self.setLoading(true);
-        this.docSvc.loadDocument(this.$stateParams.id).then(function(){
+        self.getDetailTitle();
+        return this.docSvc.loadDocument(this.$stateParams.id).then(function(){
             self.setLoading(false);
         });
     };
@@ -90,7 +115,7 @@ function BaseDetail (
     };
     
     this.allowTransitionAway = function() {
-        return this.detailForm.$pristine;
+        return this.$scope.vm.detailForm.$pristine;
     };
     
     this.canILeave = function(){
@@ -130,9 +155,11 @@ function BaseDetail (
     
     this.saveChanges = function(saveAndGo){
         var self = this;
+        saveAndGo = self.closeButtonText === 'Save and Close' ? true : false;
         this.docSvc.saveChanges().then(function(){
             self.detailForm.$setPristine();
             self.detailForm.$setUntouched();
+            self.getDetailTitle();
             self.tmNotifier.notify("The item has been saved.");
             if(saveAndGo){
                 self.close();
@@ -141,5 +168,38 @@ function BaseDetail (
             self.tmNotifier.error("There was a problem with saving...try again.")
         })
     };
+    
+    this.setUISettings = function() {
+        this.tmWindowStorage.setLocalKey('closeDropDown', this.closeButtonText)
+    } ;
+    
+    this.getUISettings = function () {
+        var dropDownText = this.tmWindowStorage.getLocalKey('closeDropDown');
+        if (!dropDownText) {
+            this.closeButtonText = 'Save and Stay'
+        } else {
+            this.closeButtonText = dropDownText;
+        }
+    };
+    
+    this.openSaveMenu = function ($mdOpenMenu, ev) {
+        $mdOpenMenu(ev);
+    };
+    
+    this.setSaveButton = function(text){
+        this.tmWindowStorage.setLocalKey('closeDropDown', text)
+        this.closeButtonText = text;
+        this.saveChanges();
+    };
+    
+    this.closeButton = function(){
+        this.saveChanges();
+    };
+    
+    this.openMoreMenu = function($mdOpenMenu, ev){
+        $mdOpenMenu(ev);
+    };
+    
+    this.getUISettings();
 }
 

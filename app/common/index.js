@@ -10,6 +10,9 @@ import data from './data';
 import isLoading from './widgets/isLoading.js';
 import lookups from './widgets/lookups';
 import inject from './widgets/inject';
+import listHeader from './widgets/listHeader';
+import detailHeader from './widgets/detailHeader';
+import detailFooter from './widgets/detailFooter';
 // services
 import tmWindowStorage from './tmWindowStorage';
 // base class like factories
@@ -17,7 +20,10 @@ import tmDocFactory from './tmDocFactory';
 import tmDetailFactory from './tmDetailFactory';
 import tmListFactory from './tmListFactory';
 // controller for dialogService
-import tmDialogAddItemCtrl from './tmDialogAddItemCtrl'
+import tmDialogAddItemCtrl from './tmDialogAddItemCtrl';
+import tmDialogAddDocPartCtrl from './tmDialogAddDocPartCtrl';
+// filters
+import tmPhoneFilter from './tmPhoneFilter';
 
 
 export default angular.module('common', [])
@@ -34,6 +40,11 @@ export default angular.module('common', [])
     .directive('isLoading', isLoading)
     .directive('lookups', lookups)
     .directive('inject', inject)
+    .directive('listHeader', listHeader)
+    .directive('detailHeader', detailHeader)
+    .directive('detailFooter', detailFooter)
     .controller('tmDialogAddItemCtrl', tmDialogAddItemCtrl)
+    .controller('tmDialogAddDocPartCtrl', tmDialogAddDocPartCtrl)
+    .filter('tmPhoneFilter', tmPhoneFilter)
     .name;
 

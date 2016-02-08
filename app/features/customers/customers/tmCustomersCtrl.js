@@ -9,7 +9,7 @@ class tmMenuGroupsCtrl {
             listView: 'root.customers',
             detailView: 'root.customerDetail',
             addHeaderText: 'Add Customer',
-            
+            listTitle: 'Our Customers'
         };
         
         this.sortOptions = [{ value: "lastName", text: "Sort by Last Name" }, { value: "firstName", text: "Sort by First Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];

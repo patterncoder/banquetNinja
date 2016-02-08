@@ -7,7 +7,8 @@ function tmWindowStorage ($window) {
     }
     
     function getSessionKey(key) {
-        return $window.sessionStorage[key];
+        
+        return $window.sessionStorage[key] ? $window.sessionStorage[key] : false;
     }
     
     function setLocalKey(key, data) {
@@ -15,7 +16,7 @@ function tmWindowStorage ($window) {
     }
     
     function getLocalKey (key) {
-        return $window.localStorage[key];
+        return $window.localStorage[key] ? $window.localStorage[key] : false;
     }
     
     

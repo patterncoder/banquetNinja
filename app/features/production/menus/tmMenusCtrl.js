@@ -10,7 +10,7 @@ class tmMenusCtrl {
             listView: 'root.menus',
             detailView: 'root.menuDetail',
             addHeaderText: 'Add Menu',
-            
+            listTitle: 'Menus'
         };
         
         this.__proto__ = tmListFactory(constructorArgs);

@@ -2,7 +2,7 @@
 export default ['navigationProvider', function(navigationProvider){
         
         navigationProvider.addNav({
-            name: 'Customers',
+            name: 'Customer Admin',
             sortOrder: 10,
             sref: '',
             parent: null,
@@ -26,20 +26,20 @@ export default ['navigationProvider', function(navigationProvider){
             roles: ['bronze', 'silver', 'gold', 'admin', 'superUser']
         });
         navigationProvider.addNav({
-            name: 'User Admin',
+            name: 'Administration',
             sortOrder: 100,
             sref: '',
             parent: null,
             endSection: false,
             roles: ['admin', 'superUser']
         });
-        navigationProvider.addNav({
-            name: 'Feature Admin',
-            sortOrder: 100,
-            sref: '',
-            parent: null,
-            endSection: false,
-            roles: ['superUser']
-        });
+        // navigationProvider.addNav({
+        //     name: 'Feature Admin',
+        //     sortOrder: 100,
+        //     sref: '',
+        //     parent: null,
+        //     endSection: false,
+        //     roles: ['superUser']
+        // });
     }]
     

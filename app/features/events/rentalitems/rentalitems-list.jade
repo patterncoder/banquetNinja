@@ -1,0 +1,23 @@
+div(flex="100")
+    list-header
+    table.table.table-responsive
+        colgroup
+            col(span="1")
+            col(span="1")
+            col.tableNav(span="1")
+        thead
+            th Rental Item
+            th Description
+            th.text-right
+                button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
+        tbody
+            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
+                td {{::item.name}}
+                td {{::item.description}}
+                td.text-right
+                    //button.btn.btn-primary.btn-xs(ng-click="vm.details(menuItem._id)") Edit
+                    a(href="" ng-click="vm.details(item._id)")
+                        span.glyphicon.glyphicon-pencil
+                    | &nbsp; | &nbsp;
+                    a(href="" ng-click="vm.deleteItem(item._id)")
+                        span.glyphicon.glyphicon-remove
