@@ -41,7 +41,6 @@ class tmDialogAddDocPartCtrl {
         newItem.validate(function(err){
             if(err) {
                 self.validationError = err;
-                console.log(err);
                 console.log(self.validationError);
                 self.$scope.$apply();
                 return;

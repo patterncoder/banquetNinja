@@ -15,6 +15,22 @@
                                     input.form-control(name="lastName" placeholder="Last Name" ng-model="vm.docSvc.doc.lastName")
                 div.detailSection(layout-padding style="min-height: 400px")
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
+                        md-tab( label="Contract History")
+                                div(layout="column" flex layout-fill layout-padding)
+                                    div.itemCardHeader(layout="row")
+                                        div
+                                            h4 Events
+                                        div(flex)
+                                        div
+                                            h4
+                                                a(href="" ng-click="vm.addContract()")
+                                                    span.glyphicon.glyphicon-plus
+                                    //md-button(ng-click="vm.addContract()") Add Contract
+                                    div.itemCard(ng-repeat="contract in vm.docSvc.doc.contracts | orderBy:'-date'")
+                                        .pull-right
+                                            a(ui-sref="root.contractDetail({id: contract._id})") View
+                                        div.md-title {{::contract.title}}
+                                        div {{::contract.date  | date:'fullDate' }}
                         md-tab( label="Contact Information")
                                 div(layout="row" flex layout-fill layout-padding)
                                     div(layout="column" flex="33")
@@ -68,21 +84,13 @@
                                             div {{::address.address2}}
                                             div {{::address.city}}, {{::address.state}} {{::address.zip}}
                                             div ({{::address.addressType}})
-                        md-tab( label="Contract History")
-                                div(layout="row" flex layout-fill layout-padding)
-                                    div(layout="column" flex)
-                                        md-input-container.md-block(flex)
-                                            label Title
-                                            input(ng-model="vm.docSvc.doc.firstName")
-                                        md-input-container.md-block(flex)
-                                            label Sub Title
-                                            input(ng-model="vm.docSvc.doc.lastName")
                         md-tab(label="General Notes")
                             div(layout="row" layout-padding)
                                 div(flex)
-                                    p Keep track of miscellaneous information about you customer
+                                    .itemCardHeader(layout="column")
+                                        h4 General Notes
                                     .form-group
-                                        label.control-label(for="notes") Notes
+                                        //label.control-label(for="notes") Notes
                                         textarea.form-control(name="notes" placeholder="Add notes here" rows="10" ng-model="vm.docSvc.doc.notes")
                 // div.insideDetailFooter(layout="row" layout-padding layout-align="start start" style="border-top: solid black 1px")
                 //     div Some footer text here

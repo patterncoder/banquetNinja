@@ -6,14 +6,14 @@ div(flex="100")
             col(span="1")
             col.tableNav(span="1")
         thead
-            th Menu Group
-            th Description
+            th Event Name
+            th Date
             th.text-right
                 button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
         tbody
             tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
-                td {{::item.name}}
-                td {{::item.description}}
+                td {{::item.title}}
+                td {{::item.date | date:'longDate'}}
                 td.text-right
                     //button.btn.btn-primary.btn-xs(ng-click="vm.details(menuItem._id)") Edit
                     a(href="" ng-click="vm.details(item._id)")

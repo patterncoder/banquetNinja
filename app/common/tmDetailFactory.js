@@ -55,7 +55,7 @@ function BaseDetail (
     
     this.moreFunctions = [
         {   
-            label: "Add Item", 
+            label: constructorArgs.addHeaderText, 
             method: function(){
                 self.addItem(); 
                 }

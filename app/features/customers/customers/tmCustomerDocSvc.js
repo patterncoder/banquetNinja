@@ -46,6 +46,10 @@ function tmMenuDocSvc (tmDocFactory) {
         self.doc.emails.splice(index, 1);
     }
     
+    self.addContract = function(contract) {
+        self.doc.contracts.push(contract);
+    }
+    
     
     return this;
     

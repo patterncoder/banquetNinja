@@ -5,7 +5,8 @@ import ninjaSchemas from 'ninjaSchemas';
 function tmCustomerDetailCtrl (
     $scope,
     tmDetailFactory,
-    tmCustomerDocSvc
+    tmCustomerDocSvc,
+    $dataSource
 ) {
     var self = this;
     var constructorArgs = {
@@ -49,7 +50,24 @@ function tmCustomerDetailCtrl (
         self.detailTitle = tmCustomerDocSvc.doc.lastName + ', ' + tmCustomerDocSvc.doc.firstName;
     };
     
-    
+    this.addContract = function(){
+        var dialogConfig = {
+            template: require('apply!./templates/contract.jade'),
+            controller: 'tmDialogAddDocPartCtrl as vm',
+            locals: {schema: ninjaSchemas.events.Contract,
+                    headerText: 'Add Event',
+                    item: {customer: tmCustomerDocSvc.doc._id}}
+        };
+        var Contract = $dataSource.load('Contract');
+        self.tmDialogSvc.showDialog(dialogConfig).then(function(item){
+            
+            Contract.add(item).then(function(item){
+                self.docSvc.addContract(item);
+                self.docSvc.saveChanges();
+            })
+        });
+        
+    }
     
     this.addAddress = function(index, item){
         var itemCopy;
@@ -155,7 +173,8 @@ function tmCustomerDetailCtrl (
 tmCustomerDetailCtrl.$inject = [
     '$scope',
     'tmDetailFactory',
-    'tmCustomerDocSvc'
+    'tmCustomerDocSvc',
+    '$dataSource'
 ];
 
 export default tmCustomerDetailCtrl;
