@@ -19,6 +19,7 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
     this.master = {};
     this.validationError = null;
     this.tmMongoose = tmMongoose;
+    this.$q = $q;
     // Set data source model item here
     //var docModel;
     this.docModel = $dataSource.load(model);
@@ -30,6 +31,7 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
     this.loadDocument = function (id){
         var self = this;
         return this.docModel.getOne(id, true).then(function(data, status){
+            console.log('in tmDocFactory.loadDocument');
             self.validationError = null;
             self.doc = data;
             self.master = angular.copy(data);

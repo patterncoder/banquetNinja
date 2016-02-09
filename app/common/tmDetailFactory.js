@@ -50,7 +50,7 @@ function BaseDetail (
     this.$state = $state;
     this.$q = $q;
     this.docSvc = constructorArgs.docSvc;
-    this.docSvc.loadDocument($stateParams.id);
+    //this.docSvc.loadDocument($stateParams.id);
     this.constructorArgs = constructorArgs;
     
     this.moreFunctions = [
@@ -84,6 +84,7 @@ function BaseDetail (
         self.setLoading(true);
         self.getDetailTitle();
         return this.docSvc.loadDocument(this.$stateParams.id).then(function(){
+            console.log('in tmDetailFactory.loadData');
             self.setLoading(false);
         });
     };

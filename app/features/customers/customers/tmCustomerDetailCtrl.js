@@ -62,8 +62,9 @@ function tmCustomerDetailCtrl (
         self.tmDialogSvc.showDialog(dialogConfig).then(function(item){
             
             Contract.add(item).then(function(item){
-                self.docSvc.addContract(item);
-                self.docSvc.saveChanges();
+                //self.docSvc.addContract(item);
+                self.docSvc.refreshFromServer();
+                
             })
         });
         

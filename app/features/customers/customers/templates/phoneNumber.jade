@@ -24,7 +24,7 @@ md-dialog(aria-lable="Add Phone Number")
                     label.col-sm-3.control-label(for="number") Phone Number
                     div.col-sm-9
                         input.form-control(name="number" ng-model="vm.item.number" placeholder="Phone Number")
-                        span.help-block(id="number-helpBlock" ng-show="vm.validationError.errors['number'].kind") {{vm.validationError['number'].message}}
+                        span.help-block(id="number-helpBlock" ng-show="vm.validationError.errors['number'].kind") {{vm.validationError.errors['number'].message}}
                 .form-group
                     label.col-md-3.control-label(for="phonePrimary") Primary Number?
                     .col-md-9

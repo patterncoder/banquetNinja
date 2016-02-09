@@ -1,11 +1,36 @@
 import ninjaSchemas from 'ninjaSchemas';
-
+import _ from 'lodash';
 import angular from 'angular';
 
 function tmMenuDocSvc (tmDocFactory) {
     var self = this;
     self.__proto__ = tmDocFactory('Customer', ninjaSchemas.customer.Customer);
     self.addressError = null;
+    
+    this.saveChanges = function (){
+        var self = this;
+        var deferred = this.$q.defer();
+        console.log(self.doc);
+        var contractIds = _.pluck(self.doc.contracts, "_id");
+        self.doc.contracts = contractIds;
+        console.log(self.doc);
+        var monDoc = new this.tmMongoose.Document(self.doc, self.docSchema);
+        monDoc.validate(function(err){
+            if(err){
+                console.log(err);
+                self.validationError = err;
+                console.log(self.validationError);
+                deferred.reject('has errors');
+                return
+            }
+            self.docModel.update(self.doc).then(function(data){
+                self.doc = data;
+                self.master = angular.copy(data);
+                deferred.resolve();
+            });
+        });
+        return deferred.promise;
+    }
     
     self.addAddress = function (address) {
         self.doc.addresses.push(address);
@@ -23,6 +48,9 @@ function tmMenuDocSvc (tmDocFactory) {
     }
     
     self.addPhoneNumber = function(phoneNumber){
+        console.log(phoneNumber);
+        phoneNumber.number = phoneNumber.number.replace(/[^0-9]/g, '');
+        //console.log(strippedNumber);
         self.doc.phoneNumbers.push(phoneNumber)
     };
     
@@ -47,8 +75,10 @@ function tmMenuDocSvc (tmDocFactory) {
     }
     
     self.addContract = function(contract) {
-        self.doc.contracts.push(contract);
+        //self.doc.contracts.push(contract);
     }
+    
+    
     
     
     return this;
