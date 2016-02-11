@@ -84,7 +84,7 @@ function BaseDetail (
         self.setLoading(true);
         self.getDetailTitle();
         return this.docSvc.loadDocument(this.$stateParams.id).then(function(){
-            console.log('in tmDetailFactory.loadData');
+
             self.setLoading(false);
         });
     };

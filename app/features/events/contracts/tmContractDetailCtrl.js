@@ -31,7 +31,13 @@ function tmContractDetailCtrl (
         }
     });
     
-    this.loadData();
+    this.loadData().then(function(){
+        self.getDetailTitle();
+    });
+    
+    this.getDetailTitle = function(){
+        self.detailTitle = self.docSvc.doc.customer.lastName + ' - ' + self.docSvc.doc.title;
+    };
     
     return this;
     

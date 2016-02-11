@@ -10,10 +10,8 @@ function tmMenuDocSvc (tmDocFactory) {
     this.saveChanges = function (){
         var self = this;
         var deferred = this.$q.defer();
-        console.log(self.doc);
         var contractIds = _.pluck(self.doc.contracts, "_id");
         self.doc.contracts = contractIds;
-        console.log(self.doc);
         var monDoc = new this.tmMongoose.Document(self.doc, self.docSchema);
         monDoc.validate(function(err){
             if(err){

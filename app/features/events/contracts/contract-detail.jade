@@ -1,4 +1,4 @@
-.detailForm
+.detailForm(ng-cloak)
     detail-header
     .detailContent(layout="row" flex)
         div.detailLeftPanel(flex layout="column")
@@ -8,12 +8,12 @@
                         form(name="vm.detailForm")
                             div(layout-gt-xs="row" layout-padding)
                                 div(flex layout="row")
-                                    md-input-container.md-block.md-body-2
-                                        label Name
-                                        input(ng-model="vm.docSvc.doc.name" )
-                                    md-input-container.md-block.md-body-2(flex-gt-sm)
-                                        label Description
-                                        input(ng-model="vm.docSvc.doc.description")
+                                    .form-group
+                                        label.control-label(for="title") Name
+                                        input.form-control(ng-model="vm.docSvc.doc.title" )
+                                    .form-group(flex)
+                                        label.control-label(for="description") Description
+                                        input.form-control(ng-model="vm.docSvc.doc.description")
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         md-tab( label="Descriptions")

@@ -5,6 +5,9 @@
     // md-button(ui-sref="root.home") Home2
     // md-button(ui-sref="root.home") Home3
     span(flex="")
+    div(layout="row" layout-align="start center" ng-show="vm.isLoading")
+        div Working...
+        md-progress-circular(md-mode="indeterminate")
     md-button(ng-hide="vm.identity.isAuthenticated()" ui-sref="root.signup") Sign Up
     md-button(ng-show="vm.identity.isAuthenticated()" ng-click="vm.signout()") Logout
     md-menu

@@ -33,8 +33,13 @@ class tmDialogAddItem {
             this.fields = [];
             this.validationError = null;
             this.getFields();
+            this.isLoading = false;
         }
         
+    setLoading(loading){
+        this.isLoading = loading;
+    }
+    
     getFields(){
         for(var k in this.schema.paths){
             if(this.schema.paths.hasOwnProperty(k) && this.schema.paths[k].isRequired){
@@ -57,8 +62,10 @@ class tmDialogAddItem {
                 return;
             }
             delete self.newItem._id;
+            self.setLoading(true);
             self.model.add(self.newItem).then(function(data){
                 self.tmNotifier.notify("Item was sucessfully added.")
+                self.setLoading(false);
                 self.$mdDialog.hide();
                 if (nextView === 'details') {
                     self.$state.go(self.detailView, { id: data._id});
