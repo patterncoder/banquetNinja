@@ -39,14 +39,16 @@ function BaseList (
     this.tmDialogSvc = tmDialogSvc;
     this.$state = $state;
     this.sortOptions = [{ value: "name", text: "Sort by Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
+    
+    
     this.setLoading = function(loading){
         this.isLoading = loading;
     }
     
-    this.loadData = function(){
+    this.loadData = function(queryString){
         var self = this;
         self.setLoading(true);
-        self.Model.query().then(function(items){
+        self.Model.query(queryString).then(function(items){
             self.setLoading(false);
             self.items = items;
         });

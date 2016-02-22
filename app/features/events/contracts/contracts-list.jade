@@ -8,12 +8,14 @@ div(flex="100")
         thead
             th Event Name
             th Date
+            th Time
             th.text-right
-                button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
+                button.btn.btn-primary.btn-xs(ng-click="vm.addContract()") {{::vm.constructorArgs.addHeaderText}}
         tbody
             tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
-                td {{::item.title}}
-                td {{::item.date | date:'longDate'}}
+                td {{::item.eventName}}
+                td {{::item.eventDate | date:'longDate'}}
+                td(style="white-space: nowrap") {{::item.startTime | date:'shortTime'}}
                 td.text-right
                     //button.btn.btn-primary.btn-xs(ng-click="vm.details(menuItem._id)") Edit
                     a(href="" ng-click="vm.details(item._id)")

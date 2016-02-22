@@ -36,7 +36,7 @@ function tmContractDetailCtrl (
     });
     
     this.getDetailTitle = function(){
-        self.detailTitle = self.docSvc.doc.customer.lastName + ' - ' + self.docSvc.doc.title;
+        self.detailTitle = self.docSvc.doc.customer.lastName + ' - ' + self.docSvc.doc.eventName;
     };
     
     return this;

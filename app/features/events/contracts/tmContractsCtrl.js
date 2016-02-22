@@ -13,7 +13,24 @@ class tmContractsCtrl {
         };
         
         this.__proto__ = tmListFactory(constructorArgs);
-        this.loadData();
+        
+        this.loadData({sel: 'eventName eventDate startTime'});
+        //this.loadData();
+        
+        
+        this.addContract = function(){
+            var self = this;
+            var dialogConfig = {
+                template: require('apply!./addContract.jade'),
+                controller: 'tmAddContractCtrl as vm',
+                locals: {model: this.Model,
+                        schema: this.constructorArgs.schema,
+                        listView: this.constructorArgs.listView,
+                        detailView: this.constructorArgs.detailView,
+                        headerText: this.constructorArgs.addHeaderText}
+            };
+            self.tmDialogSvc.showDialog(dialogConfig);
+        }
         
     }
     

@@ -8,13 +8,22 @@ md-dialog(aria-lable="Add Contract")
                 .form-group(ng-class="{'has-error': vm.validationError.errors['title'].kind }")
                     label.col-sm-3.control-label(for="eventName") Event Name
                     div.col-sm-9
-                        input.form-control(name="eventName" ng-model="vm.item.title" placeholder="Event Name")
-                        span.help-block(id="eventName-helpBlock" ng-show="vm.validationError.errors['title'].kind") {{vm.validationError.errors['title'].message}}
+                        input.form-control(name="eventName" ng-model="vm.item.eventName" placeholder="Event Name")
+                        span.help-block(id="eventName-helpBlock" ng-show="vm.validationError.errors['eventName'].kind") {{vm.validationError.errors['eventName'].message}}
                 .form-group(ng-class="{'has-error': vm.validationError.errors['date'].kind }")
                     label.col-sm-3.control-label(for="eventDate") Event Date
                     div.col-sm-9
-                        md-datepicker( ng-model="vm.item.date" placeholder="Event Date")
-                        span.help-block(id="eventDate-helpBlock" ng-show="vm.validationError.errors['date'].kind") {{vm.validationError.errors['date'].message}}
+                        p
+                            input.form-control(ng-model="vm.item.eventDate")
+                        p
+                            uib-datepicker(ng-model="vm.item.eventDate")
+                        // p.input-group
+                        //     input.form-control(is-open="true" ng-model="vm.item.eventDate" type="text" uib-datepicker-popup="shortDate")
+                        //     span.input-group-btn
+                        //         button.btn.btn-default(type="button" ng-click="vm.open1()")
+                        //             i.glyphicon.glyphicon-calendar
+                        //md-datepicker( ng-model="vm.item.eventDate" placeholder="Event Date")
+                        span.help-block(id="eventDate-helpBlock" ng-show="vm.validationError.errors['eventDate'].kind") {{vm.validationError.errors['eventDate'].message}}
     md-dialog-actions(layout="row")
         md-button(ng-click="vm.cancel()") Cancel
         md-button(ng-click="vm.addDocPart()") OK

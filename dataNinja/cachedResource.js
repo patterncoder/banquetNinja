@@ -23,10 +23,11 @@ export default class CachedResource {
     
     query (queryString) {
             var deferred = this.$q.defer();
+            queryString = queryString || {};
             var self = this;
             
             if (!self.List) {
-                self.Resource.query(function(data){
+                self.Resource.query(queryString, function(data){
                     
                     self.List = data.data;
                     deferred.resolve(self.List);

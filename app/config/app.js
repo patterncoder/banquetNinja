@@ -85,13 +85,13 @@ module.exports = angular.module('app', [Shell, Features, Common])
             }
             
         });
-    }])
-    
-    .run(['$rootScope', '$modalStack', function($rootScope, $modalStack) {
-        $rootScope.$on('$stateChangeStart', function() {
-        var top = $modalStack.getTop();
-        if (top) {
-            $modalStack.dismiss(top.key);
-        }
-        });
     }]);
+    
+    // .run(['$rootScope', '$modalStack', function($rootScope, $modalStack) {
+    //     $rootScope.$on('$stateChangeStart', function() {
+    //     var top = $modalStack.getTop();
+    //     if (top) {
+    //         $modalStack.dismiss(top.key);
+    //     }
+    //     });
+    // }]);

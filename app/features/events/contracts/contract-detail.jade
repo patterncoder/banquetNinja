@@ -8,12 +8,12 @@
                         form(name="vm.detailForm")
                             div(layout-gt-xs="row" layout-padding)
                                 div(flex layout="row")
-                                    .form-group
-                                        label.control-label(for="title") Name
-                                        input.form-control(ng-model="vm.docSvc.doc.title" )
-                                    .form-group(flex)
-                                        label.control-label(for="description") Description
-                                        input.form-control(ng-model="vm.docSvc.doc.description")
+                                    .form-group(flex="33")
+                                        label.control-label(for="title") Event Name
+                                        input.form-control(ng-model="vm.docSvc.doc.eventName" )
+                                    .form-group(flex="66")
+                                        label.control-label(for="description") Nature of Event
+                                        input.form-control(ng-model="vm.docSvc.doc.natureOfEvent")
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         md-tab( label="Descriptions")

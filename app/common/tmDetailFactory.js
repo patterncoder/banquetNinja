@@ -156,12 +156,14 @@ function BaseDetail (
     
     this.saveChanges = function(saveAndGo){
         var self = this;
+        self.setLoading(true);
         saveAndGo = self.closeButtonText === 'Save and Close' ? true : false;
         this.docSvc.saveChanges().then(function(){
             self.detailForm.$setPristine();
             self.detailForm.$setUntouched();
             self.getDetailTitle();
             self.tmNotifier.notify("The item has been saved.");
+            self.setLoading(false);
             if(saveAndGo){
                 self.close();
             }

@@ -56,7 +56,8 @@ function tmCustomerDetailCtrl (
             controller: 'tmDialogAddDocPartCtrl as vm',
             locals: {schema: ninjaSchemas.events.Contract,
                     headerText: 'Add Event',
-                    item: {customer: tmCustomerDocSvc.doc._id}}
+                    item: {customer: tmCustomerDocSvc.doc._id}
+                    }
         };
         var Contract = $dataSource.load('Contract');
         self.tmDialogSvc.showDialog(dialogConfig).then(function(item){

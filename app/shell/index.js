@@ -2,6 +2,7 @@
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import uibs from 'angular-ui-bootstrap';
+//import uibstpls from 'angular-ui-bootstrap/ui-bootstrap-tpls';
 import jquery from 'jquery';
 import ngAnimate from 'angular-animate';
 import ngMessages from 'angular-messages';

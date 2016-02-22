@@ -30,7 +30,7 @@
                                         .pull-right
                                             a(ui-sref="root.contractDetail({id: contract._id})") View
                                         div.md-title {{::contract.title}}
-                                        div {{::contract.date  | date:'fullDate' }}
+                                        div {{::contract.eventDate  | date:'fullDate' }}
                         md-tab( label="Contact Information")
                                 div(layout="row" flex layout-fill layout-padding)
                                     div(layout="column" flex="33")
