@@ -6,18 +6,36 @@ md-dialog(aria-label="Dialog Service")
             h4 {{vm.dialogOptions.headerText}}
     md-dialog-content(layout-padding style="min-width: 600px; max-height: 400px; min-height: 400px")
         is-loading
-        form(name="addItemForm")
-            p {{asyncSelected}}
-            input(type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" uib-typeahead="address for address in vm.getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control")
-            i(ng-show="loadingLocations" class="glyphicon glyphicon-refresh")
-            div(ng-show="noResults")
-                i.glyphicon.glyphicon-remove
-                | No Results Found
-            md-input-container.md-block(ng-class="{'has-error': vm.validationError.errors[field.path].kind}" ng-repeat="field in vm.fields | orderBy: 'options.tabOrder'")
-                label {{field.options.caption}}
-                input(ng-model="vm.newItem[field.path]")
-                .hint(ng-hide="vm.validationError.errors[field.path].kind") {{field.options.hint}}
-                span.help-block(id="field.path" ng-show="vm.validationError.errors[field.path].kind") {{vm.validationError.errors[field.path].message}}
+        form.form-horizontal(name="addItemForm")
+            .form-group(ng-class="{'has-error': vm.validationError.errors['customer'].kind}")
+                label.col-md-3.control-label(for="customer") Customer
+                .col-md-9
+                    input(type="text" ng-model="vm.newItem.customer" placeholder="Find Customer" uib-typeahead="customer as customer.name for customer in vm.getCustomer($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control")
+                    i(ng-show="loadingLocations" class="glyphicon glyphicon-refresh")
+                    div(ng-show="noResults" layout="row")
+                        a.glyphicon.glyphicon-plus(href="" ng-click="vm.addCustomer(vm.newItem.customer)")
+                        div Add {{vm.newItem.customer}} 
+                    span.help-block(id="customer-helpBlock" ng-show="vm.validationError.errors['customer'].kind") {{vm.validationError.errors['customer'].message}}
+            
+            .form-group(ng-class="{'has-error': vm.validationError.errors['eventName'].kind}")
+                    label.col-md-3.control-label(for="eventName") Event Name
+                    .col-md-9
+                        input.form-control(name="eventName", type="text",  placeholder="Event Name", ng-model="vm.newItem.eventName")
+                        span.help-block(id="eventName-helpBlock" ng-show="vm.validationError.errors['eventName'].kind") {{vm.validationError.errors['eventName'].message}}
+
+            .form-group(ng-class="{'has-error': vm.validationError.errors['eventDate'].kind}")
+                    label.col-md-3.control-label(for="eventDate") Event Name
+                    .col-md-9
+                        uib-datepicker(ng-model="vm.newItem.eventDate")
+                        // input.form-control(name="eventDate", type="text", placeholder="Event Date", ng-model="vm.newItem.eventDate")
+                        span.help-block(id="eventDate-helpBlock" ng-show="vm.validationError.errors['eventDate'].kind") {{vm.validationError.errors['eventName'].message}}
+
+
+            // md-input-container.md-block(ng-class="{'has-error': vm.validationError.errors[field.path].kind}" ng-repeat="field in vm.fields | orderBy: 'options.tabOrder'")
+            //     label {{field.options.caption}}
+            //     input(ng-model="vm.newItem[field.path]")
+            //     .hint(ng-hide="vm.validationError.errors[field.path].kind") {{field.options.hint}}
+            //     span.help-block(id="field.path" ng-show="vm.validationError.errors[field.path].kind") {{vm.validationError.errors[field.path].message}}
     md-dialog-actions(layout="row")
         md-button.md-raised(ng-click="vm.addItem('quick')") Quick Add
         md-button.md-raised(ng-click="vm.addItem('details')") Go Details

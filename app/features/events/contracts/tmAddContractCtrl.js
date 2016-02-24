@@ -25,14 +25,14 @@ class tmAddContractCtrl {
             this.tmNotifier = tmNotifier;
             this.$state = $state;
             this.$http = $http;
-            //this.model = model;
             this.schema = schema;
             this.listView = listView;
             this.detailView = detailView;
             this.dialogOptions = {headerText: headerText};
             this.$mdDialog = $mdDialog;
             this.tmMongoose = tmMongoose;
-            this.newItem = new this.tmMongoose.Document({}, schema);
+            //this.newItem = new this.tmMongoose.Document({}, schema);
+            this.newItem = {};
             this.fields = [];
             this.validationError = null;
             this.getFields();
@@ -41,24 +41,37 @@ class tmAddContractCtrl {
             
         }
         
-    getLocation(val){
+    getCustomer(val){
         var req = {
             method: 'GET',
             url: config.apiBase + '/customerSearch',
-            //url: '//maps.googleapis.com/maps/api/geocode/json',
-            // headers: {
-            // 'x-access-token': undefined
-            // },
             params: {
                 Name: val
             }
         };
-        
+        return this.$http(req).then(function(response){
+            return response.data.data.map(function(item){
+                
+                return {id: item._id, name: item.firstName + ' ' + item.lastName};
+            });
+        });
+    }
+    
+    addCustomer(name){
+        var self = this;
+        var names = name.split(' ');
+        var req = {
+            method: 'POST',
+            url: config.apiBase + '/customers',
+            data: {
+                firstName: names[0],
+                lastName: names[1]
+            }
+        };
         return this.$http(req).then(function(response){
             console.log(response);
-            return response.data.data.map(function(item){
-                return item.firstName + ' ' + item.lastName;
-            });
+            self.$scope.vm.newItem.customer = {id: response.data.data._id, name: response.data.data.firstName + ' ' + response.data.data.lastName};
+            self.$scope.noResults = false;
         });
     }
     
@@ -81,7 +94,12 @@ class tmAddContractCtrl {
     
     addItem(nextView){
         var self = this;
-        self.newItem.validate(function(err){
+        console.log(self.newItem);
+        var customerId = self.newItem.customer.id;
+        console.log(customerId);
+        self.newItem.customer = customerId;
+        var newItemDoc = new self.tmMongoose.Document(self.newItem, this.schema);
+        newItemDoc.validate(function(err){
             if(err) {
                 self.validationError = err;
                 self.$scope.$apply();

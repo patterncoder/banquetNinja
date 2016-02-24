@@ -16,11 +16,11 @@
                                         input.form-control(ng-model="vm.docSvc.doc.natureOfEvent")
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
-                        md-tab( label="Descriptions")
-                                
-                        md-tab(label="Sections")
+                        md-tab( label="Food & Beverage")
+                            require('jade!./tabs/food.jade')
+                        md-tab(label="Event Timeline")
                             
-                        md-tab(label="Notes")
+                        md-tab(label="Communication")
                            
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
                     div Some footer text here
