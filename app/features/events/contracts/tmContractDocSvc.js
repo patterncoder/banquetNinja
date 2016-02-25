@@ -15,14 +15,6 @@ function tmContractDocSvc (tmDocFactory) {
             quantity: 0
         };
         this.doc.menuItems.push(itemToAdd);
-        
-        // var index = this.doc.categories.indexOf(category);
-        // if (index === -1) {
-        //     this.doc.categories.push(category);
-        //     return this.doc.categories;
-        // } else {
-        //     throw new Error("Category already exists");
-        // }
     }
     
     this.saveChanges = function (){
@@ -41,7 +33,7 @@ function tmContractDocSvc (tmDocFactory) {
                 console.log(err);
                 self.validationError = err;
                 console.log(self.validationError);
-                deferred.reject('has errors');
+                deferred.reject('contract doc service has errors');
                 return
             }
             self.docModel.update(self.doc).then(function(data){

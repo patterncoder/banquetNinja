@@ -51,7 +51,7 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
                 console.log(err);
                 self.validationError = err;
                 console.log(self.validationError);
-                deferred.reject('has errors');
+                deferred.reject('base doc service has errors');
                 return
             }
             self.docModel.update(self.doc).then(function(data){
