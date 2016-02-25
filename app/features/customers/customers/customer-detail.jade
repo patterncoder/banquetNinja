@@ -32,61 +32,7 @@
                                         div.md-title {{::contract.title}}
                                         div {{::contract.eventDate  | date:'fullDate' }}
                         md-tab( label="Contact Information")
-                                div(layout="row" flex layout-fill layout-padding)
-                                    div(layout="column" flex="33")
-                                        div.itemCardHeader(layout="row")
-                                            div
-                                                h4 Phone Numbers
-                                            div(flex)
-                                            div
-                                                h4
-                                                    a(href="" ng-click="vm.addPhoneNumber()")
-                                                        span.glyphicon.glyphicon-plus
-                                        div(ng-hide="vm.docSvc.doc.phoneNumbers.length" style="margin: 5px") No numbers...
-                                        div.itemCard(ng-repeat="phoneNumber in vm.docSvc.doc.phoneNumbers")
-                                            div.pull-right
-                                                a(href="" ng-click="vm.addPhoneNumber($index, phoneNumber)" style="padding-right: 5px") Edit
-                                                    //span.glyphicon.glyphicon-pencil
-                                                a(href="" ng-click="vm.removePhoneNumber($index)") Delete
-                                                    //span.glyphicon.glyphicon-remove
-                                            div {{::phoneNumber.number | tmPhoneFilter}} ({{::phoneNumber.contactType}})
-                                    div(layout="column" flex="33")
-                                        div.itemCardHeader(layout="row")
-                                            div
-                                                h4 Emails
-                                            div(flex)
-                                            div
-                                                h4
-                                                    a(href="" ng-click="vm.addEmail()")
-                                                        span.glyphicon.glyphicon-plus
-                                        div(ng-hide="vm.docSvc.doc.emails.length" style="margin: 5px") No emails...
-                                        div.itemCard(ng-repeat="email in vm.docSvc.doc.emails")
-                                            div.pull-right
-                                                a(href="" ng-click="vm.addEmail($index, email)" style="padding-right: 5px") Edit
-                                                    //span.glyphicon.glyphicon-pencil
-                                                a(href="" ng-click="vm.removeEmail($index)") Delete
-                                                    //span.glyphicon.glyphicon-remove
-                                            div {{::email.email}} ({{::email.emailType}})
-                                    div(layout="column" flex="33")
-                                        div.itemCardHeader(layout="row")
-                                            div
-                                                h4 Addresses
-                                            div(flex)
-                                            div
-                                                h4
-                                                    a(href="" ng-click="vm.addAddress()")
-                                                        span.glyphicon.glyphicon-plus
-                                        div(ng-hide="vm.docSvc.doc.addresses.length" style="margin: 5px") No addresses...
-                                        div.itemCard(ng-repeat="address in vm.docSvc.doc.addresses")
-                                            div.pull-right 
-                                                a(href="" ng-click="vm.addAddress($index, address)" style="padding-right: 5px") Edit
-                                                    //span.glyphicon.glyphicon-pencil
-                                                a(href="" ng-click="vm.removeAddress($index)") Delete
-                                                    //span.glyphicon.glyphicon-remove
-                                            div {{::address.address1}}
-                                            div {{::address.address2}}
-                                            div {{::address.city}}, {{::address.state}} {{::address.zip}}
-                                            div ({{::address.addressType}})
+                            include ./tabs/contactInfo.jade
                         md-tab(label="General Notes")
                             div(layout="row" layout-padding)
                                 div(flex)

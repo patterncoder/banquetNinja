@@ -17,20 +17,20 @@
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         md-tab( label="Food & Beverage")
-                            require('jade!./tabs/food.jade')
+                            include ./tabs/food.jade
                         md-tab(label="Event Timeline")
-                            
+                            include ./tabs/timeline.jade
                         md-tab(label="Communication")
-                           
+                            include ./tabs/communication.jade
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
                     div Some footer text here
-        div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 0" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()
-                    h3 Add Category
+                    h3 Add Food
                     a(href="") Add categories to the list
-                    lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
+                    lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
                         a(href="" ng-click="dCtrl.addItem(item)") 
                             span.glyphicon.glyphicon-circle-arrow-left 
-                        span &nbsp; {{item}}
+                        span &nbsp; {{item.name}}
     detail-footer

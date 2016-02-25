@@ -1,1 +1,18 @@
-h3 I am in food tab.
+
+div.itemCardHeader(layout="row")
+    div
+        h4 Contract Menu Items
+    div(flex)
+    div
+        // h4
+        //     a(href="" ng-click="vm.addPhoneNumber()")
+        //         span.glyphicon.glyphicon-plus
+div(ng-hide="vm.docSvc.doc.menuItems.length" style="margin: 5px") No food yet...
+div.itemCard(ng-repeat="item in vm.docSvc.doc.menuItems track by $index")
+    div.pull-right
+        // a(href="" ng-click="vm.addPhoneNumber($index, phoneNumber)" style="padding-right: 5px") Edit
+        //     //span.glyphicon.glyphicon-pencil
+        // a(href="" ng-click="vm.removePhoneNumber($index)") Delete
+        //     //span.glyphicon.glyphicon-remove
+    
+    div {{::item.name}}  {{::item.description}}  {{:: item.quantity}} {{::item.price}}

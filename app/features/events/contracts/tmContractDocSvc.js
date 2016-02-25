@@ -6,6 +6,25 @@ function tmContractDocSvc (tmDocFactory) {
     
     this.__proto__ = tmDocFactory('Contract', ninjaSchemas.events.Contract);
     
+    this.addMenuItem = function (menuItem){
+        var itemToAdd = {
+            name: menuItem.name,
+            description: menuItem.description,
+            baseId: menuItem._id,
+            price: 0,
+            quantity: 0
+        };
+        this.doc.menuItems.push(itemToAdd);
+        
+        // var index = this.doc.categories.indexOf(category);
+        // if (index === -1) {
+        //     this.doc.categories.push(category);
+        //     return this.doc.categories;
+        // } else {
+        //     throw new Error("Category already exists");
+        // }
+    }
+    
     this.saveChanges = function (){
         var self = this;
         var deferred = this.$q.defer();

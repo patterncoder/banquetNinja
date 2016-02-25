@@ -58,7 +58,7 @@
                 div()
                     h3 Add Category
                     a(href="") Add categories to the list
-                    lookups(tm-data-source="Lookups" doc-list="vm.docSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
+                    lookups(tm-data-source="Lookups" limit-to-list doc-list="vm.docSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
                         a(href="" ng-click="dCtrl.addItem(item)") 
                             span.glyphicon.glyphicon-circle-arrow-left 
                         span &nbsp; {{item}}

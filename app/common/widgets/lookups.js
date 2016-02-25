@@ -19,7 +19,12 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', '$timeout', fu
     
     this.updateList = function(){
         //console.log(self.docList);
-        self.data = _.difference(self.fullList, self.docList);
+        if($attrs.limitToList){
+            self.data = _.difference(self.fullList, self.docList);
+        } else {
+            
+        }
+        
     };
     
     $scope.$watchCollection('dCtrl.docList', function(newValue, oldValue){
@@ -30,8 +35,10 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', '$timeout', fu
     Data.query().then(function(data){
         if(list === "root"){
             self.data = data;
+            self.fullList = data;
         } else {
             $timeout(function(){  
+                self.data = data[list];
                 self.fullList = data[list];
                 self.updateList();
             }, 0);
