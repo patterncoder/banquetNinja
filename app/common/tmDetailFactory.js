@@ -168,6 +168,7 @@ function BaseDetail (
                 self.close();
             }
         }, function(err){
+            console.log(err);
             self.tmNotifier.error("There was a problem with saving...try again.")
         })
     };

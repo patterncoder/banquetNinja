@@ -58,6 +58,9 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
                 self.doc = data;
                 self.master = angular.copy(data);
                 deferred.resolve();
+            }, function(err){
+                deferred.reject(err);
+                return;
             });
         });
         return deferred.promise;
