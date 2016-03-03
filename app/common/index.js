@@ -13,6 +13,7 @@ import inject from './widgets/inject';
 import listHeader from './widgets/listHeader';
 import detailHeader from './widgets/detailHeader';
 import detailFooter from './widgets/detailFooter';
+import focus from './widgets/focus';
 // services
 import tmWindowStorage from './tmWindowStorage';
 // base class like factories
@@ -43,6 +44,7 @@ export default angular.module('common', [])
     .directive('listHeader', listHeader)
     .directive('detailHeader', detailHeader)
     .directive('detailFooter', detailFooter)
+    .directive('focus', focus)
     .controller('tmDialogAddItemCtrl', tmDialogAddItemCtrl)
     .controller('tmDialogAddDocPartCtrl', tmDialogAddDocPartCtrl)
     .filter('tmPhoneFilter', tmPhoneFilter)

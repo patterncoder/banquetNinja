@@ -17,6 +17,10 @@ function tmContractDocSvc (tmDocFactory) {
         this.doc.menuItems.push(itemToAdd);
     }
     
+    this.removeMenuItem = function(index){
+        this.doc.menuItems.splice(index, 1);
+    };
+    
     this.saveChanges = function (){
         var self = this;
         var deferred = this.$q.defer();

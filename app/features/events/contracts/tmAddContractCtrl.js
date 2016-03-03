@@ -46,9 +46,10 @@ class tmAddContractCtrl {
             method: 'GET',
             url: config.apiBase + '/customerSearch',
             params: {
-                Name: val
+                name: val
             }
         };
+        console.log('called getCustomer');
         return this.$http(req).then(function(response){
             return response.data.data.map(function(item){
                 
