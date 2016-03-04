@@ -28,7 +28,7 @@ export default class CachedResource {
             
             if (!self.List) {
                 self.Resource.query(queryString, function(data){
-                    
+                    console.log(data);
                     self.List = data.data;
                     deferred.resolve(self.List);
                 });

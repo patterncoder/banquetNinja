@@ -6,7 +6,8 @@ function tmContractDetailCtrl (
     $scope,
     tmDetailFactory,
     tmContractDocSvc,
-    $timeout
+    $timeout,
+    uibDateParser
 ) {
     var self = this;
     var constructorArgs = {
@@ -35,6 +36,8 @@ function tmContractDetailCtrl (
     
     this.loadData().then(function(){
         self.getDetailTitle();
+        //self.docSvc.doc.eventDate = new Date(self.docSvc.doc.eventDate);
+        //self.docSvc.doc.eventTime = new Date(self.docSvc.doc.eventTime);
     });
     
     this.getDetailTitle = function(){
@@ -44,10 +47,32 @@ function tmContractDetailCtrl (
     this.detailBlur = function (item, index, event) {
         var relatedTarget = event.relatedTarget || event.explicitOriginalTarget;
         if (relatedTarget == null || event.target.parentElement.parentElement != relatedTarget.parentElement.parentElement ) {
-            $timeout(function(){delete item.isEditing;}, 100)
+            $timeout(function(){
+                delete item.isEditing;
+                delete item.clickedField;
+            }, 0)
             
         } 
     }
+    
+    this.format = 'shortDate';
+    this.timeFormat = 'h:mm a';
+    this.datePickerOptions = {
+        //dateDisabled: disabled,
+        formatYear: 'yy',
+        maxDate: new Date(2020, 5, 22),
+        minDate: new Date(),
+        startingDay: 1
+    };
+    this.status = {timePickerOpen: false,
+        datePickerOpen: false
+    };
+    this.openDatePicker = function(){
+        this.status.datePickerOpen = true;
+    };
+    this.closeTimePicker = function(){
+        this.status.timePickerOpen = false;
+    };
     
     this.doneEditing = function(item){
         delete item.isEditing;
@@ -55,9 +80,13 @@ function tmContractDetailCtrl (
     };
     
     this.editMenuItem = function (item, index, clickedField){
-        item.isEditing = true;
-        item.clickedField = {};
-        item.clickedField[clickedField] = true;
+        $timeout(function(){
+            console.log('ngClick');
+            item.isEditing = true;
+            item.clickedField = {};
+            item.clickedField[clickedField] = true;
+        },0);
+
     }
     
     this.deleteMenuItem = function (index){
@@ -73,7 +102,8 @@ tmContractDetailCtrl.$inject = [
     '$scope',
     'tmDetailFactory',
     'tmContractDocSvc',
-    '$timeout'
+    '$timeout',
+    'uibDateParser'
 ];
 
 export default tmContractDetailCtrl;

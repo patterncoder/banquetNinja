@@ -1,4 +1,5 @@
 import angular from  'angular';
+import _ from 'lodash';
 
 function tmDocFactory ($dataSource, tmMongoose, $q) {
     return function(model, schema) {
@@ -26,11 +27,25 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
     // set mongoose schema here
     this.docSchema = schema;
     
-    
+    function convertDateStrings(data){
+        var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
+        _.forIn(data, function(value, key) {
+                console.log(key);
+                if (typeof value === 'string') {
+                    var a = reISO.exec(value);
+                    if (a) {
+                        data[key] = new Date(value);
+                    }
+                }
+            });
+        return data;
+    }
     
     this.loadDocument = function (id){
         var self = this;
+        
         return this.docModel.getOne(id, true).then(function(data, status){
+            data = convertDateStrings(data);
             self.validationError = null;
             self.doc = data;
             self.master = angular.copy(data);
@@ -55,6 +70,7 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
                 return
             }
             self.docModel.update(self.doc).then(function(data){
+                data = convertDateStrings(data);
                 self.doc = data;
                 self.master = angular.copy(data);
                 deferred.resolve();

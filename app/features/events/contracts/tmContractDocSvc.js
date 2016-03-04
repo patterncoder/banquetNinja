@@ -6,6 +6,20 @@ function tmContractDocSvc (tmDocFactory) {
     
     this.__proto__ = tmDocFactory('Contract', ninjaSchemas.events.Contract);
     
+    function convertDateStrings(data){
+        var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
+        _.forIn(data, function(value, key) {
+                console.log(key);
+                if (typeof value === 'string') {
+                    var a = reISO.exec(value);
+                    if (a) {
+                        data[key] = new Date(value);
+                    }
+                }
+            });
+        return data;
+    }
+    
     this.addMenuItem = function (menuItem){
         var itemToAdd = {
             name: menuItem.name,
@@ -41,6 +55,7 @@ function tmContractDocSvc (tmDocFactory) {
                 return
             }
             self.docModel.update(self.doc).then(function(data){
+                data = convertDateStrings(data);
                 self.doc = data;
                 self.master = angular.copy(data);
                 deferred.resolve();
