@@ -17,6 +17,7 @@ class tmContractsCtrl {
         this.loadData({sel: 'eventName eventDate startTime'});
         //this.loadData();
         
+        this.sortOptions = [ { value: "eventDate", text: "Sort by Event Date" }, { value: "eventName", text: "Sort by Event Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
         
         this.addContract = function(){
             var self = this;
