@@ -30,7 +30,7 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
     function convertDateStrings(data){
         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
         _.forIn(data, function(value, key) {
-                console.log(key);
+                //console.log(key);
                 if (typeof value === 'string') {
                     var a = reISO.exec(value);
                     if (a) {

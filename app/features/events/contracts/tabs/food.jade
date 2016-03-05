@@ -8,22 +8,22 @@ div(ng-hide="vm.docSvc.doc.menuItems.length" style="margin: 5px") No food yet...
 
 div.itemCard(style="padding: 3px" ng-repeat="item in vm.docSvc.doc.menuItems track by $index" ng-class="{'active-card': item.isEditing}" )
     div(ng-hide="item.isEditing"  layout="row")   
-        div(flex="20" layout="row" style="padding: 3px; background-color: #f5fafa; margin: 3px" ng-click="vm.editMenuItem(item, $index, 'name')") {{item.name}}
-        div(flex="55" layout="row" style="padding: 3px; background-color: #f5fafa; margin: 3px" ng-click="vm.editMenuItem(item, $index, 'description')") {{item.description}}
-        div(flex="10" layout="row" style="padding: 3px; background-color: #f5fafa; margin: 3px" ng-click="vm.editMenuItem(item, $index, 'quantity')") {{item.quantity}}
-        div(flex="10" layout="row" style="padding: 3px; background-color: #f5fafa; margin: 3px" ng-click="vm.editMenuItem(item, $index, 'price')") {{item.price | currency}}
+        div(flex="20" layout="row" style="padding: 3px; background-color: #f5fafa; margin: 3px" ng-focus="vm.editMenuItem(item, $index, 'name')" ng-click="vm.editMenuItem(item, $index, 'name')") {{item.name}}
+        div(flex="55" layout="row" style="padding: 3px; background-color: #f5fafa; margin: 3px" ng-focus="vm.editMenuItem(item, $index, 'description')" ng-click="vm.editMenuItem(item, $index, 'description')") {{item.description}}
+        div(flex="10" layout="row" style="padding: 3px; background-color: #f5fafa; margin: 3px" ng-focus="vm.editMenuItem(item, $index, 'quantity')" ng-click="vm.editMenuItem(item, $index, 'quantity')") {{item.quantity}}
+        div(flex="10" layout="row" style="padding: 3px; background-color: #f5fafa; margin: 3px" ng-focus="vm.editMenuItem(item, $index, 'price')" ng-click="vm.editMenuItem(item, $index, 'price')") {{item.price | currency}}
         div(flex="5" layout="column" layout-align="center center")
-            a(href= "" ng-click="vm.deleteMenuItem($index)" ng-blur="vm.detailBlur(item, $index, $event)" )
+            a(href= "" ng-click="vm.deleteMenuItem($index)"  ng-blur="vm.detailBlur(item, $index, $event)" )
                  span.glyphicon.glyphicon-remove 
     div(ng-show="item.isEditing"  layout="row"  )
         div(flex="20" layout="row" style="padding: 2px; margin: 2px")
-            input.form-control(ng-model="item.name" focus="item.clickedField.name"  ng-blur="vm.detailBlur(item, $index, $event)")
+            input.form-control(ng-model="item.name" focus="item.clickedField.name" ng-keydown="vm.arrowKeyOut(item, $index, $event, 'name')" ng-focus="vm.editMenuItem(item, $index, 'name')"  ng-blur="vm.detailBlur(item, $index, $event)")
         div(flex="55" layout="row" style="padding: 2px;  margin: 2px")
-            textarea.form-control(rows="3" ng-model="item.description" focus="item.clickedField.description" ng-blur="vm.detailBlur(item, $index, $event)")
+            textarea.form-control(rows="3" ng-model="item.description" ng-keydown="vm.arrowKeyOut(item, $index, $event, 'description')" focus="item.clickedField.description" ng-blur="vm.detailBlur(item, $index, $event)")
         div(flex="10" layout="row" style="padding: 2px;  margin: 2px")
-            input.form-control(ng-model="item.quantity" focus="item.clickedField.quantity" ng-blur="vm.detailBlur(item, $index, $event)")
+            input.form-control(ng-model="item.quantity" ng-keydown="vm.arrowKeyOut(item, $index, $event, 'quantity')" focus="item.clickedField.quantity" ng-blur="vm.detailBlur(item, $index, $event)")
         div(flex="10" layout="row" style="padding: 2px;  margin: 2px")
-            input.form-control(ng-model="item.price" focus="item.clickedField.price" ng-blur="vm.detailBlur(item, $index, $event)")
+            input.form-control(ng-model="item.price" ng-keydown="vm.arrowKeyOut(item, $index, $event, 'price')" focus="item.clickedField.price" ng-blur="vm.detailBlur(item, $index, $event)")
         div(flex="5" layout="column" layout-align="center center")
             a(href= "" ng-click="vm.doneEditing(item)" ng-blur="vm.detailBlur(item, $index, $event)" )
                  span.glyphicon.glyphicon-ok 

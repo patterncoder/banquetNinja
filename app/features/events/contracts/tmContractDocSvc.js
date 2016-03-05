@@ -9,7 +9,7 @@ function tmContractDocSvc (tmDocFactory) {
     function convertDateStrings(data){
         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
         _.forIn(data, function(value, key) {
-                console.log(key);
+                //console.log(key);
                 if (typeof value === 'string') {
                     var a = reISO.exec(value);
                     if (a) {
@@ -41,7 +41,7 @@ function tmContractDocSvc (tmDocFactory) {
         // depopulate for saving
         //console.log(_.pick(self.doc.customer, "_id"));
         var stripped = _.pick(self.doc.customer, "_id");
-        console.log(stripped);
+        //console.log(stripped);
         self.doc.customer = stripped._id;
         // console.log(self.doc);
         

@@ -44,16 +44,7 @@ function tmContractDetailCtrl (
         self.detailTitle = self.docSvc.doc.customer.lastName + ' - ' + self.docSvc.doc.eventName;
     };
     
-    this.detailBlur = function (item, index, event) {
-        var relatedTarget = event.relatedTarget || event.explicitOriginalTarget;
-        if (relatedTarget == null || event.target.parentElement.parentElement != relatedTarget.parentElement.parentElement ) {
-            $timeout(function(){
-                delete item.isEditing;
-                delete item.clickedField;
-            }, 0)
-            
-        } 
-    }
+    
     
     this.format = 'shortDate';
     this.timeFormat = 'h:mm a';
@@ -80,13 +71,38 @@ function tmContractDetailCtrl (
     };
     
     this.editMenuItem = function (item, index, clickedField){
+        if(index < 0 || index > this.docSvc.doc.menuItems.length - 1) return;
         $timeout(function(){
-            console.log('ngClick');
+            // console.log({inFunction: 'editMenuItem',
+            //     item: item,
+            //     index: index,
+            //     clickedField: clickedField
+            // });
             item.isEditing = true;
             item.clickedField = {};
             item.clickedField[clickedField] = true;
         },0);
 
+    }
+    
+    this.arrowKeyOut = function(item, index, event, clickedField){
+        if (event.keyCode == 38) {
+            this.editMenuItem(this.docSvc.doc.menuItems[--index], index--, clickedField);
+        }
+        if (event.keyCode == 40) {
+            this.editMenuItem(this.docSvc.doc.menuItems[++index], index++, clickedField);
+        }
+    };
+    
+    this.detailBlur = function (item, index, event) {
+        var relatedTarget = event.relatedTarget || event.explicitOriginalTarget;
+        if (relatedTarget == null || event.target.parentElement.parentElement != relatedTarget.parentElement.parentElement ) {
+            $timeout(function(){
+                delete item.isEditing;
+                delete item.clickedField;
+            }, 0)
+            
+        } 
     }
     
     this.deleteMenuItem = function (index){
