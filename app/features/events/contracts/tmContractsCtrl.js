@@ -33,7 +33,7 @@ class tmContractsCtrl {
             self.tmDialogSvc.showDialog(dialogConfig);
         }
         
-    }
+    } 
     
 }
 
