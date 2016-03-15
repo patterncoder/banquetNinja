@@ -8,13 +8,13 @@
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         md-tab( label="Food & Beverage")
-                            include ./tabs/food.jade
+                            // include ./tabs/food.jade
                             tm-doc-grid(no-data-text="No menu items yet..." 
                                 grid-title="Contract Menu Items" 
                                 doc-svc="vm.docSvc" 
                                 list="vm.docSvc.doc.menuItems" 
                                 create-method="addMenuItem" 
-                                update-method="" 
+                                update-method="updateMenuItem" 
                                 delete-method="deleteMenuItem")
                         md-tab(label="Event Timeline")
                             include ./tabs/timeline.jade

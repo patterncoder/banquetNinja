@@ -36,9 +36,9 @@ function tmContractDocSvc (tmDocFactory) {
     };
     
     this.deleteMenuItem = function(item){
-        console.log({item: item});
-        console.log({doc: this.doc});
-        console.log({menuItems: this.doc.menuItems})
+        // console.log({item: item});
+        // console.log({doc: this.doc});
+        // console.log({menuItems: this.doc.menuItems})
         var idx = this.doc.menuItems.indexOf(item);
         if (idx >= 0) {
             this.doc.menuItems.splice(idx, 1);
