@@ -19,7 +19,9 @@ import tmContractDetailCtrl from './contracts/tmContractDetailCtrl';
 import tmRentalItemDetailCtrl from './rentalitems/tmRentalItemDetailCtrl';
 import tmVenueDetailCtrl from './venues/tmVenueDetailCtrl';
 import tmAddContractCtrl from './contracts/tmAddContractCtrl';
-
+// components
+import tmDocGrid from './contracts/tabs/tmDocGrid.js';
+import tmDocGridItem from './contracts/tabs/tmDocGridItem.js';
 
 
 export default angular.module('events', [uirouter, uibs])
@@ -37,4 +39,6 @@ export default angular.module('events', [uirouter, uibs])
     .controller('tmRentalItemDetailCtrl', tmRentalItemDetailCtrl)
     .controller('tmAddContractCtrl', tmAddContractCtrl)
     .controller('tmVenueDetailCtrl', tmVenueDetailCtrl)
+    .component('tmDocGrid', tmDocGrid)
+    .component('tmDocGridItem', tmDocGridItem)
     .name

@@ -13,6 +13,7 @@ var Controller =  ['navigation', 'tmIdentity', '$scope', function(navigation, tm
 }];
 
 function Directive(){
+    
     return {
         scope: {},
         restrict: 'E',

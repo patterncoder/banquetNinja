@@ -63,6 +63,7 @@ module.exports = angular.module('app', [Shell, Features, Common])
         
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
             
+            var fromStateName = fromState.name || 'root.home';
             if(tmIdentity.isAuthenticated() && toState.prohibitStateWhenLoggedIn){
                 $state.transitionTo(fromState.name);
                 event.preventDefault();
@@ -73,7 +74,7 @@ module.exports = angular.module('app', [Shell, Features, Common])
                 if(tmIdentity.isAuthenticated()){
                     if(_.intersection(tmIdentity.currentUser.user.roles, toState.roles).length == 0){
                         tmNotifier.error('You are not authorized for that route');
-                        $state.transitionTo(fromState.name);
+                        $state.transitionTo(fromStateName);
                         event.preventDefault();
                     }
                     

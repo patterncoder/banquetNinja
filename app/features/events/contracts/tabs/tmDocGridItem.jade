@@ -1,0 +1,45 @@
+
+
+
+div.itemCard(style="padding: 3px"  ng-class="{'active-card': item.isEditing}" )
+    div.foodViewDiv(ng-hide="$ctrl.item.isEditing"  layout="row")   
+        div(flex="20" layout="row" style="padding: 3px; background-color: #f5fafa; margin: 3px" 
+            ng-focus="$ctrl.onEditItem(item, $index, 'name')" 
+            ng-click="$ctrl.onEditItem(item, $index, 'name')") {{$ctrl.item.name}}
+        div(flex="55" layout="row" style="padding: 3px; background-color: #f5fafa; margin: 3px" 
+            ng-focus="$ctrl.onEditItem(item, $index, 'description')" 
+            ng-click="$ctrl.onEditItem(item, $index, 'description')") {{$ctrl.item.description}}
+        div(flex="10" layout="row" style="padding: 3px; background-color: #f5fafa; margin: 3px" 
+            ng-focus="$ctrl.onEditItem(item, $index, 'quantity')" 
+            ng-click="$ctrl.onEditItem(item, $index, 'quantity')") {{$ctrl.item.quantity}}
+        div(flex="10" layout="row" style="padding: 3px; background-color: #f5fafa; margin: 3px" 
+            ng-focus="$ctrl.onEditItem(item, $index, 'price')" 
+            ng-click="$ctrl.onEditItem(item, $index, 'price')") {{$ctrl.item.price | currency}}
+        div(flex="5" layout="column" layout-align="center center")
+            a(href= "" ng-click="$ctrl.onDelete($ctrl.item)"  ng-blur="vm.detailBlur(item, $index, $event)" )
+                 span.glyphicon.glyphicon-remove 
+    div.foodEditDiv(ng-show="$ctrl.item.isEditing"  layout="row"  )
+        div(flex="20" layout="row" style="padding: 2px; margin: 2px")
+            input.form-control(ng-model="$ctrl.item.name" 
+                focus="$ctrl.item.clickedField.name" 
+                ng-keydown="vm.arrowKeyOut(item, $index, $event, 'name')" 
+                ng-focus="vm.editMenuItem(item, $index, 'name')"  
+                ng-blur="vm.detailBlur(item, $index, $event)")
+        div(flex="55" layout="row" style="padding: 2px;  margin: 2px")
+            textarea.form-control( rows="3" ng-model="$ctrl.item.description" 
+                ng-keydown="vm.arrowKeyOut(item, $index, $event, 'description')" 
+                focus="item.clickedField.description" 
+                ng-blur="vm.detailBlur(item, $index, $event)")
+        div(flex="10" layout="row" style="padding: 2px;  margin: 2px")
+            input.form-control(ng-model="$ctrl.item.quantity" type="number" 
+                ng-keydown="vm.arrowKeyOut(item, $index, $event, 'quantity')" 
+                focus="item.clickedField.quantity" 
+                ng-blur="vm.detailBlur(item, $index, $event)")
+        div(flex="10" layout="row" style="padding: 2px;  margin: 2px")
+            input.form-control(ng-model="$ctrl.item.price" type="number" 
+                ng-keydown="vm.arrowKeyOut(item, $index, $event, 'price')" 
+                focus="item.clickedField.price" 
+                ng-blur="vm.detailBlur(item, $index, $event)")
+        div(flex="5" layout="column" layout-align="center center")
+            a(href= "" ng-click="vm.doneEditing(item)" ng-blur="vm.detailBlur(item, $index, $event)" )
+                 span.glyphicon.glyphicon-ok 

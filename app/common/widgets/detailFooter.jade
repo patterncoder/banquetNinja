@@ -9,6 +9,8 @@
                 md-menu-item(ng-repeat="menuItem in vm.moreFunctions")
                     md-button(ng-click="menuItem.method()") {{menuItem.label}}
     div(flex="33" layout="row" layout-align="end center")
+        div(ng-show="vm.isLoading" flex)
+            is-loading
         md-button.md-raised(ng-click="vm.closeButton()") {{vm.closeButtonText}}
         md-menu()
             a(href="" ng-click="vm.openSaveMenu($mdOpenMenu, $event)")
@@ -18,3 +20,4 @@
                     md-button(ng-click="vm.setSaveButton('Save and Close')") Save and Close
                 md-menu-item
                     md-button(ng-click="vm.setSaveButton('Save and Stay')") Save and Stay
+                    

@@ -1,0 +1,15 @@
+
+div.itemCardHeader(layout="row")
+    div
+        h4 {{$ctrl.gridTitle}}
+    div(flex)
+    div
+div(ng-hide="$ctrl.list.length" style="margin: 5px") {{$ctrl.noDataText}}
+
+
+tm-doc-grid-item(ng-repeat="item in $ctrl.list" 
+    item="item" 
+    on-edit-item="$ctrl.editItem(item, index, clickedField)" 
+    on-delete="$ctrl.delete(item)") 
+
+

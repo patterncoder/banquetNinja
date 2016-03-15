@@ -95,20 +95,22 @@ class tmAddContractCtrl {
     
     addItem(nextView){
         var self = this;
+        var newContract = angular.copy(self.newItem);
         console.log(self.newItem);
-        var customerId = self.newItem.customer.id;
+        console.log(newContract);
+        var customerId = newContract.customer.id;
         console.log(customerId);
-        self.newItem.customer = customerId;
-        var newItemDoc = new self.tmMongoose.Document(self.newItem, this.schema);
+        newContract.customer = customerId;
+        var newItemDoc = new self.tmMongoose.Document(newContract, this.schema);
         newItemDoc.validate(function(err){
             if(err) {
                 self.validationError = err;
                 self.$scope.$apply();
                 return;
             }
-            delete self.newItem._id;
+            delete newContract._id;
             self.setLoading(true);
-            self.model.add(self.newItem).then(function(data){
+            self.model.add(newContract).then(function(data){
                 self.tmNotifier.notify("Item was sucessfully added.")
                 self.setLoading(false);
                 self.$mdDialog.hide();

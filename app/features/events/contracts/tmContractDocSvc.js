@@ -35,6 +35,16 @@ function tmContractDocSvc (tmDocFactory) {
         this.doc.menuItems.splice(index, 1);
     };
     
+    this.deleteMenuItem = function(item){
+        console.log({item: item});
+        console.log({doc: this.doc});
+        console.log({menuItems: this.doc.menuItems})
+        var idx = this.doc.menuItems.indexOf(item);
+        if (idx >= 0) {
+            this.doc.menuItems.splice(idx, 1);
+        }
+    };
+    
     this.saveChanges = function (){
         var self = this;
         var deferred = this.$q.defer();

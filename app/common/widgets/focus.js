@@ -5,8 +5,12 @@ var FocusDirective = function ($timeout) {
       function (newValue) { 
           
         $timeout(function() {
+            
             newValue && element.focus();
-            newValue && element[0].setSelectionRange(0, element[0].value.length);
+            if (element[0].type == "textarea" || element[0].type == "text") {
+                newValue && element[0].setSelectionRange(0, element[0].value.length);
+            }
+            
         }, 100);
       },true);
   };    
