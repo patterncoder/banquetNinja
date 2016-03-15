@@ -38,6 +38,8 @@ function tmDocGridCtrl($scope, $element, $attrs, $timeout) {
     
 }
 
+tmDocGridCtrl.$inject = ['$scope', '$element', '$attrs', '$timeout'];
+
 var tmDocGridComponent =  {
     template: require("!raw!jade-html!./tmDocGrid.jade"),
     controller: tmDocGridCtrl,
