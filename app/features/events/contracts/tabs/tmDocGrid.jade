@@ -7,9 +7,8 @@ div.itemCardHeader(layout="row")
 div(ng-hide="$ctrl.list.length" style="margin: 5px") {{$ctrl.noDataText}}
 
 
-tm-doc-grid-item(ng-repeat="item in $ctrl.list" 
+tm-doc-grid-item(ng-repeat="item in $ctrl.list track by $index" name="{{$index}}"
     item="item" 
-    on-edit-item="$ctrl.editItem(item, index, clickedField)" 
     on-delete-item="$ctrl.delete(item)"
     on-update-item="$ctrl.update(item)"
     on-create-item="$ctrl.create(item)"

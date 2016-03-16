@@ -44,6 +44,10 @@ function tmDocGridItemCtrl ($timeout) {
         } 
     }
     
+    $ctrl.startDrag = function (event) {
+        console.log(event);
+    };
+    
 }
 
 tmDocGridItemCtrl.$inject = ['$timeout'];
