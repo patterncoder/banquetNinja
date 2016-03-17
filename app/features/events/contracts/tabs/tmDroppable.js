@@ -23,10 +23,13 @@ export default [function(){
                 function(e) {
                 // Stops some browsers from redirecting.
                 if (e.stopPropagation) e.stopPropagation();
-                
+                if (e.preventDefault) e.preventDefault();
                 this.classList.remove('over');
                 console.log(e);
+                console.log(scope);
+                
                 var data = e.dataTransfer.getData('text/plain');
+                scope.$ctrl.sort(data, this.id);
                 console.log(data);
                 //this.innerHTML = data;
                 

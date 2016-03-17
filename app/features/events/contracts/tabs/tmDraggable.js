@@ -7,7 +7,7 @@ export default [function(){
             console.log(event);
             console.log(scope);
             event.dataTransfer.effectAllowed = "move";
-            event.dataTransfer.setData('text/plain', "some text");
+            event.dataTransfer.setData('text/plain', this.id);
             this.classList.add('drag');
             return false;
         //do something here.

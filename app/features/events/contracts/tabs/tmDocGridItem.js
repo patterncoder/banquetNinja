@@ -44,8 +44,8 @@ function tmDocGridItemCtrl ($timeout) {
         } 
     }
     
-    $ctrl.startDrag = function (event) {
-        console.log(event);
+    $ctrl.sort = function (startIndex, insertIndex) {
+        $ctrl.onSort({startIndex: startIndex, insertIndex: insertIndex});
     };
     
 }
@@ -61,7 +61,8 @@ var tmDocGridItem = {
         onEditItem: '&',
         onUpdateItem: '&',
         onCreateItem: '&',
-        onArrowKeyOut: '&'
+        onArrowKeyOut: '&',
+        onSort: '&'
     }
 }
 

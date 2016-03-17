@@ -1,7 +1,7 @@
 
 
 
-div.itemCard(style="padding: 3px"  ng-class="{'active-card': item.isEditing}" tm-draggable tm-droppable )
+div.itemCard(id="{{$parent.$index}}" style="padding: 3px"  ng-class="{'active-card': item.isEditing}" tm-draggable tm-droppable )
     div.foodViewDiv(ng-hide="$ctrl.item.isEditing"  layout="row")   
         div(flex="5" layout="row" layout-align="center center" )
             span.glyphicon.glyphicon-sort  

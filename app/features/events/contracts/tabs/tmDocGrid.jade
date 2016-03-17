@@ -12,6 +12,8 @@ tm-doc-grid-item(ng-repeat="item in $ctrl.list track by $index" name="{{$index}}
     on-delete-item="$ctrl.delete(item)"
     on-update-item="$ctrl.update(item)"
     on-create-item="$ctrl.create(item)"
-    on-arrow-key-out="$ctrl.arrowKeyOut(item, keyCode, currentField)") 
+    on-arrow-key-out="$ctrl.arrowKeyOut(item, keyCode, currentField)"
+    on-sort = "$ctrl.sort(startIndex, insertIndex)"
+    ) 
 
 
