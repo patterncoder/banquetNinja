@@ -27,6 +27,7 @@ function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state, $rootScope) {
                 tmNotifier.notify("You have successfully signed in!");
                 vm.setLoading(false);
                 }, function() {
+                    vm.setLoading(false);
                     tmNotifier.error('login failed');
                 }
         );

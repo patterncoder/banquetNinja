@@ -19,6 +19,7 @@ import tmLoginCtrl from './account/tmLoginCtrl';
 import tmSignupCtrl from './account/tmSignupCtrl';
 import tmNavigationCtrl from './content/tmNavigationCtrl';
 import tmFooterCtrl from './footer/tmFooterCtrl';
+import tmProfileCtrl from './account/tmProfileCtrl';
 // config data, nav and states
 import data from './data';
 import nav from './nav';
@@ -35,4 +36,5 @@ export default angular.module('shell', [uirouter, uibs, dataNinja, navNinja, ngA
     .controller('tmSignupCtrl', tmSignupCtrl)
     .controller('tmNavigationCtrl', tmNavigationCtrl)
     .controller('tmFooterCtrl', tmFooterCtrl)
+    .controller('tmProfileCtrl', tmProfileCtrl)
     .name;

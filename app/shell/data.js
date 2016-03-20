@@ -4,7 +4,7 @@ export default [
         
         $dataSourceProvider.addApiRoute({
             key: 'User', 
-            url: config.apiBase + '/users/:id', 
+            url: config.apiBase + '/users/:_id', 
             defaults: { _id: "@id" },
             methods: {update: { method: 'PUT', isArray: false },
                     query: { method: 'GET', isArray: false}},

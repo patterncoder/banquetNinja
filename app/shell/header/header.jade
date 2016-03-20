@@ -8,8 +8,17 @@
     div(layout="row" layout-align="start center" ng-show="vm.isLoading")
         div Working...
         md-progress-circular(md-mode="indeterminate")
+    div(ng-show="vm.identity.isAuthenticated()" style="margin-right: 10px")
+        div.dropdown(style="margin-right: 15px")
+            a.dropdown-toggle(data-toggle="dropdown" data-target="#") {{vm.identity.currentUser.user.firstName+' '+ vm.identity.currentUser.user.lastName}}
+                b.caret
+            ul.dropdown-menu
+                li
+                    a(ui-sref="root.profile") Profile
+                li
+                    a(href="", ng-click="vm.signout()") Sign Out
     md-button(ng-hide="vm.identity.isAuthenticated()" ui-sref="root.signup") Sign Up
-    md-button(ng-show="vm.identity.isAuthenticated()" ng-click="vm.signout()") Logout
+    //md-button(ng-show="vm.identity.isAuthenticated()" ng-click="vm.signout()") Logout
     md-menu
         md-button(ng-hide="vm.identity.isAuthenticated()" ng-click="$mdOpenMenu($event)") Login
         md-menu-content

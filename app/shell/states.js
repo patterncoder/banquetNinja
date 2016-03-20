@@ -44,6 +44,17 @@ export default function states($stateProvider) {
                 }
             }
         })
+        .state('root.profile', {
+            url: '/profile',
+            prohibitStateWhenLoggedIn: false,
+            views: {
+                'content@': {
+                    template: require('./account/profile.jade'),
+                    controller: 'tmProfileCtrl',
+                    controllerAs: '$ctrl'
+                }
+            }
+        })
         
        
 }

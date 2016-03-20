@@ -37,8 +37,9 @@ function tmDocGridCtrl($scope, $element, $attrs, $timeout) {
     };
     
     $ctrl.sort = function(startIndex, insertIndex) {
+        
         var moving = $ctrl.list.splice(startIndex, 1);
-        console.log(moving);
+        
         $ctrl.list.splice(insertIndex, 0, moving[0]);
         $scope.$apply();
     };
