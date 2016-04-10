@@ -16,6 +16,7 @@ import tmRentalItemDocSvc from './rentalitems/tmRentalItemDocSvc';
 import tmVenueDocSvc from './venues/tmVenueDocSvc';
 
 import tmContractDetailCtrl from './contracts/tmContractDetailCtrl';
+import tmContractPrintCtrl from './contracts/tmContractPrintCtrl';
 import tmRentalItemDetailCtrl from './rentalitems/tmRentalItemDetailCtrl';
 import tmVenueDetailCtrl from './venues/tmVenueDetailCtrl';
 import tmAddContractCtrl from './contracts/tmAddContractCtrl';
@@ -38,6 +39,7 @@ export default angular.module('events', [uirouter, uibs])
     .controller("tmVenuesCtrl", tmVenuesCtrl)
     .controller("tmRentalItemsCtrl", tmRentalItemsCtrl)
     .controller('tmContractDetailCtrl', tmContractDetailCtrl)
+    .controller('tmContractPrintCtrl', tmContractPrintCtrl)
     .controller('tmRentalItemDetailCtrl', tmRentalItemDetailCtrl)
     .controller('tmAddContractCtrl', tmAddContractCtrl)
     .controller('tmVenueDetailCtrl', tmVenueDetailCtrl)

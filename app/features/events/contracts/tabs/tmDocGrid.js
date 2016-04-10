@@ -54,6 +54,7 @@ var tmDocGridComponent =  {
     bindings: {
         docSvc: '<',
         list: '<',
+        fields: '<',
         gridTitle: '@',
         noDataText: '@'
     }

@@ -1,0 +1,17 @@
+button#printButton(ng-click="$ctrl.print()") print
+div.contractPage(style="width: 850px")
+    h1 {{$ctrl.doc.eventName}}
+    table.contractHeader(style="width: 100%")
+        tr.rowHead
+            td Guest Name
+            td Address
+        tr.rowData
+            td {{$ctrl.doc.customer.firstName + ' ' + $ctrl.doc.customer.lastName}}
+            td {{$ctrl.doc.customer.addresses[0].address1}} <br/> {{$ctrl.doc.customer.addresses[0].city}}
+    table.contractItems(style="width: 100%")
+        tr(ng-repeat="item in $ctrl.doc.menuItems")
+            td {{item.name}}
+            td {{item.description}}
+            td {{item.quantity}}
+            td(style="text-align: right") {{item.price}}
+        

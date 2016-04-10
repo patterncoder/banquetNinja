@@ -21,6 +21,23 @@ export default function states($stateProvider){
             }
         }
     )
+    .state('root.contracts.print', {
+            url: '/events/contracts/view/:id',
+            roles: ['gold', 'admin', 'superUser'],
+            // Can't remember how the isModal flag works...I'm getting alzheimers!
+            // Oh yeah!!! in the index.html master page the header/nav/footer are visible
+            // when the isModal is false
+            isModal: true,
+            views: {
+            'content@': {
+                template: require('./contracts/contract-print.jade'),
+                controller: 'tmContractPrintCtrl',
+                controllerAs: '$ctrl'
+                }
+            
+            }
+        }
+    )
     .state('root.contractDetail', {
             url: '/events/contracts/:id',
             roles: ['gold', 'admin', 'superUser'],
