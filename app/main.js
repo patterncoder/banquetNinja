@@ -9,6 +9,7 @@ import 'toastr/build/toastr.css';
 //window.jQuery = window.$ = require('jquery/dist/jquery');
 import 'bootstrap/dist/js/bootstrap';
 import './site.styl';
+import './print.styl';
 // load Angular
 import angular from 'angular';
 //import uirouter from 'angular-ui-router';

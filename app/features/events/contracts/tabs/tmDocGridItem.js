@@ -57,6 +57,7 @@ var tmDocGridItem = {
     controller: tmDocGridItemCtrl,
     bindings: {
         item: '<',
+        fields: '<',
         onDeleteItem: '&',
         onEditItem: '&',
         onUpdateItem: '&',

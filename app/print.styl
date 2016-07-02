@@ -1,0 +1,42 @@
+
+@page
+    size 8.5in 11in
+    margin-left .5in
+    margin-right .5in
+    
+@bottom-left
+    content "hello"
+    
+@media print
+    #printButton
+        display none
+        
+    
+    
+        
+    .contractItems tr:nth-child(even)
+        background-color: #ddd !important
+        -webkit-print-color-adjust: exact;
+        
+.contractItems tr
+    border-bottom: 1px solid #ddd
+
+.contractItems tr:nth-child(even)
+    background-color: #ddd
+    -webkit-print-color-adjust: exact;
+    
+table.contractHeader
+    margin-bottom 20px
+
+tr.rowHead td
+    background-color #ddd 
+    border solid black 1px
+    vertical-align top
+    padding 2px
+    font-weight bold
+    
+    
+tr.rowData td 
+    border solid black 1px
+    padding 2px
+    vertical-align top

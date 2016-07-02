@@ -162,7 +162,7 @@ function BaseDetail (
             self.detailForm.$setPristine();
             self.detailForm.$setUntouched();
             self.getDetailTitle();
-            self.tmNotifier.notify("The item has been saved.");
+            self.tmNotifier.detailNotify("The item has been saved.");
             self.setLoading(false);
             if(saveAndGo){
                 self.close();

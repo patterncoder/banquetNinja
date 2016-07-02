@@ -15,7 +15,8 @@
                                 list="vm.docSvc.doc.menuItems" 
                                 create-method="addMenuItem" 
                                 update-method="updateMenuItem" 
-                                delete-method="deleteMenuItem")
+                                delete-method="deleteMenuItem"
+                                fields="{field1: 'field1Value'}")
                         md-tab(label="Event Timeline")
                             include ./tabs/timeline.jade
                         md-tab(label="Communication")
@@ -25,10 +26,11 @@
         div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 0" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()
-                    h3 Add Food
-                    a(href="") Add categories to the list
+                    h3 Add Food to Contract
+                    a(ui-sref="root.menuitems") Add menu item
                     lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
-                        a(href="" ng-click="dCtrl.addItem(item)") 
-                            span.glyphicon.glyphicon-circle-arrow-left 
-                        span &nbsp; {{item.name}}
+                        div.itemCard(style="border: solid black 1px; background-color: white")
+                            a(href="" ng-click="dCtrl.addItem(item)") 
+                                span.glyphicon.glyphicon-circle-arrow-left 
+                            span &nbsp; {{item.name}}
     detail-footer
