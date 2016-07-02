@@ -17,7 +17,7 @@ function tmDetailFactory (
             tmWindowStorage,
             constructorArgs
         );
-    }
+    };
 }
 
 tmDetailFactory.$inject = [
@@ -29,7 +29,7 @@ tmDetailFactory.$inject = [
     'tmWindowStorage'
 ];
 
-export default tmDetailFactory
+export default tmDetailFactory;
 
 function BaseDetail (
             $q,
@@ -151,7 +151,7 @@ function BaseDetail (
                 self.docSvc.clearDocument();
                 self.$state.go(constructorArgs.listView);
             }
-        })
+        });
     };
     
     this.saveChanges = function(saveAndGo){

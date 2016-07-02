@@ -12,5 +12,5 @@ export default [function(){
             return false;
         //do something here.
         }, false);
-    }
+    };
 }];

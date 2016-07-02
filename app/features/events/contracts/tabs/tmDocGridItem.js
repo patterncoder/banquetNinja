@@ -5,7 +5,7 @@ function tmDocGridItemCtrl ($timeout) {
     
     $ctrl.deleteItem = function(item) {
         $ctrl.onDeleteItem(item);
-    }
+    };
     
     $ctrl.doneEditing = function(item){
         delete item.isEditing;
@@ -18,7 +18,7 @@ function tmDocGridItemCtrl ($timeout) {
             item.clickedField = {};
             item.clickedField[clickedField] = true;
         },0);
-    }
+    };
     
     $ctrl.arrowKeyOut = function(item, event, currentField){
         
@@ -39,10 +39,10 @@ function tmDocGridItemCtrl ($timeout) {
             $timeout(function(){
                 delete item.isEditing;
                 delete item.clickedField;
-            }, 0)
+            }, 0);
             
         } 
-    }
+    };
     
     $ctrl.sort = function (startIndex, insertIndex) {
         $ctrl.onSort({startIndex: startIndex, insertIndex: insertIndex});

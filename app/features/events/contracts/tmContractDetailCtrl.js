@@ -18,7 +18,7 @@ function tmContractDetailCtrl (
         listView: "root.contracts",
         detailView: "root.contractDetail",
         addHeaderText: "Add Contract"
-    }
+    };
     
     this.__proto__ = tmDetailFactory(constructorArgs);
     
@@ -41,6 +41,7 @@ function tmContractDetailCtrl (
     });
     
     this.getDetailTitle = function(){
+            console.log(self.docSvc.doc);
         self.detailTitle = self.docSvc.doc.customer.lastName + ' - ' + self.docSvc.doc.eventName;
     };
     
@@ -83,7 +84,7 @@ function tmContractDetailCtrl (
             item.clickedField[clickedField] = true;
         },0);
 
-    }
+    };
     
     this.arrowKeyOut = function(item, index, event, clickedField){
         if (event.keyCode == 38) {
@@ -100,10 +101,10 @@ function tmContractDetailCtrl (
             $timeout(function(){
                 delete item.isEditing;
                 delete item.clickedField;
-            }, 0)
+            }, 0);
             
         } 
-    }
+    };
     
     this.deleteMenuItem = function (index){
         this.docSvc.removeMenuItem(index);
