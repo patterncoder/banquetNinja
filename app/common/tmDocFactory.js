@@ -43,13 +43,18 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
     
     this.loadDocument = function (id){
         var self = this;
-        
+        console.log('in load doc');
         return this.docModel.getOne(id, true).then(function(data, status){
             data = convertDateStrings(data);
             self.validationError = null;
+            console.log(data);
+            console.log(status);
             self.doc = data;
             self.master = angular.copy(data);
             return data;
+        }, function(error){
+            console.log(error);
+            return(error);
         });
     }
     
