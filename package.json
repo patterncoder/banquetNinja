@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "postinstall": "node deploy.js",
-    "dev": "webpack-dev-server --devtool eval --config webpack.config.js --progress -- colors --hot --content-base app/ ",
+    "dev": "webpack-dev-server --devtool eval --config webpack.config.js --progress --colors --hot --content-base app/ ",
     "prodStart": "set NODE_ENV=production webpack -p --config webpack.production.config.js"
   },
   "author": "Christopher J. Baily",
