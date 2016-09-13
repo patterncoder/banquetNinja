@@ -27,6 +27,8 @@ class tmDialogAddDocPartCtrl {
             this.item = item || {}; 
             //this.fields = [];
             this.validationError = null;
+            console.log(item);
+            console.log(schema);
         }
         
     
