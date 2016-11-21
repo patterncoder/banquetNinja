@@ -49,7 +49,7 @@ class SignupCtrl {
                 self.httpValidationError.errors.companyName = {kind: "unique", message: "An account with that name exists."};
                 return self.validateField();
             }
-        })
+        });
     }
     
     
@@ -67,7 +67,7 @@ class SignupCtrl {
                 self.httpValidationError.errors.email = {kind: "unique", message: "Email is not available"};
                 return self.validateField();
             }
-        })
+        });
     }
     
     
@@ -79,12 +79,17 @@ class SignupCtrl {
                 console.log(err);
                 self.validationError = err;
                 self.$scope.$apply();
-                return 
+                return;
             } else if (self.httpValidationError.errors.email || self.httpValidationError.errors.companyName){
                 console.log("i have custom errors");
                 return;
             }
             self.$http.post(config.apiBase + '/account',  self.accountData).then(function(result){
+
+                /* 
+                 * TODO: Need to display success on creating a company 
+                 * and kick over to login screen or login them in?
+                 */  
                 console.log(result);
             });
         });

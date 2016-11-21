@@ -7,7 +7,8 @@ function tmContractDetailCtrl (
     tmDetailFactory,
     tmContractDocSvc,
     $timeout,
-    uibDateParser
+    uibDateParser,
+    $mdSidenav
 ) {
     var self = this;
     var constructorArgs = {
@@ -33,15 +34,22 @@ function tmContractDetailCtrl (
             self.detailForm.$setUntouched();
         }
     });
-    
     this.loadData().then(function(){
         self.getDetailTitle();
         //self.docSvc.doc.eventDate = new Date(self.docSvc.doc.eventDate);
         //self.docSvc.doc.eventTime = new Date(self.docSvc.doc.eventTime);
     });
-    
+
     this.getDetailTitle = function(){
-        self.detailTitle = self.docSvc.doc.customer.lastName + ' - ' + self.docSvc.doc.eventName;
+        self.detailTitle = {
+            leader: 'Event for: ',
+            text: self.docSvc.doc.customer.lastName + ', ' + self.docSvc.doc.customer.firstName
+        };
+    };
+
+    this.openRightMenu = function() {
+        console.log('in here');
+        $mdSidenav('right').toggle();
     };
     
     
@@ -119,7 +127,8 @@ tmContractDetailCtrl.$inject = [
     'tmDetailFactory',
     'tmContractDocSvc',
     '$timeout',
-    'uibDateParser'
+    'uibDateParser',
+    '$mdSidenav'
 ];
 
 export default tmContractDetailCtrl;

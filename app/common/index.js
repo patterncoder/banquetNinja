@@ -14,6 +14,7 @@ import listHeader from './widgets/listHeader';
 import detailHeader from './widgets/detailHeader';
 import detailFooter from './widgets/detailFooter';
 import focus from './widgets/focus';
+import ellipsisTitle from './widgets/ellipsisTitle';
 // services
 import tmWindowStorage from './tmWindowStorage';
 // base class like factories
@@ -45,6 +46,7 @@ export default angular.module('common', [])
     .directive('detailHeader', detailHeader)
     .directive('detailFooter', detailFooter)
     .directive('focus', focus)
+    .directive('ellipsisTitle', ellipsisTitle)
     .controller('tmDialogAddItemCtrl', tmDialogAddItemCtrl)
     .controller('tmDialogAddDocPartCtrl', tmDialogAddDocPartCtrl)
     .filter('tmPhoneFilter', tmPhoneFilter)

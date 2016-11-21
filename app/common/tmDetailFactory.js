@@ -70,7 +70,6 @@ function BaseDetail (
     
     
     
-    
     this.setLoading = function(loading){
         this.isLoading = loading;
     };

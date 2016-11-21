@@ -22,15 +22,23 @@
                         md-tab(label="Communication")
                             include ./tabs/communication.jade
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
-                    div Some footer text here
-        div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 0" layout-padding)
-            md-content(layout-padding style="background: transparent")
-                div()
-                    h3 Add Food to Contract
-                    a(ui-sref="root.menuitems") Add menu item
-                    lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
-                        div.itemCard(style="border: solid black 1px; background-color: white")
-                            a(href="" ng-click="dCtrl.addItem(item)") 
-                                span.glyphicon.glyphicon-circle-arrow-left 
-                            span &nbsp; {{item.name}}
+                    div hello
+        md-sidenav.md-sidenav-right(md-component-id="right" )
+            h3 Add Food to Contract
+            a(ui-sref="root.menuitems") Add menu item
+            lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
+                div.itemCard(style="border: solid black 1px; background-color: white")
+                    a(href="" ng-click="dCtrl.addItem(item)") 
+                        span.glyphicon.glyphicon-circle-arrow-left 
+                    span &nbsp; {{item.name}}
+        //- div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 0" layout-padding)
+        //-     md-content(layout-padding style="background: transparent")
+        //-         div()
+        //-             h3 Add Food to Contract
+        //-             a(ui-sref="root.menuitems") Add menu item
+        //-             lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
+        //-                 div.itemCard(style="border: solid black 1px; background-color: white")
+        //-                     a(href="" ng-click="dCtrl.addItem(item)") 
+        //-                         span.glyphicon.glyphicon-circle-arrow-left 
+        //-                     span &nbsp; {{item.name}}
     detail-footer

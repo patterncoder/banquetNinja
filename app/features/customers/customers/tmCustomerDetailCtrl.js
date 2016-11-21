@@ -45,9 +45,12 @@ function tmCustomerDetailCtrl (
         // running code here happens after the detail doc has been loaded
         self.getDetailTitle();
     });
-    
+
     this.getDetailTitle = function(){
-        self.detailTitle = tmCustomerDocSvc.doc.lastName + ', ' + tmCustomerDocSvc.doc.firstName;
+        self.detailTitle = {
+            leader: 'Detail for: ',
+            text: self.docSvc.doc.lastName + ', ' + self.docSvc.doc.firstName
+        };
     };
     
     this.addContract = function(){

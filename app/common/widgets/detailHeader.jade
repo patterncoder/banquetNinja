@@ -1,7 +1,8 @@
 .detailHeader(layout="row" layout-align="center center" layout-padding)
     div(flex="33" layout="row" layout-align="start center") 
         // Header Name Value Here
-        div.md-headline {{vm.detailTitle}}
+        //div.md-headline {{vm.detailTitle}}
+        ellipsis-title(title="vm.detailTitle")
     div(flex="33" layout="row" layout-align="center center") 
         // div(ng-show="vm.isLoading" flex)
         //     is-loading
