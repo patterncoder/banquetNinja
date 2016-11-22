@@ -16,6 +16,7 @@
                                 create-method="addMenuItem" 
                                 update-method="updateMenuItem" 
                                 delete-method="deleteMenuItem"
+                                add-toggle="vm.sideTab.menuItems"
                                 fields="{field1: 'field1Value'}")
                         md-tab(label="Event Timeline")
                             include ./tabs/timeline.jade
@@ -23,22 +24,24 @@
                             include ./tabs/communication.jade
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
                     div hello
-        md-sidenav.md-sidenav-right(md-component-id="right" )
-            h3 Add Food to Contract
-            a(ui-sref="root.menuitems") Add menu item
-            lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
-                div.itemCard(style="border: solid black 1px; background-color: white")
-                    a(href="" ng-click="dCtrl.addItem(item)") 
-                        span.glyphicon.glyphicon-circle-arrow-left 
-                    span &nbsp; {{item.name}}
-        //- div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 0" layout-padding)
-        //-     md-content(layout-padding style="background: transparent")
-        //-         div()
-        //-             h3 Add Food to Contract
-        //-             a(ui-sref="root.menuitems") Add menu item
-        //-             lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
-        //-                 div.itemCard(style="border: solid black 1px; background-color: white")
-        //-                     a(href="" ng-click="dCtrl.addItem(item)") 
-        //-                         span.glyphicon.glyphicon-circle-arrow-left 
-        //-                     span &nbsp; {{item.name}}
+        //- md-sidenav.md-sidenav-right(md-component-id="right" )
+        //-     h3 Add Food to Contract
+        //-     a(ui-sref="root.menuitems") Add menu item
+        //-     lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
+        //-         div.itemCard(style="border: solid black 1px; background-color: white")
+        //-             a(href="" ng-click="dCtrl.addItem(item)") 
+        //-                 span.glyphicon.glyphicon-circle-arrow-left 
+        //-             span &nbsp; {{item.name}}
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.menuItems && vm.tabIndex == 0" layout-padding)
+            md-content(layout-padding style="background: transparent")
+                div
+                    a(ng-click="vm.sideTab.menuItems = !vm.sideTab.menuItems") Close
+                div()
+                    h3 Add Food to Contract
+                    a(ui-sref="root.menuitems") Add menu item
+                    lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
+                        div.itemCard(style="border: solid black 1px; background-color: white")
+                            a(href="" ng-click="dCtrl.addItem(item)") 
+                                span.glyphicon.glyphicon-circle-arrow-left 
+                            span &nbsp; {{item.name}}
     detail-footer

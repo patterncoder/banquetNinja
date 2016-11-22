@@ -8,7 +8,7 @@ function tmContractDetailCtrl (
     tmContractDocSvc,
     $timeout,
     uibDateParser,
-    $mdSidenav
+    $state
 ) {
     var self = this;
     var constructorArgs = {
@@ -23,6 +23,11 @@ function tmContractDetailCtrl (
     
     this.__proto__ = tmDetailFactory(constructorArgs);
     
+
+
+    this.moreFunctions.push({label: "Print", method: function(){
+        $state.go('root.contracts.print', {id: self.docSvc.doc._id});
+    }});
     
     this.$scope.$watch(function(){
         return self.docSvc.isDirty();
@@ -47,9 +52,13 @@ function tmContractDetailCtrl (
         };
     };
 
-    this.openRightMenu = function() {
-        console.log('in here');
-        $mdSidenav('right').toggle();
+    // this.openRightMenu = function() {
+    //     console.log('in here');
+    //     $mdSidenav('right').toggle();
+    // };
+
+    this.sideTab = {
+        menuItems: false
     };
     
     
@@ -128,7 +137,7 @@ tmContractDetailCtrl.$inject = [
     'tmContractDocSvc',
     '$timeout',
     'uibDateParser',
-    '$mdSidenav'
+    '$state'
 ];
 
 export default tmContractDetailCtrl;

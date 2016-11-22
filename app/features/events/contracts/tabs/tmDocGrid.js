@@ -23,6 +23,10 @@ function tmDocGridCtrl($scope, $element, $attrs, $timeout) {
         }
         
     };
+
+    $ctrl.toggleSideTab = function() {
+
+    };
     
     $ctrl.create = function(item){
         $ctrl.docSvc[$attrs.createMethod](item);
@@ -30,6 +34,11 @@ function tmDocGridCtrl($scope, $element, $attrs, $timeout) {
     
     $ctrl.update = function(item){
         $ctrl.docSvc[$attrs.updateMethod](item);
+    };
+
+    $ctrl.toggleAdd = function(){
+        console.log('here');
+        $ctrl.addToggle = !$ctrl.addToggle;
     };
     
     $ctrl.delete = function(item){
@@ -56,7 +65,8 @@ var tmDocGridComponent =  {
         list: '<',
         fields: '<',
         gridTitle: '@',
-        noDataText: '@'
+        noDataText: '@',
+        addToggle: '='
     }
 };
 

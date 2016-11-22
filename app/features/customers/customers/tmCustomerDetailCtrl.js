@@ -17,11 +17,11 @@ function tmCustomerDetailCtrl (
         listView: "root.customers",
         detailView: "root.customerDetail",
         addHeaderText: "Add Customer"
-    }
+    };
     
     this.__proto__ = tmDetailFactory(constructorArgs);
     
-    //this.moreFunctions.push({label: "test", method: function(){console.log('whatsup')}});
+    //this.moreFunctions.push({label: "test", method: function(){console.log('whatsup');}});
     
     this.dialogOptions =  {
             closeButtonText: 'No',

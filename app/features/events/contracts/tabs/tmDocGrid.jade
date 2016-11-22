@@ -4,6 +4,10 @@ div.itemCardHeader(layout="row")
         h4 {{$ctrl.gridTitle}}
     div(flex)
     div
+        h4
+            a(href="" ng-click="$ctrl.toggleAdd()")
+                span.glyphicon.glyphicon-plus(ng-hide="$ctrl.addToggle")
+                span.glyphicon.glyphicon-times
 div(ng-hide="$ctrl.list.length" style="margin: 5px") {{$ctrl.noDataText}}
 
 

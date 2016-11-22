@@ -65,6 +65,6 @@ var tmDocGridItem = {
         onArrowKeyOut: '&',
         onSort: '&'
     }
-}
+};
 
 export default tmDocGridItem;

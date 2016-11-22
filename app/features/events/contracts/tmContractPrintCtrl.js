@@ -7,9 +7,12 @@ function tmContractPrintCtrl ($dataSource, $state, $window) {
         var Contract = $dataSource.load('Contract');
         var contractId = $state.params.id;
         Contract.getOne(contractId).then(function(data){
-            console.log(data);
             $ctrl.doc = data;
         });
+    };
+
+    $ctrl.back = function(){
+        $state.go($state.back.fromState.name, $state.back.fromParams);
     };
     
     $ctrl.print = function(){
