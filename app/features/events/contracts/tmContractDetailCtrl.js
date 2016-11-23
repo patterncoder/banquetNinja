@@ -26,6 +26,8 @@ function tmContractDetailCtrl (
 
 
     this.moreFunctions.push({label: "Print", method: function(){
+        //var url = $state.href('root.contracts.print', {id: self.docSvc.doc._id});
+        //window.open(url,'_blank');
         $state.go('root.contracts.print', {id: self.docSvc.doc._id});
     }});
     
@@ -58,7 +60,8 @@ function tmContractDetailCtrl (
     // };
 
     this.sideTab = {
-        menuItems: false
+        menuItems: false,
+        timeline: false
     };
     
     
