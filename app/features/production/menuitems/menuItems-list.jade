@@ -2,11 +2,11 @@ div(flex="100")
     list-header
     table.table.table-responsive
         colgroup
-            col(span="1")
-            col(span="1")
-            col.tableNav(span="1")
+            col(span="1" width="25%")
+            col(span="1" )
+            col.tableNav(span="1" )
         thead
-            th Menu Group
+            th Menu Item
             th Description
             th.text-right
                 button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}

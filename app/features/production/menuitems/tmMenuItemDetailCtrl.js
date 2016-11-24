@@ -5,13 +5,13 @@ import ninjaSchemas from 'ninjaSchemas';
 
 
 class tmMenuItemDetailCtrl {
-    constructor( 
-            
-            $scope,
-            tmDetailFactory,
-            tmMenuItemDocSvc){
+    constructor(
+
+        $scope,
+        tmDetailFactory,
+        tmMenuItemDocSvc) {
         var self = this;
-        
+
         var constructorArgs = {
             $scope: $scope,
             docSvc: tmMenuItemDocSvc,
@@ -21,56 +21,60 @@ class tmMenuItemDetailCtrl {
             detailView: "root.menuItemDetail",
             addHeaderText: "Add Menu Item"
         };
-        
+
         this.__proto__ = tmDetailFactory(constructorArgs);
-        
-        this.dialogOptions =  {
+
+        this.dialogOptions = {
             closeButtonText: 'No',
             actionButtonText: 'Yes',
             headerText: 'Wait!',
             bodyText: 'Delete this item?'
         };
-        
-        this.$scope.$watch(function(){
+
+        this.$scope.$watch(function () {
             return self.docSvc.isDirty();
-        }, function(newVal, oldVal, scope){
-            if(newVal){
+        }, function (newVal, oldVal, scope) {
+            if (newVal) {
                 self.detailForm.$setDirty();
             } else {
                 self.detailForm.$setPristine();
                 self.detailForm.$setUntouched();
             }
         });
-        
-        this.loadData().then(function(){
+
+        this.loadData().then(function () {
             self.getDetailTitle();
         });
-        
-        this.getDetailTitle = function(){
-            self.detailTitle = tmMenuItemDocSvc.doc.name + " Detail";
+
+        this.getDetailTitle = function () {
+            self.detailTitle = {
+                leader: 'Detail for: ',
+                text: tmMenuItemDocSvc.doc.name
+            };
         };
-        
-        this.addTitle = function(){
+
+
+        this.addTitle = function () {
             console.log('in add title');
             this.docSvc.addTitle(this.newTitle);
             this.newTitle = null;
         };
-        
+
     }
-    
+
     // addTitle(item){
     //     console.log('in add title');
     //     this.docSvc.addTitle(this.newTitle);
     //     this.newTitle = null;
     // }
-   
+
 }
 
 tmMenuItemDetailCtrl.$inject = [
-            
-            '$scope',
-            'tmDetailFactory',
-            'tmMenuItemDocSvc'
-            ];
+
+    '$scope',
+    'tmDetailFactory',
+    'tmMenuItemDocSvc'
+];
 
 export default tmMenuItemDetailCtrl;
