@@ -28,10 +28,12 @@ class tmContractsCtrl {
                         schema: this.constructorArgs.schema,
                         listView: this.constructorArgs.listView,
                         detailView: this.constructorArgs.detailView,
-                        headerText: this.constructorArgs.addHeaderText}
+                        headerText: this.constructorArgs.addHeaderText,
+                        hideCustomerInput: false,
+                        customerId: null}
             };
             self.tmDialogSvc.showDialog(dialogConfig);
-        }
+        };
         
     } 
     

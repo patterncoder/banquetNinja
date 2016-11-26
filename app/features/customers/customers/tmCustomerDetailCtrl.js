@@ -2,7 +2,7 @@ import angular from 'angular';
 import lodash from 'lodash';
 import ninjaSchemas from 'ninjaSchemas';
 
-function tmCustomerDetailCtrl (
+function tmCustomerDetailCtrl(
     $scope,
     tmDetailFactory,
     tmCustomerDocSvc,
@@ -18,64 +18,83 @@ function tmCustomerDetailCtrl (
         detailView: "root.customerDetail",
         addHeaderText: "Add Customer"
     };
-    
+
     this.__proto__ = tmDetailFactory(constructorArgs);
-    
+
     //this.moreFunctions.push({label: "test", method: function(){console.log('whatsup');}});
-    
-    this.dialogOptions =  {
-            closeButtonText: 'No',
-            actionButtonText: 'Yes',
-            headerText: 'Wait!',
-            bodyText: 'Delete this item?'
-        };
-    
-    this.$scope.$watch(function(){
+
+    this.dialogOptions = {
+        closeButtonText: 'No',
+        actionButtonText: 'Yes',
+        headerText: 'Wait!',
+        bodyText: 'Delete this item?'
+    };
+
+    this.$scope.$watch(function () {
         return self.docSvc.isDirty();
-    }, function(newVal, oldVal,  scope){
-        if(newVal){
+    }, function (newVal, oldVal, scope) {
+        if (newVal) {
             self.detailForm.$setDirty();
         } else {
             self.detailForm.$setPristine();
             self.detailForm.$setUntouched();
         }
     });
-    
-    this.loadData().then(function(){
+
+    this.loadData().then(function () {
         // running code here happens after the detail doc has been loaded
         self.getDetailTitle();
     });
 
-    this.getDetailTitle = function(){
+    this.getDetailTitle = function () {
         self.detailTitle = {
             leader: 'Detail for: ',
             text: self.docSvc.doc.lastName + ', ' + self.docSvc.doc.firstName
         };
     };
-    
-    this.addContract = function(){
+
+    this.addContract = function () {
+        var self = this;
+        console.log(self);
         var dialogConfig = {
-            template: require('apply!./templates/contract.jade'),
-            controller: 'tmDialogAddDocPartCtrl as vm',
-            locals: {schema: ninjaSchemas.events.Contract,
-                    headerText: 'Add Event',
-                    item: {customer: tmCustomerDocSvc.doc._id}
-                    }
+            template: require('apply!../../events/contracts/addContract.jade'),
+            controller: 'tmAddContractCtrl as vm',
+            locals: {
+                model: this.Model,
+                schema: ninjaSchemas.events.Contract,
+                listView: 'root',
+                detailView: 'root',
+                headerText: 'Add Event',
+                hideCustomerInput: true,
+                customerId: self.docSvc.doc._id
+            }
         };
-        var Contract = $dataSource.load('Contract');
-        self.tmDialogSvc.showDialog(dialogConfig).then(function(item){
-            Contract.add(item).then(function(item){
-                //self.docSvc.addContract(item);
-                self.docSvc.refreshFromServer();
-                
-            });
-        });
-        
+        self.tmDialogSvc.showDialog(dialogConfig);
+
+
+        // var dialogConfig = {
+        //     template: require('apply!./templates/contract.jade'),
+        //     controller: 'tmDialogAddDocPartCtrl as vm',
+        //     locals: {
+        //         schema: ninjaSchemas.events.Contract,
+        //         headerText: 'Add Event',
+        //         item: { customer: tmCustomerDocSvc.doc._id }
+        //     }
+        // };
+        // var Contract = $dataSource.load('Contract');
+        // self.tmDialogSvc.showDialog(dialogConfig).then(function (item) {
+        //     Contract.add(item).then(function (item) {
+        //         //self.docSvc.addContract(item);
+        //         self.docSvc.refreshFromServer();
+
+        //     });
+        // });
+
     };
-    
-    this.addAddress = function(index, item){
+
+    this.addAddress = function (index, item) {
         var itemCopy;
-        if(!item){
+        if (!item) {
             itemCopy = {};
         } else {
             itemCopy = angular.copy(item);
@@ -83,23 +102,25 @@ function tmCustomerDetailCtrl (
         var dialogConfig = {
             template: require('apply!./templates/address.jade'),
             controller: 'tmDialogAddDocPartCtrl as vm',
-            locals: {schema: ninjaSchemas.sharedSchemas.address,
-                    headerText: 'Add Address',
-                    item: itemCopy}
+            locals: {
+                schema: ninjaSchemas.sharedSchemas.address,
+                headerText: 'Add Address',
+                item: itemCopy
+            }
         };
-        self.tmDialogSvc.showDialog(dialogConfig).then(function(item){
-            if(!index && index != 0){
+        self.tmDialogSvc.showDialog(dialogConfig).then(function (item) {
+            if (!index && index != 0) {
                 self.docSvc.addAddress(item);
             } else {
                 self.docSvc.updateAddress(index, item);
             }
         });
     };
-    
-    
-    this.addEmail = function(index, item){
+
+
+    this.addEmail = function (index, item) {
         var itemCopy;
-        if(!item){
+        if (!item) {
             itemCopy = {};
         } else {
             itemCopy = angular.copy(item);
@@ -107,22 +128,24 @@ function tmCustomerDetailCtrl (
         var dialogConfig = {
             template: require('apply!./templates/email.jade'),
             controller: 'tmDialogAddDocPartCtrl as vm',
-            locals: {schema: ninjaSchemas.sharedSchemas.email,
-                    headerText: 'Add Email',
-                    item: itemCopy}
+            locals: {
+                schema: ninjaSchemas.sharedSchemas.email,
+                headerText: 'Add Email',
+                item: itemCopy
+            }
         };
-        self.tmDialogSvc.showDialog(dialogConfig).then(function(item){
-            if(!index && index != 0){
+        self.tmDialogSvc.showDialog(dialogConfig).then(function (item) {
+            if (!index && index != 0) {
                 self.docSvc.addEmail(item);
             } else {
                 self.docSvc.updateEmail(index, item);
             }
         });
     };
-    
-    this.addPhoneNumber = function(index, item){
+
+    this.addPhoneNumber = function (index, item) {
         var itemCopy;
-        if(!item){
+        if (!item) {
             itemCopy = {};
         } else {
             itemCopy = angular.copy(item);
@@ -130,48 +153,50 @@ function tmCustomerDetailCtrl (
         var dialogConfig = {
             template: require('apply!./templates/phoneNumber.jade'),
             controller: 'tmDialogAddDocPartCtrl as vm',
-            locals: {schema: ninjaSchemas.sharedSchemas.phoneNumber,
-                    headerText: 'Add Phone Number',
-                    item: itemCopy}
+            locals: {
+                schema: ninjaSchemas.sharedSchemas.phoneNumber,
+                headerText: 'Add Phone Number',
+                item: itemCopy
+            }
         };
-        self.tmDialogSvc.showDialog(dialogConfig).then(function(item){
-            if(!index  && index != 0){
+        self.tmDialogSvc.showDialog(dialogConfig).then(function (item) {
+            if (!index && index != 0) {
                 self.docSvc.addPhoneNumber(item);
             } else {
                 self.docSvc.updatePhoneNumber(index, item);
             }
         });
     };
-    
-    
-    this.removeAddress = function(index){
+
+
+    this.removeAddress = function (index) {
         var self = this;
-        self.tmDialogSvc.showDialog({}, self.dialogOptions).then(function(){
+        self.tmDialogSvc.showDialog({}, self.dialogOptions).then(function () {
             self.docSvc.removeAddress(index);
         });
-        
+
     };
-    
-    this.removeEmail = function(index){
+
+    this.removeEmail = function (index) {
         var self = this;
-        self.tmDialogSvc.showDialog({}, self.dialogOptions).then(function(){
+        self.tmDialogSvc.showDialog({}, self.dialogOptions).then(function () {
             self.docSvc.removeEmail(index);
         });
-        
+
     };
-    
-    this.removePhoneNumber = function(index){
+
+    this.removePhoneNumber = function (index) {
         var self = this;
-        self.tmDialogSvc.showDialog({}, self.dialogOptions).then(function(){
+        self.tmDialogSvc.showDialog({}, self.dialogOptions).then(function () {
             self.docSvc.removePhoneNumber(index);
         });
-        
+
     };
-    
-    
-    
+
+
+
     return this;
-    
+
 }
 
 tmCustomerDetailCtrl.$inject = [

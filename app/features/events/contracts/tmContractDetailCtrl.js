@@ -23,13 +23,32 @@ function tmContractDetailCtrl (
     
     this.__proto__ = tmDetailFactory(constructorArgs);
     
+    this.moreFunctions.print = {
+            label: "Print",
+            method: function(){
+                $state.go('root.contracts.print', {id: self.docSvc.doc._id});
+            }
+        };
 
+    this.moreFunctions.addItem.method = function() {
+        
+            var dialogConfig = {
+                template: require('apply!./addContract.jade'),
+                controller: 'tmAddContractCtrl as vm',
+                locals: {model: 'Contract',
+                        schema: self.constructorArgs.schema,
+                        listView: self.constructorArgs.listView,
+                        detailView: self.constructorArgs.detailView,
+                        headerText: self.constructorArgs.addHeaderText}
+            };
+            self.tmDialogSvc.showDialog(dialogConfig);
+    };
 
-    this.moreFunctions.push({label: "Print", method: function(){
-        //var url = $state.href('root.contracts.print', {id: self.docSvc.doc._id});
-        //window.open(url,'_blank');
-        $state.go('root.contracts.print', {id: self.docSvc.doc._id});
-    }});
+    // this.moreFunctions.push({label: "Print", method: function(){
+    //     //var url = $state.href('root.contracts.print', {id: self.docSvc.doc._id});
+    //     //window.open(url,'_blank');
+    //     $state.go('root.contracts.print', {id: self.docSvc.doc._id});
+    // }});
     
     this.$scope.$watch(function(){
         return self.docSvc.isDirty();
