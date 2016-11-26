@@ -12,7 +12,7 @@ function tmListFactory (
             $state,
             constructorArgs
         );
-    }
+    };
 }
 
 tmListFactory.$inject = [
@@ -43,7 +43,7 @@ function BaseList (
     
     this.setLoading = function(loading){
         this.isLoading = loading;
-    }
+    };
     
     this.loadData = function(queryString){
         var self = this;
@@ -70,7 +70,7 @@ function BaseList (
     
     this.details =  function(id){
         this.$state.go(this.constructorArgs.detailView, {id: id});
-    }
+    };
     
     this.deleteItem = function(id){
         var self = this;
@@ -89,5 +89,5 @@ function BaseList (
             
         });
         
-    }
+    };
 }

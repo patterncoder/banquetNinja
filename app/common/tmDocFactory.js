@@ -4,7 +4,7 @@ import _ from 'lodash';
 function tmDocFactory ($dataSource, tmMongoose, $q) {
     return function(model, schema) {
         return new BaseDocService($dataSource, tmMongoose, $q, model, schema);
-    }
+    };
 }
 
 tmDocFactory.$inject = ['$dataSource', 'tmMongoose', '$q'];
@@ -54,6 +54,10 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
             return(error);
         });
     };
+
+    this.deleteDocument = function (){
+        this.docModel.remove(this.doc._id);
+    };  
     
     this.refreshFromServer = function (){
         this.loadDocument(this.doc._id);
@@ -69,7 +73,7 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
                 self.validationError = err;
                 console.log(self.validationError);
                 deferred.reject('base doc service has errors');
-                return
+                return;
             }
             self.docModel.update(self.doc).then(function(data){
                 data = convertDateStrings(data);
@@ -82,21 +86,21 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
             });
         });
         return deferred.promise;
-    }
+    };
     
     this.isDirty = function (){
         return !angular.equals(this.master, this.doc);
-    }
+    };
     
     this.clearDocument = function (){
         this.doc = {};
-    }
+    };
     
     this.undoChanges = function (){
         var self = this;
         self.doc = angular.copy(self.master);
         self.validationError = null;
-    }
+    };
     
     
 }

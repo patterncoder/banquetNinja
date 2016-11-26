@@ -7,7 +7,7 @@ md-dialog(aria-label="Dialog Service" ng-cloak)
     md-dialog-content(layout-padding style="min-width: 600px; max-height: 400px; min-height: 400px")
         is-loading
         form.form-horizontal(name="addItemForm")
-            .form-group(ng-class="{'has-error': vm.validationError.errors['customer'].kind}")
+            .form-group(ng-hide="vm.hideCustomerInput" ng-class="{'has-error': vm.validationError.errors['customer'].kind}")
                 label.col-md-3.control-label(for="customer") Customer
                 .col-md-9
                     input(type="text" ng-model="vm.newItem.customer" placeholder="Find Customer" uib-typeahead="customer as customer.name for customer in vm.getCustomer($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control")

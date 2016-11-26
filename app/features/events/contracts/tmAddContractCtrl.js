@@ -4,44 +4,49 @@ import config from 'config';
 class tmAddContractCtrl {
     constructor(
         $http,
-        $scope, 
-        $dataSource, 
-        tmNotifier, 
-        $state, 
-        $mdDialog, 
+        $scope,
+        $dataSource,
+        tmNotifier,
+        $state,
+        $mdDialog,
         tmMongoose,
         model,
         schema,
         listView,
         detailView,
-        headerText) {
-            if(typeof(model) === 'string') {
-                this.model = $dataSource.load(model);
-            } else {
-                this.model = model;
-            }
-            
-            this.$scope = $scope;
-            this.tmNotifier = tmNotifier;
-            this.$state = $state;
-            this.$http = $http;
-            this.schema = schema;
-            this.listView = listView;
-            this.detailView = detailView;
-            this.dialogOptions = {headerText: headerText};
-            this.$mdDialog = $mdDialog;
-            this.tmMongoose = tmMongoose;
-            //this.newItem = new this.tmMongoose.Document({}, schema);
-            this.newItem = {};
-            this.fields = [];
-            this.validationError = null;
-            this.getFields();
-            this.isLoading = false;
-            
-            
+        headerText,
+        hideCustomerInput,
+        customerId) {
+        if (typeof (model) === 'string') {
+            this.model = $dataSource.load(model);
+        } else {
+            this.model = model;
         }
-        
-    getCustomer(val){
+        this.$dataSource = $dataSource;
+        this.$scope = $scope;
+        this.tmNotifier = tmNotifier;
+        this.$state = $state;
+        this.$http = $http;
+        this.schema = schema;
+        this.listView = listView;
+        this.detailView = detailView;
+        this.dialogOptions = { headerText: headerText };
+        this.$mdDialog = $mdDialog;
+        this.tmMongoose = tmMongoose;
+        //this.newItem = new this.tmMongoose.Document({}, schema);
+        this.newItem = {};
+        this.fields = [];
+        this.validationError = null;
+        this.getFields();
+        this.isLoading = false;
+        this.hideCustomerInput = hideCustomerInput;
+        this.customerId = customerId;
+
+    }
+
+
+
+    getCustomer(val) {
         var req = {
             method: 'GET',
             url: config.apiBase + '/customerSearch',
@@ -50,15 +55,15 @@ class tmAddContractCtrl {
             }
         };
         console.log('called getCustomer');
-        return this.$http(req).then(function(response){
-            return response.data.data.map(function(item){
-                
-                return {id: item._id, name: item.firstName + ' ' + item.lastName};
+        return this.$http(req).then(function (response) {
+            return response.data.data.map(function (item) {
+
+                return { id: item._id, name: item.firstName + ' ' + item.lastName };
             });
         });
     }
-    
-    addCustomer(name){
+
+    addCustomer(name) {
         var self = this;
         var names = name.split(' ');
         var req = {
@@ -69,61 +74,70 @@ class tmAddContractCtrl {
                 lastName: names[1]
             }
         };
-        return this.$http(req).then(function(response){
+        return this.$http(req).then(function (response) {
             console.log(response);
-            self.$scope.vm.newItem.customer = {id: response.data.data._id, name: response.data.data.firstName + ' ' + response.data.data.lastName};
+            self.$scope.vm.newItem.customer = { id: response.data.data._id, name: response.data.data.firstName + ' ' + response.data.data.lastName };
             self.$scope.noResults = false;
         });
     }
-    
-    setLoading(loading){
+
+    setLoading(loading) {
         this.isLoading = loading;
     }
-    
-    getFields(){
-        for(var k in this.schema.paths){
-            if(this.schema.paths.hasOwnProperty(k) && this.schema.paths[k].isRequired){
+
+    getFields() {
+        for (var k in this.schema.paths) {
+            if (this.schema.paths.hasOwnProperty(k) && this.schema.paths[k].isRequired) {
                 this.fields.push(this.schema.paths[k]);
                 this.newItem[k] = null;
             }
         }
     }
-    
+
     cancel() {
         this.$mdDialog.cancel();
     }
-    
-    addItem(nextView){
+
+    addItem(nextView) {
         var self = this;
         var newContract = angular.copy(self.newItem);
-        console.log(self.newItem);
-        console.log(newContract);
-        var customerId = newContract.customer.id;
-        console.log(customerId);
-        newContract.customer = customerId;
+        var custId = this.customerId || newContract.customer.id;
+        console.log(custId);
+        newContract.customer = custId;
         var newItemDoc = new self.tmMongoose.Document(newContract, this.schema);
-        newItemDoc.validate(function(err){
-            if(err) {
+        newItemDoc.validate(function (err) {
+            if (err) {
+                console.log(err);
                 self.validationError = err;
                 self.$scope.$apply();
                 return;
             }
             delete newContract._id;
             self.setLoading(true);
-            self.model.add(newContract).then(function(data){
-                self.tmNotifier.notify("Item was sucessfully added.")
-                self.setLoading(false);
-                self.$mdDialog.hide();
-                if (nextView === 'details') {
-                    self.$state.go(self.detailView, { id: data._id});
-                }
-                if (nextView === 'quick') {
-                    self.$state.go(self.listView);
-                }
+            self.model.add(newContract).then(function (contract) {
+                console.log(contract);
+                var Customer = self.$dataSource.load('Customer');
+                Customer.getOne(custId).then(function (cust) {
+                    console.log(cust);
+                    cust.contracts.push(contract._id);
+                    Customer.update(cust).then(function (cust) {
+                        self.tmNotifier.notify("Item was sucessfully added.");
+                        self.setLoading(false);
+                        self.$mdDialog.hide();
+                        if (nextView === 'details') {
+                            self.$state.go(self.detailView, { id: contract._id });
+                        }
+                        if (nextView === 'quick') {
+                            self.$state.go(self.listView);
+                        }
+                    });
+
+                });
+
             });
         });
-        
-       
+
+
     }
 }
 
@@ -141,7 +155,9 @@ tmAddContractCtrl.$inject = [
     'schema',
     'listView',
     'detailView',
-    'headerText'
+    'headerText',
+    'hideCustomerInput',
+    'customerId'
 ];
 
 export default tmAddContractCtrl;

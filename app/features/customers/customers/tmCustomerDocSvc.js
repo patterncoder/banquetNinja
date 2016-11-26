@@ -28,7 +28,7 @@ function tmMenuDocSvc (tmDocFactory) {
             });
         });
         return deferred.promise;
-    }
+    };
     
     self.addAddress = function (address) {
         self.doc.addresses.push(address);
@@ -39,11 +39,11 @@ function tmMenuDocSvc (tmDocFactory) {
         // self.doc.addresses.splice(index, 1);
         // self.doc.addresses.push(address);
         self.doc.addresses[index] = address;
-    }
+    };
     
     self.removeAddress = function (index) {
         self.doc.addresses.splice(index, 1);
-    }
+    };
     
     self.addPhoneNumber = function(phoneNumber){
         console.log(phoneNumber);
@@ -54,27 +54,27 @@ function tmMenuDocSvc (tmDocFactory) {
     
     self.updatePhoneNumber = function (index, phoneNumber) {
         self.doc.phoneNumbers[index] = phoneNumber;
-    }
+    };
     
     self.removePhoneNumber = function (index) {
         self.doc.phoneNumbers.splice(index, 1);
-    }
+    };
     
     self.addEmail = function(email){
-        self.doc.emails.push(email)
+        self.doc.emails.push(email);
     };
     
     self.updateEmail = function (index, email) {
         self.doc.emails[index] = email;
-    }
+    };
     
     self.removeEmail = function (index) {
         self.doc.emails.splice(index, 1);
-    }
+    };
     
     self.addContract = function(contract) {
         //self.doc.contracts.push(contract);
-    }
+    };
     
     
     
