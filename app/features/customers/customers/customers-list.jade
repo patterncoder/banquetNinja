@@ -14,9 +14,10 @@ div(flex="100")
             tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
                 td {{::item.firstName}} {{::item.lastName}} 
                 td {{::item.phoneNumbers[0].number | tmPhoneFilter}}
-                td.text-right
-                    a(href="" ng-click="vm.details(item._id)")
-                        span.glyphicon.glyphicon-pencil
-                    | &nbsp; | &nbsp;
-                    a(href="" ng-click="vm.deleteItem(item._id)")
-                        span.glyphicon.glyphicon-remove
+                td(style="padding: 4px;")
+                    list-item-buttons(id-val="item._id" delete-fn="vm.deleteItem(idVal)" edit-fn="vm.details(idVal)")
+                    //- a(href="" ng-click="vm.details(item._id)")
+                    //-     span.glyphicon.glyphicon-pencil
+                    //- | &nbsp; | &nbsp;
+                    //- a(href="" ng-click="vm.deleteItem(item._id)")
+                    //-     span.glyphicon.glyphicon-remove

@@ -8,6 +8,7 @@ class tmContractsCtrl {
             model: 'Contract',
             listView: 'root.contracts',
             detailView: 'root.contractDetail',
+            printView: 'root.contracts.print',
             addHeaderText: 'Add Contract',
             listTitle: 'Upcoming Contracts'
         };
@@ -17,8 +18,9 @@ class tmContractsCtrl {
         this.loadData({sel: 'eventName eventDate startTime'});
         //this.loadData();
         
-        this.sortOptions = [ { value: "eventDate", text: "Sort by Event Date" }, { value: "eventName", text: "Sort by Event Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
-        
+        this.sortOptions = [ { value: "-eventDate", text: "Sort by Event Date Z-A" }, { value: "eventDate", text: "Sort by Event Date A-Z" }, { value: "eventName", text: "Sort by Event Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
+
+
         this.addContract = function(){
             var self = this;
             var dialogConfig = {

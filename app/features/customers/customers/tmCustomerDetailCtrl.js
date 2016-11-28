@@ -54,41 +54,27 @@ function tmCustomerDetailCtrl(
     };
 
     this.addContract = function () {
-        var self = this;
-        console.log(self);
+
         var dialogConfig = {
-            template: require('apply!../../events/contracts/addContract.jade'),
-            controller: 'tmAddContractCtrl as vm',
+            template: require('apply!./templates/contract.jade'),
+            controller: 'tmDialogAddDocPartCtrl as vm',
             locals: {
-                model: this.Model,
                 schema: ninjaSchemas.events.Contract,
-                listView: 'root',
-                detailView: 'root',
                 headerText: 'Add Event',
-                hideCustomerInput: true,
-                customerId: self.docSvc.doc._id
+                item: { customer: tmCustomerDocSvc.doc._id }
             }
         };
-        self.tmDialogSvc.showDialog(dialogConfig);
+        var Contract = $dataSource.load('Contract');
+        self.tmDialogSvc.showDialog(dialogConfig).then(function (item) {
+            Contract.add(item).then(function (item) {
+                self.docSvc.addContract(item);
+                self.docSvc.saveChanges().then(function(){
+                        self.docSvc.refreshFromServer();
+                });
+                
 
-
-        // var dialogConfig = {
-        //     template: require('apply!./templates/contract.jade'),
-        //     controller: 'tmDialogAddDocPartCtrl as vm',
-        //     locals: {
-        //         schema: ninjaSchemas.events.Contract,
-        //         headerText: 'Add Event',
-        //         item: { customer: tmCustomerDocSvc.doc._id }
-        //     }
-        // };
-        // var Contract = $dataSource.load('Contract');
-        // self.tmDialogSvc.showDialog(dialogConfig).then(function (item) {
-        //     Contract.add(item).then(function (item) {
-        //         //self.docSvc.addContract(item);
-        //         self.docSvc.refreshFromServer();
-
-        //     });
-        // });
+            });
+        });
 
     };
 
@@ -114,6 +100,10 @@ function tmCustomerDetailCtrl(
             } else {
                 self.docSvc.updateAddress(index, item);
             }
+            self.docSvc.saveChanges().then(function(){
+                self.docSvc.refreshFromServer();
+            });
+
         });
     };
 
@@ -140,6 +130,9 @@ function tmCustomerDetailCtrl(
             } else {
                 self.docSvc.updateEmail(index, item);
             }
+            self.docSvc.saveChanges().then(function(){
+                self.docSvc.refreshFromServer();
+            });
         });
     };
 
@@ -165,6 +158,9 @@ function tmCustomerDetailCtrl(
             } else {
                 self.docSvc.updatePhoneNumber(index, item);
             }
+            self.docSvc.saveChanges().then(function(){
+                self.docSvc.refreshFromServer();
+            });
         });
     };
 

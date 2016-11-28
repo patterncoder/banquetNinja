@@ -71,6 +71,10 @@ function BaseList (
     this.details =  function(id){
         this.$state.go(this.constructorArgs.detailView, {id: id});
     };
+
+    this.print = function(id){
+        this.$state.go(this.constructorArgs.printView, {id: id});
+    }
     
     this.deleteItem = function(id){
         var self = this;

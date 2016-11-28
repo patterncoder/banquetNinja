@@ -26,7 +26,7 @@
                                                 a(href="" ng-click="vm.addContract()")
                                                     span.glyphicon.glyphicon-plus
                                     //md-button(ng-click="vm.addContract()") Add Contract
-                                    div.itemCard(ng-repeat="contract in vm.docSvc.doc.contracts | orderBy:'-date'")
+                                    div.itemCard(ng-repeat="contract in vm.docSvc.doc.contracts | orderBy:'-eventDate'")
                                         .pull-right
                                             a(ui-sref="root.contractDetail({id: contract._id})") View
                                         div.md-title {{::contract.title}}

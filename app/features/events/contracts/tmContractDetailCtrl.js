@@ -39,7 +39,8 @@ function tmContractDetailCtrl (
                         schema: self.constructorArgs.schema,
                         listView: self.constructorArgs.listView,
                         detailView: self.constructorArgs.detailView,
-                        headerText: self.constructorArgs.addHeaderText}
+                        headerText: self.constructorArgs.addHeaderText,
+                        hideCustomerInput: false}
             };
             self.tmDialogSvc.showDialog(dialogConfig);
     };

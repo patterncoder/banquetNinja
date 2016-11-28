@@ -27,8 +27,6 @@ class tmDialogAddDocPartCtrl {
             this.item = item || {}; 
             //this.fields = [];
             this.validationError = null;
-            console.log(item);
-            console.log(schema);
         }
         
     
@@ -43,7 +41,6 @@ class tmDialogAddDocPartCtrl {
         newItem.validate(function(err){
             if(err) {
                 self.validationError = err;
-                console.log(self.validationError);
                 self.$scope.$apply();
                 return;
             }

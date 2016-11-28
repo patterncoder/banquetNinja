@@ -15,8 +15,7 @@ class tmAddContractCtrl {
         listView,
         detailView,
         headerText,
-        hideCustomerInput,
-        customerId) {
+        hideCustomerInput) {
         if (typeof (model) === 'string') {
             this.model = $dataSource.load(model);
         } else {
@@ -40,7 +39,6 @@ class tmAddContractCtrl {
         this.getFields();
         this.isLoading = false;
         this.hideCustomerInput = hideCustomerInput;
-        this.customerId = customerId;
 
     }
 
@@ -66,6 +64,10 @@ class tmAddContractCtrl {
     addCustomer(name) {
         var self = this;
         var names = name.split(' ');
+        var newCust = {
+            firstName: names[0],
+            lastName: names[1]
+        };
         var req = {
             method: 'POST',
             url: config.apiBase + '/customers',
@@ -74,11 +76,16 @@ class tmAddContractCtrl {
                 lastName: names[1]
             }
         };
-        return this.$http(req).then(function (response) {
-            console.log(response);
-            self.$scope.vm.newItem.customer = { id: response.data.data._id, name: response.data.data.firstName + ' ' + response.data.data.lastName };
+        return this.$dataSource.load('Customer').add(newCust).then(function (customer) {
+            console.log(customer);
+            self.$scope.vm.newItem.customer = { id: customer._id, name:customer.firstName + ' ' + customer.lastName };
             self.$scope.noResults = false;
         });
+        // return this.$http(req).then(function (response) {
+        //     console.log(response);
+        //     self.$scope.vm.newItem.customer = { id: response.data.data._id, name: response.data.data.firstName + ' ' + response.data.data.lastName };
+        //     self.$scope.noResults = false;
+        // });
     }
 
     setLoading(loading) {
@@ -156,8 +163,7 @@ tmAddContractCtrl.$inject = [
     'listView',
     'detailView',
     'headerText',
-    'hideCustomerInput',
-    'customerId'
+    'hideCustomerInput'
 ];
 
 export default tmAddContractCtrl;

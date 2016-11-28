@@ -6,12 +6,18 @@ md-dialog(aria-label="Dialog Service")
     md-dialog-content(layout-padding)
         is-loading
         form(name="addItemForm")
-            md-input-container.md-block(ng-class="{'has-error': vm.validationError.errors[field.path].kind}" ng-repeat="field in vm.fields | orderBy: 'options.tabOrder'")
-                label {{field.options.caption}}
-                input(ng-model="vm.newItem[field.path]")
-                .hint(ng-hide="vm.validationError.errors[field.path].kind") {{field.options.hint}}
-                span.help-block(id="field.path" ng-show="vm.validationError.errors[field.path].kind") {{vm.validationError.errors[field.path].message}}
+            .form-group(ng-repeat="field in vm.fields | orderBy: 'options.tabOrder'")
+                label.control-label(for="description") {{field.options.caption}}
+                input.form-control(ng-model="vm.newItem[field.path]")
+            //- md-input-container.md-block(ng-class="{'has-error': vm.validationError.errors[field.path].kind}" ng-repeat="field in vm.fields | orderBy: 'options.tabOrder'")
+            //-     label {{field.options.caption}}
+            //-     input(ng-model="vm.newItem[field.path]")
+            //-     .hint(ng-hide="vm.validationError.errors[field.path].kind") {{field.options.hint}}
+            //-     span.help-block(id="field.path" ng-show="vm.validationError.errors[field.path].kind") {{vm.validationError.errors[field.path].message}}
     md-dialog-actions(layout="row")
         md-button.md-raised(ng-click="vm.addItem('quick')") Quick Add
         md-button.md-raised(ng-click="vm.addItem('details')") Go Details
         md-button.md-raised(ng-click="vm.cancel()") Cancel
+
+
+        

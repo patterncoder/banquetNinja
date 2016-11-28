@@ -15,6 +15,7 @@ import detailHeader from './widgets/detailHeader';
 import detailFooter from './widgets/detailFooter';
 import focus from './widgets/focus';
 import ellipsisTitle from './widgets/ellipsisTitle';
+import listItemButtons from './widgets/listItemButtons';
 // services
 import tmWindowStorage from './tmWindowStorage';
 // base class like factories
@@ -24,6 +25,7 @@ import tmListFactory from './tmListFactory';
 // controller for dialogService
 import tmDialogAddItemCtrl from './tmDialogAddItemCtrl';
 import tmDialogAddDocPartCtrl from './tmDialogAddDocPartCtrl';
+
 // filters
 import tmPhoneFilter from './tmPhoneFilter';
 
@@ -47,6 +49,7 @@ export default angular.module('common', [])
     .directive('detailFooter', detailFooter)
     .directive('focus', focus)
     .directive('ellipsisTitle', ellipsisTitle)
+    .directive('listItemButtons', listItemButtons)
     .controller('tmDialogAddItemCtrl', tmDialogAddItemCtrl)
     .controller('tmDialogAddDocPartCtrl', tmDialogAddDocPartCtrl)
     .filter('tmPhoneFilter', tmPhoneFilter)

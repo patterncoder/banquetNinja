@@ -10,13 +10,20 @@ md-dialog(aria-lable="Add Contract")
                     div.col-sm-9
                         input.form-control(name="eventName" ng-model="vm.item.eventName" placeholder="Event Name")
                         span.help-block(id="eventName-helpBlock" ng-show="vm.validationError.errors['eventName'].kind") {{vm.validationError.errors['eventName'].message}}
-                .form-group(ng-class="{'has-error': vm.validationError.errors['date'].kind }")
-                    label.col-sm-3.control-label(for="eventDate") Event Date
-                    div.col-sm-9
-                        p
-                            input.form-control(ng-model="vm.item.eventDate")
-                        p
-                            uib-datepicker(ng-model="vm.item.eventDate")
+                .form-group(ng-class="{'has-error': vm.validationError.errors['date'].kind}")
+                    label.col-md-3.control-label(for="eventDate") Event Date
+                    .col-md-9
+                        uib-datepicker(name="eventDate" ng-model="vm.item.eventDate")
+                        // input.form-control(name="eventDate", type="text", placeholder="Event Date", ng-model="vm.newItem.eventDate")
+                        span.help-block(id="eventDate-helpBlock" ng-show="vm.validationError.errors['date'].kind") {{vm.validationError.errors['eventName'].message}}
+
+                //- .form-group(ng-class="{'has-error': vm.validationError.errors['date'].kind }")
+                //-     label.col-sm-3.control-label(for="eventDate") Event Date
+                //-     div.col-sm-9
+                //-         p
+                //-             input.form-control(ng-model="vm.item.eventDate")
+                //-         p
+                //-             uib-datepicker(ng-model="vm.item.eventDate")
                         // p.input-group
                         //     input.form-control(is-open="true" ng-model="vm.item.eventDate" type="text" uib-datepicker-popup="shortDate")
                         //     span.input-group-btn
