@@ -81,7 +81,23 @@ function tmContractDetailCtrl (
 
     this.sideTab = {
         menuItems: false,
-        timeline: false
+        timeline: false,
+        rooms: false
+    };
+
+    this.closeVenuePicker = function(){
+        this.sideTab.rooms = false;
+    };
+
+    this.addRooms = function(){
+        for (var key in this.sideTab) {
+            this.sideTab[key] = false;
+        }
+        this.sideTab.rooms = true;
+    };
+
+    this.removeVenue = function(index){
+        self.docSvc.removeVenue(index);
     };
     
     

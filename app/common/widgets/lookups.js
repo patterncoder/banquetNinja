@@ -18,16 +18,26 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', '$timeout', fu
     //console.log($scope);
     
     this.updateList = function(){
-        //console.log(self.docList);
+        if(!self.docList)return;
         if($attrs.limitToList){
-            self.data = _.difference(self.fullList, self.docList);
-        } else {
-            
+            // self.data = _.difference(self.fullList, self.docList);
+            self.data = self.fullList.reduce((p, c, i)=>{
+                if(typeof c === "object"){
+                    if(!self.docList.map(i=>i.baseId).includes(c._id)) {
+                        p.push(c);
+                    }
+                } else {
+                    if(!self.docList.includes(c)) {
+                        p.push(c);
+                    }
+                } 
+                return p;
+            }, []);
         }
-        
     };
     
     $scope.$watchCollection('dCtrl.docList', function(newValue, oldValue){
+       
         self.updateList();
         //console.log('asdfasdf');
     });
@@ -35,7 +45,7 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', '$timeout', fu
     Data.query().then(function(data){
         if(list === "root"){
             self.data = data;
-            self.fullList = data;
+            self.fullList = angular.copy(data);
         } else {
             $timeout(function(){  
                 self.data = data[list];

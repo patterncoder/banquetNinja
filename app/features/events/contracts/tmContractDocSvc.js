@@ -19,6 +19,19 @@ function tmContractDocSvc (tmDocFactory) {
             });
         return data;
     }
+
+    this.addVenue = function (venue) {
+        var venueToAdd = {
+            name: venue.name,
+            notes: "",
+            baseId: venue._id
+        };
+        this.doc.venue.push(venueToAdd);
+    };
+
+    this.removeVenue = function(index){
+        this.doc.venue.splice(index, 1);
+    };
     
     this.addMenuItem = function (menuItem){
         var itemToAdd = {

@@ -12,7 +12,7 @@ div(flex="100")
             th.text-right
                 button.btn.btn-primary.btn-xs(ng-click="vm.addContract()") {{::vm.constructorArgs.addHeaderText}}
         tbody
-            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
+            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:vm.sortOrder")
                 td {{::item.eventName }} ({{::item.customer.firstName}} {{::item.customer.lastName}})
                 td {{::item.eventDate | date:'longDate'}}
                 td(style="white-space: nowrap") {{::item.startTime | date:'shortTime'}}

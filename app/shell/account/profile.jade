@@ -1,1 +1,16 @@
-h1 Profile page
+h1 User Profile
+.col-md-6.col-md
+    form.form-horizontal(name="addItemForm")
+        .form-group()
+            label.col-md-3.control-label(for="customer") First Name
+            .col-md-9
+                input.form-control(type="text" ng-model="$ctrl.user.firstName")
+        .form-group()
+            label.col-md-3.control-label(for="customer") Last Name
+            .col-md-9
+                input.form-control(type="text" ng-model="$ctrl.user.lastName")
+        .form-group()
+            label.col-md-3.control-label(for="customer") Username/Email
+            .col-md-9
+                input.form-control(type="text" ng-model="$ctrl.user.username")
+        .btn.btn-primary(ng-click="$ctrl.saveChanges()") Save Changes

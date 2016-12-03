@@ -1,0 +1,18 @@
+div.itemCardHeader(layout="row")
+    div
+        h4 Rooms for party
+    div(flex)
+    div
+        h4
+            a(href="" ng-click="$ctrl.toggleAdd()")
+                span.glyphicon.glyphicon-plus(ng-hide="$ctrl.addToggle")
+                span.glyphicon.glyphicon-times
+div(ng-hide="$ctrl.list.length" style="margin: 5px") {{$ctrl.noDataText}}
+div(flex layout="row")
+    div(flex="100" flex-direction="column")
+        div(flex-direction="row")
+            span(style="font-weight: bold") Room(s)&nbsp; 
+                a(href="" ng-click="vm.addRooms()") +Add
+        div(flex-direction="row")
+            .badge.tm(ng-repeat="item in vm.docSvc.doc.venue track by $index") {{item.name}}
+                span.glyphicon.glyphicon-remove-circle(ng-click="vm.removeVenue($index)" style="margin-left: 5px")

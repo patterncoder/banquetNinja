@@ -40,7 +40,7 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
             username: username,
             password: password
         }).then(function(result){
-            
+            console.log(result);
             if(result.data.success == true){
                 
                 userInfo = {
@@ -60,6 +60,7 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
             
             
         }, function(error) {
+            console.log(error);
             deferred.reject(error);
         });
         

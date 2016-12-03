@@ -1,0 +1,10 @@
+
+md-content(layout-padding style="background: transparent")
+    div()
+        h3 Add Venue
+        a(href="" ng-click="vm.closeVenuePicker()") Close
+        lookups(tm-data-source="Venue" limit-to-list doc-list="vm.docSvc.doc.venue" list="root" doc-service-add-method="tmContractDocSvc.addVenue")
+            div.itemCard(style="border: solid black 1px; background-color: white")
+                a(href="" ng-click="dCtrl.addItem(item)") 
+                    span.glyphicon.glyphicon-circle-arrow-left 
+                span &nbsp; {{item.name}}

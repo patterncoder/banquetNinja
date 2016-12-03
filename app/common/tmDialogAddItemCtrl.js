@@ -57,6 +57,7 @@ class tmDialogAddItem {
         var self = this;
         self.newItem.validate(function(err){
             if(err) {
+                console.log(err);
                 self.validationError = err;
                 self.$scope.$apply();
                 return;

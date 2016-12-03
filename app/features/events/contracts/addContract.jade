@@ -5,12 +5,12 @@ md-dialog(aria-label="Dialog Service" ng-cloak)
         div.md-tooolbar-tools
             h4 {{vm.dialogOptions.headerText}}
     md-dialog-content(layout-padding style="min-width: 600px; max-height: 400px; min-height: 400px")
-        is-loading
+        //is-loading
         form.form-horizontal(name="addItemForm")
             .form-group(ng-hide="vm.hideCustomerInput" ng-class="{'has-error': vm.validationError.errors['customer'].kind}")
                 label.col-md-3.control-label(for="customer") Customer
                 .col-md-9
-                    input(type="text" ng-model="vm.newItem.customer" placeholder="Find Customer" uib-typeahead="customer as customer.name for customer in vm.getCustomer($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control")
+                    input(type="text" ng-model="vm.newItem.customer" placeholder="Find Customer" uib-typeahead="customer as customer.name for customer in vm.getCustomer($viewValue)" typeahead-wait-ms="200" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control")
                     i(ng-show="loadingLocations" class="glyphicon glyphicon-refresh")
                     div(ng-show="noResults" layout="row")
                         a.glyphicon.glyphicon-plus(href="" ng-click="vm.addCustomer(vm.newItem.customer)")

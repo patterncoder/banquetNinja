@@ -8,5 +8,5 @@ legend {{::vm.constructorArgs.listTitle}}
                 input.form-control(ng-model="searchText", placeholder="Filter")
             | &nbsp;
             .form-group.margin-left-med
-                select.form-control(ng-model="sortOrder", ng-options="item.value as item.text for item in vm.sortOptions")
+                select.form-control(ng-model="vm.sortOrder", ng-options="item.value as item.text for item in vm.sortOptions")
     
