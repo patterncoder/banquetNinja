@@ -60,7 +60,7 @@ function BaseDetail(
             method: function () {
                 self.addItem();
             }
-        },
+        }, 
         refresh: {
             label: "Refresh",
             method: function () {
