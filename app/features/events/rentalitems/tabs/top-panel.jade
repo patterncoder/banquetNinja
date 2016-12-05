@@ -1,0 +1,9 @@
+div(flex layout="column")
+    div(flex layout="row")
+        .form-group(flex="33")
+            label.control-label(for="title") Rental Item Name
+            input.form-control(ng-model="vm.docSvc.doc.name" )
+        .form-group(flex="66")
+            label.control-label(for="description") Description
+            input.form-control(ng-model="vm.docSvc.doc.description")
+        

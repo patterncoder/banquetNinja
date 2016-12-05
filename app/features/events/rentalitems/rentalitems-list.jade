@@ -14,10 +14,5 @@ div(flex="100")
             tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
                 td {{::item.name}}
                 td {{::item.description}}
-                td.text-right
-                    //button.btn.btn-primary.btn-xs(ng-click="vm.details(menuItem._id)") Edit
-                    a(href="" ng-click="vm.details(item._id)")
-                        span.glyphicon.glyphicon-pencil
-                    | &nbsp; | &nbsp;
-                    a(href="" ng-click="vm.deleteItem(item._id)")
-                        span.glyphicon.glyphicon-remove
+                td(style="padding: 4px;")
+                    list-item-buttons(id-val="item._id" delete-fn="vm.deleteItem(idVal)" edit-fn="vm.details(idVal)")

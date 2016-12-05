@@ -7,8 +7,6 @@ function tmRentalItemDocSvc (tmDocFactory) {
     
     
     
-    
-    
     return this;
     
 }

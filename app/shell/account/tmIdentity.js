@@ -35,17 +35,13 @@ function tmIdentity($window, $rootScope){
     //         currentUser.user = getClaimsFromToken($window.sessionStorage['token']);
     //         //currentUser = JSON.parse($window.sessionStorage['userInfo']);
     // }
-console.log( $window.sessionStorage['user']);
     if($window.sessionStorage['user']){
             currentUser = {};
-            console.log( $window.sessionStorage['user']);
             currentUser.user = JSON.parse($window.sessionStorage['user']);
-            console.log(currentUser.user);
             //currentUser = JSON.parse($window.sessionStorage['userInfo']);
     }
 
     function updateCurrentUser (user) {
-        console.log(user);
         $rootScope.$broadcast('currentUser:updated', user);
         currentUser = user;
 

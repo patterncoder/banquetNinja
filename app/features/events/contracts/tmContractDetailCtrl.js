@@ -61,10 +61,9 @@ function tmContractDetailCtrl (
             self.detailForm.$setUntouched();
         }
     });
+
     this.loadData().then(function(){
         self.getDetailTitle();
-        //self.docSvc.doc.eventDate = new Date(self.docSvc.doc.eventDate);
-        //self.docSvc.doc.eventTime = new Date(self.docSvc.doc.eventTime);
     });
 
     this.getDetailTitle = function(){
@@ -73,11 +72,6 @@ function tmContractDetailCtrl (
             text: self.docSvc.doc.customer.lastName + ', ' + self.docSvc.doc.customer.firstName
         };
     };
-
-    // this.openRightMenu = function() {
-    //     console.log('in here');
-    //     $mdSidenav('right').toggle();
-    // };
 
     this.sideTab = {
         menuItems: false,

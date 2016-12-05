@@ -1,19 +1,11 @@
 .detailForm
     detail-header
     .detailContent(layout="row" flex)
+        form(name="vm.detailForm")
         div.detailLeftPanel(flex layout="column")
             div.detailLeftPanelContainer(layout-fill)
                 div.detailTopPanel(layout-padding)
-                    div()
-                        form(name="vm.detailForm")
-                            div(layout-gt-xs="row" layout-padding)
-                                div(flex layout="row")
-                                    md-input-container.md-block.md-body-2
-                                        label Name
-                                        input(ng-model="vm.docSvc.doc.name" )
-                                    md-input-container.md-block.md-body-2(flex-gt-sm)
-                                        label Description
-                                        input(ng-model="vm.docSvc.doc.description")
+                    include ./tabs/top-panel.jade
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         md-tab( label="Descriptions")
@@ -24,13 +16,4 @@
                            
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
                     div Some footer text here
-        div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
-            md-content(layout-padding style="background: transparent")
-                div()
-                    h3 Add Category
-                    a(href="") Add categories to the list
-                    lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
-                        a(href="" ng-click="dCtrl.addItem(item)") 
-                            span.glyphicon.glyphicon-circle-arrow-left 
-                        span &nbsp; {{item}}
     detail-footer

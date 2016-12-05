@@ -31,7 +31,33 @@ function tmRentalItemDetailCtrl (
         }
     });
     
-    this.loadData();
+    this.loadData().then(function(){
+        self.getDetailTitle();
+    });
+
+    this.getDetailTitle = function(){
+        self.detailTitle = {
+            leader: 'Rental Item:',
+            text: self.docSvc.doc.name
+        };
+    };
+
+
+    // this.moreFunctions.addItem.method = function() {
+        
+    //         var dialogConfig = {
+    //             template: require('apply!./tmDialogAddItem.jade'),
+    //             controller: 'tmDialogAddItemCtrl as vm',
+    //             locals: {model: 'RentalItem',
+    //                     schema: self.constructorArgs.schema,
+    //                     listView: self.constructorArgs.listView,
+    //                     detailView: self.constructorArgs.detailView,
+    //                     headerText: self.constructorArgs.addHeaderText
+    //                 }
+    //         };
+    //         self.tmDialogSvc.showDialog(dialogConfig);
+    // };
+
     
     return this;
     

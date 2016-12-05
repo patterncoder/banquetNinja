@@ -1,0 +1,10 @@
+div()
+    form(name="vm.detailForm")
+        div(layout-gt-xs="row" layout-padding)
+            div(flex layout="row")
+                md-input-container.md-block.md-body-2
+                    label Name
+                    input(ng-model="vm.docSvc.doc.name" )
+                md-input-container.md-block.md-body-2(flex-gt-sm)
+                    label Description
+                    input(ng-model="vm.docSvc.doc.description")
