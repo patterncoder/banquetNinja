@@ -1,6 +1,6 @@
 
 
-function tmIdentity($window){
+function tmIdentity($window, $rootScope){
     var currentUser;
     
     function urlBase64Decode(str) {
@@ -30,10 +30,25 @@ function tmIdentity($window){
         return user;
     }
     
-    if($window.sessionStorage['token']){
+    // if($window.sessionStorage['token']){
+    //         currentUser = {};
+    //         currentUser.user = getClaimsFromToken($window.sessionStorage['token']);
+    //         //currentUser = JSON.parse($window.sessionStorage['userInfo']);
+    // }
+console.log( $window.sessionStorage['user']);
+    if($window.sessionStorage['user']){
             currentUser = {};
-            currentUser.user = getClaimsFromToken($window.sessionStorage['token']);
+            console.log( $window.sessionStorage['user']);
+            currentUser.user = JSON.parse($window.sessionStorage['user']);
+            console.log(currentUser.user);
             //currentUser = JSON.parse($window.sessionStorage['userInfo']);
+    }
+
+    function updateCurrentUser (user) {
+        console.log(user);
+        $rootScope.$broadcast('currentUser:updated', user);
+        currentUser = user;
+
     }
     
     return {
@@ -43,10 +58,11 @@ function tmIdentity($window){
         },
         isAuthorized: function(role){
             return !!this.currentUser && this.currentUser.roles.indexOf(role) > -1;
-        }
+        },
+        updateCurrentUser: updateCurrentUser
     }
 }
 
-tmIdentity.$inject = ['$window'];
+tmIdentity.$inject = ['$window', '$rootScope'];
 
 export default tmIdentity;

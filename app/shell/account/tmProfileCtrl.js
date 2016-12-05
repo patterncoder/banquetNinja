@@ -12,6 +12,7 @@ function tmProfileCtrl ($dataSource, tmIdentity) {
 
     $ctrl.saveChanges = function(){ 
         User.update($ctrl.user).then(function(user){
+            tmIdentity.updateCurrentUser(user);
             console.log(user);
         });
     }

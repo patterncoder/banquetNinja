@@ -48,6 +48,7 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
                     user: getClaimsFromToken(result.data.token)
                 };
                 $window.sessionStorage['token'] = result.data.token;
+                $window.sessionStorage['user'] = JSON.stringify(result.data.user);
                 $http.defaults.headers.common['x-access-token'] = result.data.token;
                 
                 tmIdentity.currentUser = userInfo;
@@ -75,6 +76,7 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
         }).then(function(result){
             //$window.sessionStorage["token"] = null;
             delete $window.sessionStorage.token;
+            delete $window.sessionStorage.user;
             userInfo = null;
             // remove token from default headers
             $http.defaults.headers.common['x-access-token'] = null;

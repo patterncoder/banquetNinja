@@ -10,7 +10,7 @@
         md-progress-circular(md-mode="indeterminate")
     div(ng-show="vm.identity.isAuthenticated()" style="margin-right: 10px")
         div.dropdown(style="margin-right: 15px")
-            a.dropdown-toggle(data-toggle="dropdown" data-target="#") {{vm.identity.currentUser.user.firstName+' '+ vm.identity.currentUser.user.lastName}}
+            a.dropdown-toggle(data-toggle="dropdown" data-target="#") {{vm.currentUser.user.firstName+' '+ vm.currentUser.user.lastName}}
                 b.caret
             ul.dropdown-menu
                 li

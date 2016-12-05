@@ -5,6 +5,7 @@ function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state, $rootScope) {
     vm.name = 'banquetninja';
     vm.loggedIn = false;
     vm.identity = tmIdentity;
+    vm.currentUser = tmIdentity.currentUser;
     vm.isLoading = false;
     vm.setLoading = function(loading){
         vm.isLoading = loading;
@@ -16,6 +17,11 @@ function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state, $rootScope) {
     vm.isModal = function (){
         return $state.current.isModal;
     }
+
+    $rootScope.$on('currentUser:updated', function(event, data){
+        vm.currentUser.user = data;
+        console.log(data);
+    });
     
     vm.signin = function (username, password){
         vm.setLoading(true);
@@ -24,6 +30,7 @@ function tmLoginCtrl (tmAuth, tmIdentity, tmNotifier, $state, $rootScope) {
                 vm.loggedIn = true;
                 $state.go('root.home');
                 $rootScope.$broadcast('loggedIn');
+                vm.currentUser = tmIdentity.currentUser;
                 tmNotifier.notify("You have successfully signed in!");
                 vm.setLoading(false);
                 }, function() {
