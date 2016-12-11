@@ -1,0 +1,9 @@
+form(name="vm.detailForm")
+    div(layout-gt-xs="row" layout-padding)
+        div(flex layout="row")
+            .form-group
+                label.control-label(for="firstName") First Name
+                input.form-control(name="firstName" placeholder="First Name" ng-model="vm.docSvc.doc.firstName")
+            .form-group
+                label.control-label(for="lastName") Last Name
+                input.form-control(name="lastName" placeholder="Last Name" ng-model="vm.docSvc.doc.lastName")

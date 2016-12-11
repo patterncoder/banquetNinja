@@ -1,0 +1,15 @@
+div(layout="column" flex layout-fill )
+    div.itemCardHeader(layout="row")
+        div
+            h4 Communciation Log
+        div(flex)
+        div
+            h4
+                a(href="" ng-click="vm.addCommLog()")
+                    span.glyphicon.glyphicon-plus
+    div.itemCard(ng-repeat="log in vm.docSvc.doc.commLog track by $index")
+        .pull-right
+            a(href="" ng-click="vm.docSvc.removeCommLog($index)")
+                span.glyphicon.glyphicon-remove
+        div.md-title {{::log.description}}
+        div {{::log.date  | date:'fullDate' }}

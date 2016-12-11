@@ -1,0 +1,9 @@
+md-content(layout-padding style="background: transparent")
+    div()
+        h3 Add Communication
+        a(href="" ng-click="vm.closeCommLog()") Close
+        lookups(tm-data-source="Lookups" limit-to-list  doc-list="vm.docSvc.doc.commLog" list="commTypes" doc-service-add-method="tmContractDocSvc.addCommLog")
+            div.itemCard(style="border: solid black 1px; background-color: white")
+                a(href="" ng-click="dCtrl.addItem(item)") 
+                    span.glyphicon.glyphicon-circle-arrow-left 
+                span &nbsp; {{item}}

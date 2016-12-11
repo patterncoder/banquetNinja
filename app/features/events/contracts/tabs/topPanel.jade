@@ -1,14 +1,15 @@
 form(name="vm.detailForm")
     // div(layout-gt-xs="row" layout-padding)
-    div(flex layout="column")
-        div(flex layout="row")
+div(flex layout="row")
+    div(flex="80" align-content="flex-start" layout="column")
+        div(layout="row")
             .form-group(flex="33")
                 label.control-label(for="title") Event Name
                 input.form-control(ng-model="vm.docSvc.doc.eventName" )
             .form-group(flex="66")
                 label.control-label(for="description") Nature of Event
                 input.form-control(ng-model="vm.docSvc.doc.natureOfEvent")
-        div(flex layout="row")
+        div(layout="row")
             .form-group(flex="20")
                 label.control-label(for="title") Date of Event
                 p.input-group
@@ -27,4 +28,12 @@ form(name="vm.detailForm")
                             div(uib-dropdown-menu style="padding: 10px")
                                 uib-timepicker(ng-model="vm.docSvc.doc.startTime")
                                 a(href="" ng-click="vm.closeTimePicker()") Done
-            
+    div(flex="20" layout="column")
+        div
+            span(style="font-weight: bold") Room(s)&nbsp; 
+                a(href="" ng-click="vm.addRooms()") +Add
+        div()
+            div.itemCard.itemCard-dark(layout="row" layout-align="start center" ng-repeat="item in vm.docSvc.doc.venue track by $index")
+                div(flex="grow") {{item.name}}
+                div(flex="grow")
+                div.glyphicon.glyphicon-remove-circle( ng-click="vm.removeVenue($index)" style="margin-left: 5px;" )

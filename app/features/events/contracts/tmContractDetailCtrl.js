@@ -76,7 +76,8 @@ function tmContractDetailCtrl (
     this.sideTab = {
         menuItems: false,
         timeline: false,
-        rooms: false
+        rooms: false,
+        commLog: false
     };
 
     this.closeVenuePicker = function(){
@@ -92,6 +93,14 @@ function tmContractDetailCtrl (
 
     this.removeVenue = function(index){
         self.docSvc.removeVenue(index);
+    };
+
+    this.addCommLog = function(){
+        this.sideTab.commLog = true;
+    };
+
+    this.closeCommLog = function(){
+        this.sideTab.commLog = false;
     };
     
     

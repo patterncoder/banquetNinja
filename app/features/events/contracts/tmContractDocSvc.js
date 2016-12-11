@@ -9,7 +9,6 @@ function tmContractDocSvc (tmDocFactory) {
     function convertDateStrings(data){
         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
         _.forIn(data, function(value, key) {
-                //console.log(key);
                 if (typeof value === 'string') {
                     var a = reISO.exec(value);
                     if (a) {
@@ -18,6 +17,20 @@ function tmContractDocSvc (tmDocFactory) {
                 }
             });
         return data;
+    }
+
+    this.addCommLog = function(logEntry) {
+        var logToAdd = {
+            date: "1/8/17",
+            commType: 'in-person',
+            employee: "Debbie Jordan",
+            description: "met with client juile "
+        };
+        this.doc.commLog.push(logToAdd);
+    };
+
+    this.removeCommLog = function(indx) {
+        this.doc.commLog.splice(indx, 1);
     }
 
     this.addVenue = function (venue) {
@@ -49,9 +62,6 @@ function tmContractDocSvc (tmDocFactory) {
     };
     
     this.deleteMenuItem = function(item){
-        // console.log({item: item});
-        // console.log({doc: this.doc});
-        // console.log({menuItems: this.doc.menuItems})
         var idx = this.doc.menuItems.indexOf(item);
         if (idx >= 0) {
             this.doc.menuItems.splice(idx, 1);
@@ -62,11 +72,8 @@ function tmContractDocSvc (tmDocFactory) {
         var self = this;
         var deferred = this.$q.defer();
         // depopulate for saving
-        //console.log(_.pick(self.doc.customer, "_id"));
         var stripped = _.pick(self.doc.customer, "_id");
-        //console.log(stripped);
         self.doc.customer = stripped._id;
-        // console.log(self.doc);
         
         var monDoc = new this.tmMongoose.Document(self.doc, self.docSchema);
         monDoc.validate(function(err){

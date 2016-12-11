@@ -3,36 +3,14 @@
     .detailContent(layout="row" flex)
         div.detailLeftPanel(flex layout="column")
             div.detailLeftPanelContainer(layout-fill)
-                div.detailTopPanel(layout-padding)
-                    form(name="vm.detailForm")
-                        div(layout-gt-xs="row" layout-padding)
-                            div(flex layout="row")
-                                .form-group
-                                    label.control-label(for="firstName") First Name
-                                    input.form-control(name="firstName" placeholder="First Name" ng-model="vm.docSvc.doc.firstName")
-                                .form-group
-                                    label.control-label(for="lastName") Last Name
-                                    input.form-control(name="lastName" placeholder="Last Name" ng-model="vm.docSvc.doc.lastName")
+                div.detailTopPanel()
+                    include ./tabs/top-panel.jade
                 div.detailSection(layout-padding style="min-height: 400px")
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
-                        md-tab( label="Contract History")
-                                div(layout="column" flex layout-fill layout-padding)
-                                    div.itemCardHeader(layout="row")
-                                        div
-                                            h4 Events
-                                        div(flex)
-                                        div
-                                            h4
-                                                a(href="" ng-click="vm.addContract()")
-                                                    span.glyphicon.glyphicon-plus
-                                    //md-button(ng-click="vm.addContract()") Add Contract
-                                    div.itemCard(ng-repeat="contract in vm.docSvc.doc.contracts | orderBy:'-eventDate'")
-                                        .pull-right
-                                            a(ui-sref="root.contractDetail({id: contract._id})") View
-                                        div.md-title {{::contract.title}}
-                                        div {{::contract.eventDate  | date:'fullDate' }}
                         md-tab( label="Contact Information")
                             include ./tabs/contactInfo.jade
+                        md-tab( label="Contract History")
+                            include ./tabs/contract-history.jade
                         md-tab(label="General Notes")
                             div(layout="row" layout-padding)
                                 div(flex)
