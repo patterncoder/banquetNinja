@@ -13,10 +13,9 @@
                             include ./tabs/timeline.jade
                         md-tab(label="Communication")
                             include ./tabs/tab-commlog.jade
-                        md-tab(label="Notes")
-                            p some text
+                        md-tab(label="Event Notes")
                             include ./tabs/tab-notes.jade
-                //- div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
+                div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
                 //-     div hello
         div.detailRightPanel(flex="20" ng-show="vm.sideTab.menuItems && vm.tabIndex == 0" layout-padding)
             include ./tabs/addFood.jade
