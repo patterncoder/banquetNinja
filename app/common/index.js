@@ -29,8 +29,11 @@ import tmDialogAddDocPartCtrl from './tmDialogAddDocPartCtrl';
 // filters
 import tmPhoneFilter from './tmPhoneFilter';
 
+// sub modules
+import ninjaGrid from './widgets/ninjaGrid';
 
-export default angular.module('common', [])
+
+export default angular.module('common', [ninjaGrid])
     .value('tmToastr', toastr)
     .value('tmMongoose', mongoose)
     .config(data)

@@ -1,0 +1,35 @@
+
+div.itemCardHeader(layout="row")
+    div
+        h4 {{$ctrl.gridTitle}}
+    div(flex)
+    div
+        h4
+            a(href="" ng-click="$ctrl.toggleAdd()")
+                span.glyphicon.glyphicon-plus(ng-hide="$ctrl.addToggle")
+                span.glyphicon.glyphicon-times
+div(ng-hide="$ctrl.list.length" style="margin: 5px") {{$ctrl.noDataText}}
+
+
+ninja-grid-item(ng-repeat="item in $ctrl.list track by $index" name="{{$index}}"
+    item="item" 
+    on-delete-item="$ctrl.delete(item)"
+    on-update-item="$ctrl.update(item)"
+    on-create-item="$ctrl.create(item)"
+    on-arrow-key-out="$ctrl.arrowKeyOut(item, keyCode, currentField)"
+    on-sort = "$ctrl.sort(startIndex, insertIndex)"
+    fields="$ctrl.fields"
+    ) 
+
+
+
+//- div(layout="column" flex layout-fill )
+//-     div.itemCardHeader(layout="row")
+//-         div
+//-             h4 {{$ctrl.gridTitle}}
+//-         div(flex)
+//-         div
+//-             h4
+//-                 a(href="" ng-click="$ctrl.addToggle")
+//-                     span.glyphicon.glyphicon-plus
+//- div(ng-repeat="item in $ctrl.docList" inject)
