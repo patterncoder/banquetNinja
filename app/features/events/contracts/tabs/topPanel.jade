@@ -12,22 +12,10 @@ div(flex layout="row")
         div(layout="row")
             .form-group(flex="20")
                 label.control-label(for="title") Date of Event
-                p.input-group
-                    input.form-control(type="text" uib-datepicker-popup="shortDate" ng-model="vm.docSvc.doc.eventDate" is-open="vm.status.datePickerOpen" close-text="Close")
-                    span.input-group-btn
-                        button.btn.btn-default(type="button" ng-click="vm.openDatePicker()")
-                            i.glyphicon.glyphicon-calendar
+                date-picker(field="vm.docSvc.doc.eventDate")
             .form-group(flex="20")
                 label.control-label(for="title") Start Time
-                span(uib-dropdown auto-close="outsideClick" is-open="vm.status.timePickerOpen")
-                    p.input-group
-                        input.form-control(ng-model="vm.docSvc.doc.startTime" uib-datepicker-popup="shortTime")
-                        span.input-group-btn
-                            button.btn.btn-default(uib-dropdown-toggle type="button" id="dateDropDown" style="padding-left: 5px")
-                                i.glyphicon.glyphicon-time
-                            div(uib-dropdown-menu style="padding: 10px")
-                                uib-timepicker(ng-model="vm.docSvc.doc.startTime")
-                                a(href="" ng-click="vm.closeTimePicker()") Done
+                time-picker(field="vm.docSvc.doc.startTime")
     div(flex="20" layout="column")
         div
             span(style="font-weight: bold") Room(s)&nbsp; 

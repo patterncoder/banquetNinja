@@ -1,0 +1,6 @@
+
+p.input-group
+    input.form-control(type="text" uib-datepicker-popup="shortDate" ng-model="$ctrl.field" is-open="$ctrl.isOpen" close-text="Close")
+    span.input-group-btn
+        button.btn.btn-default(type="button" ng-click="$ctrl.isOpen = !$ctrl.isOpen")
+            i.glyphicon.glyphicon-calendar

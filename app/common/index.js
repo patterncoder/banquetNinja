@@ -31,9 +31,10 @@ import tmPhoneFilter from './tmPhoneFilter';
 
 // sub modules
 import ninjaGrid from './widgets/ninjaGrid';
+import datePickers from './widgets/datePickers';
 
 
-export default angular.module('common', [ninjaGrid])
+export default angular.module('common', [ninjaGrid, datePickers])
     .value('tmToastr', toastr)
     .value('tmMongoose', mongoose)
     .config(data)

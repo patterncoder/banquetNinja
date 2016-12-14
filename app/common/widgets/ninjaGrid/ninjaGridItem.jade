@@ -5,13 +5,13 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px"  ng-class="{'active-ca
         div.gridItemCell(ng-repeat="(key, val) in $ctrl.fields" 
                 flex="val.width"
                 ng-focus="$ctrl.editItem($ctrl.item, key)" 
-                ng-click="$ctrl.editItem($ctrl.item, key)") {{$ctrl.item[key]}}
+                ng-click="$ctrl.editItem($ctrl.item, key)") {{$ctrl.formatter($ctrl.item[key], val.type)}}
         div.gridItemCell(flex="5" layout="column" layout-align="center center")
             a(href= "" ng-click="$ctrl.deleteItem($ctrl.item)"  ng-blur="vm.detailBlur(item, $index, $event)" )
                  span.glyphicon.glyphicon-remove 
     div.foodEditDiv(ng-show="$ctrl.item.isEditing"  layout="row"  )
         div.gridItemEditCell(ng-repeat="(key, val) in $ctrl.fields" flex="val.width" layout="row" )
-            input.form-control(ng-model="$ctrl.item[key]" 
+            input.form-control(ng-model="$ctrl.item[key]" type="val.type == 'time' ? 'text' : 'date'"
                 focus="$ctrl.item.clickedField[key]" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
                 ng-blur="$ctrl.detailBlur($ctrl.item, $event)")

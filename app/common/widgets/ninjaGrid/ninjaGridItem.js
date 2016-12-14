@@ -1,7 +1,18 @@
 
 
-function ninjaGridItemCtrl ($timeout) {
+function ninjaGridItemCtrl ($timeout, $filter) {
     var $ctrl = this;
+
+    $ctrl.formatter = function (value, type) {
+        if (type == 'time') {
+            return $filter('date')(value, "shortTime");
+        } else if (type == 'date') {
+            return $filter('date')(value, "fullDate");
+        }
+        else {
+            return value;
+        }
+    }
     
     $ctrl.deleteItem = function(item) {
         $ctrl.onDeleteItem(item);
@@ -52,7 +63,7 @@ function ninjaGridItemCtrl ($timeout) {
     
 }
 
-ninjaGridItemCtrl.$inject = ['$timeout'];
+ninjaGridItemCtrl.$inject = ['$timeout', '$filter'];
 
 var ninjaGridItem = {
     template: require('!raw!jade-html!./ninjaGridItem.jade'),
