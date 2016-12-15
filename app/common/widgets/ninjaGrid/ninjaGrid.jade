@@ -8,6 +8,11 @@ div.itemCardHeader(layout="row")
             a(href="" ng-click="$ctrl.toggleAdd()")
                 span.glyphicon.glyphicon-plus(ng-hide="$ctrl.addToggle")
                 span.glyphicon.glyphicon-times
+
+div.gridHeader( layout="row")
+    .gridItemHeaderCell(flex="5") Sort
+    .gridItemHeaderCell(ng-repeat="(key, val) in $ctrl.fields" flex="{{val.width}}") {{val.header}}
+    .gridItemHeaderCell(flex="5") Remove
 div(ng-hide="$ctrl.list.length" style="margin: 5px") {{$ctrl.noDataText}}
 
 

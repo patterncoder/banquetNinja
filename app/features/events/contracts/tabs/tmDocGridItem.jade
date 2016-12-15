@@ -21,12 +21,14 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px"  ng-class="{'active-ca
             a(href= "" ng-click="$ctrl.deleteItem($ctrl.item)"  ng-blur="vm.detailBlur(item, $index, $event)" )
                  span.glyphicon.glyphicon-remove 
     div.foodEditDiv(ng-show="$ctrl.item.isEditing"  layout="row"  )
+        div(flex="5" layout="row" layout-align="center center" )
+            span.glyphicon.glyphicon-sort
         div.gridItemEditCell(flex="20" layout="row" )
             input.form-control(ng-model="$ctrl.item.name" 
                 focus="$ctrl.item.clickedField.name" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, 'name')" 
                 ng-blur="$ctrl.detailBlur($ctrl.item, $event)")
-        div.gridItemEditCell(flex="55" layout="row" )
+        div.gridItemEditCell(flex="50" layout="row" )
             textarea.form-control( rows="3" ng-model="$ctrl.item.description" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, 'description')" 
                 focus="$ctrl.item.clickedField.description" 
