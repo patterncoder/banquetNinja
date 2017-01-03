@@ -40,8 +40,8 @@ function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
         $ctrl.addToggle = !$ctrl.addToggle;
     };
     
-    $ctrl.delete = function(item){
-        $ctrl.docSvc[$attrs.deleteMethod](item);
+    $ctrl.delete = function(index){
+        $ctrl.docSvc[$attrs.deleteMethod](index);
     };
     
     $ctrl.sort = function(startIndex, insertIndex) {

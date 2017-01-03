@@ -14,8 +14,8 @@ function ninjaGridItemCtrl ($timeout, $filter) {
         }
     }
     
-    $ctrl.deleteItem = function(item) {
-        $ctrl.onDeleteItem(item);
+    $ctrl.deleteItem = function() {
+        $ctrl.onDeleteItem({$itemIndex: this.itemIndex});
     };
     
     $ctrl.doneEditing = function(item){
@@ -24,7 +24,6 @@ function ninjaGridItemCtrl ($timeout, $filter) {
     };
     
     $ctrl.editItem = function(item, clickedField) {
-        console.log(item);
         $timeout(function(){
             item.isEditing = true;
             item.clickedField = {};
@@ -33,7 +32,6 @@ function ninjaGridItemCtrl ($timeout, $filter) {
     };
     
     $ctrl.arrowKeyOut = function(item, event, currentField){
-        console.log(item);
         if (event.keyCode == 38) {
             $ctrl.doneEditing(item);
             $ctrl.onArrowKeyOut({item: item, keyCode: 'up', currentField: currentField});
@@ -46,7 +44,6 @@ function ninjaGridItemCtrl ($timeout, $filter) {
     
     
     $ctrl.detailBlur = function (item, event) {
-        console.log(item);
         var relatedTarget = event.relatedTarget || event.explicitOriginalTarget;
         if (relatedTarget == null || event.target.parentElement.parentElement != relatedTarget.parentElement.parentElement ) {
             $timeout(function(){
@@ -70,6 +67,7 @@ var ninjaGridItem = {
     controller: ninjaGridItemCtrl,
     bindings: {
         item: '<',
+        itemIndex: '@',
         fields: '<',
         onDeleteItem: '&',
         onEditItem: '&',

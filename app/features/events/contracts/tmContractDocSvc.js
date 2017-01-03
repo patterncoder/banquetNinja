@@ -56,6 +56,7 @@ function tmContractDocSvc(tmDocFactory) {
     };
 
     this.removeVenue = function (index) {
+        console.log(index);
         this.doc.venue.splice(index, 1);
     };
 

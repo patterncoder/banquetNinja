@@ -31,8 +31,17 @@ function tmVenueDetailCtrl (
         }
     });
     
-    this.loadData();
-    
+    this.loadData().then(function () {
+        // running code here happens after the detail doc has been loaded
+        self.getDetailTitle();
+    });
+
+    this.getDetailTitle = function () {
+        self.detailTitle = {
+            leader: 'Venue Detail: ',
+            text: self.docSvc.doc.name
+        };
+    };
     return this;
     
 }

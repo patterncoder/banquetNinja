@@ -48,7 +48,7 @@ function tmCustomerDetailCtrl(
 
     this.getDetailTitle = function () {
         self.detailTitle = {
-            leader: 'Detail for: ',
+            leader: 'Customer Detail: ',
             text: self.docSvc.doc.lastName + ', ' + self.docSvc.doc.firstName
         };
     };

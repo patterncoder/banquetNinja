@@ -80,28 +80,41 @@ function tmContractDetailCtrl (
         commLog: false
     };
 
-    this.closeVenuePicker = function(){
-        this.sideTab.rooms = false;
+    this.openSideTab = function(tab) {
+        for (var k in this.sideTab) {
+            this.sideTab[k] = false;
+        }
+        this.sideTab[tab] = true;
     };
 
-    this.addRooms = function(){
-        for (var key in this.sideTab) {
-            this.sideTab[key] = false;
+    this.closeSideTab = function() {
+        for (var k in this.sideTab) {
+            this.sideTab[k] = false;
         }
-        this.sideTab.rooms = true;
     };
+
+    // this.closeVenuePicker = function(){
+    //     this.sideTab.rooms = false;
+    // };
+
+    // this.addRooms = function(){
+    //     for (var key in this.sideTab) {
+    //         this.sideTab[key] = false;
+    //     }
+    //     this.sideTab.rooms = true;
+    // };
 
     this.removeVenue = function(index){
         self.docSvc.removeVenue(index);
     };
 
-    this.addCommLog = function(){
-        this.sideTab.commLog = true;
-    };
+    // this.addCommLog = function(){
+    //     this.sideTab.commLog = true;
+    // };
 
-    this.closeCommLog = function(){
-        this.sideTab.commLog = false;
-    };
+    // this.closeCommLog = function(){
+    //     this.sideTab.commLog = false;
+    // };
     
     
     

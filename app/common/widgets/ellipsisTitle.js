@@ -2,7 +2,8 @@ function EllipsisTitleDirective ($compile){
     
     return {
         scope: {
-            title: "="
+            title: "=",
+            charSize: "<"
         },
         restrict: 'E',
         template: `<div class="md-headline">{{truncTitle}}</div>`,
@@ -12,8 +13,8 @@ function EllipsisTitleDirective ($compile){
             scope.$watch('title', function(v){
                 if(!v.text) return;
                 var totalLen = v.text.length + v.leader.length;
-                var newText = totalLen > 25 ? v.text.substring(0, 25 - v.leader.length) + '...' : v.text;
-                var html =`<div><span class="md-subhead">`+ v.leader +`</span><span class="md-headline">`+ newText +`</span></div>`;
+                var newText = totalLen > scope.charSize ? v.text.substring(0, scope.charSize - v.leader.length) + '...' : v.text;
+                var html =`<div><span class="md-headline">`+ v.leader +`</span><span class="md-subhead">`+ newText +`</span></div>`;
                 var e =$compile(html)(scope);
                 element.replaceWith(e);
                 element = e;

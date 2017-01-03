@@ -11,7 +11,7 @@ div(flex="100")
             th.text-right
                 button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
         tbody
-            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
+            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:vm.sortOrder")
                 td {{::item.firstName}} {{::item.lastName}} 
                 td {{::item.phoneNumbers[0].number | tmPhoneFilter}}
                 td(style="padding: 4px;")

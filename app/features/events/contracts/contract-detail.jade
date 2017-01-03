@@ -9,6 +9,8 @@
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         md-tab( label="Food & Beverage")
                             include ./tabs/food.jade
+                        md-tab(label="Rooms")
+                            include ./tabs/tab-rooms.jade
                         md-tab(label="Event Timeline")
                             include ./tabs/tab-timeline.jade
                         md-tab(label="Communication")
@@ -19,10 +21,10 @@
                 //-     div hello
         div.detailRightPanel(flex="20" ng-show="vm.sideTab.menuItems && vm.tabIndex == 0" layout-padding)
             include ./tabs/addFood.jade
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.rooms" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.rooms  && vm.tabIndex == 1" layout-padding)
             include ./tabs/addVenue.jade
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.commLog  && vm.tabIndex == 2" layout-padding)
-            include ./tabs/add-commlog.jade
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.timeline && vm.tabIndex == 1" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.timeline && vm.tabIndex == 2" layout-padding)
             include ./tabs/addTimeline.jade
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.commLog  && vm.tabIndex == 3" layout-padding)
+            include ./tabs/add-commlog.jade
     detail-footer

@@ -1,0 +1,15 @@
+div(flex layout="column")
+    div(flex layout="row")
+        .form-group(flex="33")
+            label.control-label(for="title") Room Name
+            input.form-control(ng-model="vm.docSvc.doc.name" )
+        .form-group(flex="66")
+            label.control-label(for="description") Description
+            input.form-control(ng-model="vm.docSvc.doc.description")
+    div(flex layout="row")
+        .form-group(flex="20")
+            label.control-label(for="title") Capacity
+            input.form-control(type="number" ng-model="vm.docSvc.doc.capacity" )
+        .form-group(flex="20")
+            label.control-label(for="description") Food & Beverage Minimum
+            input.form-control(type="number" ng-model="vm.docSvc.doc.price")

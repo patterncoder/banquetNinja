@@ -9,16 +9,17 @@ div.itemCardHeader(layout="row")
                 span.glyphicon.glyphicon-plus(ng-hide="$ctrl.addToggle")
                 span.glyphicon.glyphicon-times
 
-div.gridHeader( layout="row")
-    .gridItemHeaderCell(flex="5") Sort
+div.gridHeader(ng-show="$ctrl.list.length" layout="row")
+    .gridItemHeaderCell(flex="5") &nbsp;
     .gridItemHeaderCell(ng-repeat="(key, val) in $ctrl.fields" flex="{{val.width}}") {{val.header}}
-    .gridItemHeaderCell(flex="5") Remove
+    .gridItemHeaderCell(flex="5") &nbsp;
 div(ng-hide="$ctrl.list.length" style="margin: 5px") {{$ctrl.noDataText}}
 
 
-ninja-grid-item(ng-repeat="item in $ctrl.list track by $index" name="{{$index}}"
+ninja-grid-item(ng-repeat="item in $ctrl.list track by $index" 
+    item-index="{{$index}}"
     item="item" 
-    on-delete-item="$ctrl.delete(item)"
+    on-delete-item="$ctrl.delete($itemIndex)"
     on-update-item="$ctrl.update(item)"
     on-create-item="$ctrl.create(item)"
     on-arrow-key-out="$ctrl.arrowKeyOut(item, keyCode, currentField)"
@@ -27,14 +28,3 @@ ninja-grid-item(ng-repeat="item in $ctrl.list track by $index" name="{{$index}}"
     ) 
 
 
-
-//- div(layout="column" flex layout-fill )
-//-     div.itemCardHeader(layout="row")
-//-         div
-//-             h4 {{$ctrl.gridTitle}}
-//-         div(flex)
-//-         div
-//-             h4
-//-                 a(href="" ng-click="$ctrl.addToggle")
-//-                     span.glyphicon.glyphicon-plus
-//- div(ng-repeat="item in $ctrl.docList" inject)

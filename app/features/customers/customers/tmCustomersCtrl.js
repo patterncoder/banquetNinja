@@ -13,6 +13,7 @@ class tmMenuGroupsCtrl {
         };
         
         this.sortOptions = [{ value: "lastName", text: "Sort by Last Name" }, { value: "firstName", text: "Sort by First Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
+        this.sortOrder = this.sortOptions[0].value;
         this.__proto__ = tmListFactory(constructorArgs);
         this.loadData();
         

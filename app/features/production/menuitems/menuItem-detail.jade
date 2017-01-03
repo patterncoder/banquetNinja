@@ -1,19 +1,11 @@
 .detailForm
     detail-header
     .detailContent(layout="row" flex)
+        form(name="vm.detailForm")
         div.detailLeftPanel(flex layout="column")
             div.detailLeftPanelContainer(layout-fill)
                 div.detailTopPanel(layout-padding)
-                    div()
-                        form(name="vm.detailForm")
-                            div(layout-gt-xs="row" layout-padding)
-                                div(layout="row" flex)
-                                    .form-group(flex=33)
-                                        label.control-label(for="name") Menu Item Name
-                                        input.form-control(name="name" placeholder="Name" ng-model="vm.docSvc.doc.name" )
-                                    .form-group(flex)
-                                        label.control-label(for="description") Description
-                                        textarea.form-control(name="description" rows="3" placeholder="Description" ng-model="vm.docSvc.doc.description")
+                    include ./tabs/top-panel.jade
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         md-tab( label="Descriptions")

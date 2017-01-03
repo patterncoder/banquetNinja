@@ -16,12 +16,12 @@ div(flex layout="row")
             .form-group(flex="20")
                 label.control-label(for="title") Start Time
                 time-picker(field="vm.docSvc.doc.startTime")
-    div(flex="20" layout="column")
-        div
-            span(style="font-weight: bold") Room(s)&nbsp; 
-                a(href="" ng-click="vm.addRooms()") +Add
-        div()
-            div.itemCard.itemCard-dark(layout="row" layout-align="start center" ng-repeat="item in vm.docSvc.doc.venue track by $index")
-                div(flex="grow") {{item.name}}
-                div(flex="grow")
-                div.glyphicon.glyphicon-remove-circle( ng-click="vm.removeVenue($index)" style="margin-left: 5px;" )
+    //- div(flex="20" layout="column")
+    //-     div
+    //-         span(style="font-weight: bold") Room(s)&nbsp; 
+    //-             a(href="" ng-click="vm.openSideTab('rooms')") +Add
+    //-     div()
+    //-         div.itemCard.itemCard-dark(layout="row" layout-align="start center" ng-repeat="item in vm.docSvc.doc.venue track by $index")
+    //-             div(flex="grow") {{item.name}}
+    //-             div(flex="grow")
+    //-             div.glyphicon.glyphicon-remove-circle( ng-click="vm.removeVenue($index)" style="margin-left: 5px;" )
