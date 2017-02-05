@@ -11,7 +11,7 @@ function Directive (){
         //controller: Controller,
         //controllerAs: 'vm',
         template: require('./isLoading.jade')
-    }
+    };
 }
 
 export default Directive;

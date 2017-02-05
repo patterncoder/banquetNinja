@@ -10,4 +10,4 @@ export default [
                         query: { method: 'GET', isArray: false}}
         });
     }
-]
+];

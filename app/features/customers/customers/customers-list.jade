@@ -1,5 +1,7 @@
 div(flex="100")
     list-header
+    // ul(uib-pagination total-items="vm.totalItems"  max-size="vm.maxSize" ng-model="vm.currentPage" ng-change="vm.pageChanged()")
+    alpha-select(on-select="vm.changeFilter({value: letter})")
     table.table.table-responsive
         colgroup
             col(span="1")

@@ -45,14 +45,17 @@ function BaseList (
         this.isLoading = loading;
     };
     
-    this.loadData = function(queryString){
+    this.loadData = function(queryString, flush){
         var self = this;
         self.setLoading(true);
-        self.Model.query(queryString).then(function(items){
+        self.Model.query(queryString, flush).then(function(items){
             self.setLoading(false);
             self.items = items;
+            self.afterLoad();
         });
     };
+
+    this.afterLoad = function() {};
     
     this.addItemDialog = function (){
             var self = this;
@@ -74,7 +77,7 @@ function BaseList (
 
     this.print = function(id){
         this.$state.go(this.constructorArgs.printView, {id: id});
-    }
+    };
     
     this.deleteItem = function(id){
         var self = this;

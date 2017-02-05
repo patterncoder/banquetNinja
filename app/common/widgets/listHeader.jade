@@ -1,11 +1,11 @@
 .list-header {{::vm.constructorArgs.listTitle}}
 .listHeaderFilters(layout="row")
-    div(flex="50")
+    div(flex="50" layout="column" layout-align="end start")
         is-loading
     div(flex="50" layout="row" layout-align="end")
         form.form-inline
             .form-group
-                input.form-control(ng-model="searchText", placeholder="Filter")
+                input.form-control(ng-model="searchText", placeholder="Filter Visible")
             | &nbsp;
             .form-group.margin-left-med
                 select.form-control(ng-model="vm.sortOrder", ng-options="item.value as item.text for item in vm.sortOptions")
