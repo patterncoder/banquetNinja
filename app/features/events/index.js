@@ -47,4 +47,4 @@ export default angular.module('events', [uirouter, uibs])
     .component('tmDocGridItem', tmDocGridItem)
     .directive('tmDraggable', tmDraggable)
     .directive('tmDroppable', tmDroppable)
-    .name
+    .name;
