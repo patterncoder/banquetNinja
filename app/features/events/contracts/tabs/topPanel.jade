@@ -10,12 +10,15 @@ div(flex layout="row")
                 label.control-label(for="description") Nature of Event
                 input.form-control(ng-model="vm.docSvc.doc.natureOfEvent")
         div(layout="row")
-            .form-group(flex="20")
+            .form-group(flex="25")
                 label.control-label(for="title") Date of Event
                 date-picker(field="vm.docSvc.doc.eventDate")
-            .form-group(flex="20")
+            .form-group(flex="25")
                 label.control-label(for="title") Start Time
                 time-picker(field="vm.docSvc.doc.startTime")
+            .form-group(flex="30")
+                label.control-label(for="status") Status
+                select.form-control(ng-model="vm.docSvc.doc.status", ng-options="contract for contract in vm.contractStatusOptions")
     //- div(flex="20" layout="column")
     //-     div
     //-         span(style="font-weight: bold") Room(s)&nbsp; 
