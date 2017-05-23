@@ -16,13 +16,15 @@
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         md-tab( label="Descriptions")
                                 div(layout="row" flex layout-fill layout-padding)
-                                    div(layout="column" flex)
-                                        md-input-container.md-block(flex)
-                                            label Title
-                                            input(ng-model="vm.docSvc.doc.title")
-                                        md-input-container.md-block(flex)
-                                            label Sub Title
-                                            input(ng-model="vm.docSvc.doc.subtitle")
+                                        div(layout="column" flex)
+                                            .form-group(flex="90")
+                                                label.control-label(for="title") Title
+                                                input.form-control(ng-model="vm.docSvc.doc.title")
+                                div(layout="row" flex layout-fill layout-padding)                
+                                        div(layout="column" flex)
+                                            .form-group(flex="90")
+                                                label.control-label(for="subtitle") Sub Title
+                                                input.form-control(ng-model="vm.docSvc.doc.subtitle")
                         md-tab(label="Sections")
                             div(layout="row" layout-padding)
                                 div(flex=33)
