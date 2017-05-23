@@ -38,10 +38,15 @@
                                             a(href="" ng-click="vm.docSvc.removeSection($index)")
                                                 span.glyphicon.glyphicon-remove
                         md-tab(label="Notes")
-                            md-content
-                                md-input-container.md-block
-                                    label Notes
-                                    textarea(ng-model="vm.tmMenuItemDocSvc.doc.notes") 
+                            div(layout="row" flex layout-fill layout-padding)
+                                div(layout="column" flex)
+                                    .form-group(flex="90")
+                                        label.control-label(for="notes") Notes
+                                        textarea.form-control(ng-model="vm.tmMenuItemDocSvc.doc.notes")                        
+                            //- md-content
+                            //-     md-input-container.md-block
+                            //-         label Notes
+                            //-         textarea(ng-model="vm.tmMenuItemDocSvc.doc.notes") 
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
                     div Some footer text here
         div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
