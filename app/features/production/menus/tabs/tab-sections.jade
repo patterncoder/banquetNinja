@@ -1,0 +1,11 @@
+div(layout="row" layout-padding)
+    div(flex=33)
+        h3 Sections
+        p Sections are used for grouping menu items.  Example Appetizers, Soups & Salads, Entrees, etc.
+        md-button(ng-click="vm.docSvc.addSection()") Add Section
+        div(ng-repeat="item in vm.docSvc.doc.sections track by $index")
+            div(layout="row" style="width: 150px")
+                span  {{item.title}} 
+                span(flex)
+                a(href="" ng-click="vm.docSvc.removeSection($index)")
+                    span.glyphicon.glyphicon-remove
