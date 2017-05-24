@@ -50,6 +50,7 @@ function BaseDetail(
     this.$state = $state;
     this.$q = $q;
     this.docSvc = constructorArgs.docSvc;
+    this.contractStatusOptions = constructorArgs.schema.paths.status.enumValues.map((status)=> status);
     //this.docSvc.loadDocument($stateParams.id);
     this.constructorArgs = constructorArgs;
 
@@ -106,7 +107,6 @@ function BaseDetail(
         self.setLoading(true);
         self.getDetailTitle();
         return this.docSvc.loadDocument(this.$stateParams.id).then(function () {
-
             self.setLoading(false);
         });
     };
