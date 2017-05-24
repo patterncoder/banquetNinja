@@ -24,13 +24,13 @@ function tmContractDocSvc(tmDocFactory) {
             time: 1000,
             duration: 10,
             description: 'test time entry'
-        }
+        };
         this.doc.eventSteps.push(newTimeEntry);
     };
 
     this.removeTimeline = function (index) {
         this.doc.eventSteps.splice(index, 1);
-    }
+    };
 
     this.addCommLog = function (logEntry) {
         var logToAdd = {
@@ -44,7 +44,7 @@ function tmContractDocSvc(tmDocFactory) {
 
     this.removeCommLog = function (indx) {
         this.doc.commLog.splice(indx, 1);
-    }
+    };
 
     this.addVenue = function (venue) {
         var venueToAdd = {
@@ -69,7 +69,7 @@ function tmContractDocSvc(tmDocFactory) {
             quantity: 0
         };
         this.doc.menuItems.push(itemToAdd);
-    }
+    };
 
     this.removeMenuItem = function (index) {
         this.doc.menuItems.splice(index, 1);
@@ -96,7 +96,7 @@ function tmContractDocSvc(tmDocFactory) {
                 self.validationError = err;
                 console.log(self.validationError);
                 deferred.reject('contract doc service has errors');
-                return
+                return;
             }
             self.docModel.update(self.doc).then(function (data) {
                 data = convertDateStrings(data);
@@ -106,7 +106,7 @@ function tmContractDocSvc(tmDocFactory) {
             });
         });
         return deferred.promise;
-    }
+    };
 
 
 
