@@ -1,48 +1,42 @@
 .detailForm(ng-cloak)
     detail-header
     .detailContent(layout="row" flex)
+        form(name="vm.detailForm")
         div.detailLeftPanel(flex layout="column")
             div.detailLeftPanelContainer(layout-fill)
                 div.detailTopPanel(layout-padding)
-                    form(name="vm.detailForm")
-                        div(flex layout="row")
-                            .form-group(flex="40")
-                                label.control-label(for="name") Name
-                                input.form-control(ng-model="vm.docSvc.doc.name" )
-                            .form-group(flex="60")
-                                label.control-label(for="description") Description
-                                input.form-control(ng-model="vm.docSvc.doc.description")
+                //-    include ./tabs/top-panel.jade
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         md-tab( label="Descriptions")
-                                div(layout="row" flex layout-fill layout-padding)
-                                        div(layout="column" flex)
-                                            .form-group(flex="90")
-                                                label.control-label(for="title") Title
-                                                input.form-control(ng-model="vm.docSvc.doc.title")
-                                div(layout="row" flex layout-fill layout-padding)                
-                                        div(layout="column" flex)
-                                            .form-group(flex="90")
-                                                label.control-label(for="subtitle") Sub Title
-                                                input.form-control(ng-model="vm.docSvc.doc.subtitle")
+                                //- div(layout="row" flex layout-fill layout-padding)
+                                //-         div(layout="column" flex)
+                                //-             .form-group(flex="90")
+                                //-                 label.control-label(for="title") Title
+                                //-                 input.form-control(ng-model="vm.docSvc.doc.title")
+                                //- div(layout="row" flex layout-fill layout-padding)                
+                                //-         div(layout="column" flex)
+                                //-             .form-group(flex="90")
+                                //-                 label.control-label(for="subtitle") Sub Title
+                                //-                 input.form-control(ng-model="vm.docSvc.doc.subtitle")
                         md-tab(label="Sections")
-                            div(layout="row" layout-padding)
-                                div(flex=33)
-                                    h3 Sections
-                                    p Sections are used for grouping menu items.  Example Appetizers, Soups & Salads, Entrees, etc.
-                                    md-button(ng-click="vm.docSvc.addSection()") Add Section
-                                    div(ng-repeat="item in vm.docSvc.doc.sections track by $index")
-                                        div(layout="row" style="width: 150px")
-                                            span  {{item.title}} 
-                                            span(flex)
-                                            a(href="" ng-click="vm.docSvc.removeSection($index)")
-                                                span.glyphicon.glyphicon-remove
+                            //- div(layout="row" layout-padding)
+                            //-     div(flex=33)
+                            //-         h3 Sections
+                            //-         p Sections are used for grouping menu items.  Example Appetizers, Soups & Salads, Entrees, etc.
+                            //-         md-button(ng-click="vm.docSvc.addSection()") Add Section
+                            //-         div(ng-repeat="item in vm.docSvc.doc.sections track by $index")
+                            //-             div(layout="row" style="width: 150px")
+                            //-                 span  {{item.title}} 
+                            //-                 span(flex)
+                            //-                 a(href="" ng-click="vm.docSvc.removeSection($index)")
+                            //-                     span.glyphicon.glyphicon-remove
                         md-tab(label="Notes")
-                            div(layout="row" flex layout-fill layout-padding)
-                                div(layout="column" flex)
-                                    .form-group(flex="90")
-                                        label.control-label(for="notes") Notes
-                                        textarea.form-control(ng-model="vm.tmMenuItemDocSvc.doc.notes")                        
+                            //- div(layout="row" flex layout-fill layout-padding)
+                            //-     div(layout="column" flex)
+                            //-         .form-group(flex="90")
+                            //-             label.control-label(for="notes") Notes
+                            //-             textarea.form-control(ng-model="vm.tmMenuItemDocSvc.doc.notes")                        
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
                     div Some footer text here
         div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
