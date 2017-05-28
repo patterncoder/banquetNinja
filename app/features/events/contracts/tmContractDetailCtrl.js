@@ -30,6 +30,9 @@ function tmContractDetailCtrl (
             }
         };
 
+
+    this.contractStatusOptions = constructorArgs.schema.paths.status.enumValues.map((status)=> status);
+
     this.moreFunctions.addItem.method = function() {
         
             var dialogConfig = {
