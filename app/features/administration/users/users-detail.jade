@@ -1,0 +1,33 @@
+.detailForm
+    detail-header
+    .detailContent(layout="row" flex)
+        div.detailLeftPanel(flex layout="column")
+            div.detailLeftPanelContainer(layout-fill)
+                div.detailTopPanel(layout-padding)
+                    form(name="vm.detailForm")
+                        div(flex layout="row")
+                            div(flex="80" align-content="flex-start" layout="column")
+                                div(layout="row")
+                                    .form-group(flex="48")
+                                        label.control-label(for="name") First Name
+                                        input.form-control(ng-model="vm.docSvc.doc.firstName" )
+                                    .form-group(flex="48")
+                                        label.control-label(for="description") Last Name
+                                        input.form-control(ng-model="vm.docSvc.doc.lastName" )
+                div.detailSection(layout-padding)
+                    md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
+                        md-tab( label="User Profile")
+                            div(layout="row" flex layout-fill layout-padding)
+                                div(flex="90" align-content="flex-start" layout="column")
+                                    .form-group(flex="90")
+                                        label.control-label(for="title") Username
+                                        input.form-control(ng-model="vm.docSvc.doc.username")                                        
+                                    .form-group(flex="90")
+                                        label.control-label(for="subTitle") Roles
+                                        //- this will need to populate with user role
+                                        {{vm.docSvc.doc.roles}}
+                                        select.form-control(ng-model="vm.docSvc.doc.roles", 
+                                                            ng-options="role for role in enumValues")
+                                        //-   option(ng-value="item") {{item}}
+                div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
+    detail-footer
