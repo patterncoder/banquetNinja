@@ -10,7 +10,7 @@ import tmLookupsDetailCtrl from './lookups/tmLookupsDetailCtrl';
 import tmUserDetailCtrl from './users/userDetailCtrl';
 
 
-import tmUserDocSvc from './users/userDocSvc';
+import tmUserDocSvc from './users/tmUserDocSvc';
 
 export default angular.module('users', [uirouter])
     

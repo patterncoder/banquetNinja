@@ -1,7 +1,7 @@
 import ninjaSchemas from 'ninjaSchemas';
 import angular from 'angular';
 
-function userDocSvc (tmDocFactory) {
+function tmUserDocSvc (tmDocFactory) {
     
     this.__proto__ = tmDocFactory('Users', ninjaSchemas.account.User);
     
@@ -26,6 +26,6 @@ function userDocSvc (tmDocFactory) {
 }
 
 
-userDocSvc.$inject = ['tmDocFactory'];
+tmUserDocSvc.$inject = ['tmDocFactory'];
 
-export default userDocSvc;
+export default tmUserDocSvc;

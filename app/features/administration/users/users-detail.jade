@@ -39,7 +39,7 @@
                                     div()
                                         h3 Add Role to User
                                         a(ui-sref="root.user") Add use role
-                                        lookups(tm-data-source="User" doc-list="vm.userDocSvc.doc.roles" list="root" doc-service-add-method="userDocSvc.addRole")
+                                        lookups(tm-data-source="User" doc-list="vm.tmUserDocSvc.doc.roles" list="root" doc-service-add-method="tmUserDocSvc.addRole")
                                             div.itemCard(style="border: solid black 1px; background-color: white")
                                                 a(href="" ng-click="dCtrl.addItem(item)") 
                                                     span.glyphicon.glyphicon-circle-arrow-left 
