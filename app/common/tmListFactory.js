@@ -57,8 +57,11 @@ function BaseList (
 
     this.afterLoad = function() {};
     
-    this.addItemDialog = function (){
+    this.addItemDialog = function (schemaExtensions){
             var self = this;
+            if(schemaExtensions){
+                this.constructorArgs.schema.add(schemaExtensions);
+            }
             var dialogConfig = {
                 template: require('apply!./tmDialogAddItem.jade'),
                 controller: 'tmDialogAddItemCtrl as vm',
