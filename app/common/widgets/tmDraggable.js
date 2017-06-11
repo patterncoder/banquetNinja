@@ -4,8 +4,8 @@ export default [function(){
         var pureJsElement = element[0];
         pureJsElement.draggable = true;
         pureJsElement.addEventListener('dragstart', function(event) {
-            console.log(event);
-            console.log(scope);
+            // console.log(event);
+            // console.log(scope);
             event.dataTransfer.effectAllowed = "move";
             event.dataTransfer.setData('text/plain', this.id);
             this.classList.add('drag');

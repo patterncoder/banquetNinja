@@ -25,12 +25,12 @@ export default [function(){
                 if (e.stopPropagation) e.stopPropagation();
                 if (e.preventDefault) e.preventDefault();
                 this.classList.remove('over');
-                console.log(e);
-                console.log(scope);
+                // console.log(e);
+                // console.log(scope);
                 
                 var data = e.dataTransfer.getData('text/plain');
                 scope.$ctrl.sort(data, this.id);
-                console.log(data);
+                //console.log(data);
                 //this.innerHTML = data;
                 
                 return false;
