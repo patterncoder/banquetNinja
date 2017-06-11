@@ -12,7 +12,7 @@ function ninjaGridItemCtrl ($timeout, $filter) {
         else {
             return value;
         }
-    }
+    };
     
     $ctrl.deleteItem = function() {
         $ctrl.onDeleteItem({$itemIndex: this.itemIndex});
