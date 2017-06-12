@@ -75,10 +75,10 @@ function tmContractDocSvc(tmDocFactory) {
         this.doc.menuItems.splice(index, 1);
     };
 
-    this.deleteMenuItem = function (item) {
-        var idx = this.doc.menuItems.indexOf(item);
-        if (idx >= 0) {
-            this.doc.menuItems.splice(idx, 1);
+    this.deleteMenuItem = function (itemIndex) {
+        // var idx = this.doc.menuItems.indexOf(item);
+        if (itemIndex >= 0) {
+            this.doc.menuItems.splice(itemIndex, 1);
         }
     };
 
