@@ -22,7 +22,17 @@ function tmContractDetailCtrl (
     };
     
     this.__proto__ = tmDetailFactory(constructorArgs);
-    
+    self.models = {};
+    self.models.newEventStep = _.reduce(ninjaSchemas.events.Contract.paths.eventSteps.schema.paths, (prev, item, key) => {
+        let newEvent = self.models["newEventStep"] = {};
+        newEvent[key] = null;
+    },{});
+
+    this.addEventStep = function () {
+        this.docSvc.addTimeline(self.models.newEventStep);
+        self.models.newEventStep = _.mapValues(self.models.newEventStep, () => null);
+    };
+
     this.moreFunctions.print = {
             label: "Print",
             method: function(){
@@ -65,8 +75,9 @@ function tmContractDetailCtrl (
         }
     });
 
-    this.loadData().then(function(){
+    this.loadData().then(function(data){
         self.getDetailTitle();
+        
     });
 
     this.getDetailTitle = function(){

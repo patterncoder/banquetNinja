@@ -6,6 +6,8 @@ function ninjaGridItemCtrl ($timeout, $filter) {
     $ctrl.formatter = function (value, type) {
         if (type == 'time') {
             return $filter('date')(value, "shortTime");
+        } else if (type == 'timepicker') {
+            return $filter('date')(value, "shortTime");
         } else if (type == 'date') {
             return $filter('date')(value, "fullDate");
         }

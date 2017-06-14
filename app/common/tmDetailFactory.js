@@ -105,8 +105,9 @@ function BaseDetail(
         var self = this;
         self.setLoading(true);
         self.getDetailTitle();
-        return this.docSvc.loadDocument(this.$stateParams.id).then(function () {
+        return this.docSvc.loadDocument(this.$stateParams.id).then(function (doc) {
             self.setLoading(false);
+            return doc;
         });
     };
 
