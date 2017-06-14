@@ -1,0 +1,10 @@
+div(layout="row" flex layout-fill layout-padding)
+            //- {{vm.docSvc.doc.roles}}
+        ninja-grid(no-data-text="User needs a role" 
+                grid-title="" 
+                doc-svc="vm.docSvc" 
+                list="vm.docSvc.doc.roles" 
+                create-method="addRole" 
+                update-method="updateRole" 
+                delete-method="removeRole"
+                add-toggle="vm.sideTab.roles")
