@@ -9,10 +9,19 @@ div.contractPage(style="width: 850px")
         tr.rowData
             td {{$ctrl.doc.customer.firstName + ' ' + $ctrl.doc.customer.lastName}}
             td {{$ctrl.doc.customer.addresses[0].address1}} <br/> {{$ctrl.doc.customer.addresses[0].city}}
+    hr
     table.contractItems(style="width: 100%")
         tr(ng-repeat="item in $ctrl.doc.menuItems")
             td {{item.name}}
             td {{item.description}}
             td {{item.quantity}}
             td(style="text-align: right") {{item.price}}
+    div(ng-if="$ctrl.doc.eventSteps.length>0")
+        hr
+        h3 Event Steps
+        table.contractItems
+            tr(ng-repeat="item in $ctrl.doc.eventSteps")
+                td {{item.time}}
+                td {{item.duration}}
+                td {{item.description}}
         

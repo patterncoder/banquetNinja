@@ -13,14 +13,19 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px"  ng-class="{'active-ca
         div(flex="5" layout="row" layout-align="center center" )
             span.glyphicon.glyphicon-sort
         div.gridItemEditCell(ng-repeat="(key, val) in $ctrl.fields" flex="{{val.width}}" layout="row" )
-            input.form-control(ng-if="val.input==='text'" ng-model="$ctrl.item[key]" type="val.type == 'time' ? 'text' : 'date'"
+            input.form-control(ng-if="val.input==='text'" ng-model="$ctrl.item[key]" type="val.type"
                 focus="$ctrl.item.clickedField[key]" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
                 ng-blur="$ctrl.detailBlur($ctrl.item, $event)")
-            textarea.form-control(rows="3" ng-if="val.input==='textarea'" ng-model="$ctrl.item[key]" type="val.type == 'time' ? 'text' : 'date'"
+            textarea.form-control(rows="3" ng-if="val.input==='textarea'" ng-model="$ctrl.item[key]" type="val.type"
                 focus="$ctrl.item.clickedField[key]" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
                 ng-blur="$ctrl.detailBlur($ctrl.item, $event)")
+            input.form-control(rows="3" ng-if="val.input==='timefield'" ng-model="$ctrl.item[key]" type="time"
+                focus="$ctrl.item.clickedField[key]" placeholder="HH:mm:ss"
+                ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
+                ng-blur="$ctrl.detailBlur($ctrl.item, $event)")
+            // time-field(ng-if="val.input==='timefield'" ng-model="$ctrl.item[key]" field="$ctrl.item[key]" type="val.type")
         div(flex="5" layout="column" layout-align="center center")
             a(href= "" ng-click="$ctrl.doneEditing($ctrl.item)" ng-blur="$ctrl.detailBlur($ctrl.item, $event)" )
                 span.glyphicon.glyphicon-ok
