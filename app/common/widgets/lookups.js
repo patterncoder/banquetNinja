@@ -78,10 +78,10 @@ function tmLookupsDirective (){
             return {
                 pre: function preLink(scope, iElement, iAttrs, controller) {  },
                 post: function postLink($scope, $element, $attrs, controller) {  }
-            }
+            };
         }
-    }
-    return DDO
+    };
+    return DDO;
 }
 
 export default tmLookupsDirective;

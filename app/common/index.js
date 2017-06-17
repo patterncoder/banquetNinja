@@ -16,6 +16,8 @@ import detailFooter from './widgets/detailFooter';
 import focus from './widgets/focus';
 import ellipsisTitle from './widgets/ellipsisTitle';
 import listItemButtons from './widgets/listItemButtons';
+import tmDraggable from './widgets/tmDraggable.js';
+import tmDroppable from './widgets/tmDroppable.js';
 // services
 import tmWindowStorage from './tmWindowStorage';
 // base class like factories
@@ -55,6 +57,8 @@ export default angular.module('common', [ninjaGrid, datePickers, alphaSelect])
     .directive('focus', focus)
     .directive('ellipsisTitle', ellipsisTitle)
     .directive('listItemButtons', listItemButtons)
+    .directive('tmDraggable', tmDraggable)
+    .directive('tmDroppable', tmDroppable)
     .controller('tmDialogAddItemCtrl', tmDialogAddItemCtrl)
     .controller('tmDialogAddDocPartCtrl', tmDialogAddDocPartCtrl)
     .filter('tmPhoneFilter', tmPhoneFilter)

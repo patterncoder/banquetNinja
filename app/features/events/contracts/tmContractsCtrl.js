@@ -15,7 +15,10 @@ class tmContractsCtrl {
         
         this.__proto__ = tmListFactory(constructorArgs);
         
-        this.loadData({sel: 'eventName eventDate startTime'});
+        this.loadData({
+                "select": "eventName eventDate startTime customer",
+                "populate[customer]": "firstName lastName"
+            });
         //this.loadData();
         
         this.sortOptions = [ { value: "-eventDate", text: "Sort by Event Date Z-A" }, { value: "eventDate", text: "Sort by Event Date A-Z" }, { value: "eventName", text: "Sort by Event Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];

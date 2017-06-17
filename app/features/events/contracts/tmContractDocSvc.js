@@ -19,18 +19,13 @@ function tmContractDocSvc(tmDocFactory) {
         return data;
     }
 
-    this.addTimeline = function (timeEntry) {
-        var newTimeEntry = {
-            time: 1000,
-            duration: 10,
-            description: 'test time entry'
-        }
+    this.addTimeline = function (newTimeEntry) {
         this.doc.eventSteps.push(newTimeEntry);
     };
 
     this.removeTimeline = function (index) {
         this.doc.eventSteps.splice(index, 1);
-    }
+    };
 
     this.addCommLog = function (logEntry) {
         var logToAdd = {
@@ -44,7 +39,7 @@ function tmContractDocSvc(tmDocFactory) {
 
     this.removeCommLog = function (indx) {
         this.doc.commLog.splice(indx, 1);
-    }
+    };
 
     this.addVenue = function (venue) {
         var venueToAdd = {
@@ -69,18 +64,20 @@ function tmContractDocSvc(tmDocFactory) {
             quantity: 0
         };
         this.doc.menuItems.push(itemToAdd);
-    }
+    };
 
     this.removeMenuItem = function (index) {
         this.doc.menuItems.splice(index, 1);
     };
 
-    this.deleteMenuItem = function (item) {
-        var idx = this.doc.menuItems.indexOf(item);
-        if (idx >= 0) {
-            this.doc.menuItems.splice(idx, 1);
+    this.deleteMenuItem = function (itemIndex) {
+        // var idx = this.doc.menuItems.indexOf(item);
+        if (itemIndex >= 0) {
+            this.doc.menuItems.splice(itemIndex, 1);
         }
     };
+
+
 
     this.saveChanges = function () {
         var self = this;
@@ -96,7 +93,7 @@ function tmContractDocSvc(tmDocFactory) {
                 self.validationError = err;
                 console.log(self.validationError);
                 deferred.reject('contract doc service has errors');
-                return
+                return;
             }
             self.docModel.update(self.doc).then(function (data) {
                 data = convertDateStrings(data);
@@ -106,7 +103,7 @@ function tmContractDocSvc(tmDocFactory) {
             });
         });
         return deferred.promise;
-    }
+    };
 
 
 

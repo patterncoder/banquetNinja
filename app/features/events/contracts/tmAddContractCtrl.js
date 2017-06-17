@@ -108,9 +108,12 @@ class tmAddContractCtrl {
     addItem(nextView) {
         var self = this;
         var newContract = angular.copy(self.newItem);
+        newContract.status = "pending";
+        console.log(newContract);
         var custId = this.customerId || newContract.customer.id;
         console.log(custId);
         newContract.customer = custId;
+        console.log(this.schema);
         var newItemDoc = new self.tmMongoose.Document(newContract, this.schema);
         newItemDoc.validate(function (err) {
             if (err) {
@@ -128,7 +131,7 @@ class tmAddContractCtrl {
                     console.log(cust);
                     cust.contracts.push(contract._id);
                     Customer.update(cust).then(function (cust) {
-                        self.tmNotifier.notify("Item was sucessfully added.");
+                        self.tmNotifier.notify("Item was successfully added.");
                         self.setLoading(false);
                         self.$mdDialog.hide();
                         if (nextView === 'details') {
