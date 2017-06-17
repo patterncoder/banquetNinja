@@ -1,10 +1,9 @@
 div(layout="row" flex layout-fill layout-padding)
-            //- {{vm.docSvc.doc.roles}}
-        ninja-grid(no-data-text="User needs a role" 
-                grid-title="" 
-                doc-svc="vm.docSvc" 
-                list="vm.docSvc.doc.roles" 
-                create-method="addRole" 
+            div(ng-repeat='role in vm.docSvc.doc.roles track by $index' flex="5") 
+                {{role}}
+                br           
+        ninja-grid(create-method="addRole" 
                 update-method="updateRole" 
                 delete-method="removeRole"
                 add-toggle="vm.sideTab.roles")
+                
