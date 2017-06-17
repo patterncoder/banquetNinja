@@ -8,6 +8,7 @@ import nav from './nav';
 import data from './data';
 
 import tmContractsCtrl from './contracts/tmContractsCtrl';
+import tmContractsPendingCtrl from './contractsPending/tmContractsPendingCtrl';
 import tmVenuesCtrl from './venues/tmVenuesCtrl';
 import tmRentalItemsCtrl from './rentalitems/tmRentalItemsCtrl';
 
@@ -36,6 +37,7 @@ export default angular.module('events', [uirouter, uibs])
     .factory('tmRentalItemDocSvc', tmRentalItemDocSvc)
     .factory('tmVenueDocSvc', tmVenueDocSvc)
     .controller("tmContractsCtrl", tmContractsCtrl)
+    .controller("tmContractsPendingCtrl", tmContractsPendingCtrl)
     .controller("tmVenuesCtrl", tmVenuesCtrl)
     .controller("tmRentalItemsCtrl", tmRentalItemsCtrl)
     .controller('tmContractDetailCtrl', tmContractDetailCtrl)
