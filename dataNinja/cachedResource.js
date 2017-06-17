@@ -5,6 +5,12 @@
 // $resourc is passed in from the 
 import angular from 'angular';
 
+var jsonMSDateTime = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
+
+function jsonReviver(key, value) {
+            if (jsonMSDateTime.test(value)) return new Date(value);
+            else return value;
+        }
 
 export default class CachedResource {
     constructor($resource, $q, definition) {
@@ -18,20 +24,10 @@ export default class CachedResource {
                 this.Resource.prototype[definition.extensions[i].key] = definition.extensions[i].method;
             }
         }
-
     }
-
-
-
-
 
     query(queryString, flush) {
         var deferred = this.$q.defer();
-        var jsonMSDateTime = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
-        function jsonReviver(key, value) {
-            if (jsonMSDateTime.test(value)) return new Date(value);
-            else return value;
-        }
         queryString = queryString || {};
         var self = this;
         if (flush) {
@@ -41,27 +37,19 @@ export default class CachedResource {
             self.Resource.query(queryString, function (data) {
                 var json = JSON.stringify(data.data);
                 var jsonParsed = JSON.parse(json, jsonReviver);
-                //self.convertDateStrings(data);
                 self.List = jsonParsed;
                 deferred.resolve(self.List);
             });
-
         }
         else {
             deferred.resolve(self.List);
         }
-
         return deferred.promise;
     }
 
     getOne(id, fullDocumentFromDb) {
         var deferred = this.$q.defer();
         var self = this;
-        var jsonMSDateTime = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
-        function jsonReviver(key, value) {
-            if (jsonMSDateTime.test(value)) return new Date(value);
-            else return value;
-        }
         if (!self.List) {
             // this case is pretty rare...it requires putting in a details url with a record
             // id so we have to first populate the the full list then get the full record of the detail
@@ -120,11 +108,6 @@ export default class CachedResource {
     }
 
     update(item) {
-        var self = this;var jsonMSDateTime = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
-        function jsonReviver(key, value) {
-            if (jsonMSDateTime.test(value)) return new Date(value);
-            else return value;
-        }
         return self.Resource.update({ _id: item._id }, item).$promise.then(function (response) {
             var json = JSON.stringify(response.data);
             var parsedJson = JSON.parse(json, jsonReviver);
@@ -154,8 +137,6 @@ export default class CachedResource {
     }
 
     add(item) {
-        var self = this;var self = this;
-        var jsonMSDateTime = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
         function jsonReviver(key, value) {
             if (jsonMSDateTime.test(value)) return new Date(value);
             else return value;
@@ -181,15 +162,6 @@ export default class CachedResource {
         }, function (err) {
             return err;
         });
-        // var newItem = new this.Resource(item);
-        // var self = this;
-        // return newItem.$save(function(item){
-        //     console.log(item.data);
-        //     self.List.push(item.data);
-        //     return item.data;
-        // }, function(err){
-        //     return err;
-        // })
     }
 
     clear() {

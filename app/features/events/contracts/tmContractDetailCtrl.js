@@ -22,13 +22,16 @@ function tmContractDetailCtrl (
     };
     
     this.__proto__ = tmDetailFactory(constructorArgs);
-    self.models = {};
-    self.models.newEventStep = _.reduce(ninjaSchemas.events.Contract.paths.eventSteps.schema.paths, (prev, item, key) => {
-        let newEvent = self.models["newEventStep"] = {};
-        newEvent[key] = null;
+
+    self.models = {newEventStep: {}};
+
+    _.forEach(ninjaSchemas.events.Contract.paths.eventSteps.schema.paths, (item, key) => {
+        self.models.newEventStep[key] = null;
     },{});
 
     this.addEventStep = function () {
+        self.models.newEventStep.time.setMilliseconds(0);
+        self.models.newEventStep.time.setSeconds(0);
         this.docSvc.addTimeline(self.models.newEventStep);
         self.models.newEventStep = _.mapValues(self.models.newEventStep, () => null);
     };
@@ -57,12 +60,6 @@ function tmContractDetailCtrl (
             };
             self.tmDialogSvc.showDialog(dialogConfig);
     };
-
-    // this.moreFunctions.push({label: "Print", method: function(){
-    //     //var url = $state.href('root.contracts.print', {id: self.docSvc.doc._id});
-    //     //window.open(url,'_blank');
-    //     $state.go('root.contracts.print', {id: self.docSvc.doc._id});
-    // }});
     
     this.$scope.$watch(function(){
         return self.docSvc.isDirty();
@@ -107,29 +104,10 @@ function tmContractDetailCtrl (
         }
     };
 
-    // this.closeVenuePicker = function(){
-    //     this.sideTab.rooms = false;
-    // };
-
-    // this.addRooms = function(){
-    //     for (var key in this.sideTab) {
-    //         this.sideTab[key] = false;
-    //     }
-    //     this.sideTab.rooms = true;
-    // };
-
     this.removeVenue = function(index){
         self.docSvc.removeVenue(index);
     };
 
-    // this.addCommLog = function(){
-    //     this.sideTab.commLog = true;
-    // };
-
-    // this.closeCommLog = function(){
-    //     this.sideTab.commLog = false;
-    // };
-    
     
     
     this.format = 'shortDate';
@@ -159,11 +137,6 @@ function tmContractDetailCtrl (
     this.editMenuItem = function (item, index, clickedField){
         if(index < 0 || index > this.docSvc.doc.menuItems.length - 1) return;
         $timeout(function(){
-            // console.log({inFunction: 'editMenuItem',
-            //     item: item,
-            //     index: index,
-            //     clickedField: clickedField
-            // });
             item.isEditing = true;
             item.clickedField = {};
             item.clickedField[clickedField] = true;
