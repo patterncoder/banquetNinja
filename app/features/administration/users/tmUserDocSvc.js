@@ -7,6 +7,7 @@ function tmUserDocSvc (tmDocFactory) {
     
     this.addRole = function (role) {
         this.doc.roles.push(role)
+        console.log(`addRoles adds ${this.doc.roles}`);
     };
     this.updateRole = function (oldRole, newRole) {
         var idx = this.doc.roles.indexOf(oldRole);
@@ -14,11 +15,9 @@ function tmUserDocSvc (tmDocFactory) {
             this.doc.roles[idx] = newRole;
         }
     };
-    this.removeRole = function (role) {
-        var idx = this.doc.roles.indexOf(role);
-        if (idx >= 0) {
-            this.doc.roles.splice(idx, 1);
-        }
+    this.removeRole = function (idx) {
+        this.doc.roles.splice(idx, 1);
+        console.log(`removeRole set arr to ${this.doc.roles}`);
     };
     
     return this;
