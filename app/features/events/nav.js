@@ -11,6 +11,14 @@ export default ['navigationProvider', function(navigationProvider){
             roles: [ 'gold', 'admin', 'superUser']
         });
         navigationProvider.addNav({
+            name: 'Contracts (Pending)',
+            sortOrder: 10,
+            sref: 'root.contractsPending',
+            parent: 'Events',
+            endSection: false,
+            roles: [ 'gold', 'admin', 'superUser']
+        });
+        navigationProvider.addNav({
             name: 'Venues',
             sortOrder: 10,
             sref: 'root.venues',
