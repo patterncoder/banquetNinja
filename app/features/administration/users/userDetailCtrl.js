@@ -1,8 +1,8 @@
 import ninjaSchemas from 'ninjaSchemas';
 
 class tmUserDetailCtrl {
-  constructor($scope,tmDetailFactory,tmUserDocSvc){
-    // $scope.enumValues = ninjaSchemas.account.User.paths.roles.enumValues.map((status)=> status);
+  constructor($scope,tmDetailFactory,tmUserDocSvc,$timeout){
+    
     var self = this;
     var constructorArgs = {
         $scope: $scope,
@@ -54,7 +54,7 @@ class tmUserDetailCtrl {
             this.sideTab[k] = false;
         }
     };        
-
+    
     this.removeRoles = function(index){
         self.docSvc.removeRole(index);
     };
@@ -83,6 +83,6 @@ class tmUserDetailCtrl {
   }
 }
 
-tmUserDetailCtrl.$inject = ['$scope','tmDetailFactory','tmUserDocSvc'];
+tmUserDetailCtrl.$inject = ['$scope','tmDetailFactory','tmUserDocSvc','$timeout'];
 
 export default tmUserDetailCtrl;
