@@ -1,5 +1,6 @@
-
-md-content(layout-padding style="background: transparent")
+div(layout="row" layout-align="end start")
+    md-button( ng-click="vm.sideTab.rooms = !vm.sideTab.rooms") Close
+div(layout="row" )
     div()
         h3 Add Venue
         a(href="" ng-click="vm.closeSideTab()") Close

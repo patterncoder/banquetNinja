@@ -19,12 +19,7 @@ function tmContractDocSvc(tmDocFactory) {
         return data;
     }
 
-    this.addTimeline = function (timeEntry) {
-        var newTimeEntry = {
-            time: 1000,
-            duration: 10,
-            description: 'test time entry'
-        };
+    this.addTimeline = function (newTimeEntry) {
         this.doc.eventSteps.push(newTimeEntry);
     };
 
@@ -81,6 +76,8 @@ function tmContractDocSvc(tmDocFactory) {
             this.doc.menuItems.splice(itemIndex, 1);
         }
     };
+
+
 
     this.saveChanges = function () {
         var self = this;
