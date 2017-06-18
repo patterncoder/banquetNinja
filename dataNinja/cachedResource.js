@@ -16,7 +16,6 @@ export default class CachedResource {
     constructor($resource, $q, definition) {
         this.List;
         this.$q = $q;
-
         this.Resource = new $resource(definition.url, definition.defaults, definition.methods);
         // extend resource if has extentions.
         if (definition.extensions) {
@@ -108,6 +107,7 @@ export default class CachedResource {
     }
 
     update(item) {
+        var self = this;
         return self.Resource.update({ _id: item._id }, item).$promise.then(function (response) {
             var json = JSON.stringify(response.data);
             var parsedJson = JSON.parse(json, jsonReviver);
