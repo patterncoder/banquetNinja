@@ -37,11 +37,9 @@ function tmUserDocSvc (tmDocFactory) {
                 return;
             }
             self.docModel.update(self.doc).then(function (data) {
-                console.log("in here");
-                data = convertDateStrings(data);
                 self.doc = data;
                 self.master = angular.copy(data);
-                deferred.resolve();
+                deferred.resolve();                
             });
         });
         return deferred.promise;
