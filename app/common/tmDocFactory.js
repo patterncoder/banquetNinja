@@ -75,7 +75,11 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
                 deferred.reject('base doc service has errors');
                 return;
             }
+            console.log("prior to update call");
+            console.log(self.docModel);
+            console.log("I think it is breaking here");
             self.docModel.update(self.doc).then(function(data){
+                console.log("update call");
                 data = convertDateStrings(data);
                 self.doc = data;
                 self.master = angular.copy(data);
