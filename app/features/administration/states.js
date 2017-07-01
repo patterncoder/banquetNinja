@@ -13,6 +13,18 @@ export default function states($stateProvider){
                 }
             }
         })
+    .state('root.userDetail', {
+            url: '/users/:id',
+            roles: ['admin', 'superUser'],
+            isModal: true,
+            views: {
+            'content@': {
+                template: require('./users/users-detail.jade'),
+                controller: 'tmUserDetailCtrl',
+                controllerAs: 'vm'
+                }
+            }
+        })        
     .state('root.lookups', {
             url:'/lookups',
             roles: ['admin', 'superUser'],

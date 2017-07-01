@@ -1,0 +1,15 @@
+.detailForm(ng-cloak)
+    detail-header
+    .detailContent(layout="row" flex)
+        div.detailLeftPanel(flex layout="column")
+            div.detailLeftPanelContainer(layout-fill)
+                div.detailTopPanel(layout-padding)
+                    include ./tabs/topPanel.jade                
+                div.detailSection(layout-padding)
+                    md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
+                        md-tab( label="User Roles")
+                            include ./tabs/tab-roles.jade
+                div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.roles" layout-padding)
+            include ./tabs/addRole.jade               
+    detail-footer

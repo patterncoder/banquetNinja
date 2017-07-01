@@ -1,7 +1,7 @@
 import ninjaSchemas from 'ninjaSchemas';
 
-class tmContractsCtrl {
-    constructor($scope, tmListFactory) {
+class tmUsersCtrl {
+    constructor($scope, tmListFactory, $dataSource) {
 
         var constructorArgs = {
             schema: ninjaSchemas.account.User,
@@ -28,6 +28,6 @@ class tmContractsCtrl {
     }
 }
 
-    tmContractsCtrl.$inject = ['$scope', 'tmListFactory'];
+    tmUsersCtrl.$inject = ['$scope', 'tmListFactory', '$dataSource'];
 
-    export default tmContractsCtrl;
+    export default tmUsersCtrl;
