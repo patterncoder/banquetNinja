@@ -7,13 +7,18 @@ import data from './data';
 
 import tmUsersCtrl from './users/usersCtrl';
 import tmLookupsDetailCtrl from './lookups/tmLookupsDetailCtrl';
+import tmUserDetailCtrl from './users/userDetailCtrl';
 
+
+import tmUserDocSvc from './users/tmUserDocSvc';
 
 export default angular.module('users', [uirouter])
     
     .config(states)
     .config(nav)
     .config(data)
+    .factory('tmUserDocSvc', tmUserDocSvc)
     .controller('tmUsersCtrl', tmUsersCtrl)
     .controller('tmLookupsDetailCtrl', tmLookupsDetailCtrl)
+    .controller('tmUserDetailCtrl', tmUserDetailCtrl)
     .name

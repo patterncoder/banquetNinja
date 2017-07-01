@@ -8,9 +8,9 @@ md-dialog(aria-label="Dialog Service")
         form(name="addItemForm")
             .form-group(ng-repeat="field in vm.fields | orderBy: 'options.tabOrder'")
                 label.control-label(for="description") {{field.options.caption}}
-                input.form-control(ng-if="field.enumValues.length===0" ng-model="vm.newItem[field.path]")         
-                select.form-control(ng-if="field.enumValues.length!==0" ng-model="vm.newItem[field.path]", ng-options="item for item in field.enumValues")
-                    option(value="") please select value
+                input.form-control(ng-if="!field.options.enum" ng-model="vm.newItem[field.path]")
+                select.form-control(ng-if="field.options.enum" ng-model="vm.newItem[field.path]", ng-options="item for item in field.options.enum")
+                    option(value="") {{vm.newItem[field.path][0]}}                        
     md-dialog-actions(layout="row")
         md-button.md-raised(ng-click="vm.addItem('quick')") Quick Add
         md-button.md-raised(ng-click="vm.addItem('details')") Go Details
