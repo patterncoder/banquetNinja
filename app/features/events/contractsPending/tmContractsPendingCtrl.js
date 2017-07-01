@@ -16,7 +16,11 @@ class tmContractsPendingCtrl {
         this.__proto__ = tmListFactory(constructorArgs);
         
       //http://localhost:3001/api/v1/events/contracts?where[status]=pending
-        this.loadData({select: 'eventName eventDate startTime', 'where[status]': 'pending'});
+
+        this.loadData({select: 'eventName eventDate startTime customer',
+                         'where[status]': 'pending',
+                         "populate[customer]": "firstName lastName"
+                        });
       // this.loadData({sel: 'eventName eventDate startTime', 'where[status]': 'pending'}); 
         //this.loadData();
         

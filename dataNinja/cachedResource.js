@@ -137,6 +137,7 @@ export default class CachedResource {
     }
 
     add(item) {
+        var self = this;
         function jsonReviver(key, value) {
             if (jsonMSDateTime.test(value)) return new Date(value);
             else return value;
