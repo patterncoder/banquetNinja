@@ -62,6 +62,21 @@ class tmAddContractCtrl {
     }
 
     addCustomer(name) {
+        this.validationError = null;
+        if (!name.match(/\s/)) {
+          console.log("new");
+          this.validationError = {
+            "errors": {
+              "customer": {
+                "kind": "no space",
+                "message": "Pleae include first and last name for customer"
+              }
+            }
+          };
+          console.log(this.validationError);
+          return false;
+        } else {
+        }
         var self = this;
         var names = name.split(' ');
         var newCust = {
