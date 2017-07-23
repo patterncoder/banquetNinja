@@ -9,8 +9,8 @@ class tmContractsPendingCtrl {
             listView: 'root.contractsPending',
             detailView: 'root.contractDetail',
             printView: 'root.contracts.print',
-            addHeaderText: 'Add Contracts',
-            listTitle: 'Pending Contracts'
+            addHeaderText: 'Add New Bid',
+            listTitle: 'Event Bids'
         };
         
         this.__proto__ = tmListFactory(constructorArgs);
@@ -20,7 +20,7 @@ class tmContractsPendingCtrl {
         this.loadData({select: 'eventName eventDate startTime customer',
                          'where[status]': 'pending',
                          "populate[customer]": "firstName lastName"
-                        });
+                        }, true);
       // this.loadData({sel: 'eventName eventDate startTime', 'where[status]': 'pending'}); 
         //this.loadData();
         

@@ -35,7 +35,7 @@ class tmDialogSvc{
                     $scope.dialogOptions = tempDialogOptions;
                     $scope.dialogOptions.ok = function(result){
                         $mdDialog.hide(result);
-                    }
+                    };
                     $scope.dialogOptions.close = function(result){
                         $mdDialog.cancel(result);
                     };

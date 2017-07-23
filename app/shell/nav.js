@@ -41,5 +41,5 @@ export default ['navigationProvider', function(navigationProvider){
         //     endSection: false,
         //     roles: ['superUser']
         // });
-    }]
+    }];
     

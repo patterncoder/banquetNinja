@@ -5,7 +5,7 @@ var Controller =  ['navigation', 'tmIdentity', '$scope', function(navigation, tm
     
     vm.nav = navigation.navigation;
     $scope.$watch(function(){
-            return tmIdentity.isAuthenticated()
+            return tmIdentity.isAuthenticated();
         }, function(newValue, oldValue){
             vm.show = newValue;
             vm.nav = navigation.reloadNav();

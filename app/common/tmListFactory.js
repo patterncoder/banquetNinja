@@ -49,6 +49,7 @@ function BaseList (
         var self = this;
         self.setLoading(true);
         self.Model.query(queryString, flush).then(function(items){
+            console.log("tmListFactory.loadData() flush: ", flush);
             self.setLoading(false);
             self.items = items;
             self.afterLoad();

@@ -9,7 +9,7 @@ class tmContractsCtrl {
             listView: 'root.contracts',
             detailView: 'root.contractDetail',
             printView: 'root.contracts.print',
-            addHeaderText: 'Add Contract',
+            addHeaderText: 'Add New Bid',
             listTitle: 'Upcoming Contracts'
         };
         
@@ -19,8 +19,8 @@ class tmContractsCtrl {
                 "select": "eventName eventDate startTime customer",
                 "notEqual[status]": "pending",
                 "populate[customer]": "firstName lastName"
-            });
-        //this.loadData();
+            }, true);
+            
         
         this.sortOptions = [ { value: "-eventDate", text: "Sort by Event Date Z-A" }, { value: "eventDate", text: "Sort by Event Date A-Z" }, { value: "eventName", text: "Sort by Event Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
 
@@ -33,7 +33,7 @@ class tmContractsCtrl {
                 controller: 'tmAddContractCtrl as vm',
                 locals: {model: this.Model,
                         schema: this.constructorArgs.schema,
-                        listView: this.constructorArgs.listView,
+                        listView: "root.contractsPending",
                         detailView: this.constructorArgs.detailView,
                         headerText: this.constructorArgs.addHeaderText,
                         hideCustomerInput: false,
