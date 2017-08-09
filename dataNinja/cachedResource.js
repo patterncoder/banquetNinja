@@ -138,21 +138,20 @@ export default class CachedResource {
 
     add(item) {
         var self = this; 
-
         return this.Resource.save(item).$promise.then(function (response) {
 
             // self.List does not exist when adding an item before a query has been
             // enacted.  So query to populate the list and since we are in the save callback
             // the item is in the returned query so don't push onto the list.
             var json = JSON.stringify(response.data);
-            // var parsedJson = JSON.parse(json, jsonReviver);
+            var parsedJson = JSON.parse(json, jsonReviver);
             if (!self.List) {
                 return self.query().then(function () {
-                    return json;
+                    return parsedJson;
                 });
             } else {
-                self.List.push(json);
-                return json;
+                self.List.push(parsedJson);
+                return parsedJson;
             }
 
 

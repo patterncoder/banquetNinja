@@ -11,5 +11,5 @@ div(layout="column" flex layout-fill layout-padding)
     div.itemCard(ng-repeat="contract in vm.docSvc.doc.contracts | orderBy:'-eventDate'")
         .pull-right
             a(ui-sref="root.contractDetail({id: contract._id})") View
-        div.md-title {{::contract.title}}
+        div.md-title {{::contract.eventName}}
         div {{::contract.eventDate  | date:'fullDate' }}

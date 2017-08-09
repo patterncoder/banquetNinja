@@ -77,15 +77,10 @@ class tmAddContractCtrl {
             }
         };
         return this.$dataSource.load('Customer').add(newCust).then(function (customer) {
-            console.log(customer);
             self.$scope.vm.newItem.customer = { id: customer._id, name:customer.firstName + ' ' + customer.lastName };
             self.$scope.noResults = false;
         });
-        // return this.$http(req).then(function (response) {
-        //     console.log(response);
-        //     self.$scope.vm.newItem.customer = { id: response.data.data._id, name: response.data.data.firstName + ' ' + response.data.data.lastName };
-        //     self.$scope.noResults = false;
-        // });
+       
     }
 
     setLoading(loading) {
@@ -109,11 +104,9 @@ class tmAddContractCtrl {
         var self = this;
         var newContract = angular.copy(self.newItem);
         newContract.status = "pending";
-        console.log(newContract);
-        var custId = this.customerId || newContract.customer.id;
-        console.log(custId);
+        console.log(self);
+        var custId = self.customerId || newContract.customer.id;
         newContract.customer = custId;
-        console.log(this.schema);
         var newItemDoc = new self.tmMongoose.Document(newContract, this.schema);
         newItemDoc.validate(function (err) {
             if (err) {
@@ -125,10 +118,8 @@ class tmAddContractCtrl {
             delete newContract._id;
             self.setLoading(true);
             self.model.add(newContract).then(function (contract) {
-                console.log(contract);
                 var Customer = self.$dataSource.load('Customer');
                 Customer.getOne(custId).then(function (cust) {
-                    console.log(cust);
                     cust.contracts.push(contract._id);
                     Customer.update(cust).then(function (cust) {
                         self.tmNotifier.notify("Item was successfully added.");
@@ -138,6 +129,7 @@ class tmAddContractCtrl {
                             self.$state.go(self.detailView, { id: contract._id });
                         }
                         if (nextView === 'quick') {
+                            console.log("going to ", self.listView);
                             self.$state.go(self.listView);
                         }
                     });
