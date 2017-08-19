@@ -26,7 +26,9 @@ div(flex layout="row")
             .form-group(flex="25")
                 label.control-label(for="maxAttendees") Maximum number of attendees
                 input.form-control(ng-model="vm.docSvc.doc.banquetAttendeeHigh", type='text')
-                //- onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            .form-group(flex="30")
+                label.control-label(for="serviceType") Service Type
+                select.form-control(ng-model="vm.docSvc.doc.serviceType", ng-options="serviceType for serviceType in vm.serviceTypeOptions")
                 
     //- div(flex="20" layout="column")
     //-     div

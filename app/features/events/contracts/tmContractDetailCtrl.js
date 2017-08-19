@@ -45,6 +45,8 @@ function tmContractDetailCtrl (
 
 
     this.contractStatusOptions = constructorArgs.schema.paths.status.enumValues.map((status)=> status);
+    
+    this.serviceTypeOptions = constructorArgs.schema.paths.serviceType.enumValues.map((serviceTypes)=> serviceTypes);
 
     this.moreFunctions.addItem.method = function() {
         
