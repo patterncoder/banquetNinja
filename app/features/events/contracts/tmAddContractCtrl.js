@@ -45,17 +45,27 @@ class tmAddContractCtrl {
 
 
     getCustomer(val) {
+        if (val.match(/^.*\s/)) {
+          var searchParams = {
+            firstName: val.split(/\s/)[0],
+            lastName: val.split(/\s/)[1]
+          };
+        } else {
+          var searchParams = {
+            firstName: val,
+          };
+        }
+
+        console.log("params");
+        console.log(searchParams);
         var req = {
             method: 'GET',
             url: config.apiBase + '/customerSearch',
-            params: {
-                name: val
-            }
+            params: searchParams
         };
-        console.log('called getCustomer');
         return this.$http(req).then(function (response) {
             return response.data.data.map(function (item) {
-
+                console.log(item); 
                 return { id: item._id, name: item.firstName + ' ' + item.lastName };
             });
         });
