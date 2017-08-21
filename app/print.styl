@@ -18,6 +18,7 @@
         
 table
     width 100%
+    height: 25px
 
 .contractItems tr
     border-bottom: 1px solid #ddd
@@ -25,7 +26,8 @@ table
 .contractItems tr:nth-child(even)
     background-color: #ddd
     -webkit-print-color-adjust: exact;
-    
+
+// removed this from jade    
 table.contractHeader
     margin-bottom 20px
 
@@ -40,3 +42,15 @@ tr.rowData td
     border solid black 1px
     padding 2px
     vertical-align top
+
+.half
+    width: 50%
+
+.third
+    width: 33.3%    
+
+.quarter
+    width: 24%
+
+.threeQuarters
+    width: 75%
