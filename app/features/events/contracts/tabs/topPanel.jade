@@ -15,7 +15,7 @@ div(flex layout="row")
                 date-picker(field="vm.docSvc.doc.eventDate")
             .form-group(flex="25")
                 label.control-label(for="title") Start Time
-                time-picker(field="vm.docSvc.doc.startTime")
+                time-picker(field="vm.docSvc.doc.time")
             .form-group(flex="30")
                 label.control-label(for="status") Status
                 select.form-control(ng-model="vm.docSvc.doc.status", ng-options="contract for contract in vm.contractStatusOptions")
