@@ -1,27 +1,98 @@
 button#printButton(ng-click="$ctrl.print()") print
 button.print-nav-button(ng-click="$ctrl.back()") Back
 div.contractPage(style="width: 850px")
-    h1 {{$ctrl.doc.eventName}}
-    table.contractHeader(style="width: 100%")
-        tr.rowHead
-            td Guest Name
-            td Address
-        tr.rowData
-            td {{$ctrl.doc.customer.firstName + ' ' + $ctrl.doc.customer.lastName}}
-            td {{$ctrl.doc.customer.addresses[0].address1}} <br/> {{$ctrl.doc.customer.addresses[0].city}}
-    hr
-    table.contractItems(style="width: 100%")
-        tr(ng-repeat="item in $ctrl.doc.menuItems")
-            td {{item.name}}
-            td {{item.description}}
-            td {{item.quantity}}
-            td(style="text-align: right") {{item.price}}
-    div(ng-if="$ctrl.doc.eventSteps.length>0")
+    h4 {{$ctrl.doc.eventName}}
+    div
+        //- customer contact table
+        table
+            tr.rowHead
+                td Guest Name
+                td Email
+                td Address
+            tr.rowData
+                td {{$ctrl.doc.customer.firstName + ' ' + $ctrl.doc.customer.lastName}}
+                //- need to figure out this login later maybe loop through, and find primary and display that one
+                td {{$ctrl.doc.customer.emails[0].email}}
+                td {{$ctrl.doc.customer.addresses[0].address1}} {{$ctrl.doc.customer.addresses[0].city}}
+        //- phone number
+        table                
+            tr.rowHead
+                td Home Phone
+                td Work Phone
+                td Cell Phone
+                td Other Phone
+            //- need to add logic that maps phone number type
+            tr.rowData
+                //- look into what formats phone number in app
+                td {{$ctrl.doc.customer.phoneNumbers[0].number}}
+                td work
+                td cell             
+                td Other Phone
+        //- (ng-if="$ctrl.doc.venue.length>0") this should always display right? this might be needed when I try to loop 
+        table
+            tr.rowHead
+                td Nature of Event
+                td Location
+                td Location notes
+            tr.rowData(ng-repeat="item in $ctrl.doc.venue")
+                td {{$ctrl.doc.natureOfEvent}} 
+                td {{item.name}}
+                td {{item.notes}}
+        table                
+            tr.rowHead
+                td Event Date
+                td Start Time
+                td End Time
+                td Guest Count
+            tr.rowData
+                td {{$ctrl.doc.eventDate}}  
+                td {{$ctrl.doc.time}}
+                td maybe pull from last event from sequence?             
+                td {{$ctrl.doc.banquetAttendeeLow}} - {{$ctrl.doc.banquetAttendeeHigh}}
+        table                
+            tr.rowHead
+                td Notes
+            tr.rowData
+                td {{$ctrl.doc.notes}}
         hr
-        h3 Event Steps
-        table.contractItems
-            tr(ng-repeat="item in $ctrl.doc.eventSteps")
-                td {{item.time}}
-                td {{item.duration}}
-                td {{item.description}}
-        
+        h5 Event Food
+        h6 The following menu items will be available during the event in the assigned amounts. If there is to be a choice of menu items, the below numbers are estimates and the actual amounts will be reconciled at the conclusion of the event.
+        //- left off here trying to get this to display nicelyc
+        table.contractItems(style="width: 100%" ng-repeat="item in $ctrl.doc.menuItems")
+            tr
+                td {{item.name}}
+                td
+                td {{item.quantity}}
+                td
+                td(style="text-align: right") {{item.price}}
+                td
+                td {{item.quantity * item.price}}
+            tr 
+                td {{item.description}}    
+
+    
+    //- table.contractHeader(style="width: 100%" ng-if="$ctrl.doc.commLog.lensngth>0")
+    //-     tr.rowHead
+    //-         td Communication
+    //-         td Venue notes    
+    //-     hr
+    //-     h3 Communication
+    //-     table.contractItems
+    //-         tr(ng-repeat="item in $ctrl.doc.commLog")
+    //-             td {{item.date}}
+    //-             td {{item.commType}}
+    //-             td {{item.description}}
+    //-             td {{item.employee}}                
+    //- div(ng-if="$ctrl.doc.eventSteps.length>0")
+    //-     hr
+    //-     h3 Event Steps
+    //-     table.contractItems
+    //-         tr(ng-repeat="item in $ctrl.doc.eventSteps")
+    //-             td {{item.time}}
+    //-             td {{item.duration}}
+    //-             td {{item.description}}
+    //- div
+    //-     h3 other data I just want to get on the page
+    //-     p {{$ctrl.doc.serviceType}}  
+    //-     p {{$ctrl.doc.status}}  
+    //-     p {{$ctrl.doc.notes}}
