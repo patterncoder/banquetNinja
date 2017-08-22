@@ -3,78 +3,103 @@ button.print-nav-button(ng-click="$ctrl.back()") Back
 //- working on making the data more presentable, and look into page breaks
 div.contractPage(style="width: 850px")
     h4 {{$ctrl.doc.eventName}} 
-    div
-        //- customer contact table
-        table
-            tr.rowHead
-                td Guest Name
-                td Email
-                td Address
-            tr.rowData
-                td {{$ctrl.doc.customer.firstName + ' ' + $ctrl.doc.customer.lastName}}
-                //- need to figure out this login later maybe loop through, and find primary and display that one
-                td {{$ctrl.doc.customer.emails[0].email}}
-                td {{$ctrl.doc.customer.addresses[0].address1}} {{$ctrl.doc.customer.addresses[0].city}}
-        //- phone number
-        table                
-            tr.rowHead
-                td Home Phone
-                td Work Phone
-                td Cell Phone
-                td Other Phone
-            //- need to add logic that maps phone number type
-            tr.rowData
-                //- look into what formats phone number in app
-                td {{$ctrl.doc.customer.phoneNumbers[0].number}}
-                td work
-                td cell             
-                td Other Phone
-        table                
-            tr.rowHead
-                td Event service type
-                td Event Status
-            tr.rowData
-                td {{$ctrl.doc.serviceType}}  
-                td {{$ctrl.doc.status}}  
-        //- (ng-if="$ctrl.doc.venue.length>0") this should always display right? this might be needed when I try to loop 
-        table
-            tr.rowHead
-                td Nature of Event
-                td Location
-                td Location notes
-            tr.rowData(ng-repeat="item in $ctrl.doc.venue")
-                td {{$ctrl.doc.natureOfEvent}} 
-                td {{item.name}}
-                td {{item.notes}}
-        table                
-            tr.rowHead
-                td Event Date
-                td Start Time
-                td End Time
-                td Guest Count
-            tr.rowData
-                td {{$ctrl.doc.eventDate}}  
-                td {{$ctrl.doc.time}}
-                td maybe pull from last event from sequence?             
-                td {{$ctrl.doc.banquetAttendeeLow}} - {{$ctrl.doc.banquetAttendeeHigh}}
-        table                
-            tr.rowHead
-                td Notes
-            tr.rowData
-                td {{$ctrl.doc.notes}}                
-        hr
-        h5 Event Food
-        h6 The following menu items will be available during the event in the assigned amounts. If there is to be a choice of menu items, the below numbers are estimates and the actual amounts will be reconciled at the conclusion of the event.
-        //- this display needs to be fixed
-        table.contractItems(style="width: 100%;border-top:1px solid black" ng-repeat="item in $ctrl.doc.menuItems")
-            tr
-                td(style="font-weight:bold;padding-bottom:10px") {{item.name}}
-                td.money {{item.quantity}}
-                td.money {{item.price | currency}}
-                td.money {{item.quantity * item.price | currency}}
-            tr 
-                td(style="font-style:italic") {{item.description}}    
+    //- customer contact table
+    table
+        tr.rowHead
+            td Guest Name
+            td Email
+            td Address
+        tr.rowData
+            td {{$ctrl.doc.customer.firstName + ' ' + $ctrl.doc.customer.lastName}}
+            //- need to figure out this login later maybe loop through, and find primary and display that one
+            td {{$ctrl.doc.customer.emails[0].email}}
+            td {{$ctrl.doc.customer.addresses[0].address1}} {{$ctrl.doc.customer.addresses[0].city}}
+    //- phone number
+    table                
+        tr.rowHead
+            td Home Phone
+            td Work Phone
+            td Cell Phone
+            td Other Phone
+        //- need to add logic that maps phone number type
+        tr.rowData
+            //- look into what formats phone number in app
+            td {{$ctrl.doc.customer.phoneNumbers[0].number}}
+            td work
+            td cell             
+            td Other Phone
+    table                
+        tr.rowHead
+            td Event service type
+            td Event Status
+        tr.rowData
+            td {{$ctrl.doc.serviceType}}  
+            td {{$ctrl.doc.status}}  
+    //- (ng-if="$ctrl.doc.venue.length>0") this should always display right? this might be needed when I try to loop 
+    table
+        tr.rowHead
+            td Nature of Event
+            td Location
+            td Location notes
+        tr.rowData(ng-repeat="item in $ctrl.doc.venue")
+            td {{$ctrl.doc.natureOfEvent}} 
+            td {{item.name}}
+            td {{item.notes}}
+    table                
+        tr.rowHead
+            td Event Date
+            td Start Time
+            td End Time
+            td Guest Count
+        tr.rowData
+            td {{$ctrl.doc.eventDate}}  
+            td {{$ctrl.doc.time}}
+            td maybe pull from last event from sequence?             
+            td {{$ctrl.doc.banquetAttendeeLow}} - {{$ctrl.doc.banquetAttendeeHigh}}
+    table                
+        tr.rowHead
+            td Notes
+        tr.rowData
+            td {{$ctrl.doc.notes}}                
     hr
+    h5 Event Food
+    h6 The following menu items will be available during the event in the assigned amounts. If there is to be a choice of menu items, the below numbers are estimates and the actual amounts will be reconciled at the conclusion of the event.
+    //- this display needs to be fixed
+    table.contractItems(style="width: 100%;border-top:1px solid black" ng-repeat="item in $ctrl.doc.menuItems")
+        tr
+            td(style="font-weight:bold;padding-bottom:10px") {{item.name}}
+            td.money {{item.quantity}}
+            td.money {{item.price | currency}}
+            td.money {{item.quantity * item.price | currency}}
+        tr 
+            td(style="font-style:italic") {{item.description}}  
+    hr                  
+    h5 Event Rental Items
+    h6 Any contracted rental items are listed below.
+    //- this display needs to be fixed
+    table.contractItems
+        tr.rowHead
+            td Item
+            td Description             
+            td Price
+            td Item in house
+        tr(ng-repeat="item in $ctrl.doc.rentalItems")
+            td {{item.name}}
+            td {{item.description}}    
+            td.money {{item.price | currency}}
+            td {{item.inHouse}}
+    div(ng-if="$ctrl.doc.eventSteps.length>0")
+        hr
+        h4 Event Steps
+        table.contractItems
+            tr.rowHead
+                td Time
+                td Duration
+                td Description             
+            tr(ng-repeat="item in $ctrl.doc.eventSteps")
+                td {{item.time}}
+                td {{item.duration}}
+                td {{item.description}}    
     h4 Communication                
     table.contractHeader(style="width: 100%" ng-if="$ctrl.doc.commLog.length>0")
         tr.rowHead
@@ -87,20 +112,7 @@ div.contractPage(style="width: 850px")
             td {{item.commType}}
             td {{item.description}}
             td {{item.employee}}                
-    div(ng-if="$ctrl.doc.eventSteps.length>0")
-        hr
-        h4 Event Steps
-        table.contractItems
-            tr.rowHead
-                td Time
-                td Duration
-                td Description             
-            tr(ng-repeat="item in $ctrl.doc.eventSteps")
-                td {{item.time}}
-                td {{item.duration}}
-                td {{item.description}}
 
-    //- need to get rental items    
     h5 Event Time
     p In order to better serve you, please keep in mind the “end time” of your party. Due to sequential bookings of parties during peak times (Friday and Saturday and especially during the holiday season), we require that our guests adhere to the end time of their party so that our staff may prepare the room for the next party. You will be charged a late fee of $50.00 if your party exceeds the end time by more than 10 minutes.
     h5 Payments and Billing
