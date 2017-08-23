@@ -64,7 +64,6 @@ div.contractPage(style="width: 850px")
     hr
     h5 Event Food
     h6 The following menu items will be available during the event in the assigned amounts. If there is to be a choice of menu items, the below numbers are estimates and the actual amounts will be reconciled at the conclusion of the event.
-    //- this display needs to be fixed
     table.contractItems(style="width: 100%;border-top:1px solid black" ng-repeat="item in $ctrl.doc.menuItems")
         tr
             td(style="font-weight:bold;padding-bottom:10px") {{item.name}}
@@ -112,8 +111,13 @@ div.contractPage(style="width: 850px")
             td {{item.commType}}
             td {{item.description}}
             td {{item.employee}}                
+    table
+        tr(ng-repeat='(key, value) in $ctrl.totals')
+            td(style="text-align:right;padding-right: 5px;") {{key}} 
+            td.bigMoney {{ value | currency }} 
+        
 
-    h5 Event Time
+    h5 End Time
     p In order to better serve you, please keep in mind the “end time” of your party. Due to sequential bookings of parties during peak times (Friday and Saturday and especially during the holiday season), we require that our guests adhere to the end time of their party so that our staff may prepare the room for the next party. You will be charged a late fee of $50.00 if your party exceeds the end time by more than 10 minutes.
     h5 Payments and Billing
     p A 50% installment (of the minimum food and beverage charge) will be required one week prior to your event.. Your final bill will be the minimum food and beverage charge plus tax and a 20% gratuity. If your bill exceeds the minimum food and beverage charge as defined above, then you will be charged the actual amount of the food and beverage purchases, plus tax and a 20% gratuity Credit card payments only. No personal checks are accepted.
