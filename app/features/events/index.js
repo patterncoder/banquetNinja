@@ -8,6 +8,7 @@ import nav from './nav';
 import data from './data';
 
 import tmContractsCtrl from './contracts/tmContractsCtrl';
+import tmContractsPendingCtrl from './contractsPending/tmContractsPendingCtrl';
 import tmVenuesCtrl from './venues/tmVenuesCtrl';
 import tmRentalItemsCtrl from './rentalitems/tmRentalItemsCtrl';
 
@@ -23,8 +24,6 @@ import tmAddContractCtrl from './contracts/tmAddContractCtrl';
 // components
 import tmDocGrid from './contracts/tabs/tmDocGrid.js';
 import tmDocGridItem from './contracts/tabs/tmDocGridItem.js';
-import tmDraggable from './contracts/tabs/tmDraggable.js';
-import tmDroppable from './contracts/tabs/tmDroppable.js';
 
 
 export default angular.module('events', [uirouter, uibs])
@@ -36,6 +35,7 @@ export default angular.module('events', [uirouter, uibs])
     .factory('tmRentalItemDocSvc', tmRentalItemDocSvc)
     .factory('tmVenueDocSvc', tmVenueDocSvc)
     .controller("tmContractsCtrl", tmContractsCtrl)
+    .controller("tmContractsPendingCtrl", tmContractsPendingCtrl)
     .controller("tmVenuesCtrl", tmVenuesCtrl)
     .controller("tmRentalItemsCtrl", tmRentalItemsCtrl)
     .controller('tmContractDetailCtrl', tmContractDetailCtrl)
@@ -45,6 +45,4 @@ export default angular.module('events', [uirouter, uibs])
     .controller('tmVenueDetailCtrl', tmVenueDetailCtrl)
     .component('tmDocGrid', tmDocGrid)
     .component('tmDocGridItem', tmDocGridItem)
-    .directive('tmDraggable', tmDraggable)
-    .directive('tmDroppable', tmDroppable)
     .name;

@@ -17,5 +17,5 @@ export default angular.module('navNinja', [])
            return new Navigation(nav, tmIdentity); 
         }];
     }])
-    .name
+    .name;
 

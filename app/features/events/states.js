@@ -21,6 +21,19 @@ export default function states($stateProvider){
             }
         }
     )
+    .state('root.contractsPending', {
+            url: '/events/contracts-pending',
+            roles: ['gold', 'admin', 'superUser'],
+            isModal: false,
+            views: {
+            'content@': {
+                template: require('./contracts/contracts-list.jade'),
+                controller: 'tmContractsPendingCtrl',
+                controllerAs: 'vm'
+                }
+            }
+        }
+    )
     .state('root.contracts.print', {
             url: '/events/contracts/view/:id',
             roles: ['gold', 'admin', 'superUser'],

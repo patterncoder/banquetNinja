@@ -2,3 +2,4 @@ uib-accordion(close-others="true", ng-show="vm.show")
     uib-accordion-group(heading="{{nav.name}}" ng-repeat="nav in vm.nav |orderBy: 'sortOrder'")
         div(ng-repeat="link in nav.links | orderBy: 'sortOrder'")
             a(ui-sref="{{link.sref}}") {{link.name}}
+            hr(ng-if="link.endSection" style="margin-top: 5px; margin-bottom: 5px;")

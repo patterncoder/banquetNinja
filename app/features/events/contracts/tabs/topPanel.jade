@@ -15,10 +15,21 @@ div(flex layout="row")
                 date-picker(field="vm.docSvc.doc.eventDate")
             .form-group(flex="25")
                 label.control-label(for="title") Start Time
-                time-picker(field="vm.docSvc.doc.startTime")
+                time-picker(field="vm.docSvc.doc.time")
             .form-group(flex="30")
                 label.control-label(for="status") Status
                 select.form-control(ng-model="vm.docSvc.doc.status", ng-options="contract for contract in vm.contractStatusOptions")
+        div(layout="row")
+            .form-group(flex="25")
+                label.control-label(for="minAttendees") Minimum number of attendees
+                input.form-control(ng-model="vm.docSvc.doc.banquetAttendeeLow", type='text')
+            .form-group(flex="25")
+                label.control-label(for="maxAttendees") Maximum number of attendees
+                input.form-control(ng-model="vm.docSvc.doc.banquetAttendeeHigh", type='text')
+            .form-group(flex="30")
+                label.control-label(for="serviceType") Service Type
+                select.form-control(ng-model="vm.docSvc.doc.serviceType", ng-options="serviceType for serviceType in vm.serviceTypeOptions")
+                
     //- div(flex="20" layout="column")
     //-     div
     //-         span(style="font-weight: bold") Room(s)&nbsp; 

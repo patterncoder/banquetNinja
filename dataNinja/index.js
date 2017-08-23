@@ -11,7 +11,7 @@ export default angular.module('dataNinja', ['ngResource'])
     .factory('$cachedResource', ['$resource', '$q', function($resource, $q){
         return function (definition){
             return new CachedResource($resource, $q, definition);
-        }}])
+        };}])
     .provider('$dataSource',  dataSourceProvider)
     
-    .name
+    .name;

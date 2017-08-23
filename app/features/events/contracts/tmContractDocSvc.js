@@ -19,12 +19,7 @@ function tmContractDocSvc(tmDocFactory) {
         return data;
     }
 
-    this.addTimeline = function (timeEntry) {
-        var newTimeEntry = {
-            time: 1000,
-            duration: 10,
-            description: 'test time entry'
-        };
+    this.addTimeline = function (newTimeEntry) {
         this.doc.eventSteps.push(newTimeEntry);
     };
 
@@ -75,12 +70,14 @@ function tmContractDocSvc(tmDocFactory) {
         this.doc.menuItems.splice(index, 1);
     };
 
-    this.deleteMenuItem = function (item) {
-        var idx = this.doc.menuItems.indexOf(item);
-        if (idx >= 0) {
-            this.doc.menuItems.splice(idx, 1);
+    this.deleteMenuItem = function (itemIndex) {
+        // var idx = this.doc.menuItems.indexOf(item);
+        if (itemIndex >= 0) {
+            this.doc.menuItems.splice(itemIndex, 1);
         }
     };
+
+
 
     this.saveChanges = function () {
         var self = this;
@@ -88,7 +85,6 @@ function tmContractDocSvc(tmDocFactory) {
         // depopulate for saving
         var stripped = _.pick(self.doc.customer, "_id");
         self.doc.customer = stripped._id;
-
         var monDoc = new this.tmMongoose.Document(self.doc, self.docSchema);
         monDoc.validate(function (err) {
             if (err) {

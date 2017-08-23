@@ -49,6 +49,7 @@ function BaseList (
         var self = this;
         self.setLoading(true);
         self.Model.query(queryString, flush).then(function(items){
+            console.log("tmListFactory.loadData() flush: ", flush);
             self.setLoading(false);
             self.items = items;
             self.afterLoad();
@@ -57,8 +58,11 @@ function BaseList (
 
     this.afterLoad = function() {};
     
-    this.addItemDialog = function (){
+    this.addItemDialog = function (schemaExtensions){
             var self = this;
+            if(schemaExtensions){
+                this.constructorArgs.schema.add(schemaExtensions);
+            }
             var dialogConfig = {
                 template: require('apply!./tmDialogAddItem.jade'),
                 controller: 'tmDialogAddItemCtrl as vm',

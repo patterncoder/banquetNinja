@@ -105,8 +105,9 @@ function BaseDetail(
         var self = this;
         self.setLoading(true);
         self.getDetailTitle();
-        return this.docSvc.loadDocument(this.$stateParams.id).then(function () {
+        return this.docSvc.loadDocument(this.$stateParams.id).then(function (doc) {
             self.setLoading(false);
+            return doc;
         });
     };
 
@@ -192,18 +193,18 @@ function BaseDetail(
             }
         }, function (err) {
             console.log(err);
-            self.tmNotifier.error("There was a problem with saving...try again.")
+            self.tmNotifier.error("There was a problem with saving...try again.");
         });
     };
 
     this.setUISettings = function () {
-        this.tmWindowStorage.setLocalKey('closeDropDown', this.closeButtonText)
+        this.tmWindowStorage.setLocalKey('closeDropDown', this.closeButtonText);
     };
 
     this.getUISettings = function () {
         var dropDownText = this.tmWindowStorage.getLocalKey('closeDropDown');
         if (!dropDownText) {
-            this.closeButtonText = 'Save and Stay'
+            this.closeButtonText = 'Save and Stay';
         } else {
             this.closeButtonText = dropDownText;
         }
@@ -214,7 +215,7 @@ function BaseDetail(
     };
 
     this.setSaveButton = function (text) {
-        this.tmWindowStorage.setLocalKey('closeDropDown', text)
+        this.tmWindowStorage.setLocalKey('closeDropDown', text);
         this.closeButtonText = text;
         this.saveChanges();
     };

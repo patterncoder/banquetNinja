@@ -1,0 +1,12 @@
+ninja-grid(create-method="addRole" update-method="updateRole" delete-method="removeRole" add-toggle="vm.sideTab.roles")
+div(layout="row" flex layout-fill layout-padding)
+        div(flex="100")
+            table.table.table-responsive
+                tbody                     
+                    tr(ng-repeat="role in vm.docSvc.doc.roles track by $index")
+                        td {{role}} 
+                        td(style="padding: 4px")
+                        td(style='padding: 4px')
+                            div.gridItemCell(flex="5" layout="column" layout-align="center center")
+                                a(href= "" ng-click="vm.removeRoles($index)"  ng-blur="vm.detailBlur(role, $index, $event)" )
+                                    span.glyphicon.glyphicon-remove 

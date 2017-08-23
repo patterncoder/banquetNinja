@@ -1,26 +1,28 @@
 import ninjaSchemas from 'ninjaSchemas';
 
-class tmContractsCtrl {
+class tmContractsPendingCtrl {
     constructor($scope, tmListFactory){
         
         var constructorArgs = {
             schema: ninjaSchemas.events.Contract,
-            model: 'Contract',
-            listView: 'root.contracts',
+            model: 'BookedContract',
+            listView: 'root.contractsPending',
             detailView: 'root.contractDetail',
             printView: 'root.contracts.print',
             addHeaderText: 'Add New Bid',
-            listTitle: 'Upcoming Contracts'
+            listTitle: 'Event Bids'
         };
         
         this.__proto__ = tmListFactory(constructorArgs);
         
-        this.loadData({
-                "select": "eventName eventDate startTime customer",
-                "notEqual[status]": "pending",
-                "populate[customer]": "firstName lastName"
-            }, true);
-            
+      //http://localhost:3001/api/v1/events/contracts?where[status]=pending
+
+        this.loadData({select: 'eventName eventDate startTime customer',
+                         'where[status]': 'pending',
+                         "populate[customer]": "firstName lastName"
+                        }, true);
+      // this.loadData({sel: 'eventName eventDate startTime', 'where[status]': 'pending'}); 
+        //this.loadData();
         
         this.sortOptions = [ { value: "-eventDate", text: "Sort by Event Date Z-A" }, { value: "eventDate", text: "Sort by Event Date A-Z" }, { value: "eventName", text: "Sort by Event Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
 
@@ -29,11 +31,11 @@ class tmContractsCtrl {
         this.addContract = function(){
             var self = this;
             var dialogConfig = {
-                template: require('apply!./addContract.jade'),
+                template: require('apply!../contracts/addContract.jade'),
                 controller: 'tmAddContractCtrl as vm',
                 locals: {model: this.Model,
                         schema: this.constructorArgs.schema,
-                        listView: "root.contractsPending",
+                        listView: this.constructorArgs.listView,
                         detailView: this.constructorArgs.detailView,
                         headerText: this.constructorArgs.addHeaderText,
                         hideCustomerInput: false,
@@ -46,7 +48,8 @@ class tmContractsCtrl {
     
 }
 
-tmContractsCtrl.$inject = ['$scope', 'tmListFactory'];
+tmContractsPendingCtrl.$inject = ['$scope', 'tmListFactory'];
 
-export default tmContractsCtrl;
+export default tmContractsPendingCtrl;
+
 
