@@ -4,6 +4,7 @@
     margin-left .5in
     margin-right .5in
     
+    
 @bottom-left
     content "hello"
     
@@ -18,6 +19,7 @@
         
 table
     width 100%
+    height: 25px
 
 .contractItems tr
     border-bottom: 1px solid #ddd
@@ -25,7 +27,8 @@ table
 .contractItems tr:nth-child(even)
     background-color: #ddd
     -webkit-print-color-adjust: exact;
-    
+
+// removed this from jade    
 table.contractHeader
     margin-bottom 20px
 
@@ -40,3 +43,29 @@ tr.rowData td
     border solid black 1px
     padding 2px
     vertical-align top
+tr td 
+    max-width: 76ch; 
+    overflow-wrap: break-word
+.half
+    width: 50%
+
+.third
+    width: 33.3%    
+
+.quarter
+    width: 24%
+
+.threeQuarters
+    width: 75%
+
+.money
+    border: 1px solid black
+    width:80px
+    text-align:right
+    padding-right: 5px
+
+.bigMoney
+    border: 1px solid black
+    width:150px
+    text-align:right
+    padding-right: 5px
