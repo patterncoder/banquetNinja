@@ -1,6 +1,5 @@
 function tmContractPrintCtrl ($dataSource, $state, $window) {
     var $ctrl = this;
-    console.log(this);
     function init(){
         
         var Contract = $dataSource.load('Contract');
@@ -68,7 +67,6 @@ function tmContractPrintCtrl ($dataSource, $state, $window) {
     }
 
     function storeContactInfo(customer) {
-        console.log(customer);
         $ctrl.phoneNumbers = {
             "Cell Phone" : "",
             "Home Phone" : "",
@@ -97,10 +95,10 @@ function tmContractPrintCtrl ($dataSource, $state, $window) {
              customer.emails.filter((emailAddress)=>emailAddress.emailType==="work").map((match)=> match.email),
          $ctrl.emailAddresses["Other Email"] = 
              customer.emails.filter((emailAddress)=>emailAddress.emailType==="other").map((match)=> match.email)        
-         console.log($ctrl.emailAddresses);
     }
 
     $ctrl.back = function(){
+        console.log("click");
         $state.go($state.back.fromState.name, $state.back.fromParams);
     };
     
