@@ -1,11 +1,11 @@
 function tmContractPrintCtrl ($dataSource, $state, $window) {
     var $ctrl = this;
-    
     function init(){
         
         var Contract = $dataSource.load('Contract');
         var contractId = $state.params.id;
         Contract.getOne(contractId).then(function(data){
+            storeContactInfo(data.customer);
             calculateTotals(data);
             $ctrl.doc = data;
         });
@@ -36,16 +36,12 @@ function tmContractPrintCtrl ($dataSource, $state, $window) {
 
         // food total
         if (contract.menuItems.length > 0) {
-            $ctrl.totals['Food Total'] = contract.menuItems.map(function(food) {
-                return multiply(food.quantity,food.price)
-            }).reduce(add,0);
+            $ctrl.totals['Food Total'] = contract.menuItems.map((food) => multiply(food.quantity,food.price)).reduce(add,0);
         } 
 
         // rental total
         if (contract.rentalItems.length > 0) {
-            $ctrl.totals['Rental Total'] = contract.rentalItems.map(function(item) {
-                return item.price;
-            }).reduce(add,0);
+            $ctrl.totals['Rental Total'] = contract.rentalItems.map((item) => item.price).reduce(add,0);
         }         
 
         // tax
@@ -70,7 +66,39 @@ function tmContractPrintCtrl ($dataSource, $state, $window) {
         $ctrl.totals['Total Due'] =  $ctrl.totals['Total'] - $ctrl.totals['Deposit'];
     }
 
+    function storeContactInfo(customer) {
+        $ctrl.phoneNumbers = {
+            "Cell Phone" : "",
+            "Home Phone" : "",
+            "Work Phone" : "",
+            "Other Phone" : ""
+        };
+
+        $ctrl.phoneNumbers["Cell Phone"] = 
+            customer.phoneNumbers.filter((phoneNumber)=>phoneNumber.contactType==="cell").map((match)=> match.number);
+        $ctrl.phoneNumbers["Home Phone"] = 
+            customer.phoneNumbers.filter((phoneNumber)=>phoneNumber.contactType==="home").map((match)=> match.number);
+        $ctrl.phoneNumbers["Work Phone"] = 
+            customer.phoneNumbers.filter((phoneNumber)=>phoneNumber.contactType==="work").map((match)=> match.number);
+        $ctrl.phoneNumbers["Other Phone"] = 
+            customer.phoneNumbers.filter((phoneNumber)=>phoneNumber.contactType==="other").map((match)=> match.number);
+        
+        $ctrl.emailAddresses = { 
+            "Personal Email" : "",
+            "Work Email" : "",
+            "Other Email" : ""
+        }
+
+          $ctrl.emailAddresses["Personal Email"] = 
+             customer.emails.filter((emailAddress)=>emailAddress.emailType==="personal").map((match)=> match.email),
+         $ctrl.emailAddresses["Work Email"] = 
+             customer.emails.filter((emailAddress)=>emailAddress.emailType==="work").map((match)=> match.email),
+         $ctrl.emailAddresses["Other Email"] = 
+             customer.emails.filter((emailAddress)=>emailAddress.emailType==="other").map((match)=> match.email)        
+    }
+
     $ctrl.back = function(){
+        console.log("click");
         $state.go($state.back.fromState.name, $state.back.fromParams);
     };
     

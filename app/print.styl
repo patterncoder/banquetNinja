@@ -3,8 +3,6 @@
     size 8.5in 11in
     margin-left .5in
     margin-right .5in
-    
-    
 @bottom-left
     content "hello"
     
@@ -16,21 +14,25 @@
     .contractItems tr:nth-child(even)
         background-color: #ddd !important
         -webkit-print-color-adjust: exact;
-        
+
 table
     width 100%
     height: 25px
+    page-break-after: avoid
 
 .contractItems tr
     border-bottom: 1px solid #ddd
+    page-break-after: avoid;
 
 .contractItems tr:nth-child(even)
     background-color: #ddd
     -webkit-print-color-adjust: exact;
+    page-break-after: avoid;
 
 // removed this from jade    
 table.contractHeader
     margin-bottom 20px
+    page-break-after: avoid;
 
 tr.rowHead td
     background-color #ddd 
@@ -38,7 +40,6 @@ tr.rowHead td
     vertical-align top
     padding 2px
     font-weight bold
-    
 tr.rowData td 
     border solid black 1px
     padding 2px
@@ -46,17 +47,7 @@ tr.rowData td
 tr td 
     max-width: 76ch; 
     overflow-wrap: break-word
-.half
-    width: 50%
-
-.third
-    width: 33.3%    
-
-.quarter
-    width: 24%
-
-.threeQuarters
-    width: 75%
+    page-break-after: avoid
 
 .money
     border: 1px solid black
@@ -69,3 +60,9 @@ tr td
     width:150px
     text-align:right
     padding-right: 5px
+
+h1, h2, h3, h4, h5 
+    page-break-after: avoid;
+
+.article
+    page-break-after: avoid;
