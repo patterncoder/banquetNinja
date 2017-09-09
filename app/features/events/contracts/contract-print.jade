@@ -70,7 +70,8 @@ div.contractPage(style="width: 850px")
         tr.rowHead
             td Notes
         tr.rowData
-            td {{$ctrl.doc.notes}}                
+            td(ng-if="$ctrl.doc.notes") {{$ctrl.doc.notes}}
+            td(ng-if="!$ctrl.doc.notes" style="padding:50px;")                
     hr
     h5 Event Food
     h6(ng-if="$ctrl.doc.menuItems.length===0") Menu items have not been set up
