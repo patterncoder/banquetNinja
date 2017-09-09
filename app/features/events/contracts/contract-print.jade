@@ -17,10 +17,11 @@ div.contractPage(style="width: 850px")
             td Work Email
             td Other Email
         tr.rowData
-            td {{$ctrl.emailAddresses['Personal Email'][0] }}
+            td(ng-if="$ctrl.noEmailAddress" style="padding:10px") {{$ctrl.emailAddresses['Personal Email'][0]}}
+            td(ng-if="!$ctrl.noEmailAddress") {{$ctrl.emailAddresses['Personal Email'][0]}}        
             td {{$ctrl.emailAddresses['Work Email'][0] }}
             td {{$ctrl.emailAddresses['Other Email'][0] }}
-    //- phone number
+    //- phone number  
     table                
         tr.rowHead
             td Cell Phone
@@ -28,7 +29,8 @@ div.contractPage(style="width: 850px")
             td Work Phone
             td Other Phone
         tr.rowData
-            td {{$ctrl.phoneNumbers['Cell Phone'][0] | tmPhoneFilter}}
+            td(ng-if="$ctrl.noPhoneNumbers" style="padding:10px") {{$ctrl.phoneNumbers['Cell Phone'][0] | tmPhoneFilter}}
+            td(ng-if="!$ctrl.noPhoneNumbers") {{$ctrl.phoneNumbers['Cell Phone'][0] | tmPhoneFilter}}
             td {{$ctrl.phoneNumbers['Home Phone'][0] | tmPhoneFilter}}
             td {{$ctrl.phoneNumbers['Work Phone'][0] | tmPhoneFilter}}
             td {{$ctrl.phoneNumbers['Other Phone'][0] | tmPhoneFilter}}
@@ -49,6 +51,10 @@ div.contractPage(style="width: 850px")
             td {{$ctrl.doc.natureOfEvent}} 
             td {{item.name}}
             td {{item.notes}}
+        tr.rowData(ng-if="$ctrl.doc.venue.length===0")
+            td(style="padding:10px;")
+            td
+            td
     table                
         tr.rowHead
             td Event Date
@@ -67,7 +73,8 @@ div.contractPage(style="width: 850px")
             td {{$ctrl.doc.notes}}                
     hr
     h5 Event Food
-    h6 The following menu items will be available during the event in the assigned amounts. If there is to be a choice of menu items, the below numbers are estimates and the actual amounts will be reconciled at the conclusion of the event.
+    h6(ng-if="$ctrl.doc.menuItems.length===0") Menu items have not been set up
+    h6(ng-if="$ctrl.doc.menuItems.length>0") The following menu items will be available during the event in the assigned amounts. If there is to be a choice of menu items, the below numbers are estimates and the actual amounts will be reconciled at the conclusion of the event.
     table.contractItems(style="width: 100%;border-top:1px solid black" ng-repeat="item in $ctrl.doc.menuItems")
         tr
             td(style="font-weight:bold;padding-bottom:10px;") {{item.name}}
@@ -75,22 +82,25 @@ div.contractPage(style="width: 850px")
             td.money {{item.price | currency}}
             td.money {{item.quantity * item.price | currency}}
         tr 
-            td(style="font-style:italic") {{item.description}}  
+            td(style="font-style:italic") {{item.description}}
     hr                  
     h5 Event Rental Items
-    h6 Any contracted rental items are listed below.
-    //- this display needs to be fixed
-    table.contractItems
-        tr.rowHead
-            td Item
-            td Description             
-            td Price
-            td Item in house
-        tr(ng-repeat="item in $ctrl.doc.rentalItems")
-            td {{item.name}}
-            td {{item.description}}    
-            td.money {{item.price | currency}}
-            td {{item.inHouse}}
+    h6(ng-if="$ctrl.doc.rentalItems.length===0") Rental items have not been set up
+    div(ng-if="$ctrl.doc.rentalItems.length>0")
+        h6 Any contracted rental items are listed below.
+        table.contractItems
+            tr.rowHead
+                td Item
+                td Description             
+                td Price
+                td Item in house
+            tr(ng-repeat="item in $ctrl.doc.rentalItems")
+                td {{item.name}}
+                td {{item.description}}    
+                td.money {{item.price | currency}}
+                td {{item.inHouse}}
+    div(ng-if="$ctrl.doc.eventSteps.length===0")
+        h6 Event Steps have not been set up        
     div(ng-if="$ctrl.doc.eventSteps.length>0")
         hr
         h4 Event Steps
@@ -104,6 +114,7 @@ div.contractPage(style="width: 850px")
                 td {{item.duration}}
                 td {{item.description}}    
     h4 Communication                
+    h6(ng-if="$ctrl.doc.commLog.length===0") no recorded communications
     table.contractHeader(style="width: 100%" ng-if="$ctrl.doc.commLog.length>0")
         tr.rowHead
             td Date
