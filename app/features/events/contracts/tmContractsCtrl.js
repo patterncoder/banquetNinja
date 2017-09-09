@@ -16,7 +16,7 @@ class tmContractsCtrl {
         this.__proto__ = tmListFactory(constructorArgs);
         
         this.loadData({
-                "select": "eventName eventDate startTime customer",
+                "select": "eventName eventDate time customer",
                 "notEqual[status]": "pending",
                 "populate[customer]": "firstName lastName"
             }, true);

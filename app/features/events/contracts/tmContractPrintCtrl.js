@@ -1,6 +1,5 @@
 function tmContractPrintCtrl ($dataSource, $state, $window) {
     var $ctrl = this;
-    console.log(this);
     function init(){
         
         var Contract = $dataSource.load('Contract');
@@ -68,7 +67,6 @@ function tmContractPrintCtrl ($dataSource, $state, $window) {
     }
 
     function storeContactInfo(customer) {
-        console.log(customer);
         $ctrl.phoneNumbers = {
             "Cell Phone" : "",
             "Home Phone" : "",
@@ -84,7 +82,17 @@ function tmContractPrintCtrl ($dataSource, $state, $window) {
             customer.phoneNumbers.filter((phoneNumber)=>phoneNumber.contactType==="work").map((match)=> match.number);
         $ctrl.phoneNumbers["Other Phone"] = 
             customer.phoneNumbers.filter((phoneNumber)=>phoneNumber.contactType==="other").map((match)=> match.number);
-        
+
+        $ctrl.noPhoneNumbers = true;
+        for (var key in $ctrl.phoneNumbers) {
+            if ($ctrl.phoneNumbers.hasOwnProperty(key)) {
+                if($ctrl.phoneNumbers[key].length){
+                    console.log('set flag');
+                    $ctrl.noPhoneNumbers = false;
+                }
+            }
+        }
+
         $ctrl.emailAddresses = { 
             "Personal Email" : "",
             "Work Email" : "",
@@ -96,11 +104,21 @@ function tmContractPrintCtrl ($dataSource, $state, $window) {
          $ctrl.emailAddresses["Work Email"] = 
              customer.emails.filter((emailAddress)=>emailAddress.emailType==="work").map((match)=> match.email),
          $ctrl.emailAddresses["Other Email"] = 
-             customer.emails.filter((emailAddress)=>emailAddress.emailType==="other").map((match)=> match.email)        
-         console.log($ctrl.emailAddresses);
+             customer.emails.filter((emailAddress)=>emailAddress.emailType==="other").map((match)=> match.email)
+             
+        $ctrl.noEmailAddress = true;
+        for (var key in $ctrl.emailAddresses) {
+            if ($ctrl.emailAddresses.hasOwnProperty(key)) {
+                if($ctrl.emailAddresses[key].length){
+                    $ctrl.noEmailAddress = false;
+                }
+            }
+        }
+                  
     }
 
     $ctrl.back = function(){
+        console.log("click");
         $state.go($state.back.fromState.name, $state.back.fromParams);
     };
     
