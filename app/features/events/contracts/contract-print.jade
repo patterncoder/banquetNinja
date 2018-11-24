@@ -1,33 +1,39 @@
-button#printButton(ng-click="$ctrl.print()") print
+button#printButton(ng-click="$ctrl.print()") Print
 button.print-nav-button(ng-click="$ctrl.back()") Back
-//- working on making the data more presentable, and look into page breaks
 div.contractPage(style="width: 850px")
     h4 {{$ctrl.doc.eventName}} 
     //- customer contact table
     table
         tr.rowHead
             td Guest Name
-            td Email
             td Address
         tr.rowData
             td {{$ctrl.doc.customer.firstName + ' ' + $ctrl.doc.customer.lastName}}
-            //- need to figure out this login later maybe loop through, and find primary and display that one
-            td {{$ctrl.doc.customer.emails[0].email}}
             td {{$ctrl.doc.customer.addresses[0].address1}} {{$ctrl.doc.customer.addresses[0].city}}
-    //- phone number
+    //- email
     table                
         tr.rowHead
+            td Personal Email
+            td Work Email
+            td Other Email
+        tr.rowData
+            td(ng-if="$ctrl.noEmailAddress" style="padding:10px") {{$ctrl.emailAddresses['Personal Email'][0]}}
+            td(ng-if="!$ctrl.noEmailAddress") {{$ctrl.emailAddresses['Personal Email'][0]}}        
+            td {{$ctrl.emailAddresses['Work Email'][0] }}
+            td {{$ctrl.emailAddresses['Other Email'][0] }}
+    //- phone number  
+    table                
+        tr.rowHead
+            td Cell Phone
             td Home Phone
             td Work Phone
-            td Cell Phone
             td Other Phone
-        //- need to add logic that maps phone number type
         tr.rowData
-            //- look into what formats phone number in app
-            td {{$ctrl.doc.customer.phoneNumbers[0].number}}
-            td work
-            td cell             
-            td Other Phone
+            td(ng-if="$ctrl.noPhoneNumbers" style="padding:10px") {{$ctrl.phoneNumbers['Cell Phone'][0] | tmPhoneFilter}}
+            td(ng-if="!$ctrl.noPhoneNumbers") {{$ctrl.phoneNumbers['Cell Phone'][0] | tmPhoneFilter}}
+            td {{$ctrl.phoneNumbers['Home Phone'][0] | tmPhoneFilter}}
+            td {{$ctrl.phoneNumbers['Work Phone'][0] | tmPhoneFilter}}
+            td {{$ctrl.phoneNumbers['Other Phone'][0] | tmPhoneFilter}}
     table                
         tr.rowHead
             td Event service type
@@ -45,6 +51,10 @@ div.contractPage(style="width: 850px")
             td {{$ctrl.doc.natureOfEvent}} 
             td {{item.name}}
             td {{item.notes}}
+        tr.rowData(ng-if="$ctrl.doc.venue.length===0")
+            td(style="padding:10px;")
+            td
+            td
     table                
         tr.rowHead
             td Event Date
@@ -52,41 +62,46 @@ div.contractPage(style="width: 850px")
             td End Time
             td Guest Count
         tr.rowData
-            td {{$ctrl.doc.eventDate}}  
-            td {{$ctrl.doc.time}}
-            td maybe pull from last event from sequence?             
+            td {{$ctrl.doc.eventDate | date: 'longDate'}}  
+            td {{$ctrl.doc.time | date: 'shortTime'}}
+            td {{$ctrl.doc.eventSteps[$ctrl.doc.eventSteps.length-1].time | date: 'shortTime'}}
             td {{$ctrl.doc.banquetAttendeeLow}} - {{$ctrl.doc.banquetAttendeeHigh}}
     table                
         tr.rowHead
             td Notes
         tr.rowData
-            td {{$ctrl.doc.notes}}                
+            td(ng-if="$ctrl.doc.notes") {{$ctrl.doc.notes}}
+            td(ng-if="!$ctrl.doc.notes" style="padding:50px;")                
     hr
     h5 Event Food
-    h6 The following menu items will be available during the event in the assigned amounts. If there is to be a choice of menu items, the below numbers are estimates and the actual amounts will be reconciled at the conclusion of the event.
+    h6(ng-if="$ctrl.doc.menuItems.length===0") Menu items have not been set up
+    h6(ng-if="$ctrl.doc.menuItems.length>0") The following menu items will be available during the event in the assigned amounts. If there is to be a choice of menu items, the below numbers are estimates and the actual amounts will be reconciled at the conclusion of the event.
     table.contractItems(style="width: 100%;border-top:1px solid black" ng-repeat="item in $ctrl.doc.menuItems")
         tr
-            td(style="font-weight:bold;padding-bottom:10px") {{item.name}}
+            td(style="font-weight:bold;padding-bottom:10px;") {{item.name}}
             td.money {{item.quantity}}
             td.money {{item.price | currency}}
             td.money {{item.quantity * item.price | currency}}
         tr 
-            td(style="font-style:italic") {{item.description}}  
+            td(style="font-style:italic") {{item.description}}
     hr                  
     h5 Event Rental Items
-    h6 Any contracted rental items are listed below.
-    //- this display needs to be fixed
-    table.contractItems
-        tr.rowHead
-            td Item
-            td Description             
-            td Price
-            td Item in house
-        tr(ng-repeat="item in $ctrl.doc.rentalItems")
-            td {{item.name}}
-            td {{item.description}}    
-            td.money {{item.price | currency}}
-            td {{item.inHouse}}
+    h6(ng-if="$ctrl.doc.rentalItems.length===0") Rental items have not been set up
+    div(ng-if="$ctrl.doc.rentalItems.length>0")
+        h6 Any contracted rental items are listed below.
+        table.contractItems
+            tr.rowHead
+                td Item
+                td Description             
+                td Price
+                td Item in house
+            tr(ng-repeat="item in $ctrl.doc.rentalItems")
+                td {{item.name}}
+                td {{item.description}}    
+                td.money {{item.price | currency}}
+                td {{item.inHouse}}
+    div(ng-if="$ctrl.doc.eventSteps.length===0")
+        h6 Event Steps have not been set up        
     div(ng-if="$ctrl.doc.eventSteps.length>0")
         hr
         h4 Event Steps
@@ -96,10 +111,11 @@ div.contractPage(style="width: 850px")
                 td Duration
                 td Description             
             tr(ng-repeat="item in $ctrl.doc.eventSteps")
-                td {{item.time}}
+                td {{item.time | date: 'shortTime'}}
                 td {{item.duration}}
                 td {{item.description}}    
     h4 Communication                
+    h6(ng-if="$ctrl.doc.commLog.length===0") no recorded communications
     table.contractHeader(style="width: 100%" ng-if="$ctrl.doc.commLog.length>0")
         tr.rowHead
             td Date
@@ -107,7 +123,7 @@ div.contractPage(style="width: 850px")
             td Description    
             td Employee 
         tr(ng-repeat="item in $ctrl.doc.commLog")
-            td {{item.date}}
+            td {{item.date | date: 'longDate'}} @ {{item.date | date: 'shortTime'}}
             td {{item.commType}}
             td {{item.description}}
             td {{item.employee}}                
@@ -118,10 +134,10 @@ div.contractPage(style="width: 850px")
         
 
     h5 End Time
-    p In order to better serve you, please keep in mind the “end time” of your party. Due to sequential bookings of parties during peak times (Friday and Saturday and especially during the holiday season), we require that our guests adhere to the end time of their party so that our staff may prepare the room for the next party. You will be charged a late fee of $50.00 if your party exceeds the end time by more than 10 minutes.
+    p.article In order to better serve you, please keep in mind the “end time” of your party. Due to sequential bookings of parties during peak times (Friday and Saturday and especially during the holiday season), we require that our guests adhere to the end time of their party so that our staff may prepare the room for the next party. You will be charged a late fee of $50.00 if your party exceeds the end time by more than 10 minutes.
     h5 Payments and Billing
-    p A 50% installment (of the minimum food and beverage charge) will be required one week prior to your event.. Your final bill will be the minimum food and beverage charge plus tax and a 20% gratuity. If your bill exceeds the minimum food and beverage charge as defined above, then you will be charged the actual amount of the food and beverage purchases, plus tax and a 20% gratuity Credit card payments only. No personal checks are accepted.
+    p.article A 50% installment (of the minimum food and beverage charge) will be required one week prior to your event.. Your final bill will be the minimum food and beverage charge plus tax and a 20% gratuity. If your bill exceeds the minimum food and beverage charge as defined above, then you will be charged the actual amount of the food and beverage purchases, plus tax and a 20% gratuity Credit card payments only. No personal checks are accepted.
     h5 Inclement Weather
-    p For the Front Street Bar and Grill, please be aware that we do not have any contingency plans for inclement weather. We do have suspended patio umbrellas and patio heaters for your comfort.
+    p.article For the Front Street Bar and Grill, please be aware that we do not have any contingency plans for inclement weather. We do have suspended patio umbrellas and patio heaters for your comfort.
     h5 Menus and Pricing
-    p At times the menus and pricing are subject to change. If your previous selections have been replaced, we will work with you to select an alternate substitution. Pricing will revert to the most current pricing.
+    p.article At times the menus and pricing are subject to change. If your previous selections have been replaced, we will work with you to select an alternate substitution. Pricing will revert to the most current pricing.
