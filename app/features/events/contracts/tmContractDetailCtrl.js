@@ -16,11 +16,14 @@ function tmContractDetailCtrl (
         docSvc: tmContractDocSvc,
         schema: ninjaSchemas.events.Contract,
         model: "Contract",
-        listView: "root.contracts",
+        listView: $state.back.fromState.name,
+        //listView: "root.contracts",
         detailView: "root.contractDetail",
         addHeaderText: "Add Contract"
     };
-    
+
+    console.log("debug:", $state.back.fromState.name);
+
     this.__proto__ = tmDetailFactory(constructorArgs);
 
     self.models = {newEventStep: {}};

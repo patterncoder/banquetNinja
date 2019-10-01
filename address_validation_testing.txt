@@ -1,0 +1,38 @@
+\d{5}\s\w{3,}|#?\d{3,}-\d{3,}\s\w{3,}|(\w{3,}\s)\w{2,}(\s\d{3,})
+
+\d{5}\s\w{3,}|(#?\d{3,}-\d{3,})\s\w{3,}|(\w{3,}\s)\w{2,}(\s\d{3,})
+
+(^\w{3,}\s\w{3,}\s|^\d{3,}\s\w{1,}\s)|^\w{2,}\s?#(\d{3,}-\d{3,})\s|^\d{2,}-\d{2,}\s\w{1,}\s|^[p,P]\.[o,O]\.\s\w{3}\s\d{2,}
+
+this is a test
+
+27087 Pinehurst Rd
+
+this is$$$$&*^$#@ test
+
+Mankato Mississippi 96522
+
+po box 283                      #bad address
+.po box 283                     #bad address
+.p.o box 283                    #bad address
+P.O. Box 283 8562 Fusce Rd.
+606-3727 Ullamcorper. Street    #bad address
+Ap #867-859 Sit Rd.
+San Antonio 47096
+Ap #651-8679 Sodales Av.
+191-103 Integer Rd.
+511-5762 At Rd
+Ap #696-3279 Viverra. Avenue
+#511-5762 At Rd
+799 E DRAGRAM SUITE 5A
+100 MAIN ST
+28699 Old Town Front Street
+
+
+COMPANY NAME REGEX
+
+Ford
+Chevy
+1and1.com
+hosting
+%%&&**                          #bad company name.

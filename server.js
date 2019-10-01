@@ -8,7 +8,9 @@ var app = express();
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? process.env.PORT : 3000;
 var publicPath = path.resolve(__dirname, 'public');
+let cors = require("cors");
 
+app.use(cors());
 app.use(express.static(publicPath));
 
 

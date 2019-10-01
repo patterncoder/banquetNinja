@@ -173,6 +173,7 @@ function BaseDetail(
         this.canILeave().then(function (canILeave) {
             if (canILeave) {
                 self.docSvc.clearDocument();
+                console.log("output:", constructorArgs.listView);
                 self.$state.go(constructorArgs.listView);
             }
         });
