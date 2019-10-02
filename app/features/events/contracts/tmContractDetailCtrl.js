@@ -16,7 +16,8 @@ function tmContractDetailCtrl (
         docSvc: tmContractDocSvc,
         schema: ninjaSchemas.events.Contract,
         model: "Contract",
-        listView: "root.contracts",
+        listView: $state.back.fromState.name,
+        //listView: "root.contracts",
         detailView: "root.contractDetail",
         addHeaderText: "Add Contract"
     };
