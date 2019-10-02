@@ -17,7 +17,7 @@ class tmContractsCtrl {
         
         this.loadData({
                 "select": "eventName eventDate time customer",
-                "notEqual[status]": "pending",
+                "where[status]": "booked",
                 "populate[customer]": "firstName lastName"
             }, true);
             
