@@ -2,7 +2,7 @@ import ninjaSchemas from 'ninjaSchemas';
 import angular from 'angular';
 import _ from 'lodash';
 
-function tmContractDocSvc(tmDocFactory) {
+function tmContractDocSvc(tmDocFactory, tmIdentity) {
 
     this.__proto__ = tmDocFactory('Contract', ninjaSchemas.events.Contract);
 
@@ -27,12 +27,12 @@ function tmContractDocSvc(tmDocFactory) {
         this.doc.eventSteps.splice(index, 1);
     };
 
-    this.addCommLog = function (logEntry) {
+    this.addCommLog = function (logType) {
         var logToAdd = {
-            date: "1/8/17",
-            commType: 'in-person',
-            employee: "Debbie Jordan",
-            description: "met with client juile "
+            date: new Date(),
+            commType: logType,
+            employee: `${tmIdentity.currentUser.user.firstName} ${tmIdentity.currentUser.user.lastName}`,
+            description: ""
         };
         this.doc.commLog.push(logToAdd);
     };
@@ -77,12 +77,21 @@ function tmContractDocSvc(tmDocFactory) {
         }
     };
 
+    this.addRentalItem = function (rentalItem) {
+      let itemToAdd = {
+        name: rentalItem.name,
+        quantity: 0,
+        price: 0
+      }
+      this.doc.rentalItems.push(itemToAdd);
+    }
+
 
 
     this.saveChanges = function () {
         var self = this;
         var deferred = this.$q.defer();
-        // depopulate for saving
+        //  depopulate for saving
         var stripped = _.pick(self.doc.customer, "_id");
         self.doc.customer = stripped._id;
         var monDoc = new this.tmMongoose.Document(self.doc, self.docSchema);
@@ -111,6 +120,6 @@ function tmContractDocSvc(tmDocFactory) {
 }
 
 
-tmContractDocSvc.$inject = ['tmDocFactory'];
+tmContractDocSvc.$inject = ['tmDocFactory', 'tmIdentity'];
 
 export default tmContractDocSvc;

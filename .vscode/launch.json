@@ -1,6 +1,14 @@
 {
 	"version": "0.2.0",
 	"configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome",
+      "url": "http://localhost:8080/public",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+    },
 		{
 			"name": "Launch",
 			"type": "node",

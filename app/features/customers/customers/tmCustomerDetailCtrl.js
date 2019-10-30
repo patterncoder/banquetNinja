@@ -1,12 +1,14 @@
 import angular from 'angular';
 import lodash from 'lodash';
 import ninjaSchemas from 'ninjaSchemas';
+import config from 'config';
 
 function tmCustomerDetailCtrl(
     $scope,
     tmDetailFactory,
     tmCustomerDocSvc,
-    $dataSource
+    $dataSource,
+    $http
 ) {
     var self = this;
     var constructorArgs = {
@@ -21,7 +23,7 @@ function tmCustomerDetailCtrl(
 
     this.__proto__ = tmDetailFactory(constructorArgs);
 
-    //this.moreFunctions.push({label: "test", method: function(){console.log('whatsup');}});
+    // this.moreFunctions.push({label: "test", method: function(){console.log('whatsup');}});
 
     this.dialogOptions = {
         closeButtonText: 'No',
@@ -44,7 +46,23 @@ function tmCustomerDetailCtrl(
     this.loadData().then(function () {
         // running code here happens after the detail doc has been loaded
         self.getDetailTitle();
+        self.getRelatedContracts();
     });
+
+    this.getRelatedContracts = function () {
+      var self = this;
+      let relatedContracts = self.docSvc.doc.contracts.map(contract => `valueIn[_id]=${contract._id}`).join("&");
+      if (relatedContracts.length === 0) return;
+      let url =  config.apiBase + '/events/contracts?select=eventDate%20eventName&' + relatedContracts;
+
+      var req = {
+        method: 'GET',
+        url: url 
+      };
+      $http(req).then(function(result) {
+        self.contractsList = result.data.data;
+      });
+    }
 
     this.getDetailTitle = function () {
         self.detailTitle = {
@@ -200,7 +218,8 @@ tmCustomerDetailCtrl.$inject = [
     '$scope',
     'tmDetailFactory',
     'tmCustomerDocSvc',
-    '$dataSource'
+    '$dataSource',
+    '$http'
 ];
 
 export default tmCustomerDetailCtrl;

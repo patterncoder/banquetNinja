@@ -1,4 +1,5 @@
 function tmDetailFactory(
+    $http,
     $q,
     $state,
     $stateParams,
@@ -9,6 +10,7 @@ function tmDetailFactory(
 ) {
     return function (constructorArgs) {
         return new BaseDetail(
+            $http,
             $q,
             $state,
             $stateParams,
@@ -21,6 +23,7 @@ function tmDetailFactory(
 }
 
 tmDetailFactory.$inject = [
+    '$http',
     '$q',
     '$state',
     '$stateParams',
@@ -32,6 +35,7 @@ tmDetailFactory.$inject = [
 export default tmDetailFactory;
 
 function BaseDetail(
+    $http,
     $q,
     $state,
     $stateParams,
@@ -49,6 +53,7 @@ function BaseDetail(
     this.tmWindowStorage = tmWindowStorage;
     this.$state = $state;
     this.$q = $q;
+    this.$http = $http;
     this.docSvc = constructorArgs.docSvc;
     //this.docSvc.loadDocument($stateParams.id);
     this.constructorArgs = constructorArgs;
@@ -173,6 +178,8 @@ function BaseDetail(
         this.canILeave().then(function (canILeave) {
             if (canILeave) {
                 self.docSvc.clearDocument();
+                //self.$state.go(self.$state.back.fromState, self.$state.back.fromParams)
+
                 self.$state.go(constructorArgs.listView);
             }
         });

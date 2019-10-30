@@ -1,19 +1,19 @@
 import angular from  'angular';
 import _ from 'lodash';
 
-function tmDocFactory ($dataSource, tmMongoose, $q) {
+function tmDocFactory ($http, $dataSource, tmMongoose, $q) {
     return function(model, schema) {
-        return new BaseDocService($dataSource, tmMongoose, $q, model, schema);
+        return new BaseDocService($http, $dataSource, tmMongoose, $q, model, schema);
     };
 }
 
-tmDocFactory.$inject = ['$dataSource', 'tmMongoose', '$q'];
+tmDocFactory.$inject = ['$http', '$dataSource', 'tmMongoose', '$q'];
 
 export default tmDocFactory;
 
 
 
-function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
+function BaseDocService ($http, $dataSource, tmMongoose, $q, model, schema){
     
     // instance vars
     this.doc = {};
@@ -21,6 +21,8 @@ function BaseDocService ($dataSource, tmMongoose, $q, model, schema){
     this.validationError = null;
     this.tmMongoose = tmMongoose;
     this.$q = $q;
+    this.$http = $http;
+    this.$dataSource = $dataSource;
     // Set data source model item here
     //var docModel;
     this.docModel = $dataSource.load(model);
