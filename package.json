@@ -39,7 +39,7 @@
     "jade": "^1.11.0",
     "jade-html-loader": "0.0.3",
     "jade-loader": "^0.7.1",
-    "jquery": "^2.1.4",
+    "jquery": "^3.4.1",
     "lodash": "^3.10.1",
     "mongoose": "file:./vendor/mongoose",
     "ng-annotate-loader": "0.0.10",
