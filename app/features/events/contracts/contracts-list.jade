@@ -15,6 +15,6 @@ div(flex="100")
             tr(ng-repeat="item in vm.items | filter:searchText | orderBy:vm.sortOrder")
                 td {{::item.eventName }} ({{::item.customer.firstName}} {{::item.customer.lastName}})
                 td {{::item.eventDate | date:'longDate'}}
-                td(style="white-space: nowrap") {{::item.time | date:'shortTime'}}
+                td(style="white-space: nowrap") {{::item.eventDate | tmZuluTime | date:'shortTime'}}
                 td(style="padding: 4px")
                     list-item-buttons(id-val="item._id" edit-fn="vm.details(idVal)" print-fn="vm.print(idVal)" delete-fn="vm.deleteItem(idVal)")

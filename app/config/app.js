@@ -12,7 +12,7 @@ import _ from 'lodash';
 import routing from './routing';
 
 module.exports = angular.module('app', [Shell, Features, Common])
-    .config(routing)
+.config(routing)
     // below here adds notification on every http request...
     // .config(['$httpProvider', function($httpProvider){
     //     $httpProvider.interceptors.push(['$q', '$timeout', 'tmNotifier', function($q, $timeout, tmNotifier){
