@@ -22,12 +22,14 @@ function tmBaseDocSvc ($dataSource, tmMongoose, $q, model, schema){
             self.validationError = null;
             self.doc = data;
             self.master = angular.copy(data);
+            console.log("tmBaseDocSvc, loadDocument", data);
             return data;
         });
     }
     
     function refreshFromServer(){
         this.loadDocument(this.doc._id);
+        console.log("refreshFromServer", "complete");
     }
     
     function saveChanges(){
