@@ -41,11 +41,13 @@ class tmDialogAddDocPartCtrl {
         var self = this;
         var newItem = new self.tmMongoose.Document(self.item, self.schema);
         newItem.validate(function(err){
+            console.log("breakpoint test", self.$state);
             if(err) {
                 self.validationError = err
                 self.$scope.$apply();
                 return;
             }
+            //self.$rootScope.$digest();
             self.$mdDialog.hide(self.item);
         });
         
