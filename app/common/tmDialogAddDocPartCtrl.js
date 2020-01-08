@@ -5,7 +5,8 @@ class tmDialogAddDocPartCtrl {
         $scope, 
         //$dataSource, 
         //tmNotifier, 
-        //$state, 
+        $state,
+        //$rootScope,
         $mdDialog, 
         tmMongoose,
         schema,
@@ -15,8 +16,9 @@ class tmDialogAddDocPartCtrl {
             
             
             this.$scope = $scope;
+            //this.$rootScope = $rootScope;
             //this.tmNotifier = tmNotifier;
-            //this.$state = $state;
+            this.$state = $state;
             //this.model = model;
             this.schema = schema;
             //this.listView = listView;
@@ -39,13 +41,16 @@ class tmDialogAddDocPartCtrl {
         var self = this;
         var newItem = new self.tmMongoose.Document(self.item, self.schema);
         newItem.validate(function(err){
+            console.log("breakpoint test", self.$state);
             if(err) {
-                self.validationError = err;
+                self.validationError = err
                 self.$scope.$apply();
                 return;
             }
+            //self.$rootScope.$digest();
             self.$mdDialog.hide(self.item);
-            
+            //self.$state.reload();
+            //the view needs to update... but it's not... 
         });
         
        
@@ -58,7 +63,8 @@ tmDialogAddDocPartCtrl.$inject = [
     '$scope',
     //'$dataSource',
     //'tmNotifier',
-    //'$state',
+    '$state',
+    //'$rootScope',
     '$mdDialog',
     'tmMongoose',
     //'model',

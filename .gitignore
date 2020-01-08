@@ -1,5 +1,6 @@
 
 package-lock.json
+
 node_modules/*
 public/build
 
@@ -7,3 +8,4 @@ public/build
 # !node_modules/mongoose/
 !node_modules/ninjaSchemas
 .vscode/temp.sql
+.vscode/launch.json
