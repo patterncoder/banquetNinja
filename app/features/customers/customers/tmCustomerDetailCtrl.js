@@ -85,10 +85,14 @@ function tmCustomerDetailCtrl(
         var Contract = $dataSource.load('Contract');
         self.tmDialogSvc.showDialog(dialogConfig).then(function (item) {
             Contract.add(item).then(function (item) {
-                console.log(item);
+                console.log("tmCustomerDetailCtrl, addContract:", item);
+                console.log("tmCustomerDetailCtrl, addContract: contractsList:", self.contractsList);
+                debugger;
                 self.docSvc.addContract(item);
                 self.docSvc.saveChanges().then(function(){
-                        self.docSvc.refreshFromServer();
+                    self.contractsList.push(item);
+                    self.docSvc.refreshFromServer();
+                    //self.getRelatedContracts(); //we want to get the most recent contract that was just made...
                 });
                 
 
