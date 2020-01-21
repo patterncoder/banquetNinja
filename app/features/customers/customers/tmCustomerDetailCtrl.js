@@ -85,9 +85,6 @@ function tmCustomerDetailCtrl(
         var Contract = $dataSource.load('Contract');
         self.tmDialogSvc.showDialog(dialogConfig).then(function (item) {
             Contract.add(item).then(function (item) {
-                console.log("tmCustomerDetailCtrl, addContract:", item);
-                console.log("tmCustomerDetailCtrl, addContract: contractsList:", self.contractsList);
-                debugger;
                 self.docSvc.addContract(item);
                 self.docSvc.saveChanges().then(function(){
                     self.contractsList.push(item);
