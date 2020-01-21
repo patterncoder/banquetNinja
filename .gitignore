@@ -1,10 +1,6 @@
 
-<<<<<<< b3cfbfa015d7d696663013fe26e73cb8a0cc3ac3
 package-lock.json
-=======
-.gitignore
 
->>>>>>> fixes issue where adding a contract history does not update the current view
 node_modules/*
 public/build
 
