@@ -61,6 +61,7 @@ function tmCustomerDetailCtrl(
         url: url 
       };
       $http(req).then(function(result) {
+        console.log("result:", result);
         self.contractsList = result.data.data;
         console.log("getRelatedContracts: result:", result.data.data);
       });
