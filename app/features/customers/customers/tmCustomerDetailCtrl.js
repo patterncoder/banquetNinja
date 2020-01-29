@@ -54,6 +54,7 @@ function tmCustomerDetailCtrl(
       let relatedContracts = self.docSvc.doc.contracts.map(contract => `valueIn[_id]=${contract._id}`).join("&");
       if (relatedContracts.length === 0) return;
       let url =  config.apiBase + '/events/contracts?select=eventDate%20eventName&' + relatedContracts;
+      console.log("contracts api url:", url);
 
       var req = {
         method: 'GET',
@@ -61,6 +62,7 @@ function tmCustomerDetailCtrl(
       };
       $http(req).then(function(result) {
         self.contractsList = result.data.data;
+        console.log("getRelatedContracts: result:", result.data.data);
       });
     }
 

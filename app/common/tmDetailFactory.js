@@ -83,7 +83,9 @@ function BaseDetail(
                     bodyText: 'Do you want to delete this record and all associated data?'
                 };
                 self.tmDialogSvc.showDialog({}, dialogOptions).then(function () {
-                    self.docSvc.deleteDocument();
+                    //were not supposed to actually delete, only MARK deleted...
+                    console.log("tmDetailFactory, moreFunctions / delete: self.docSvc:", self.docSvc, self.status);
+                    //self.docSvc.deleteDocument();
                     $state.go(self.constructorArgs.listView);
                     // self.Model.remove(id).then(function (collection) {
                     //     self.tmNotifier.notify("The item has been deleted");
