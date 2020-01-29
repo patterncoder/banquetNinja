@@ -1,3 +1,7 @@
+/*
+    loadData imported from app\common\tmListFactory.js
+*/
+
 import ninjaSchemas from 'ninjaSchemas';
 
 class tmMenuGroupsCtrl {
@@ -23,6 +27,7 @@ class tmMenuGroupsCtrl {
         this.afterLoad = function () {
             console.log("done loading...");
             console.log("total items: " + this.items.length);
+            console.log("items:", this.items);
             // this.setPagination();
             // this.pageChanged();
         };
