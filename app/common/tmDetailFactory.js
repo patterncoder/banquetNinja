@@ -85,6 +85,16 @@ function BaseDetail(
                 self.tmDialogSvc.showDialog({}, dialogOptions).then(function () {
                     //were not supposed to actually delete, only MARK deleted...
                     console.log("tmDetailFactory, moreFunctions / delete: self.docSvc:", self.docSvc, self.status);
+                    console.log("tmDetailFactory, moreFunctions / delete: self.doc:", self.doc);
+                    
+                    self.docSvc.doc.status = "abandoned";
+
+                    try {
+                        self.docSvc.saveChanges();
+                    } catch (e) {
+                        console.log(e);
+                    }
+
                     //self.docSvc.deleteDocument();
                     $state.go(self.constructorArgs.listView);
                     // self.Model.remove(id).then(function (collection) {
