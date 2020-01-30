@@ -6,6 +6,8 @@ var mainPath = path.resolve(__dirname, 'app', 'main.js');
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var Promise = require('es6-promise').Promise;
 
+console.log("buildPath:", buildPath);
+console.log("mainPath:", mainPath);
 
 var config = {
 
