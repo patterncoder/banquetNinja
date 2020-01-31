@@ -1,5 +1,7 @@
 node_modules/*
 !node_modules/ninjaSchemas
 
+vendor/mongoose/node_modules
+
 public/build/bundle.js
 public/build/bundle.js.map
