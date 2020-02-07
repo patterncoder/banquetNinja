@@ -47,12 +47,12 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
             notes: "",
             baseId: venue._id
         };
-        this.doc.venue.push(venueToAdd);
+        this.doc.venues.push(venueToAdd);
     };
 
     this.removeVenue = function (index) {
         console.log(index);
-        this.doc.venue.splice(index, 1);
+        this.doc.venues.splice(index, 1);
     };
 
     this.addMenuItem = function (menuItem) {
@@ -85,6 +85,10 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
       }
       this.doc.rentalItems.push(itemToAdd);
     }
+    
+    this.removeRentalItem = function (index) {
+      this.doc.rentalItems.splice(index, 1);
+    };
 
 
 
