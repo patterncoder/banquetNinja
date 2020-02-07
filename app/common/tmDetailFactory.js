@@ -96,7 +96,8 @@ function BaseDetail(
                     }
 
                     //self.docSvc.deleteDocument();
-                    $state.go(self.constructorArgs.listView);
+                    //$state.go(self.constructorArgs.listView);
+                    self.$state.go(self.$state.back.fromState, self.$state.back.fromParams);
                     // self.Model.remove(id).then(function (collection) {
                     //     self.tmNotifier.notify("The item has been deleted");
                     //     self.items = collection;
