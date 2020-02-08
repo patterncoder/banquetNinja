@@ -212,6 +212,10 @@ function tmContractDetailCtrl (
     this.deleteMenuItem = function (index){
         this.docSvc.removeMenuItem(index);
     };
+
+    this.removeRentalItem = function (index) {
+      this.docSvc.removeRentalItem(index);
+    }
     
     
     return this;
