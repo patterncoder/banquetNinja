@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 package-lock.json
 
@@ -9,13 +8,3 @@ public/build
 # !node_modules/mongoose/
 !node_modules/ninjaSchemas
 .vscode/temp.sql
-.vscode/launch.json
-=======
-node_modules/*
-!node_modules/ninjaSchemas
-
-vendor/mongoose/node_modules
-
-public/build/bundle.js
-public/build/bundle.js.map
->>>>>>> 873a7e3... updated gitignore
