@@ -53,14 +53,17 @@ function tmCustomerDetailCtrl(
       var self = this;
       let relatedContracts = self.docSvc.doc.contracts.map(contract => `valueIn[_id]=${contract._id}`).join("&");
       if (relatedContracts.length === 0) return;
-      let url =  config.apiBase + '/events/contracts?select=eventDate%20eventName&' + relatedContracts;
+      let url =  config.apiBase + '/events/contracts?select=eventDate%20status%20eventName&' + relatedContracts;
+      console.log("contracts api url:", url);
 
       var req = {
         method: 'GET',
         url: url 
       };
       $http(req).then(function(result) {
+        console.log("result:", result);
         self.contractsList = result.data.data;
+        console.log("getRelatedContracts: result:", result.data.data);
       });
     }
 
@@ -85,10 +88,11 @@ function tmCustomerDetailCtrl(
         var Contract = $dataSource.load('Contract');
         self.tmDialogSvc.showDialog(dialogConfig).then(function (item) {
             Contract.add(item).then(function (item) {
-                console.log(item);
                 self.docSvc.addContract(item);
                 self.docSvc.saveChanges().then(function(){
-                        self.docSvc.refreshFromServer();
+                    self.contractsList.push(item);
+                    self.docSvc.refreshFromServer();
+                    //self.getRelatedContracts(); //we want to get the most recent contract that was just made...
                 });
                 
 
