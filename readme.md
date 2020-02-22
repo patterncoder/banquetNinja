@@ -11,3 +11,5 @@ Start webpack dev server.  Config is handled in webpack config so that it builds
 * `git submodule update --init`
 * build: `npm run build`
 * run web dev server: `npm run dev`
+
+txt record in dns that i removed v=spf1 ip4:66.96.128.0/18 ?all
