@@ -83,25 +83,8 @@ function BaseDetail(
                     bodyText: 'Do you want to delete this record and all associated data?'
                 };
                 self.tmDialogSvc.showDialog({}, dialogOptions).then(function () {
-                    //were not supposed to actually delete, only MARK deleted...
-                    console.log("tmDetailFactory, moreFunctions / delete: self.docSvc:", self.docSvc, self.status);
-                    console.log("tmDetailFactory, moreFunctions / delete: self.doc:", self.doc);
-                    
-                    // self.docSvc.doc.status = "abandoned";
-
-                    // try {
-                    //     self.docSvc.saveChanges();
-                    // } catch (e) {
-                    //     console.log(e);
-                    // }
-
                     self.docSvc.deleteDocument();
-                    //$state.go(self.constructorArgs.listView);
                     self.$state.go(self.$state.back.fromState, self.$state.back.fromParams);
-                    // self.Model.remove(id).then(function (collection) {
-                    //     self.tmNotifier.notify("The item has been deleted");
-                    //     self.items = collection;
-                    // });
                 }, function () {
 
                 });
