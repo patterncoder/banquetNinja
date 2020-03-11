@@ -87,15 +87,15 @@ function BaseDetail(
                     console.log("tmDetailFactory, moreFunctions / delete: self.docSvc:", self.docSvc, self.status);
                     console.log("tmDetailFactory, moreFunctions / delete: self.doc:", self.doc);
                     
-                    self.docSvc.doc.status = "abandoned";
+                    // self.docSvc.doc.status = "abandoned";
 
-                    try {
-                        self.docSvc.saveChanges();
-                    } catch (e) {
-                        console.log(e);
-                    }
+                    // try {
+                    //     self.docSvc.saveChanges();
+                    // } catch (e) {
+                    //     console.log(e);
+                    // }
 
-                    //self.docSvc.deleteDocument();
+                    self.docSvc.deleteDocument();
                     //$state.go(self.constructorArgs.listView);
                     self.$state.go(self.$state.back.fromState, self.$state.back.fromParams);
                     // self.Model.remove(id).then(function (collection) {
