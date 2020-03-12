@@ -153,6 +153,12 @@ function tmContractDetailCtrl (
         self.docSvc.removeVenue(index);
     };
 
+    this.addItem = (item) => {
+        console.log("adding this:", item);
+        console.log("menuItems:", this.docSvc.doc.menuItems);
+        this.docSvc.doc.menuItems.push(item);
+    };
+
     
     
     this.format = 'shortDate';
