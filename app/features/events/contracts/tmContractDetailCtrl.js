@@ -63,7 +63,7 @@ function tmContractDetailCtrl(
             });
         }
     };
-    
+
     //lets see if I can override the existing delete function.
     this.moreFunctions.delete = {
         label: "Delete",
@@ -250,6 +250,17 @@ function tmContractDetailCtrl(
     this.removeRentalItem = function (index) {
         this.docSvc.removeRentalItem(index);
     }
+
+    //override close method.
+    this.close = function () {
+        var self = this;
+        this.canILeave().then(function (canILeave) {
+            if (canILeave) {
+                self.docSvc.clearDocument();
+                self.$state.go(self.$state.back.fromState, self.$state.back.fromParams)
+            }
+        });
+    };
 
 
     return this;
