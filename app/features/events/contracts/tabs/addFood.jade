@@ -10,7 +10,7 @@ div(layout="row" )
         md-button.md-raised(ng-click="vm.searchMenuItem()") Search
         //- lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
         div.itemCard(ng-repeat="item in vm.addableMenuItems" style="border: solid black 1px; background-color: white")
-          a(href="" ng-click="dCtrl.addItem(item)") 
+          a(href="" ng-click="vm.addItem(item)") 
               span.glyphicon.glyphicon-circle-arrow-left 
           span &nbsp; {{item.name}}
 
