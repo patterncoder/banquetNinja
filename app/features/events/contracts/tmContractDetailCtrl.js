@@ -24,6 +24,9 @@ function tmContractDetailCtrl(
 
     this.__proto__ = tmDetailFactory(constructorArgs);
 
+
+    this.sectionsHidden = true;
+
     self.models = { newEventStep: {} };
 
     _.forEach(ninjaSchemas.events.Contract.paths.eventSteps.schema.paths, (item, key) => {
@@ -126,6 +129,7 @@ function tmContractDetailCtrl(
     };
 
     this.searchMenus = () => {
+
         let url = `${config.apiBase}/production/menus?like[name]=${this.searchGroup}`;
         let request = {
             method: "GET",
@@ -135,15 +139,37 @@ function tmContractDetailCtrl(
             console.log("data", data);
 
             let menuSections = [];
+            let menuSectionsRawData = [];
 
             data.data.data.map((obj) => {
                 obj.sections.map((tmp) => {
-                    menuSections.push(tmp);
+                    menuSections.push(tmp.title);
+                    menuSectionsRawData.push(tmp);
                 });
             });
 
+            self.menuSections = menuSections;
+            self.menuSectionsRawData = menuSectionsRawData;
+            self.sectionsHidden = false; //unhide...
+
+            console.log("menuSectionsRawData", menuSectionsRawData);
             console.log("menuSections", menuSections);
         });
+    };
+
+    this.getCachedMenuItems = (section) => {
+        let sectionItems = [];
+        self.menuSectionsRawData.map((obj) => {
+            if(obj.title == section) {
+                sectionItems = obj.items;
+            }
+        });
+        //self.addableMenuItems = sectionItems;
+        return sectionItems;
+    };
+
+    this.showMenuItems = () => {
+        self.addableMenuItems = self.getCachedMenuItems(self.filterSection);
     };
 
     this.getDetailTitle = function () {

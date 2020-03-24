@@ -8,8 +8,10 @@ div(layout="row" )
         label.control-label(for="status") Status
         //- select.form-control(ng-model="vm.searchCategory", ng-options="category for category in vm.menuItemCategories")
         select.form-control(ng-model="vm.searchGroup", ng-options="group for group in vm.menuGroups")
+        select.form-control(ng-hide="vm.sectionsHidden", ng-model="vm.filterSection", ng-options="section for section in vm.menuSections")
         //- md-button.md-raised(ng-click="vm.searchMenuItem()") Search
-        md-button.md-raised(ng-click="vm.searchMenus()") Search
+        md-button.md-raised(ng-show="vm.sectionsHidden", ng-click="vm.searchMenus()") Search
+        md-button.md-raised(ng-show="!vm.sectionsHidden", ng-click="vm.showMenuItems()") Show Menu
         //- lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
         div.itemCard(ng-repeat="item in vm.addableMenuItems" style="border: solid black 1px; background-color: white")
           a(href="" ng-click="vm.addItem(item)") 
