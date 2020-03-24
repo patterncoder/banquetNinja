@@ -7,6 +7,7 @@ div(layout="row" )
         input(ng-model="vm.searchName")
         label.control-label(for="status") Status
         select.form-control(ng-model="vm.searchCategory", ng-options="category for category in vm.menuItemCategories")
+        select.form-control(ng-model="vm.searchGroup", ng-options="group for group in vm.menuGroups")
         md-button.md-raised(ng-click="vm.searchMenuItem()") Search
         //- lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
         div.itemCard(ng-repeat="item in vm.addableMenuItems" style="border: solid black 1px; background-color: white")
