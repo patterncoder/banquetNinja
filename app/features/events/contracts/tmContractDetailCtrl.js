@@ -119,11 +119,32 @@ function tmContractDetailCtrl(
         let request = {
             method: "GET",
             url: url
-        }
+        };
         this.$http(request).then((data) => {
             self.addableMenuItems = data.data.data;
         });
-    }
+    };
+
+    this.searchMenus = () => {
+        let url = `${config.apiBase}/production/menus?like[name]=${this.searchGroup}`;
+        let request = {
+            method: "GET",
+            url: url,
+        };
+        this.$http(request).then((data) => {
+            console.log("data", data);
+
+            let menuSections = [];
+
+            data.data.data.map((obj) => {
+                obj.sections.map((tmp) => {
+                    menuSections.push(tmp);
+                });
+            });
+
+            console.log("menuSections", menuSections);
+        });
+    };
 
     this.getDetailTitle = function () {
         const customer = self.docSvc.doc.customer;
