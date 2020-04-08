@@ -4,6 +4,11 @@ import angular from 'angular';
 function tmMenuDocSvc (tmDocFactory) {
     
     this.__proto__ = tmDocFactory('Menu', ninjaSchemas.production.Menu);
+
+    this.doc.sections = this.doc["sections"] ? this.doc.sections : []; 
+    this.doc.sections.map((item) => {
+        item.visible = true;
+    });
     
     // title, subtitle, items, footer
     this.addSection = function(section){
@@ -11,9 +16,16 @@ function tmMenuDocSvc (tmDocFactory) {
             title: "Section Title",
             subtitle: "Section subtitle",
             items: [],
-            footer: "section footer"
+            footer: "section footer",
+            visible: true
         }
         this.doc.sections.push(newSection);
+    };
+
+    this.editSection = (index) => {
+        let doc = this.doc.sections[index];
+        console.log("editSection", index, doc);
+        //doc.visible = false;
     };
     
     this.removeSection = function(index){
