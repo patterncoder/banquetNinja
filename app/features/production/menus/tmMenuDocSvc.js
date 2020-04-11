@@ -6,9 +6,14 @@ function tmMenuDocSvc (tmDocFactory) {
     this.__proto__ = tmDocFactory('Menu', ninjaSchemas.production.Menu);
 
     this.doc.sections = this.doc["sections"] ? this.doc.sections : []; 
-    this.doc.sections.map((item) => {
-        item.visible = true;
-    });
+    // this.doc.sections.map((item) => {
+    //     item.visible = true;
+    // });
+
+    this.activeObj = {
+        visible: 0,
+        index: 0
+    };
     
     // title, subtitle, items, footer
     this.addSection = function(section){
@@ -17,7 +22,7 @@ function tmMenuDocSvc (tmDocFactory) {
             subtitle: "Section subtitle",
             items: [],
             footer: "section footer",
-            visible: true
+            //visible: true
         }
         this.doc.sections.push(newSection);
     };
@@ -26,6 +31,8 @@ function tmMenuDocSvc (tmDocFactory) {
         let doc = this.doc.sections[index];
         console.log("editSection", index, doc);
         //doc.visible = false;
+        this.activeObj.visible = 1;
+        this.activeObj.index = index;
     };
     
     this.removeSection = function(index){

@@ -16,7 +16,8 @@
                             include ./tabs/tab-notes.jade
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
                     div Some footer text here
-        div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
+        //- div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 0 && vm.tabIndex === 1" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()
                     h3 Add Category
@@ -25,4 +26,10 @@
                         a(href="" ng-click="dCtrl.addItem(item)") 
                             span.glyphicon.glyphicon-circle-arrow-left 
                         span &nbsp; {{item}}
+        div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 1 && vm.tabIndex === 1" layout-padding)
+            md-content(layout-padding style="background: transparent")
+                div()
+                    h3 Edit Section
+                    //- h5 {{vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title}}
+                    input.form-control(ng-model="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title")
     detail-footer
