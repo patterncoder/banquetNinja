@@ -35,9 +35,19 @@
                         b Title
                     input.form-control(ng-model="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title")
                     br
+                    h3 Menu Items
+                    br
+                    md-button.md-raised(ng-click="vm.docSvc.openAddFood()") Add Menu Item
+                    br
+        div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 2 && vm.tabIndex === 1" layout-padding)
+            md-content(layout-padding style="background: transparent")
+                div()
                     h3 Add Food
                     br
                     h5
                         b Category
-                   select.form-control(ng-model="vm.filterSection", ng-options="category for category in vm.docSvc.doc.categories") 
+                    select.form-control(ng-model="vm.filterSection", ng-options="category for category in vm.tmMenuItemDocSvc.doc.categories") 
+                    br
+                    md-button.md-raised(ng-click="vm.docSvc.openEditSection()") Back
+                    br
     detail-footer
