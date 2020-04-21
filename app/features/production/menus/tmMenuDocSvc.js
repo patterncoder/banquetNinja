@@ -14,6 +14,29 @@ function tmMenuDocSvc (tmDocFactory) {
         visible: 0,
         index: 0
     };
+
+    this.getCategories = () => {
+        //console.log("test", tmDocFactory("Lookups", ninjaSchemas.common.Lookups));
+
+        // let url = `${config.apiBase}/common/lookups?where[meta.company]=${this.searchCategory}&like[name]=${this.searchName}`;
+        // let request = {
+        //     method: "GET",
+        //     url: url
+        // };
+        // this.$http(request).then((data) => {
+        //     self.addableMenuItems = data.data.data;
+        // });
+
+        // console.log("testing:", tmDocFactory);
+
+        //let lookups = tmDocFactory("Lookups", ninjaSchemas.common.Lookups).$dataSource.load('Lookups');
+
+        //not working yet, still trying to get lookups, so I can get a list of categories...
+        console.log("dataSource:", this.$dataSource.load("Lookups"));
+
+        // self.menuItemCategories = lookups.List.menuItemTags;
+        // console.log("menuItemCategories:", self.menuItemCategories)
+    };
     
     // title, subtitle, items, footer
     this.addSection = function(section){
@@ -33,6 +56,19 @@ function tmMenuDocSvc (tmDocFactory) {
         //doc.visible = false;
         this.activeObj.visible = 1;
         this.activeObj.index = index;
+    };
+
+    this.setActiveTab = (index) => {
+        this.activeObj.visible = index;
+    };
+
+    this.openAddFood = () => {
+        this.setActiveTab(2);
+    };
+
+    this.openEditSection = () => {
+        this.getCategories();
+        this.setActiveTab(1);
     };
     
     this.removeSection = function(index){
