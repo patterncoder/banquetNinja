@@ -38,13 +38,21 @@ function tmMenuDocSvc(tmDocFactory) {
         // console.log("Lookups:", this.$dataSource.load("Lookups"));
         // this.getDetailTitle();
         console.log("lookups schema:", ninjaSchemas.common.Lookups);
+        // try {
+        //     let tmp = ninjaSchemas.common.Lookups.query();
+        //     console.log("query:", tmp);
+        // } catch (e) {
+        //     console.log(e);
+        // }
         let mylookups = this.$dataSource.load("Lookups");
         console.log("mylookups:", mylookups);
         try {
-            mylookups.getOne().then((data) => {
+            // mylookups.remove(undefined);
+            mylookups.getOne(ninjaSchemas.common.Lookups.$id).then((data) => {
                 console.log("data:", data);
+                console.log("lookups test");
 
-                console.log(mylookups.List.menuItemTags);
+                console.log(mylookups.List);
             });
         } catch (e) {
             console.log(e);
