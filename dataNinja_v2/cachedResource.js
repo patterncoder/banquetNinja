@@ -42,7 +42,6 @@ export default class CachedResource {
     }
     
     getOne (id,fullDocumentFromDb){
-                
                 var deferred = this.$q.defer();
                 var self = this;
                 if (!self.List){
