@@ -8,9 +8,9 @@ import angular from 'angular';
 var jsonMSDateTime = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 
 function jsonReviver(key, value) {
-            if (jsonMSDateTime.test(value)) return new Date(value);
-            else return value;
-        }
+    if (jsonMSDateTime.test(value)) return new Date(value);
+    else return value;
+}
 
 export default class CachedResource {
     constructor($resource, $q, definition) {
@@ -53,19 +53,36 @@ export default class CachedResource {
             // this case is pretty rare...it requires putting in a details url with a record
             // id so we have to first populate the the full list then get the full record of the detail
             self.Resource.query(function (data) {
-                
+                console.log("getOne data:", data);
+
                 var json = JSON.stringify(data.data);
                 var parsedJson = JSON.parse(json, jsonReviver);
                 self.List = parsedJson;
+
+                console.log("getOne self.List:", self.List);
+
                 self.Resource.get({ _id: id }, function (response) {
-                    var itemIndex = self.List.map(function (i) {
-                        return i._id;
-                    }).indexOf(id);
-                    var json2 = JSON.stringify(response.data);
-                    var parsedJson2 = JSON.parse(json2, jsonReviver);
-                    self.List[itemIndex] = parsedJson2;
-                    var dataCopy = angular.copy(parsedJson2);
-                    deferred.resolve(dataCopy);
+                    console.log("getOne: response", response);
+                    if (self.List.length) {
+
+                        var itemIndex = self.List.map(function (i) {
+                            return i._id;
+                        }).indexOf(id);
+                        var json2 = JSON.stringify(response.data);
+                        var parsedJson2 = JSON.parse(json2, jsonReviver);
+                        self.List[itemIndex] = parsedJson2;
+                        var dataCopy = angular.copy(parsedJson2);
+                        deferred.resolve(dataCopy);
+
+                    } else {
+                        let json2 = JSON.stringify(response.data);
+                        let parsedJson2 = JSON.parse(json2, jsonReviver);
+                        console.log("getOne parsedJson2:", parsedJson2);
+                        self.List = parsedJson2;
+                        let dataCopy = angular.copy(parsedJson2);
+                        console.log("getOne angular data copy:", dataCopy);
+                        deferred.resolve(dataCopy);
+                    }
                 }, function (error) {
                     console.log(error);
                     console.log('in reject');
@@ -137,7 +154,7 @@ export default class CachedResource {
     }
 
     add(item) {
-        var self = this; 
+        var self = this;
         return this.Resource.save(item).$promise.then(function (response) {
 
             // self.List does not exist when adding an item before a query has been
