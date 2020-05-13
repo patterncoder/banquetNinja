@@ -58,6 +58,7 @@ export default class CachedResource {
                 var parsedJson = JSON.parse(json, jsonReviver);
                 self.List = parsedJson;
                 self.Resource.get({ _id: id }, function (response) {
+                    console.log("getOne:", self.List);
                     var itemIndex = self.List.map(function (i) {
                         return i._id;
                     }).indexOf(id);
