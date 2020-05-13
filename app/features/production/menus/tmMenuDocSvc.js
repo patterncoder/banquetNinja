@@ -1,7 +1,7 @@
 import ninjaSchemas from 'ninjaSchemas';
 import angular from 'angular';
 
-function tmMenuDocSvc(tmDocFactory) {
+function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.__proto__ = tmDocFactory('Menu', ninjaSchemas.production.Menu);
 
@@ -37,7 +37,7 @@ function tmMenuDocSvc(tmDocFactory) {
         // not working yet, still trying to get lookups, so I can get a list of categories...
         // console.log("Lookups:", this.$dataSource.load("Lookups"));
         // this.getDetailTitle();
-        console.log("lookups schema:", ninjaSchemas.common.Lookups);
+        // console.log("lookups schema:", ninjaSchemas.common.Lookups);
         // try {
         //     let tmp = ninjaSchemas.common.Lookups.query();
         //     console.log("query:", tmp);
@@ -46,20 +46,24 @@ function tmMenuDocSvc(tmDocFactory) {
         // }
         let mylookups = this.$dataSource.load("Lookups");
         console.log("mylookups:", mylookups);
-        try {
-            // mylookups.remove(undefined);
-            mylookups.getOne(ninjaSchemas.common.Lookups.$id).then((data) => {
-                console.log("data:", data);
-                console.log("lookups test");
+        // try {
+        //     // mylookups.remove(undefined);
+        //     // mylookups.getOne(ninjaSchemas.common.Lookups.$id).then((data) => {
 
-                console.log(mylookups.List);
-            });
-        } catch (e) {
-            console.log(e);
-        }
+        //     //id is hard coded, will need to figure out how to dynamically get that...
+        //     mylookups.getOne(tmIdentity.currentUser.user._id, true).then((data) => {
+        //         console.log("data:", data);
+        //         console.log("lookups test");
+
+        //         console.log(mylookups.List);
+        //     });
+        // } catch (e) {
+        //     console.log(e);
+        // }
 
         // self.menuItemCategories = lookups.List.menuItemTags;
         // console.log("menuItemCategories:", self.menuItemCategories)
+        return mylookups.List;
     };
 
     // title, subtitle, items, footer
@@ -114,6 +118,6 @@ function tmMenuDocSvc(tmDocFactory) {
 }
 
 
-tmMenuDocSvc.$inject = ['tmDocFactory'];
+tmMenuDocSvc.$inject = ['tmDocFactory', "tmIdentity", "$dataSource"];
 
 export default tmMenuDocSvc;
