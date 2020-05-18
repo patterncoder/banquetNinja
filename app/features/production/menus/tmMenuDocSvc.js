@@ -17,53 +17,33 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         index: 0
     };
 
+    this.categories = [];
+
+    this.selCategory = "";
+
+    let self = this;
+
     this.getCategories = () => {
-        //console.log("test", tmDocFactory("Lookups", ninjaSchemas.common.Lookups));
+        let dfd = new Promise((resolve, reject) => {
 
-        // let url = `${config.apiBase}/common/lookups?where[meta.company]=${this.searchCategory}&like[name]=${this.searchName}`;
-        // let request = {
-        //     method: "GET",
-        //     url: url
-        // };
-        // this.$http(request).then((data) => {
-        //     console.log("categories", data);
-        //     self.categories= data.data.data;
-        // });
+            let mylookups = this.$dataSource.load("Lookups");
 
-        // console.log("testing:", tmDocFactory);
+            console.log("mylookups:", mylookups);
 
-        //let lookups = tmDocFactory("Lookups", ninjaSchemas.common.Lookups).$dataSource.load('Lookups');
+            try {
 
-        // not working yet, still trying to get lookups, so I can get a list of categories...
-        // console.log("Lookups:", this.$dataSource.load("Lookups"));
-        // this.getDetailTitle();
-        // console.log("lookups schema:", ninjaSchemas.common.Lookups);
-        // try {
-        //     let tmp = ninjaSchemas.common.Lookups.query();
-        //     console.log("query:", tmp);
-        // } catch (e) {
-        //     console.log(e);
-        // }
-        let mylookups = this.$dataSource.load("Lookups");
-        console.log("mylookups:", mylookups);
-        // try {
-        //     // mylookups.remove(undefined);
-        //     // mylookups.getOne(ninjaSchemas.common.Lookups.$id).then((data) => {
+                mylookups.getOne(tmIdentity.currentUser.user.company, true).then((data) => {
+                    console.log("data:", data);
+                    resolve(data.menuItemTags);
+                });
 
-        //     //id is hard coded, will need to figure out how to dynamically get that...
-        //     mylookups.getOne(tmIdentity.currentUser.user._id, true).then((data) => {
-        //         console.log("data:", data);
-        //         console.log("lookups test");
+            } catch (e) {
+                console.log(e);
+            }
 
-        //         console.log(mylookups.List);
-        //     });
-        // } catch (e) {
-        //     console.log(e);
-        // }
+        });
 
-        // self.menuItemCategories = lookups.List.menuItemTags;
-        // console.log("menuItemCategories:", self.menuItemCategories)
-        return mylookups.List;
+        return dfd;
     };
 
     // title, subtitle, items, footer
@@ -91,11 +71,17 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     };
 
     this.openAddFood = () => {
+        this.getCategories().then((data) => {
+            console.log("openAddFood data:", data);
+            self.categories = data;
+
+        });
+
         this.setActiveTab(2);
     };
 
     this.openEditSection = () => {
-        this.getCategories();
+        // this.getCategories();
         this.setActiveTab(1);
     };
 
