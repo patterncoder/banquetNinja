@@ -1,5 +1,6 @@
 import ninjaSchemas from 'ninjaSchemas';
 import angular from 'angular';
+import config from 'config';
 
 function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
@@ -19,10 +20,13 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.categories = [];
 
+    this.addableMenuItems = [];
+
     this.selCategory = "";
 
     let self = this;
 
+    //the term categories and sections is used interchangeably.
     this.getCategories = () => {
         let dfd = new Promise((resolve, reject) => {
 
@@ -31,13 +35,17 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
             console.log("mylookups:", mylookups);
 
             try {
-
-                mylookups.getOne(tmIdentity.currentUser.user.company, true).then((data) => {
+                mylookups.query().then((data) => {
                     console.log("data:", data);
                     resolve(data.menuItemTags);
                 });
+                // mylookups.getOne(tmIdentity.currentUser.user.company, true).then((data) => {
+                //     console.log("data:", data);
+                //     resolve(data.menuItemTags);
+                // });
 
             } catch (e) {
+                // reject(e);
                 console.log(e);
             }
 
@@ -58,6 +66,42 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         this.doc.sections.push(newSection);
     };
 
+    this.addItem = (item) => {
+        //vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title
+        console.log("add this:", item);
+        console.log("section:", self.doc.sections[self.activeObj.index]);
+        let selSection = self.doc.sections[self.activeObj.index];
+        selSection.items.push(item);
+    };
+
+    let getDateLastYear = () => {
+        let now = new Date();
+        now.setFullYear(now.getFullYear() - 1);
+        return now;
+    };
+
+    this.runSearch = () => {
+
+        let url = `${config.apiBase}/production/menuitems?where[categories]=${[this.selCategory]}`;
+        let request = {
+            method: "GET",
+            url: url
+        };
+
+        let filtered = [];
+        this.$http(request).then((data) => {
+            data.data.data.map((menItm) => {
+                let dt = new Date(menItm.meta.dateLastMod);
+                if (dt.getTime() >= (getDateLastYear().getTime())) {
+                    filtered.push(menItm);
+                }
+            });
+            console.log("menuItems:", filtered);
+            self.addableMenuItems = filtered;
+        });
+
+    };
+
     this.editSection = (index) => {
         let doc = this.doc.sections[index];
         console.log("editSection", index, doc);
@@ -74,7 +118,6 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         this.getCategories().then((data) => {
             console.log("openAddFood data:", data);
             self.categories = data;
-
         });
 
         this.setActiveTab(2);
@@ -96,7 +139,6 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     this.removeMenuItem = function (section, menuItem) { };
 
     this.updateMenuItem = function (section, menuItem) { };
-
 
 
     return this;
