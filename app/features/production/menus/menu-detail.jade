@@ -48,6 +48,7 @@
                         b Category
                     select.form-control(ng-model="vm.docSvc.selCategory", ng-options="item for item in vm.docSvc.categories") 
                     br
+                    md-button.md-raised(ng-click="vm.docSvc.runSearch()") Search
                     md-button.md-raised(ng-click="vm.docSvc.openEditSection()") Back
                     br
     detail-footer

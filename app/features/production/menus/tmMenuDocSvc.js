@@ -31,13 +31,17 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
             console.log("mylookups:", mylookups);
 
             try {
-
-                mylookups.getOne(tmIdentity.currentUser.user.company, true).then((data) => {
+                mylookups.query().then((data) => {
                     console.log("data:", data);
                     resolve(data.menuItemTags);
                 });
+                // mylookups.getOne(tmIdentity.currentUser.user.company, true).then((data) => {
+                //     console.log("data:", data);
+                //     resolve(data.menuItemTags);
+                // });
 
             } catch (e) {
+                // reject(e);
                 console.log(e);
             }
 
@@ -58,6 +62,11 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         this.doc.sections.push(newSection);
     };
 
+    this.runSearch = () => {
+        console.log(this.selCategory);
+        console.log("clicked!");
+    };
+
     this.editSection = (index) => {
         let doc = this.doc.sections[index];
         console.log("editSection", index, doc);
@@ -74,7 +83,6 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         this.getCategories().then((data) => {
             console.log("openAddFood data:", data);
             self.categories = data;
-
         });
 
         this.setActiveTab(2);
