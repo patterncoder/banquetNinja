@@ -1,5 +1,6 @@
 import ninjaSchemas from 'ninjaSchemas';
 import angular from 'angular';
+import config from 'config';
 
 function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
@@ -62,18 +63,33 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         this.doc.sections.push(newSection);
     };
 
+    let getDateLastYear = () => {
+        let now = new Date();
+        now.setFullYear(now.getFullYear() - 1);
+        return now;
+    };
+
     this.runSearch = () => {
-        console.log(this.selCategory);
-        let url = `${config.apiBase}/production/menuitems?where[categories]=${this.selCategory}`;
-        let request = {
-            method: "GET",
-            url: url
-        };
-        this.$http(request).then((data) => {
-            console.log("success!!", data);
-            // self.addableMenuItems = data.data.data;
+        let dfd = new Promise((resolve, reject) => {
+
+            let url = `${config.apiBase}/production/menuitems?where[categories]=${[this.selCategory]}`;
+            let request = {
+                method: "GET",
+                url: url
+            };
+
+            let filtered = [];
+            this.$http(request).then((data) => {
+                data.data.data.map((menItm) => {
+                    let dt = new Date(menItm.meta.dateLastMod);
+                    if (dt.getTime() >= (getDateLastYear().getTime())) {
+                        filtered.push(menItm);
+                    }
+                });
+                resolve(filtered);
+            });
         });
-        // console.log("clicked!");
+        return dfd;
     };
 
     this.editSection = (index) => {
@@ -113,7 +129,6 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     this.removeMenuItem = function (section, menuItem) { };
 
     this.updateMenuItem = function (section, menuItem) { };
-
 
 
     return this;
