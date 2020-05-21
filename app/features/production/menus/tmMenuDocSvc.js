@@ -20,6 +20,8 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.categories = [];
 
+    this.addableMenuItems = [];
+
     this.selCategory = "";
 
     let self = this;
@@ -63,6 +65,10 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         this.doc.sections.push(newSection);
     };
 
+    this.addItem = (item) => {
+        console.log("add this:", item);
+    };
+
     let getDateLastYear = () => {
         let now = new Date();
         now.setFullYear(now.getFullYear() - 1);
@@ -70,26 +76,25 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     };
 
     this.runSearch = () => {
-        let dfd = new Promise((resolve, reject) => {
 
-            let url = `${config.apiBase}/production/menuitems?where[categories]=${[this.selCategory]}`;
-            let request = {
-                method: "GET",
-                url: url
-            };
+        let url = `${config.apiBase}/production/menuitems?where[categories]=${[this.selCategory]}`;
+        let request = {
+            method: "GET",
+            url: url
+        };
 
-            let filtered = [];
-            this.$http(request).then((data) => {
-                data.data.data.map((menItm) => {
-                    let dt = new Date(menItm.meta.dateLastMod);
-                    if (dt.getTime() >= (getDateLastYear().getTime())) {
-                        filtered.push(menItm);
-                    }
-                });
-                resolve(filtered);
+        let filtered = [];
+        this.$http(request).then((data) => {
+            data.data.data.map((menItm) => {
+                let dt = new Date(menItm.meta.dateLastMod);
+                if (dt.getTime() >= (getDateLastYear().getTime())) {
+                    filtered.push(menItm);
+                }
             });
+            console.log("menuItems:", filtered);
+            self.addableMenuItems = filtered;
         });
-        return dfd;
+
     };
 
     this.editSection = (index) => {
