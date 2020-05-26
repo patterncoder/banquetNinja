@@ -66,7 +66,11 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     };
 
     this.addItem = (item) => {
+        //vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title
         console.log("add this:", item);
+        console.log("section:", self.doc.sections[self.activeObj.index]);
+        let selSection = self.doc.sections[self.activeObj.index];
+        selSection.items.push(item);
     };
 
     let getDateLastYear = () => {
