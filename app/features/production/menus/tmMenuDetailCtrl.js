@@ -4,12 +4,14 @@ import ninjaSchemas from 'ninjaSchemas';
 
 function tmMenuDetailCtrl (
     $scope,
+    $dataSource,
     tmDetailFactory,
     tmMenuDocSvc
 ) {
     var self = this;
     var constructorArgs = {
         $scope: $scope,
+        $dataSource: $dataSource,
         docSvc: tmMenuDocSvc,
         schema: ninjaSchemas.production.Menu,
         model: "Menu",
@@ -39,6 +41,7 @@ function tmMenuDetailCtrl (
 
 tmMenuDetailCtrl.$inject = [
     '$scope',
+    '$dataSource',
     'tmDetailFactory',
     'tmMenuDocSvc'
 ];
