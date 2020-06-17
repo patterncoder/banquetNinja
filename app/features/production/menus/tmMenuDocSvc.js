@@ -26,6 +26,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     let self = this;
 
+    //the term categories and sections is used interchangeably.
     this.getCategories = () => {
         let dfd = new Promise((resolve, reject) => {
 
