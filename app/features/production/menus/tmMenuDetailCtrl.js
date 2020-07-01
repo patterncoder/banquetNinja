@@ -34,21 +34,18 @@ function tmMenuDetailCtrl(
     });
 
 
-    this.loadData().then(() => {
+    this.loadData();
 
-        console.log("this.docSvc:", this.docSvc);
+    console.log(this.docSvc);
 
-        try {
-            //this.docSvc.getGroups();
-            this.docSvc.selGroup(); //we want to see if this menu is assigned to a group.
-            // this.docSvc.getGroups().done(() => {
-            //     console.log("groups done loading");
-            // });
-        } catch (e) {
-            console.log("err:", e);
-        }
-    });
-
+    try {
+        this.docSvc.getGroups();
+        // this.docSvc.getGroups().done(() => {
+        //     console.log("groups done loading");
+        // });
+    } catch (e) {
+        console.log("err:", e);
+    }
 
 
     return this;
