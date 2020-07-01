@@ -19,10 +19,13 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     };
 
     this.categories = [];
+    this.menugroups = [];
 
     this.addableMenuItems = [];
 
     this.selCategory = "";
+
+    this.selGroup = "";
 
     let self = this;
 
@@ -37,12 +40,33 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
             try {
                 mylookups.query().then((data) => {
                     console.log("data:", data);
+                    self.categories = data;
                     resolve(data.menuItemTags);
                 });
-                // mylookups.getOne(tmIdentity.currentUser.user.company, true).then((data) => {
-                //     console.log("data:", data);
-                //     resolve(data.menuItemTags);
-                // });
+
+            } catch (e) {
+                // reject(e);
+                console.log(e);
+            }
+
+        });
+
+        return dfd;
+    };
+
+    this.getGroups = () => {
+        let dfd = new Promise((resolve, reject) => {
+
+            let groups = this.$dataSource.load("MenuGroup");
+
+            console.log("groups:", groups);
+
+            try {
+                groups.query().then((data) => {
+                    console.log("data:", data);
+                    self.menugroups = data;
+                    resolve(data.List);
+                });
 
             } catch (e) {
                 // reject(e);
@@ -115,12 +139,14 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     };
 
     this.openAddFood = () => {
-        this.getCategories().then((data) => {
-            console.log("openAddFood data:", data);
-            self.categories = data;
+        this.getCategories().then(() => {
+            self.setActiveTab(2);
         });
+        // this.getCategories().then((data) => {
+        //     console.log("openAddFood data:", data);
+        // });
 
-        this.setActiveTab(2);
+        // this.setActiveTab(2);
     };
 
     this.openEditSection = () => {

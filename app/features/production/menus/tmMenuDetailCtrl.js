@@ -2,7 +2,7 @@ import angular from 'angular';
 import lodash from 'lodash';
 import ninjaSchemas from 'ninjaSchemas';
 
-function tmMenuDetailCtrl (
+function tmMenuDetailCtrl(
     $scope,
     $dataSource,
     tmDetailFactory,
@@ -19,24 +19,37 @@ function tmMenuDetailCtrl (
         detailView: "root.menuDetail",
         addHeaderText: "Add Menu"
     }
-    
+
     this.__proto__ = tmDetailFactory(constructorArgs);
-    
-    this.$scope.$watch(function(){
+
+    this.$scope.$watch(function () {
         return self.docSvc.isDirty();
-    }, function(newVal, oldVal,  scope){
-        if(newVal){
+    }, function (newVal, oldVal, scope) {
+        if (newVal) {
             self.detailForm.$setDirty();
         } else {
             self.detailForm.$setPristine();
             self.detailForm.$setUntouched();
         }
     });
-    
+
+
     this.loadData();
-    
+
+    console.log(this.docSvc);
+
+    try {
+        this.docSvc.getGroups();
+        // this.docSvc.getGroups().done(() => {
+        //     console.log("groups done loading");
+        // });
+    } catch (e) {
+        console.log("err:", e);
+    }
+
+
     return this;
-    
+
 }
 
 tmMenuDetailCtrl.$inject = [
