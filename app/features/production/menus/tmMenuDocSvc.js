@@ -54,6 +54,15 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         return dfd;
     };
 
+    // need to set the existing group as the visible default value IF one is set.
+    let setSelGroup = (groups) => {
+        console.log("self:", self);
+        console.log(groups);
+        // groups.map((obj) => {
+        //     if(obj)
+        // })
+    };
+
     this.getGroups = () => {
         let dfd = new Promise((resolve, reject) => {
 
@@ -65,6 +74,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
                 groups.query().then((data) => {
                     console.log("data:", data);
                     self.menugroups = data;
+                    setSelGroup(data.List);
                     resolve(data.List);
                 });
 
