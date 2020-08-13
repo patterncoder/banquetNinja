@@ -25,7 +25,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.selCategory = "";
 
-    this.selGroup = "";
+    this.selectedGroup = "";
 
     let self = this;
 
@@ -54,28 +54,33 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         return dfd;
     };
 
-    // need to set the existing group as the visible default value IF one is set.
-    let setSelGroup = (groups) => {
-        console.log("self:", self);
-        console.log(groups);
-        // groups.map((obj) => {
-        //     if(obj)
-        // })
+    // set our menu ID to the selected group.
+    this.setSelGroup = () => {
+        console.log("group?", self.doc.selGroup);
+        //need to update the menus array.
+        let group = self.menugroups[self.menugroups.indexOf(self.doc.selGroup)];
+        group.menus.map((menu) => {
+            if(menu.id == self.doc.id) {
+
+            }
+        })
     };
 
-    this.getGroups = () => {
+
+    let getGroups = () => {
         let dfd = new Promise((resolve, reject) => {
 
             let groups = this.$dataSource.load("MenuGroup");
 
+            // groups.update()?
             console.log("groups:", groups);
 
             try {
                 groups.query().then((data) => {
                     console.log("data:", data);
-                    self.menugroups = data;
-                    setSelGroup(data.List);
-                    resolve(data.List);
+                    // self.menugroups = data;
+                    // selGroup(data);
+                    resolve(data);
                 });
 
             } catch (e) {
@@ -86,6 +91,24 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         });
 
         return dfd;
+    };
+
+    // need to set the existing group as the visible default value IF one is set.
+    this.selGroup = () => {
+        getGroups().then((groups) => {
+            console.log("got groups!", groups);
+            self.menugroups = groups;
+        });
+        // console.log("self:", self);
+        // if(self.doc.hasOwnProperty("groupID")) {
+        //     if(groups.indexOf(self.doc.groupID)){
+        //         //select the appropriate object in the dropdown.
+        //     }
+        // }
+        // console.log(groups);
+        // groups.map((obj) => {
+        //     if(obj)
+        // })
     };
 
     // title, subtitle, items, footer
