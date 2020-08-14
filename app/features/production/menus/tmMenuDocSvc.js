@@ -54,16 +54,30 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         return dfd;
     };
 
+    let hasMenu = (group, id) => {
+        let bool = false;
+        group.menus.map((menu) => {
+            if(menu.menuid == id) {
+                bool = true;
+                return;
+            }
+        });
+        return bool;
+    };
+
     // set our menu ID to the selected group.
     this.setSelGroup = () => {
         console.log("group?", self.doc.selGroup);
         //need to update the menus array.
         let group = self.menugroups[self.menugroups.indexOf(self.doc.selGroup)];
-        group.menus.map((menu) => {
-            if(menu.id == self.doc.id) {
 
-            }
-        })
+        if(!hasMenu(group, self.doc["_id"])) {
+            group.menus.push({
+                "_id": self.doc["_id"],
+                title: self.doc.title,
+                subtitle: self.doc.subtitle
+            });
+        }
     };
 
 
