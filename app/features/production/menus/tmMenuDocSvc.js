@@ -73,11 +73,12 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         return bool;
     };
 
+    // BUG!!! This function is called more than once after selecting an option... due to on-change event.
     // set our menu ID to the selected group.
     this.setSelGroup = () => {
-        console.log("group?", this.doc.selGroup);
+        console.log("group?", this.selectedGroup);
         //need to update the menus array.
-        let group = this.menugroups[this.menugroups.indexOf(this.doc.selGroup)];
+        let group = this.menugroups[this.menugroups.indexOf(this.selectedGroup)];
         console.log("my group:", group);
 
         let menu = {
@@ -97,8 +98,8 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
             console.log("group to save:", group);
 
             try {
-
-                console.log("inside try catch block scope, group:", group);
+                //need to see if I can do this on save button click...
+                // console.log("inside try catch block scope, group:", group);
 
                 let menuGroupModel = $dataSource.load("MenuGroup");
                 menuGroupModel.update(group).then(() => {
