@@ -41,7 +41,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
             try {
                 mylookups.query().then((data) => {
                     console.log("data:", data);
-                    self.categories = data;
+                    this.categories = data;
                     resolve(data.menuItemTags);
                 });
 
@@ -75,15 +75,16 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     // set our menu ID to the selected group.
     this.setSelGroup = () => {
-        console.log("group?", self.doc.selGroup);
+        console.log("group?", this.doc.selGroup);
         //need to update the menus array.
-        let group = self.menugroups[self.menugroups.indexOf(self.doc.selGroup)];
+        let group = this.menugroups[this.menugroups.indexOf(this.doc.selGroup)];
+        console.log("my group:", group);
 
         let menu = {
             //menuid: self.doc["_id"],
-            menuId: mongoose.Types.ObjectId(self.doc["_id"]),
-            title: self.doc.title,
-            subtitle: self.doc.subtitle
+            menuId: mongoose.Types.ObjectId(this.doc["_id"]),
+            title: this.doc.title,
+            subtitle: this.doc.subtitle
         };
 
         console.log("obj:", menu);
@@ -126,17 +127,16 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     this.selGroup = () => {
         getGroups().then((groups) => {
             //I don't think self.doc has finished loading by the time this code is run.
-            console.log("self:", self);
-            console.log("self id:", self.doc["_id"], self.doc["_id"].toString());
+            console.log("self id:", this.doc["_id"], this.doc["_id"].toString());
             console.log("got groups!", groups);
-            self.menugroups = groups; //dropdown select populates on this statement.
+            this.menugroups = groups; //dropdown select populates on this statement.
 
             //let selfObjectId = mongoose.Types.ObjectId(self.doc["_id"]);
 
             groups.map((group) => {
                 //have the correct group appear as default.
-                if (hasMenu(group, self.doc["_id"].toString())) {
-                    self.selectedGroup = group;
+                if (hasMenu(group, this.doc["_id"].toString())) {
+                    this.selectedGroup = group;
                 }
             });
         });
@@ -157,8 +157,8 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     this.addItem = (item) => {
         //vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title
         console.log("add this:", item);
-        console.log("section:", self.doc.sections[self.activeObj.index]);
-        let selSection = self.doc.sections[self.activeObj.index];
+        console.log("section:", this.doc.sections[this.activeObj.index]);
+        let selSection = this.doc.sections[this.activeObj.index];
         selSection.items.push(item);
     };
 
@@ -185,7 +185,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
                 }
             });
             console.log("menuItems:", filtered);
-            self.addableMenuItems = filtered;
+            this.addableMenuItems = filtered;
         });
 
     };
@@ -204,7 +204,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.openAddFood = () => {
         this.getCategories().then(() => {
-            self.setActiveTab(2);
+            this.setActiveTab(2);
         });
         // this.getCategories().then((data) => {
         //     console.log("openAddFood data:", data);
