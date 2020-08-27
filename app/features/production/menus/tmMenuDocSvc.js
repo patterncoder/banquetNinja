@@ -57,11 +57,11 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     //function assumes that id is string.
     let hasMenu = (group, id) => {
-        console.log("hasMenu", "group:", group, "id:", id);
+        // console.log("hasMenu", "group:", group, "id:", id);
 
         let bool = false;
         group.menus.map((menu) => {
-            console.log("comparing:", menu.menuId, id);
+            // console.log("comparing:", menu.menuId, id);
             if (menu.menuId && id) {
                 if (menu.menuId == id) {
                     bool = true;
@@ -69,7 +69,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
                 }
             }
         });
-        console.log("result:", bool);
+        // console.log("result:", bool);
         return bool;
     };
 
@@ -91,8 +91,11 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
         //passing in menuid as string.
         if (!hasMenu(group, menu.menuId.toString())) {
+            
+            //probably need to call on a mongoose schema to use the .save() function?
             group.menus.push(menu);
-            //just need to save to db now...
+            console.log("group to save:", group);
+
         }
     };
 
@@ -100,13 +103,13 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     let getGroups = () => {
         let dfd = new Promise((resolve, reject) => {
 
-            let groups = this.$dataSource.load("MenuGroup");
+            let Groups = this.$dataSource.load("MenuGroup");
 
             // groups.update()?
-            console.log("groups:", groups);
+            console.log("Groups:", Groups);
 
             try {
-                groups.query().then((data) => {
+                Groups.query().then((data) => {
                     console.log("data:", data);
                     // self.menugroups = data;
                     // selGroup(data);
