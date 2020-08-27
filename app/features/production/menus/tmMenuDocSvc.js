@@ -26,7 +26,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.selCategory = "";
 
-    this.selectedGroup = "";
+    this.selectedGroup = undefined;
 
     let self = this;
 
@@ -69,15 +69,16 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
                 }
             }
         });
-        // console.log("result:", bool);
+        console.log("hasMenu result:", bool);
         return bool;
     };
 
+    // BUG!!! This function is called more than once after selecting an option... due to on-change event.
     // set our menu ID to the selected group.
     this.setSelGroup = () => {
-        console.log("group?", this.doc.selGroup);
+        console.log("group?", this.selectedGroup);
         //need to update the menus array.
-        let group = this.menugroups[this.menugroups.indexOf(this.doc.selGroup)];
+        let group = this.menugroups[this.menugroups.indexOf(this.selectedGroup)];
         console.log("my group:", group);
 
         let menu = {
@@ -91,10 +92,23 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
         //passing in menuid as string.
         if (!hasMenu(group, menu.menuId.toString())) {
-            
+
             //probably need to call on a mongoose schema to use the .save() function?
             group.menus.push(menu);
             console.log("group to save:", group);
+
+            try {
+                //need to see if I can do this on save button click...
+                // console.log("inside try catch block scope, group:", group);
+
+                let menuGroupModel = $dataSource.load("MenuGroup");
+                menuGroupModel.update(group).then(() => {
+                    console.log("update done!");
+                });
+            } catch (e) {
+                console.log("error on update:", e);
+            }
+
 
         }
     };
@@ -139,7 +153,9 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
             groups.map((group) => {
                 //have the correct group appear as default.
                 if (hasMenu(group, this.doc["_id"].toString())) {
+                    // this.selectedGroup = this.menugroups.indexOf(group);
                     this.selectedGroup = group;
+                    console.log("selected group:", this.selectedGroup);
                 }
             });
         });
