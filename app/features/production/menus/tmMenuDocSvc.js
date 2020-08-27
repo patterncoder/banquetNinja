@@ -61,9 +61,9 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
         let bool = false;
         group.menus.map((menu) => {
-            console.log("comparing:", menu.menuid, id);
-            if (menu.menuid && id) {
-                if (menu.menuid.id.toString() == id.id.toString()) {
+            console.log("comparing:", menu.menuId, id);
+            if (menu.menuId && id) {
+                if (menu.menuId == id) {
                     bool = true;
                     return;
                 }
@@ -81,7 +81,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
         let menu = {
             //menuid: self.doc["_id"],
-            menuid: mongoose.Types.ObjectId(self.doc["_id"]),
+            menuId: mongoose.Types.ObjectId(self.doc["_id"]),
             title: self.doc.title,
             subtitle: self.doc.subtitle
         };
@@ -89,8 +89,9 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         console.log("obj:", menu);
 
         //passing in menuid as string.
-        if (!hasMenu(group, menu.menuid.toString())) {
+        if (!hasMenu(group, menu.menuId.toString())) {
             group.menus.push(menu);
+            //just need to save to db now...
         }
     };
 
@@ -126,6 +127,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         getGroups().then((groups) => {
             //I don't think self.doc has finished loading by the time this code is run.
             console.log("self:", self);
+            console.log("self id:", self.doc["_id"], self.doc["_id"].toString());
             console.log("got groups!", groups);
             self.menugroups = groups; //dropdown select populates on this statement.
 
