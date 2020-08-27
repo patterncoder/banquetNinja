@@ -1,6 +1,7 @@
 import ninjaSchemas from 'ninjaSchemas';
 import angular from 'angular';
 import config from 'config';
+import mongoose from "mongoose";
 
 function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
@@ -54,14 +55,21 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         return dfd;
     };
 
+    //function assumes that id is string.
     let hasMenu = (group, id) => {
+        console.log("hasMenu", "group:", group, "id:", id);
+
         let bool = false;
         group.menus.map((menu) => {
-            if(menu.menuid == id) {
-                bool = true;
-                return;
+            console.log("comparing:", menu.menuid, id);
+            if (menu.menuid && id) {
+                if (menu.menuid.id.toString() == id.id.toString()) {
+                    bool = true;
+                    return;
+                }
             }
         });
+        console.log("result:", bool);
         return bool;
     };
 
@@ -71,12 +79,18 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         //need to update the menus array.
         let group = self.menugroups[self.menugroups.indexOf(self.doc.selGroup)];
 
-        if(!hasMenu(group, self.doc["_id"])) {
-            group.menus.push({
-                "_id": self.doc["_id"],
-                title: self.doc.title,
-                subtitle: self.doc.subtitle
-            });
+        let menu = {
+            //menuid: self.doc["_id"],
+            menuid: mongoose.Types.ObjectId(self.doc["_id"]),
+            title: self.doc.title,
+            subtitle: self.doc.subtitle
+        };
+
+        console.log("obj:", menu);
+
+        //passing in menuid as string.
+        if (!hasMenu(group, menu.menuid.toString())) {
+            group.menus.push(menu);
         }
     };
 
@@ -110,19 +124,20 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     // need to set the existing group as the visible default value IF one is set.
     this.selGroup = () => {
         getGroups().then((groups) => {
+            //I don't think self.doc has finished loading by the time this code is run.
+            console.log("self:", self);
             console.log("got groups!", groups);
-            self.menugroups = groups;
+            self.menugroups = groups; //dropdown select populates on this statement.
+
+            //let selfObjectId = mongoose.Types.ObjectId(self.doc["_id"]);
+
+            groups.map((group) => {
+                //have the correct group appear as default.
+                if (hasMenu(group, self.doc["_id"].toString())) {
+                    self.selectedGroup = group;
+                }
+            });
         });
-        // console.log("self:", self);
-        // if(self.doc.hasOwnProperty("groupID")) {
-        //     if(groups.indexOf(self.doc.groupID)){
-        //         //select the appropriate object in the dropdown.
-        //     }
-        // }
-        // console.log(groups);
-        // groups.map((obj) => {
-        //     if(obj)
-        // })
     };
 
     // title, subtitle, items, footer
