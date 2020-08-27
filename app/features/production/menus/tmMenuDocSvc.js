@@ -26,7 +26,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.selCategory = "";
 
-    this.selectedGroup = "";
+    this.selectedGroup = undefined;
 
     let self = this;
 
@@ -69,7 +69,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
                 }
             }
         });
-        // console.log("result:", bool);
+        console.log("hasMenu result:", bool);
         return bool;
     };
 
@@ -91,10 +91,23 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
         //passing in menuid as string.
         if (!hasMenu(group, menu.menuId.toString())) {
-            
+
             //probably need to call on a mongoose schema to use the .save() function?
             group.menus.push(menu);
             console.log("group to save:", group);
+
+            try {
+
+                console.log("inside try catch block scope, group:", group);
+
+                let menuGroupModel = $dataSource.load("MenuGroup");
+                menuGroupModel.update(group).then(() => {
+                    console.log("update done!");
+                });
+            } catch (e) {
+                console.log("error on update:", e);
+            }
+
 
         }
     };
@@ -139,7 +152,9 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
             groups.map((group) => {
                 //have the correct group appear as default.
                 if (hasMenu(group, this.doc["_id"].toString())) {
+                    // this.selectedGroup = this.menugroups.indexOf(group);
                     this.selectedGroup = group;
+                    console.log("selected group:", this.selectedGroup);
                 }
             });
         });
