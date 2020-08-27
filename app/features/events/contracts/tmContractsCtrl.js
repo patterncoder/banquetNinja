@@ -1,4 +1,5 @@
 import ninjaSchemas from 'ninjaSchemas';
+import config from 'config';
 
 class tmContractsCtrl {
     constructor($scope, tmListFactory){
@@ -25,6 +26,22 @@ class tmContractsCtrl {
         this.sortOptions = [ { value: "eventDate", text: "Sort by Event Date A-Z" }, { value: "-eventDate", text: "Sort by Event Date Z-A" }, { value: "eventName", text: "Sort by Event Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
 
         this.sortOrder = this.sortOptions[0].value;
+
+        this.print = function(idVal){
+              
+          let url = `${config.apiBase}/events/contracts/${idVal}/view/pdf`;
+          var req = {
+            method: 'GET',
+            url: url,
+            responseType:'arraybuffer'
+          };
+          this.$http(req).then(function(result) {
+            console.log(result);
+            var file = new Blob([result.data], {type: 'application/pdf'});
+            var fileURL = URL.createObjectURL(file);
+            window.open(fileURL);
+          });
+        }
 
         this.addContract = function(){
             var self = this;
