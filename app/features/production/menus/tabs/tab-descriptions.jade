@@ -12,7 +12,7 @@ div(layout="row" flex layout-fill layout-padding)
         div(layout="column" flex)
             .form-group(flex="90")
                 label.control-label(for="group") Assigned Group
-                select.form-control(ng-model="vm.docSvc.selectedGroup", ng-change="vm.docSvc.setSelGroup()" ng-options="item.name for item in vm.docSvc.menugroups")
+                select.form-control(ng-model="vm.docSvc.selectedGroup", ng-blur="vm.docSvc.setSelGroup()" ng-options="item.name for item in vm.docSvc.menugroups")
                 //- SELF NOTES!!!!!
                 //- link select object with a group.
                 //- 5e7c1b7883215d00005e6e2d is the id for menugroup "200325 Test Restaurant Menus"
