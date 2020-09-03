@@ -57,7 +57,6 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     //function assumes that id is string.
     let hasMenu = (group, id) => {
-        // console.log("hasMenu", "group:", group, "id:", id);
 
         let bool = false;
         group.menus.map((menu) => {
@@ -73,13 +72,56 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         return bool;
     };
 
-    // BUG!!! This function is called more than once after selecting an option... due to on-change event.
+    let svGroup = (group) => {
+        let dfd = new Promise((resolve, reject) => {
+            try {
+                // console.log("inside try catch block scope, group:", group);
+
+                let menuGroupModel = $dataSource.load("MenuGroup");
+                menuGroupModel.update(group).then(() => {
+                    console.log("update done!");
+                    resolve(group);
+                });
+            } catch (e) {
+                console.log("error on update:", e);
+            }
+        });
+
+        return dfd;
+    };
+
+    // Ensure menu only shows up in one group at a time.
+    let clrGroups = () => {
+        let dfd = new Promise((resolve, reject) => {
+
+            getGroups().then((groups) => {
+                groups.map((group) => {
+                    group.menus.map((menu, indx) => {
+                        if (menu.menuId == this.doc["_id"].toString()) {
+                            //don't mess with the group we want to save!
+                            if (group["_id"] != this.selectedGroup["_id"]) {
+                                console.log("menu at index:", indx);
+                                let removed = group.menus.splice(indx, 1);
+                                svGroup(group).then((returned) => {
+                                    console.log("saved!");
+                                });
+                            }
+                        }
+                    });
+                    resolve(true);
+                });
+            });
+
+        });
+
+        return dfd;
+    };
+
+
+
     // set our menu ID to the selected group.
     this.setSelGroup = () => {
-        console.log("group?", this.selectedGroup);
-        //need to update the menus array.
-        let group = this.menugroups[this.menugroups.indexOf(this.selectedGroup)];
-        console.log("my group:", group);
+        // console.log("group?", this.selectedGroup);
 
         let menu = {
             //menuid: self.doc["_id"],
@@ -90,27 +132,22 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
         console.log("obj:", menu);
 
-        //passing in menuid as string.
-        if (!hasMenu(group, menu.menuId.toString())) {
+        clrGroups().then(() => {
 
-            //probably need to call on a mongoose schema to use the .save() function?
-            group.menus.push(menu);
-            console.log("group to save:", group);
+            //passing in menuid as string.
+            if (!hasMenu(this.selectedGroup, menu.menuId.toString())) {
 
-            try {
-                //need to see if I can do this on save button click...
-                // console.log("inside try catch block scope, group:", group);
+                this.selectedGroup.menus.push(menu);
+                // console.log("group to save:", this.selectedGroup);
 
-                let menuGroupModel = $dataSource.load("MenuGroup");
-                menuGroupModel.update(group).then(() => {
-                    console.log("update done!");
+                svGroup(this.selectedGroup).then((returned) => {
+                    console.log("saved!");
+                    //this.selectedGroup = returned;
+                    this.selGroup();
                 });
-            } catch (e) {
-                console.log("error on update:", e);
+
             }
-
-
-        }
+        });
     };
 
 
@@ -155,6 +192,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
                 if (hasMenu(group, this.doc["_id"].toString())) {
                     // this.selectedGroup = this.menugroups.indexOf(group);
                     this.selectedGroup = group;
+                    this.bkupGroup = group; //this variable doesn't change immediately on-blur.
                     console.log("selected group:", this.selectedGroup);
                 }
             });
