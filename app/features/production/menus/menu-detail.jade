@@ -37,6 +37,9 @@
                     br
                     h3 Menu Items
                     br
+                    div.itemCard(ng-repeat="item in vm.docSvc.doc.sections[vm.docSvc.activeObj.index].items" style="border: solid black 1px; background-color: white")
+                        a(href="" ng-click="") 
+                        span &nbsp; {{item.name}}
                     md-button.md-raised(ng-click="vm.docSvc.openAddFood()") Add Menu Item
                     br
         div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 2 && vm.tabIndex === 1" layout-padding)
@@ -46,7 +49,7 @@
                     br
                     h5
                         b Category
-                    select.form-control(ng-model="vm.docSvc.selCategory", ng-options="item for item in vm.docSvc.categories") 
+                    select.form-control(ng-model="vm.docSvc.selCategory", ng-options="item for item in vm.docSvc.categories.menuItemTags") 
                     br
                     div.itemCard(ng-repeat="item in vm.docSvc.addableMenuItems" style="border: solid black 1px; background-color: white")
                         a(href="" ng-click="vm.docSvc.addItem(item)") 
