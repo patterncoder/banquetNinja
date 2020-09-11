@@ -28,6 +28,7 @@ function tmContractDetailCtrl(
     this.sectionsHidden = true;
     this.menuGroups = [];
     this.menuObjs = [];
+    this.filterSection = undefined;
 
     self.models = { newEventStep: {} };
 
@@ -194,7 +195,8 @@ function tmContractDetailCtrl(
     };
 
     this.showMenuItems = () => {
-        self.addableMenuItems = self.getCachedMenuItems(self.filterSection);
+        this.addableMenuItems = this.filterSection.items;
+        // self.addableMenuItems = self.getCachedMenuItems(self.filterSection);
     };
 
     this.getDetailTitle = function () {
