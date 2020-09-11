@@ -26,6 +26,7 @@ function tmContractDetailCtrl(
 
 
     this.sectionsHidden = true;
+    this.menuGroups = [];
 
     self.models = { newEventStep: {} };
 
@@ -100,20 +101,24 @@ function tmContractDetailCtrl(
         }
     });
 
-    this.loadData().then(function (data) {
-        self.getDetailTitle();
-        let lookups = self.docSvc.$dataSource.load('Lookups');
-        self.menuItemCategories = lookups.List.menuItemTags;
-        console.log("menuItemCategories:", self.menuItemCategories);
+    this.loadData().then((data) => {
+        this.getDetailTitle();
+        let lookups = this.docSvc.$dataSource.load('Lookups');
+        lookups.query().then((returned) => {
+            console.log("lookups:", returned);
+            this.menuItemCategories = returned.menuItemTags;
+            console.log("menuItemCategories:", this.menuItemCategories);
+        });
 
         // I would like to load up Menu Groups also...
-        let menuGroups = self.docSvc.$dataSource.load("MenuGroup");
-        menuGroups.query().then(function (data) {
-            self.menuGroups = [];
-            data.map((obj) => {
-                self.menuGroups.push(obj.name);
+        let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
+        menuGroups.query().then((returned) => {
+            console.log("menuGroups:", returned);
+            // this.menuGroups = returned;
+            returned.map((obj) => {
+                this.menuGroups.push(obj.name);
             });
-            console.log("menuGroups:", self.menuGroups);
+            console.log("menuGroups:", this.menuGroups);
         });
     });
 
@@ -160,7 +165,7 @@ function tmContractDetailCtrl(
     this.getCachedMenuItems = (section) => {
         let sectionItems = [];
         self.menuSectionsRawData.map((obj) => {
-            if(obj.title == section) {
+            if (obj.title == section) {
                 sectionItems = obj.items;
             }
         });
