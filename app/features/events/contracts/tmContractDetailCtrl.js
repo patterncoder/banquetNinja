@@ -27,6 +27,7 @@ function tmContractDetailCtrl(
 
     this.sectionsHidden = true;
     this.menuGroups = [];
+    this.menuObjs = [];
 
     self.models = { newEventStep: {} };
 
@@ -114,10 +115,10 @@ function tmContractDetailCtrl(
         let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
         menuGroups.query().then((returned) => {
             console.log("menuGroups:", returned);
-            // this.menuGroups = returned;
-            returned.map((obj) => {
-                this.menuGroups.push(obj.name);
-            });
+            this.menuGroups = returned;
+            // returned.map((obj) => {
+            //     this.menuGroups.push(obj.name);
+            // });
             console.log("menuGroups:", this.menuGroups);
         });
     });
@@ -133,9 +134,28 @@ function tmContractDetailCtrl(
         });
     };
 
-    this.searchMenus = () => {
+    this.getMenus = () => {
+        console.log("searchGroup:", this.searchGroup);
 
-        let url = `${config.apiBase}/production/menus?like[name]=${this.searchGroup}`;
+        this.menuObjs = []; //make sure this is clean.
+
+        this.searchGroup.menus.map((menu) => {
+
+            let Menu = this.docSvc.$dataSource.load("Menu");
+            Menu.query({ "_id": menu.menuId }).then((returned) => {
+                console.log("returned:", returned);
+                this.menuObjs.push(returned);
+            });
+
+        });
+
+        self.sectionsHidden = false; //unhide...
+    };
+
+    this.searchMenus = () => {
+        console.log("searchGroup", this.searchGroup);
+
+        let url = `${config.apiBase}/production/menus?like[name]=${this.searchGroup.name}`;
         let request = {
             method: "GET",
             url: url,
