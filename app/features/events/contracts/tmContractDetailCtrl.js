@@ -124,16 +124,16 @@ function tmContractDetailCtrl(
         });
     });
 
-    this.searchMenuItem = function () {
-        let url = `${config.apiBase}/production/menuitems?where[categories]=${this.searchCategory}&like[name]=${this.searchName}`;
-        let request = {
-            method: "GET",
-            url: url
-        };
-        this.$http(request).then((data) => {
-            self.addableMenuItems = data.data.data;
-        });
-    };
+    // this.searchMenuItem = function () {
+    //     let url = `${config.apiBase}/production/menuitems?where[categories]=${this.searchCategory}&like[name]=${this.searchName}`;
+    //     let request = {
+    //         method: "GET",
+    //         url: url
+    //     };
+    //     this.$http(request).then((data) => {
+    //         self.addableMenuItems = data.data.data;
+    //     });
+    // };
 
     this.getMenus = () => {
         console.log("searchGroup:", this.searchGroup);
@@ -153,46 +153,46 @@ function tmContractDetailCtrl(
         self.sectionsHidden = false; //unhide...
     };
 
-    this.searchMenus = () => {
-        console.log("searchGroup", this.searchGroup);
+    // this.searchMenus = () => {
+    //     console.log("searchGroup", this.searchGroup);
 
-        let url = `${config.apiBase}/production/menus?like[name]=${this.searchGroup.name}`;
-        let request = {
-            method: "GET",
-            url: url,
-        };
-        this.$http(request).then((data) => {
-            console.log("data", data);
+    //     let url = `${config.apiBase}/production/menus?like[name]=${this.searchGroup.name}`;
+    //     let request = {
+    //         method: "GET",
+    //         url: url,
+    //     };
+    //     this.$http(request).then((data) => {
+    //         console.log("data", data);
 
-            let menuSections = [];
-            let menuSectionsRawData = [];
+    //         let menuSections = [];
+    //         // let menuSectionsRawData = [];
 
-            data.data.data.map((obj) => {
-                obj.sections.map((tmp) => {
-                    menuSections.push(tmp.title);
-                    menuSectionsRawData.push(tmp);
-                });
-            });
+    //         data.data.data.map((obj) => {
+    //             obj.sections.map((tmp) => {
+    //                 menuSections.push(tmp.title);
+    //                 // menuSectionsRawData.push(tmp);
+    //             });
+    //         });
 
-            self.menuSections = menuSections;
-            self.menuSectionsRawData = menuSectionsRawData;
-            self.sectionsHidden = false; //unhide...
+    //         this.menuSections = menuSections;
+    //         // self.menuSectionsRawData = menuSectionsRawData;
+    //         this.sectionsHidden = false; //unhide...
 
-            console.log("menuSectionsRawData", menuSectionsRawData);
-            console.log("menuSections", menuSections);
-        });
-    };
+    //         // console.log("menuSectionsRawData", menuSectionsRawData);
+    //         console.log("menuSections", menuSections);
+    //     });
+    // };
 
-    this.getCachedMenuItems = (section) => {
-        let sectionItems = [];
-        self.menuSectionsRawData.map((obj) => {
-            if (obj.title == section) {
-                sectionItems = obj.items;
-            }
-        });
-        //self.addableMenuItems = sectionItems;
-        return sectionItems;
-    };
+    // this.getCachedMenuItems = (section) => {
+    //     let sectionItems = [];
+    //     self.menuSectionsRawData.map((obj) => {
+    //         if (obj.title == section) {
+    //             sectionItems = obj.items;
+    //         }
+    //     });
+    //     //self.addableMenuItems = sectionItems;
+    //     return sectionItems;
+    // };
 
     this.showMenuItems = () => {
         this.addableMenuItems = this.filterSection.items;
