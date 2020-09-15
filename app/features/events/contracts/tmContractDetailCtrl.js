@@ -105,12 +105,12 @@ function tmContractDetailCtrl(
 
     this.loadData().then((data) => {
         this.getDetailTitle();
-        let lookups = this.docSvc.$dataSource.load('Lookups');
-        lookups.query().then((returned) => {
-            console.log("lookups:", returned);
-            this.menuItemCategories = returned.menuItemTags;
-            console.log("menuItemCategories:", this.menuItemCategories);
-        });
+        // let lookups = this.docSvc.$dataSource.load('Lookups');
+        // lookups.query().then((returned) => {
+        //     console.log("lookups:", returned);
+        //     this.menuItemCategories = returned.menuItemTags;
+        //     console.log("menuItemCategories:", this.menuItemCategories);
+        // });
 
         // I would like to load up Menu Groups also...
         let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
@@ -135,10 +135,19 @@ function tmContractDetailCtrl(
     //     });
     // };
 
+    let cleanup = () => {
+        // for some reason searchGroup doesn't change when selecting another group...
+
+        this.menuObjs = []; //make sure this is clean.
+        this.addableMenuItems = [];
+        this.filterMenu = undefined;
+        this.filterSection = undefined;
+    }
+
     this.getMenus = () => {
         console.log("searchGroup:", this.searchGroup);
 
-        this.menuObjs = []; //make sure this is clean.
+        cleanup();
 
         this.searchGroup.menus.map((menu) => {
 
