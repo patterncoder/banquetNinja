@@ -135,31 +135,42 @@ function tmContractDetailCtrl(
     //     });
     // };
 
-    let cleanup = () => {
+    let cleanup = (obj) => {
         // for some reason searchGroup doesn't change when selecting another group...
 
-        this.menuObjs = []; //make sure this is clean.
-        this.addableMenuItems = [];
-        this.filterMenu = undefined;
-        this.filterSection = undefined;
+        obj.menuObjs = [];
+        obj.addableMenuItems = [];
+        obj.filterMenu = undefined;
+        obj.filterSection = undefined;
     }
 
     this.getMenus = () => {
         console.log("searchGroup:", this.searchGroup);
 
-        cleanup();
+        console.log("before cleanup:", this.menuObjs.length);
+        cleanup(self);
+        console.log("after cleanup:", this.menuObjs.length);
 
-        this.searchGroup.menus.map((menu) => {
-
+        let caller = (menus, indx) => {
+            let obj = menus[indx];
             let Menu = this.docSvc.$dataSource.load("Menu");
-            Menu.query({ "_id": menu.menuId }).then((returned) => {
-                console.log("returned:", returned);
+
+            //Looks like something is caching here... query returns same object after first query call.
+            Menu.query({ "_id": obj.menuId }).then((returned) => {
+                console.log("reuturned:", returned);
                 this.menuObjs.push(returned);
+                ++indx;
+                if (menus[indx]) { //check if we need to keep going.
+                    caller(menus, indx); //call function again.
+                } else {
+                    console.log("menuObjs:", this.menuObjs);
+                    this.sectionsHidden = false; //unhide...
+                }
             });
+        };
 
-        });
+        caller(this.searchGroup.menus, 0);
 
-        self.sectionsHidden = false; //unhide...
     };
 
     // this.searchMenus = () => {
