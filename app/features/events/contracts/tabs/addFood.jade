@@ -5,15 +5,19 @@ div(layout="row" )
         h3 Add Food to Contract
         a(ui-sref="root.menuitems") Create menu item
         //- input(ng-model="vm.searchName")
-        label.control-label(for="status") Status
+        //- label.control-label(for="status") Status
+        label Group
         //- select.form-control(ng-model="vm.searchCategory", ng-options="category for category in vm.menuItemCategories")
         select.form-control(ng-model="vm.searchGroup", ng-options="group.name for group in vm.menuGroups" ng-change="vm.getMenus()")
+        label(ng-hide="vm.sectionsHidden") Menu
         select.form-control(ng-hide="vm.sectionsHidden", ng-model="vm.filterMenu", ng-options="menu.name for menu in vm.menuObjs")
+        label(ng-hide="vm.sectionsHidden") Section
         select.form-control(ng-hide="vm.sectionsHidden", ng-model="vm.filterSection", ng-options="section.title for section in vm.filterMenu.sections")
+        label(ng-hide="vm.statusHidden") Working...
         //- md-button.md-raised(ng-click="vm.searchMenuItem()") Search
         //- md-button.md-raised(ng-show="vm.sectionsHidden", ng-click="vm.searchMenus()") Search
         //- md-button.md-raised(ng-show="vm.sectionsHidden", ng-click="vm.getMenus()") Search
-        md-button.md-raised(ng-show="!vm.sectionsHidden", ng-click="vm.showMenuItems()") Show Menu
+        md-button.md-raised(ng-show="!vm.sectionsHidden", ng-click="vm.showMenuItems()") Show Items
         //- lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
         div.itemCard(ng-repeat="item in vm.addableMenuItems" style="border: solid black 1px; background-color: white")
           a(href="" ng-click="vm.addItem(item)") 

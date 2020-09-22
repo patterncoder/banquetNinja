@@ -211,6 +211,15 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         this.doc.sections.push(newSection);
     };
 
+    this.delItem = (item) => {
+        console.log("removing this:", item);
+        let selSection = this.doc.sections[this.activeObj.index];
+        let indx = selSection.items.indexOf(item);
+        if (indx > -1) {
+            selSection.items.splice(indx, 1);
+        }
+    };
+
     this.addItem = (item) => {
         //vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title
         console.log("add this:", item);
