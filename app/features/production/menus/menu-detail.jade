@@ -38,7 +38,8 @@
                     h3 Menu Items
                     br
                     div.itemCard(ng-repeat="item in vm.docSvc.doc.sections[vm.docSvc.activeObj.index].items" style="border: solid black 1px; background-color: white")
-                        a(href="" ng-click="") 
+                        a(href="" ng-click="vm.docSvc.delItem(item)") 
+                            span.glyphicon.glyphicon-remove
                         span &nbsp; {{item.name}}
                     md-button.md-raised(ng-click="vm.docSvc.openAddFood()") Add Menu Item
                     br

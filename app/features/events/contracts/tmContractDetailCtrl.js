@@ -103,61 +103,64 @@ function tmContractDetailCtrl(
         }
     });
 
+    let cleanup = (obj) => {
+        obj.menuObjs = [];
+        obj.addableMenuItems = [];
+        obj.filterMenu = undefined;
+        obj.filterSection = undefined;
+    };
+
     this.loadData().then((data) => {
+        cleanup(self); //making sure everything is clean.
         this.getDetailTitle();
-        // let lookups = this.docSvc.$dataSource.load('Lookups');
-        // lookups.query().then((returned) => {
-        //     console.log("lookups:", returned);
-        //     this.menuItemCategories = returned.menuItemTags;
-        //     console.log("menuItemCategories:", this.menuItemCategories);
-        // });
 
         // I would like to load up Menu Groups also...
         let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
         menuGroups.query().then((returned) => {
             console.log("menuGroups:", returned);
             this.menuGroups = returned;
-            // returned.map((obj) => {
-            //     this.menuGroups.push(obj.name);
-            // });
             console.log("menuGroups:", this.menuGroups);
         });
     });
 
-    // this.searchMenuItem = function () {
-    //     let url = `${config.apiBase}/production/menuitems?where[categories]=${this.searchCategory}&like[name]=${this.searchName}`;
-    //     let request = {
-    //         method: "GET",
-    //         url: url
-    //     };
-    //     this.$http(request).then((data) => {
-    //         self.addableMenuItems = data.data.data;
-    //     });
-    // };
+    let getByID = (type, id) => {
+        let dfd = new Promise((resolve, reject) => {
 
-    let cleanup = (obj) => {
-        // for some reason searchGroup doesn't change when selecting another group...
+            try {
+                //must clear the cache, or we will keep getting the same menus for every group...
+                this.docSvc.$dataSource.clearCache();
+            } catch (e) {
+                console.log("err:", e);
+                reject(e);
+                return;
+            }
 
-        obj.menuObjs = [];
-        obj.addableMenuItems = [];
-        obj.filterMenu = undefined;
-        obj.filterSection = undefined;
-    }
+            try {
+                let Obj = this.docSvc.$dataSource.load(type);
+                let q = {
+                    "_id": id,
+                };
+                Obj.query(q).then((returned) => {
+                    resolve(returned);
+                });
+            } catch (e) {
+                console.log("err:", e);
+                reject(e);
+                return;
+            }
+        });
+
+        return dfd;
+    };
 
     this.getMenus = () => {
-        console.log("searchGroup:", this.searchGroup);
-
-        console.log("before cleanup:", this.menuObjs.length);
         cleanup(self);
-        console.log("after cleanup:", this.menuObjs.length);
 
         let caller = (menus, indx) => {
             let obj = menus[indx];
-            let Menu = this.docSvc.$dataSource.load("Menu");
 
-            //Looks like something is caching here... query returns same object after first query call.
-            Menu.query({ "_id": obj.menuId }).then((returned) => {
-                console.log("reuturned:", returned);
+            getByID("Menu", obj.menuId).then((returned) => {
+                console.log("menu:", returned);
                 this.menuObjs.push(returned);
                 ++indx;
                 if (menus[indx]) { //check if we need to keep going.
@@ -166,6 +169,7 @@ function tmContractDetailCtrl(
                     console.log("menuObjs:", this.menuObjs);
                     this.sectionsHidden = false; //unhide...
                 }
+
             });
         };
 
@@ -173,50 +177,10 @@ function tmContractDetailCtrl(
 
     };
 
-    // this.searchMenus = () => {
-    //     console.log("searchGroup", this.searchGroup);
-
-    //     let url = `${config.apiBase}/production/menus?like[name]=${this.searchGroup.name}`;
-    //     let request = {
-    //         method: "GET",
-    //         url: url,
-    //     };
-    //     this.$http(request).then((data) => {
-    //         console.log("data", data);
-
-    //         let menuSections = [];
-    //         // let menuSectionsRawData = [];
-
-    //         data.data.data.map((obj) => {
-    //             obj.sections.map((tmp) => {
-    //                 menuSections.push(tmp.title);
-    //                 // menuSectionsRawData.push(tmp);
-    //             });
-    //         });
-
-    //         this.menuSections = menuSections;
-    //         // self.menuSectionsRawData = menuSectionsRawData;
-    //         this.sectionsHidden = false; //unhide...
-
-    //         // console.log("menuSectionsRawData", menuSectionsRawData);
-    //         console.log("menuSections", menuSections);
-    //     });
-    // };
-
-    // this.getCachedMenuItems = (section) => {
-    //     let sectionItems = [];
-    //     self.menuSectionsRawData.map((obj) => {
-    //         if (obj.title == section) {
-    //             sectionItems = obj.items;
-    //         }
-    //     });
-    //     //self.addableMenuItems = sectionItems;
-    //     return sectionItems;
-    // };
-
     this.showMenuItems = () => {
         this.addableMenuItems = this.filterSection.items;
-        // self.addableMenuItems = self.getCachedMenuItems(self.filterSection);
+        console.log(this.addableMenuItems);
+        //this.sectionsHidden = true;
     };
 
     this.getDetailTitle = function () {
@@ -247,12 +211,14 @@ function tmContractDetailCtrl(
             this.sideTab[k] = false;
         }
         this.sideTab[tab] = true;
+        console.log("sidetab:", this.sideTab, "tab:", tab);
     };
 
     this.closeSideTab = function () {
         for (var k in this.sideTab) {
             this.sideTab[k] = false;
         }
+        console.log("sideTab:", this.sideTab);
     };
 
     this.removeVenue = function (index) {
@@ -260,6 +226,20 @@ function tmContractDetailCtrl(
     };
 
     this.addItem = (item) => {
+        console.log("item:", item);
+        // getByID("MenuItem", item.menuItemId).then((returned) => {
+
+        //     console.log("adding this:", returned);
+        //     console.log("menuItems:", this.docSvc.doc.menuItems);
+        //     this.docSvc.doc.menuItems.push(returned);
+
+        //     try {
+        //         //must clear the cache, or we will keep getting the same menus for every group...
+        //         this.docSvc.$dataSource.clearCache();
+        //     } catch (e) {
+        //         console.log(e);
+        //     }
+        // });
         console.log("adding this:", item);
         console.log("menuItems:", this.docSvc.doc.menuItems);
         this.docSvc.doc.menuItems.push(item);
