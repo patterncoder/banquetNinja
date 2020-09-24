@@ -160,6 +160,7 @@ function tmContractDetailCtrl(
 
     this.showMenuItems = () => {
         this.addableMenuItems = this.filterSection.items;
+        this.sectionsHidden = true;
     };
 
     this.getDetailTitle = function () {
