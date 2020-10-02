@@ -103,7 +103,15 @@ function tmContractDetailCtrl(
         }
     });
 
+    let cleanup = (obj) => {
+        obj.menuObjs = [];
+        obj.addableMenuItems = [];
+        obj.filterMenu = undefined;
+        obj.filterSection = undefined;
+    };
+
     this.loadData().then((data) => {
+        cleanup(self); //making sure everything is clean.
         this.getDetailTitle();
 
         // I would like to load up Menu Groups also...
@@ -114,15 +122,6 @@ function tmContractDetailCtrl(
             console.log("menuGroups:", this.menuGroups);
         });
     });
-
-    let cleanup = (obj) => {
-        // for some reason searchGroup doesn't change when selecting another group...
-
-        obj.menuObjs = [];
-        obj.addableMenuItems = [];
-        obj.filterMenu = undefined;
-        obj.filterSection = undefined;
-    }
 
     this.getMenus = () => {
         cleanup(self);
@@ -191,12 +190,14 @@ function tmContractDetailCtrl(
             this.sideTab[k] = false;
         }
         this.sideTab[tab] = true;
+        console.log("sidetab:", this.sideTab, "tab:", tab);
     };
 
     this.closeSideTab = function () {
         for (var k in this.sideTab) {
             this.sideTab[k] = false;
         }
+        console.log("sideTab:", this.sideTab);
     };
 
     this.removeVenue = function (index) {
