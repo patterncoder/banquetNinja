@@ -26,6 +26,7 @@ function tmContractDetailCtrl(
 
 
     this.sectionsHidden = true;
+    this.statusHidden = true;
     this.menuGroups = [];
     this.menuObjs = [];
     this.filterSection = undefined;
@@ -111,7 +112,7 @@ function tmContractDetailCtrl(
     };
 
     this.loadData().then((data) => {
-        cleanup(self); //making sure everything is clean.
+        cleanup(this); //making sure everything is clean.
         this.getDetailTitle();
 
         // I would like to load up Menu Groups also...
@@ -154,20 +155,30 @@ function tmContractDetailCtrl(
     };
 
     this.getMenus = () => {
-        cleanup(self);
+        this.statusHidden = false;
+
+        cleanup(this);
+
+        let tmp = [];
 
         let caller = (menus, indx) => {
             let obj = menus[indx];
 
             getByID("Menu", obj.menuId).then((returned) => {
                 console.log("menu:", returned);
-                this.menuObjs.push(returned);
+                tmp.push(returned);
+                //this.menuObjs.push(returned);
                 ++indx;
                 if (menus[indx]) { //check if we need to keep going.
                     caller(menus, indx); //call function again.
                 } else {
+                    if(tmp.length) { //did we find any objects?
+                        //angular should detect changes here, instead of overflowing it with incremental changes.
+                        this.menuObjs = tmp; //add them!
+                    }
                     console.log("menuObjs:", this.menuObjs);
                     this.sectionsHidden = false; //unhide...
+                    this.statusHidden = true;
                 }
 
             });
