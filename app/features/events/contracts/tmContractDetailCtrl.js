@@ -123,18 +123,44 @@ function tmContractDetailCtrl(
         });
     });
 
+    let getByID = (type, id) => {
+        let dfd = new Promise((resolve, reject) => {
+
+            try {
+                //must clear the cache, or we will keep getting the same menus for every group...
+                this.docSvc.$dataSource.clearCache();
+            } catch (e) {
+                console.log("err:", e);
+                reject(e);
+                return;
+            }
+
+            try {
+                let Obj = this.docSvc.$dataSource.load(type);
+                let q = {
+                    "_id": id,
+                };
+                Obj.query(q).then((returned) => {
+                    resolve(returned);
+                });
+            } catch (e) {
+                console.log("err:", e);
+                reject(e);
+                return;
+            }
+        });
+
+        return dfd;
+    };
+
     this.getMenus = () => {
         cleanup(self);
 
         let caller = (menus, indx) => {
             let obj = menus[indx];
-            let Menu = this.docSvc.$dataSource.load("Menu");
 
-            let q = {
-                "_id": obj.menuId
-            };
-
-            Menu.query(q).then((returned) => {
+            getByID("Menu", obj.menuId).then((returned) => {
+                console.log("menu:", returned);
                 this.menuObjs.push(returned);
                 ++indx;
                 if (menus[indx]) { //check if we need to keep going.
@@ -144,12 +170,6 @@ function tmContractDetailCtrl(
                     this.sectionsHidden = false; //unhide...
                 }
 
-                try {
-                    //must clear the cache, or we will keep getting the same menus for every group...
-                    this.docSvc.$dataSource.clearCache();
-                } catch (e) {
-                    console.log(e);
-                }
             });
         };
 
@@ -159,7 +179,8 @@ function tmContractDetailCtrl(
 
     this.showMenuItems = () => {
         this.addableMenuItems = this.filterSection.items;
-        this.sectionsHidden = true;
+        console.log(this.addableMenuItems);
+        //this.sectionsHidden = true;
     };
 
     this.getDetailTitle = function () {
@@ -205,6 +226,20 @@ function tmContractDetailCtrl(
     };
 
     this.addItem = (item) => {
+        console.log("item:", item);
+        // getByID("MenuItem", item.menuItemId).then((returned) => {
+
+        //     console.log("adding this:", returned);
+        //     console.log("menuItems:", this.docSvc.doc.menuItems);
+        //     this.docSvc.doc.menuItems.push(returned);
+
+        //     try {
+        //         //must clear the cache, or we will keep getting the same menus for every group...
+        //         this.docSvc.$dataSource.clearCache();
+        //     } catch (e) {
+        //         console.log(e);
+        //     }
+        // });
         console.log("adding this:", item);
         console.log("menuItems:", this.docSvc.doc.menuItems);
         this.docSvc.doc.menuItems.push(item);
