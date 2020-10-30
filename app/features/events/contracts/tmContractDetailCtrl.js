@@ -105,7 +105,9 @@ function tmContractDetailCtrl(
     });
 
     let cleanup = (obj) => {
-        obj.menuObjs = [];
+
+
+        // obj.menuObjs = [];
         obj.addableMenuItems = [];
         obj.filterMenu = undefined;
         obj.filterSection = undefined;
@@ -129,11 +131,12 @@ function tmContractDetailCtrl(
 
             try {
                 //must clear the cache, or we will keep getting the same menus for every group...
-                this.docSvc.$dataSource.clearCache();
+                let tmp = this.docSvc.$dataSource.clearCache();
+                console.log("clearCache:", tmp);
             } catch (e) {
                 console.log("err:", e);
-                reject(e);
-                return;
+                //reject(e);
+                //return;
             }
 
             try {
@@ -154,38 +157,27 @@ function tmContractDetailCtrl(
         return dfd;
     };
 
-    this.getMenus = () => {
-        this.statusHidden = false;
+    let toggle = (bl) => {
+        console.log("toggle");
+        this.sectionsHidden = bl;
+        this.statusHidden = !bl;
+    };
 
+    this.getMenus = () => {
+        toggle(true);
         cleanup(this);
 
-        let tmp = [];
+        let tmp = []; //stores promises.
 
-        let caller = (menus, indx) => {
-            let obj = menus[indx];
+        this.searchGroup.menus.map((menu) => {
+            tmp.push(getByID("Menu", menu.menuId));
+        });
 
-            getByID("Menu", obj.menuId).then((returned) => {
-                console.log("menu:", returned);
-                tmp.push(returned);
-                //this.menuObjs.push(returned);
-                ++indx;
-                if (menus[indx]) { //check if we need to keep going.
-                    caller(menus, indx); //call function again.
-                } else {
-                    if(tmp.length) { //did we find any objects?
-                        //angular should detect changes here, instead of overflowing it with incremental changes.
-                        this.menuObjs = tmp; //add them!
-                    }
-                    console.log("menuObjs:", this.menuObjs);
-                    this.sectionsHidden = false; //unhide...
-                    this.statusHidden = true;
-                }
-
-            });
-        };
-
-        caller(this.searchGroup.menus, 0);
-
+        Promise.all(tmp).then((obj) => { //waits until all done.
+            this.menuObjs = obj; //updates for angular all at once.
+            toggle(false); //display the results.
+            $scope.$apply(); //DOM WILL NOT PROPERLY REFRESH WITHOUT THIS!!!
+        });
     };
 
     this.showMenuItems = () => {
