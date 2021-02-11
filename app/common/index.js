@@ -31,6 +31,7 @@ import tmDialogAddDocPartCtrl from './tmDialogAddDocPartCtrl';
 // filters
 import tmPhoneFilter from './tmPhoneFilter';
 import tmCapitalizeFilter from './tmCapitalizeFilter';
+import tmZuluTime from './filters/tmZuluTime';
 
 // sub modules
 import ninjaGrid from './widgets/ninjaGrid';
@@ -64,5 +65,6 @@ export default angular.module('common', [ninjaGrid, datePickers, alphaSelect])
     .controller('tmDialogAddDocPartCtrl', tmDialogAddDocPartCtrl)
     .filter('tmPhoneFilter', tmPhoneFilter)
     .filter('tmCapitalizeFilter', tmCapitalizeFilter)
+    .filter('tmZuluTime', tmZuluTime)
     .name;
 

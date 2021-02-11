@@ -1,6 +1,7 @@
 import angular from 'angular';
 import lodash from 'lodash';
 import ninjaSchemas from 'ninjaSchemas';
+import config from 'config';
 
 function tmContractDetailCtrl (
     $scope,
@@ -37,11 +38,31 @@ function tmContractDetailCtrl (
     };
 
     this.moreFunctions.print = {
-            label: "Print",
+            label: "Print HTML",
             method: function(){
                 $state.go('root.contracts.print', {id: self.docSvc.doc._id});
             }
         };
+
+    
+    this.moreFunctions.pdf = {
+          label: "Print PDF",
+          method: function(){
+              
+          let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/pdf`;
+          var req = {
+            method: 'GET',
+            url: url,
+            responseType:'arraybuffer'
+          };
+          self.$http(req).then(function(result) {
+            console.log(result);
+            var file = new Blob([result.data], {type: 'application/pdf'});
+            var fileURL = URL.createObjectURL(file);
+            window.open(fileURL);
+          });
+          }
+      };
 
 
     this.contractStatusOptions = constructorArgs.schema.paths.status.enumValues.map((status)=> status);
@@ -76,18 +97,40 @@ function tmContractDetailCtrl (
 
     this.loadData().then(function(data){
         self.getDetailTitle();
+        let lookups = self.docSvc.$dataSource.load('Lookups');
+        self.menuItemCategories = lookups.List.menuItemTags;
         
     });
 
+    this.searchMenuItem = function () {
+      let url = `${config.apiBase}/production/menuitems?where[categories]=${this.searchCategory}&like[name]=${this.searchName}`;
+      let request = {
+        method: "GET",
+        url: url
+      }
+      this.$http(request).then((data) => {
+        self.addableMenuItems = data.data.data;
+      });
+    }
+
     this.getDetailTitle = function(){
-        self.detailTitle = {
+        const customer = self.docSvc.doc.customer;
+        if (customer) {
+          self.detailTitle = {
+              leader: 'Event for: ',
+              text: `${customer.lastName}, ${customer.firstName}`
+          };
+        } else {
+          self.detailTitle = {
             leader: 'Event for: ',
-            text: self.docSvc.doc.customer.lastName + ', ' + self.docSvc.doc.customer.firstName
-        };
+            text: 'unknown customer'
+          }
+        }
     };
 
     this.sideTab = {
         menuItems: false,
+        rentalItems: false,
         timeline: false,
         rooms: false,
         commLog: false
@@ -169,6 +212,10 @@ function tmContractDetailCtrl (
     this.deleteMenuItem = function (index){
         this.docSvc.removeMenuItem(index);
     };
+
+    this.removeRentalItem = function (index) {
+      this.docSvc.removeRentalItem(index);
+    }
     
     
     return this;

@@ -1,12 +1,16 @@
 div(layout="row" layout-align="end start")
     md-button( ng-click="vm.sideTab.menuItems = !vm.sideTab.menuItems") Close
 div(layout="row" )
-    div()
+    div(layout="column")
         h3 Add Food to Contract
-        a(ui-sref="root.menuitems") Add menu item
-        lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
-            div.itemCard(style="border: solid black 1px; background-color: white")
-                a(href="" ng-click="dCtrl.addItem(item)") 
-                    span.glyphicon.glyphicon-circle-arrow-left 
-                span &nbsp; {{item.name}}
-    
+        a(ui-sref="root.menuitems") Create menu item
+        input(ng-model="vm.searchName")
+        label.control-label(for="status") Status
+        select.form-control(ng-model="vm.searchCategory", ng-options="category for category in vm.menuItemCategories")
+        md-button.md-raised(ng-click="vm.searchMenuItem()") Search
+        //- lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
+        div.itemCard(ng-repeat="item in vm.addableMenuItems" style="border: solid black 1px; background-color: white")
+          a(href="" ng-click="") 
+              span.glyphicon.glyphicon-circle-arrow-left 
+          span &nbsp; {{item.name}}
+

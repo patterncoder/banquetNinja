@@ -134,7 +134,7 @@ class tmAddContractCtrl {
             self.setLoading(true);
             self.model.add(newContract).then(function (contract) {
                 var Customer = self.$dataSource.load('Customer');
-                Customer.getOne(custId).then(function (cust) {
+                Customer.getOne(custId, true).then(function (cust) {
                     cust.contracts.push(contract._id);
                     Customer.update(cust).then(function (cust) {
                         self.tmNotifier.notify("Item was successfully added.");

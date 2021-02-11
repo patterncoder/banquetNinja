@@ -11,6 +11,8 @@
                             include ./tabs/food.jade
                         md-tab(label="Rooms")
                             include ./tabs/tab-rooms.jade
+                        md-tab(label="Rental Items")
+                            include ./tabs/tab-rentalItems.jade
                         md-tab(label="Event Timeline")
                             include ./tabs/tab-timeline.jade
                         md-tab(label="Communication")
@@ -23,8 +25,10 @@
             include ./tabs/addFood.jade
         div.detailRightPanel(flex="20" ng-show="vm.sideTab.rooms  && vm.tabIndex == 1" layout-padding)
             include ./tabs/addVenue.jade
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.timeline && vm.tabIndex == 2" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.rentalItems  && vm.tabIndex == 2" layout-padding)
+            include ./tabs/addRentalItem.jade
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.timeline && vm.tabIndex == 3" layout-padding)
             include ./tabs/addTimeline.jade
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.commLog  && vm.tabIndex == 3" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.commLog  && vm.tabIndex == 4" layout-padding)
             include ./tabs/add-commlog.jade
     detail-footer
