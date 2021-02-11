@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
 	"version": "0.2.0",
 	"configurations": [
@@ -47,4 +48,55 @@
 			"port": 5858
 		}
 	]
+=======
+{
+	"version": "0.2.0",
+	"configurations": [
+    
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome against localhost",
+      "url": "http://localhost:8080/",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      // "sourceMapPathOverrides": {
+      //   "webpack:///./*": "${webRoot}/*"
+      // }
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome",
+      "url": "http://localhost:8080/public",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+    },
+		{
+			"name": "Launch",
+			"type": "node",
+			"request": "launch",
+			"program": "${workspaceRoot}/server.js",
+			"stopOnEntry": false,
+			"args": [],
+			"cwd": "${workspaceRoot}/.",
+			"runtimeExecutable": null,
+			"runtimeArgs": [
+				"--nolazy"
+			],
+			"env": {
+				"NODE_ENV": "development"
+			},
+			"externalConsole": false,
+			"sourceMaps": false,
+			"outDir": null
+		},
+		{
+			"name": "Attach",
+			"type": "node",
+			"request": "attach",
+			"port": 5858
+		}
+	]
+>>>>>>> 8731415c7fd7f90f5d0ef0e8252cbcdba36800e0
 }

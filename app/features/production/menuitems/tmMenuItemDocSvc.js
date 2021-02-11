@@ -16,6 +16,7 @@ function tmMenuItemDocSvc (tmDocFactory){
     }
     
     this.addCategory = function (category){
+        this.doc.categories = this.doc.categories ? this.doc.categories : []; //make sure we don't have an undefined...
         var index = this.doc.categories.indexOf(category);
         if (index === -1) {
             this.doc.categories.push(category);
@@ -28,7 +29,8 @@ function tmMenuItemDocSvc (tmDocFactory){
     this.addTitle = function (title){
         var index = this.doc.title.indexOf(title)
         if (index === -1) {
-            this.doc.title.push(title);
+            this.doc.title = title;
+            //this.doc.title.push(title);
             return;
         } else {
             throw new Error("Title already exists");

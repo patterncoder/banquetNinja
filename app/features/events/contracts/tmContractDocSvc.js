@@ -83,9 +83,6 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         quantity: 0,
         price: 0
       }
-      if(this.doc.rentalItems == undefined) {
-          this.doc.rentalItems = []; //object wasn't properly initialized...
-      }
       this.doc.rentalItems.push(itemToAdd);
     }
     
