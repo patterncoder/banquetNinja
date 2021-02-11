@@ -1,7 +1,9 @@
 
 package-lock.json
+
 node_modules/*
-public/build
+public/*
+!public/index.html
 
 # These are modules we are in control of 
 # !node_modules/mongoose/

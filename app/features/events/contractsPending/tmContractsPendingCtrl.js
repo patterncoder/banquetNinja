@@ -41,6 +41,7 @@ class tmContractsPendingCtrl {
                         hideCustomerInput: false,
                         customerId: null}
             };
+            console.log("hello");
             self.tmDialogSvc.showDialog(dialogConfig);
         };
         

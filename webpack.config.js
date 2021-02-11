@@ -37,12 +37,18 @@ var config = {
     // error will occur if nothing is specified. We use the buildPath
     // as that points to where the files will eventually be bundled
     // in production
-    path: buildPath,
+    path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
     
     // Everything related to Webpack should go through a build path,
     // localhost:3000/build. That makes proxying easier to handle
-    publicPath: '/build/'
+    // publicPath: '/build/'
+  },
+  devServer: {
+    // --devtool eval --config webpack.config.js --progress --colors --hot --content-base --hide-modules app/ 
+    historyApiFallback: true,
+    contentBase: "./public",
+    watchContentBase: true
   },
   externals: [
     {
