@@ -62,6 +62,9 @@ function tmCustomerDetailCtrl(
       };
       $http(req).then(function(result) {
         console.log("result:", result);
+        if(self.contractsList == undefined) {
+            self.contractsList = [];
+        }
         self.contractsList = result.data.data;
         console.log("getRelatedContracts: result:", result.data.data);
       });
@@ -90,6 +93,9 @@ function tmCustomerDetailCtrl(
             Contract.add(item).then(function (item) {
                 self.docSvc.addContract(item);
                 self.docSvc.saveChanges().then(function(){
+                    if(self.contractsList == undefined) {
+                        self.contractsList = [];
+                    }
                     self.contractsList.push(item);
                     self.docSvc.refreshFromServer();
                     //self.getRelatedContracts(); //we want to get the most recent contract that was just made...
