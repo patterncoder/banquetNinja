@@ -50,24 +50,24 @@ function tmCustomerDetailCtrl(
     });
 
     this.getRelatedContracts = function () {
-      var self = this;
-      let relatedContracts = self.docSvc.doc.contracts.map(contract => `valueIn[_id]=${contract._id}`).join("&");
-      if (relatedContracts.length === 0) return;
-      let url =  config.apiBase + '/events/contracts?select=eventDate%20eventName&' + relatedContracts;
-      console.log("contracts api url:", url);
+        var self = this;
+        let relatedContracts = self.docSvc.doc.contracts.map(contract => `valueIn[_id]=${contract._id}`).join("&");
+        if (relatedContracts.length === 0) return;
+        let url = config.apiBase + '/events/contracts?select=eventDate%20status%20eventName&' + relatedContracts;
+        console.log("contracts api url:", url);
 
-      var req = {
-        method: 'GET',
-        url: url 
-      };
-      $http(req).then(function(result) {
-        console.log("result:", result);
-        if(self.contractsList == undefined) {
-            self.contractsList = [];
-        }
-        self.contractsList = result.data.data;
-        console.log("getRelatedContracts: result:", result.data.data);
-      });
+        var req = {
+            method: 'GET',
+            url: url
+        };
+        $http(req).then(function (result) {
+            console.log("result:", result);
+            if (self.contractsList == undefined) {
+                self.contractsList = [];
+            }
+            self.contractsList = result.data.data;
+            console.log("getRelatedContracts: result:", result.data.data);
+        });
     }
 
     this.getDetailTitle = function () {
@@ -92,15 +92,15 @@ function tmCustomerDetailCtrl(
         self.tmDialogSvc.showDialog(dialogConfig).then(function (item) {
             Contract.add(item).then(function (item) {
                 self.docSvc.addContract(item);
-                self.docSvc.saveChanges().then(function(){
-                    if(self.contractsList == undefined) {
+                self.docSvc.saveChanges().then(function () {
+                    if (self.contractsList == undefined) {
                         self.contractsList = [];
                     }
                     self.contractsList.push(item);
                     self.docSvc.refreshFromServer();
                     //self.getRelatedContracts(); //we want to get the most recent contract that was just made...
                 });
-                
+
 
             });
         });
@@ -129,7 +129,7 @@ function tmCustomerDetailCtrl(
             } else {
                 self.docSvc.updateAddress(index, item);
             }
-            self.docSvc.saveChanges().then(function(){
+            self.docSvc.saveChanges().then(function () {
                 self.docSvc.refreshFromServer();
             });
 
@@ -159,7 +159,7 @@ function tmCustomerDetailCtrl(
             } else {
                 self.docSvc.updateEmail(index, item);
             }
-            self.docSvc.saveChanges().then(function(){
+            self.docSvc.saveChanges().then(function () {
                 self.docSvc.refreshFromServer();
             });
         });
@@ -187,7 +187,7 @@ function tmCustomerDetailCtrl(
             } else {
                 self.docSvc.updatePhoneNumber(index, item);
             }
-            self.docSvc.saveChanges().then(function(){
+            self.docSvc.saveChanges().then(function () {
                 self.docSvc.refreshFromServer();
             });
         });
