@@ -21,6 +21,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.categories = [];
     this.menugroups = [];
+    this.assignedGroups = [];
 
     this.addableMenuItems = [];
 
@@ -175,6 +176,31 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         });
 
         return dfd;
+    };
+
+    // need to find all of the groups this menu is assigned to.
+    this.findAssignedGroups = () => {
+        getGroups().then((groups) => {
+            //I don't think self.doc has finished loading by the time this code is run.
+            console.log("self id:", this.doc["_id"], this.doc["_id"].toString());
+            console.log("got groups!", groups);
+            this.menugroups = groups; //dropdown select populates on this statement.
+
+            //let selfObjectId = mongoose.Types.ObjectId(self.doc["_id"]);
+
+            groups.map((group) => {
+                //have the correct group appear as default.
+                if (hasMenu(group, this.doc["_id"].toString())) {
+                    // this.selectedGroup = this.menugroups.indexOf(group);
+                    this.assignedGroups.push(group);
+                    // this.selectedGroup = group;
+                    // this.bkupGroup = group; //this variable doesn't change immediately on-blur.
+                    // console.log("selected group:", this.selectedGroup);
+                }
+            });
+
+            console.log("Assigned groups:", this.assignedGroups);
+        });
     };
 
     // need to set the existing group as the visible default value IF one is set.
