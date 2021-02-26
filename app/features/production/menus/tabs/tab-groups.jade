@@ -2,18 +2,18 @@ div(layout="row" layout-padding)
     div(flex=33)
         h3 Groups
         p This menu is assigned to these groups.
-        md-button(ng-click="vm.docSvc.addSection()") Add Group
-        div(ng-repeat="item in vm.docSvc.menugroups")
+        md-button(ng-click="vm.docSvc.openAddGroup()") Add Group
+        div(ng-repeat="item in vm.docSvc.assignedGroups")
             div(layout="row")
                 div(ng-click="" style="padding: 2px")
                     span {{item.name}}
                     span(flex)
-                a(href="" ng-click="vm.docSvc.removeSection($index)")
+                a(href="" ng-click="vm.docSvc.removeGroup($index)")
                     div(style="margin:5px; float:left")
                         span.glyphicon.glyphicon-remove
-                a(href="" ng-click="vm.docSvc.editSection($index)")
-                    div(style="margin:5px; float:left")
-                        span.glyphicon.glyphicon-pencil                
+                //- a(href="" ng-click="vm.docSvc.editSection($index)")
+                //-     div(style="margin:5px; float:left")
+                //-         span.glyphicon.glyphicon-pencil                
 
 
         //- div(ng-repeat="item in vm.docSvc.doc.sections track by $index")

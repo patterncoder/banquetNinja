@@ -40,7 +40,10 @@ function tmMenuDetailCtrl(
 
         try {
             //this.docSvc.getGroups();
-            this.docSvc.selGroup(); //we want to see if this menu is assigned to a group.
+            // this.docSvc.selGroup(); //we want to see if this menu is assigned to a group.
+
+            this.docSvc.findAssignedGroups(); //get all groups this menu is assigned to.
+
             // this.docSvc.getGroups().done(() => {
             //     console.log("groups done loading");
             // });

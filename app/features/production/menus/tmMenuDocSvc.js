@@ -27,7 +27,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.selCategory = "";
 
-    this.selectedGroup = undefined;
+    // this.selectedGroup = undefined;
 
     let self = this;
 
@@ -92,31 +92,31 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     };
 
     // Ensure menu only shows up in one group at a time.
-    let clrGroups = () => {
-        let dfd = new Promise((resolve, reject) => {
+    // let clrGroups = () => {
+    //     let dfd = new Promise((resolve, reject) => {
 
-            getGroups().then((groups) => {
-                groups.map((group) => {
-                    group.menus.map((menu, indx) => {
-                        if (menu.menuId == this.doc["_id"].toString()) {
-                            //don't mess with the group we want to save!
-                            if (group["_id"] != this.selectedGroup["_id"]) {
-                                console.log("menu at index:", indx);
-                                let removed = group.menus.splice(indx, 1);
-                                svGroup(group).then((returned) => {
-                                    console.log("saved!");
-                                });
-                            }
-                        }
-                    });
-                    resolve(true);
-                });
-            });
+    //         getGroups().then((groups) => {
+    //             groups.map((group) => {
+    //                 group.menus.map((menu, indx) => {
+    //                     if (menu.menuId == this.doc["_id"].toString()) {
+    //                         //don't mess with the group we want to save!
+    //                         if (group["_id"] != this.selectedGroup["_id"]) {
+    //                             console.log("menu at index:", indx);
+    //                             let removed = group.menus.splice(indx, 1);
+    //                             svGroup(group).then((returned) => {
+    //                                 console.log("saved!");
+    //                             });
+    //                         }
+    //                     }
+    //                 });
+    //                 resolve(true);
+    //             });
+    //         });
 
-        });
+    //     });
 
-        return dfd;
-    };
+    //     return dfd;
+    // };
 
 
 
@@ -133,25 +133,25 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
         console.log("obj:", menu);
 
-        clrGroups().then(() => {
+        // clrGroups().then(() => {
 
-            //passing in menuid as string.
-            if (!hasMenu(this.selectedGroup, menu.menuId.toString())) {
+        //passing in menuid as string.
+        if (!hasMenu(this.selectedGroup, menu.menuId.toString())) {
 
-                this.selectedGroup.menus.push(menu);
-                // console.log("group to save:", this.selectedGroup);
+            this.selectedGroup.menus.push(menu);
+            // console.log("group to save:", this.selectedGroup);
 
-                svGroup(this.selectedGroup).then((returned) => {
-                    console.log("saved!");
-                    //this.selectedGroup = returned;
-                    this.selGroup();
-                });
+            svGroup(this.selectedGroup).then((returned) => {
+                console.log("saved!");
+                //this.selectedGroup = returned;
+                this.selGroup();
+            });
 
-            }
-        });
+        }
+        // });
     };
 
-
+    //Generic get: Gets all of the groups, so we can loop through them later.
     let getGroups = () => {
         let dfd = new Promise((resolve, reject) => {
 
@@ -204,26 +204,26 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     };
 
     // need to set the existing group as the visible default value IF one is set.
-    this.selGroup = () => {
-        getGroups().then((groups) => {
-            //I don't think self.doc has finished loading by the time this code is run.
-            console.log("self id:", this.doc["_id"], this.doc["_id"].toString());
-            console.log("got groups!", groups);
-            this.menugroups = groups; //dropdown select populates on this statement.
+    // this.selGroup = () => {
+    //     getGroups().then((groups) => {
+    //         //I don't think self.doc has finished loading by the time this code is run.
+    //         console.log("self id:", this.doc["_id"], this.doc["_id"].toString());
+    //         console.log("got groups!", groups);
+    //         this.menugroups = groups; //dropdown select populates on this statement.
 
-            //let selfObjectId = mongoose.Types.ObjectId(self.doc["_id"]);
+    //         //let selfObjectId = mongoose.Types.ObjectId(self.doc["_id"]);
 
-            groups.map((group) => {
-                //have the correct group appear as default.
-                if (hasMenu(group, this.doc["_id"].toString())) {
-                    // this.selectedGroup = this.menugroups.indexOf(group);
-                    this.selectedGroup = group;
-                    this.bkupGroup = group; //this variable doesn't change immediately on-blur.
-                    console.log("selected group:", this.selectedGroup);
-                }
-            });
-        });
-    };
+    //         groups.map((group) => {
+    //             //have the correct group appear as default.
+    //             if (hasMenu(group, this.doc["_id"].toString())) {
+    //                 // this.selectedGroup = this.menugroups.indexOf(group);
+    //                 this.selectedGroup = group;
+    //                 this.bkupGroup = group; //this variable doesn't change immediately on-blur.
+    //                 console.log("selected group:", this.selectedGroup);
+    //             }
+    //         });
+    //     });
+    // };
 
     // title, subtitle, items, footer
     this.addSection = function (section) {
@@ -292,6 +292,14 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.setActiveTab = (index) => {
         this.activeObj.visible = index;
+    };
+
+    this.openAddGroup = () => {
+        console.log("openAddGroup called.");
+    };
+
+    this.removeGroup = (index) => {
+        console.log("remove group called, index:", index);
     };
 
     this.openAddFood = () => {
