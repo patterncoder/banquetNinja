@@ -294,6 +294,10 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         this.activeObj.visible = index;
     };
 
+    this.setIndex = (index) => {
+        this.activeObj.index = index;
+    };
+
     this.openAddGroup = () => {
         console.log("openAddGroup called.");
     };
@@ -303,6 +307,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     };
 
     this.openAddFood = () => {
+        console.log("openAddFood called");
         this.getCategories().then(() => {
             this.setActiveTab(2);
         });

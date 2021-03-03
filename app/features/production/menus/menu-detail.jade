@@ -8,14 +8,14 @@
                     include ./tabs/top-panel.jade
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
-                        //- md-tab(label="Descriptions")
-                        //-     include ./tabs/tab-descriptions.jade
-                        md-tab(label="Sections")
-                            include ./tabs/tab-sections.jade
-                        md-tab(label="Groups")
-                            include ./tabs/tab-groups.jade
-                        md-tab(label="Notes")
-                            include ./tabs/tab-notes.jade
+                        md-tab(ng-repeat="tabs in vm.docSvc.doc.sections track by $index" label="{{tabs.title}}" ng-click="vm.docSvc.setIndex(vm.tabIndex)")
+                            include ./tabs/section-food.jade
+                        //- md-tab(label="Sections")
+                        //-     include ./tabs/tab-sections.jade
+                        //- md-tab(label="Groups")
+                        //-     include ./tabs/tab-groups.jade
+                        //- md-tab(label="Notes")
+                        //-     include ./tabs/tab-notes.jade
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
                     div Some footer text here
         //- div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
@@ -28,7 +28,7 @@
         //-                 a(href="" ng-click="dCtrl.addItem(item)") 
         //-                     span.glyphicon.glyphicon-circle-arrow-left 
         //-                 span &nbsp; {{item}}
-        div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 1 && vm.tabIndex === 1" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 1 && vm.tabIndex === 0" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()
                     h3 Edit Section
@@ -45,7 +45,7 @@
                         span &nbsp; {{item.name}}
                     md-button.md-raised(ng-click="vm.docSvc.openAddFood()") Add Menu Item
                     br
-        div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 2 && vm.tabIndex === 1" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 2 && vm.tabIndex === 0" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()
                     h3 Add Food

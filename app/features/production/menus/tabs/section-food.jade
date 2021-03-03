@@ -1,0 +1,14 @@
+
+//- "item in vm.docSvc.doc.sections[vm.docSvc.activeObj.index].items"
+ninja-grid(no-data-text="No menu items yet..." 
+        grid-title=`Section Menu Items` 
+        doc-svc="vm.docSvc" 
+        list="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].items" 
+        create-method="vm.docSvc.openAddFood" 
+        update-method="" 
+        delete-method="deleteMenuItem"
+        add-toggle="vm.sideTab.menuItems"
+        fields="{name: {input: 'text', header: 'Menu Item', order: 10, width: 20, type: 'string'}," + 
+                " description: {input: 'textarea', header: 'Description', order: 20, width: 50, type: 'string'}," + 
+                " quantity: {input: 'text', header: 'Quantity', order: 30, width: 10, type: 'string'}," +
+                " price: {input: 'text', header: 'Price', order: 40, width: 10, type: 'string'}}")
