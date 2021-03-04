@@ -96,10 +96,10 @@ function tmCustomerDetailCtrl(
                     if (self.contractsList == undefined) {
                         self.contractsList = [];
                     }
-
                     self.contractsList.push(item);
                     self.docSvc.refreshFromServer();
                     //self.getRelatedContracts(); //we want to get the most recent contract that was just made...
+
                 });
 
 

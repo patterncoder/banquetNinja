@@ -8,7 +8,7 @@
                     include ./tabs/top-panel.jade
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
-                        md-tab( label="Descriptions")
+                        md-tab(label="Descriptions")
                             include ./tabs/tab-descriptions.jade
                         md-tab(label="Sections")
                             include ./tabs/tab-sections.jade
@@ -16,13 +16,48 @@
                             include ./tabs/tab-notes.jade
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
                     div Some footer text here
-        div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
+        //- div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
+        //- div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 0 && vm.tabIndex === 1" layout-padding)
+        //-     md-content(layout-padding style="background: transparent")
+        //-         div()
+        //-             h3 Add Category
+        //-             a(href="") Add categories to the list
+        //-             lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
+        //-                 a(href="" ng-click="dCtrl.addItem(item)") 
+        //-                     span.glyphicon.glyphicon-circle-arrow-left 
+        //-                 span &nbsp; {{item}}
+        div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 1 && vm.tabIndex === 1" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()
-                    h3 Add Category
-                    a(href="") Add categories to the list
-                    lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
-                        a(href="" ng-click="dCtrl.addItem(item)") 
+                    h3 Edit Section
+                    br
+                    h5 
+                        b Title
+                    input.form-control(ng-model="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title")
+                    br
+                    h3 Menu Items
+                    br
+                    div.itemCard(ng-repeat="item in vm.docSvc.doc.sections[vm.docSvc.activeObj.index].items" style="border: solid black 1px; background-color: white")
+                        a(href="" ng-click="vm.docSvc.delItem(item)") 
+                            span.glyphicon.glyphicon-remove
+                        span &nbsp; {{item.name}}
+                    md-button.md-raised(ng-click="vm.docSvc.openAddFood()") Add Menu Item
+                    br
+        div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 2 && vm.tabIndex === 1" layout-padding)
+            md-content(layout-padding style="background: transparent")
+                div()
+                    h3 Add Food
+                    br
+                    h5
+                        b Category
+                    select.form-control(ng-model="vm.docSvc.selCategory", ng-options="item for item in vm.docSvc.categories.menuItemTags") 
+                    br
+                    div.itemCard(ng-repeat="item in vm.docSvc.addableMenuItems" style="border: solid black 1px; background-color: white")
+                        a(href="" ng-click="vm.docSvc.addItem(item)") 
                             span.glyphicon.glyphicon-circle-arrow-left 
-                        span &nbsp; {{item}}
+                        span &nbsp; {{item.name}}
+                    br
+                    md-button.md-raised(ng-click="vm.docSvc.runSearch()") Search
+                    md-button.md-raised(ng-click="vm.docSvc.openEditSection()") Back
+                    br
     detail-footer

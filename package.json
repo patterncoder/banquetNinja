@@ -8,11 +8,11 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run dev",
+    "start": "node server.js",
     "postinstall": "node deploy.js",
-    "dev": "webpack-dev-server  --config webpack.config.js --progress --colors --hot ",
+    "dev": "webpack-dev-server --devtool eval --config webpack.config.js --progress --colors --hot --content-base --hide-modules app/ ",
     "prodStart": "set NODE_ENV=production webpack -p --config webpack.production.config.js",
-    "build": "webpack --config webpack.config.js --progress --colors"
+    "build": "webpack --config webpack.production.config.js --progress --colors"
   },
   "author": "Christopher J. Baily",
   "license": "ISC",
@@ -53,7 +53,7 @@
     "stylus": "^0.52.4",
     "toastr": "^2.1.2",
     "url-loader": "^0.5.6",
-    "webpack": "^1.12.2"
+    "webpack": "^1.15.0"
   },
   "devDependencies": {
     "stylus-loader": "^3.0.2",
