@@ -45,7 +45,7 @@
                         span &nbsp; {{item.name}}
                     md-button.md-raised(ng-click="vm.docSvc.openAddFood()") Add Menu Item
                     br
-        div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 2 && vm.tabIndex === 0" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.menuItems" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()
                     h3 Add Food
