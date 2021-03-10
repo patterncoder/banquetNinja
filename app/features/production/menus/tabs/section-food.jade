@@ -1,10 +1,11 @@
 
 //- "item in vm.docSvc.doc.sections[vm.docSvc.activeObj.index].items"
+//- create-method="vm.docSvc.openAddFood"
 ninja-grid(no-data-text="No menu items yet..." 
         grid-title=`Section Menu Items` 
         doc-svc="vm.docSvc" 
         list="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].items" 
-        create-method="vm.docSvc.openAddFood" 
+        create-method="openAddFood" 
         update-method="" 
         delete-method="deleteMenuItem"
         add-toggle="vm.sideTab.menuItems"

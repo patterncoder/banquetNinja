@@ -10,6 +10,8 @@
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         md-tab(ng-repeat="tabs in vm.docSvc.doc.sections track by $index" label="{{tabs.title}}" ng-click="vm.docSvc.setIndex(vm.tabIndex)")
                             include ./tabs/section-food.jade
+                        md-tab(ng-click="console.log('click!')")
+                            span.glyphicon.glyphicon-plus
                         //- md-tab(label="Sections")
                         //-     include ./tabs/tab-sections.jade
                         //- md-tab(label="Groups")
