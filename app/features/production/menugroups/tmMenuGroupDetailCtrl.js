@@ -31,7 +31,9 @@ function tmMenuGroupDetailCtrl (
         }
     });
     
-    this.loadData();
+    this.loadData().then(() => {
+        this.docSvc.getMenus();
+    });
     
     return this;
     
