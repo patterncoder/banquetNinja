@@ -2,7 +2,7 @@ div(layout="row" layout-padding)
     div(flex=33)
         h3 Menus
         p These are the menus assigned to this group.
-        md-button(ng-click="vm.docSvc.addSection()") Add Menu
+        //- md-button(ng-click="vm.docSvc.addSection()") Add Menu
         div(ng-repeat="item in vm.docSvc.doc.menus track by $index")
             div(layout="row")
                 div(ng-click="vm.docSvc.editGroup($index)" style="padding: 2px")
@@ -11,6 +11,6 @@ div(layout="row" layout-padding)
                 a(href="" ng-click="vm.docSvc.removeGroup($index)")
                     div(style="margin:5px; float:left")
                         span.glyphicon.glyphicon-remove
-                a(href="" ng-click="vm.docSvc.editGroup($index)")
-                    div(style="margin:5px; float:left")
-                        span.glyphicon.glyphicon-pencil
+                //- a(href="" ng-click="vm.docSvc.editGroup($index)")
+                //-     div(style="margin:5px; float:left")
+                //-         span.glyphicon.glyphicon-pencil

@@ -3,10 +3,11 @@ import angular from 'angular';
 import config from 'config';
 import mongoose from "mongoose";
 
-function tmMenuDocSvc (tmDocFactory) {
+function tmMenuDocSvc (tmDocFactory, $dataSource) {
     
     this.__proto__ = tmDocFactory('MenuGroup', ninjaSchemas.production.MenuGroup);
     
+    this.allMenus = [];
     
     
     let getDateLastYear = () => {
@@ -16,8 +17,27 @@ function tmMenuDocSvc (tmDocFactory) {
     };
 
     this.getMenus = () => {
-        console.log("this:", this);
-        return this.doc.menus;
+        let dfd = new Promise((resolve, reject) => {
+
+            let Menus = this.$dataSource.load("Menu");
+
+            console.log("menus:", Menus);
+
+            try {
+                Menus.query().then((data) => {
+                    console.log("data:", data);
+                    this.allMenus = data;
+                    resolve(data);
+                });
+
+            } catch (e) {
+                // reject(e);
+                console.log(e);
+            }
+
+        });
+
+        return dfd;
     };
 
     // this.runSearch = () => {
@@ -71,6 +91,6 @@ function tmMenuDocSvc (tmDocFactory) {
 }
 
 
-tmMenuDocSvc.$inject = ['tmDocFactory'];
+tmMenuDocSvc.$inject = ['tmDocFactory', '$dataSource'];
 
 export default tmMenuDocSvc;

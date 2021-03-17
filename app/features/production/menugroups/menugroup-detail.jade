@@ -15,10 +15,10 @@
         div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()
-                    h3 Add Category
-                    a(href="") Add categories to the list
-                    lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
-                        a(href="" ng-click="dCtrl.addItem(item)") 
-                            span.glyphicon.glyphicon-circle-arrow-left 
-                        span &nbsp; {{item}}
+                    h3 Add Menu
+                    a(href="") Add menus to this group
+                    //- lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
+                    //-     a(href="" ng-click="dCtrl.addItem(item)") 
+                    //-         span.glyphicon.glyphicon-circle-arrow-left 
+                    //-     span &nbsp; {{item}}
     detail-footer
