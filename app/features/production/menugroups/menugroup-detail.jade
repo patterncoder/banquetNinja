@@ -16,7 +16,15 @@
             md-content(layout-padding style="background: transparent")
                 div()
                     h3 Add Menu
-                    a(href="") Add menus to this group
+                    div Add menus to this group
+                    div(ng-repeat="item in vm.docSvc.displayedMenus")
+                        a(href="" ng-click="vm.docSvc.addMenu(item)") 
+                            span.glyphicon.glyphicon-circle-arrow-left 
+                        span &nbsp; {{item.name}}
+                    div
+                        a(href="" ng-click="vm.docSvc.loadMore()") Load More
+                            //- span.glyphicon.glyphicon-circle-arrow-left 
+                        //- span &nbsp; Load More
                     //- lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
                     //-     a(href="" ng-click="dCtrl.addItem(item)") 
                     //-         span.glyphicon.glyphicon-circle-arrow-left 
