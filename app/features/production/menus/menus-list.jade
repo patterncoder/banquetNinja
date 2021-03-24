@@ -2,6 +2,7 @@
 
 div(flex="100")
     list-header
+    alpha-select(on-select="vm.changeFilter({value: letter})")
     table.table.table-responsive
         colgroup
             col(span="1")

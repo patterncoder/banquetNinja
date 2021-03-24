@@ -33,6 +33,15 @@ function tmMenuDetailCtrl(
         }
     });
 
+    this.changeFilter = function (value) {
+        console.log("filter called!", value);
+        // var filter = {
+        //     select: "firstName lastName phoneNumbers",
+        //     "startsWith[lastName]": value.value,
+        //     "sort[lastName]": 1
+        // };
+        // this.loadData(filter, true);
+    };
 
     this.loadData().then(() => {
 
