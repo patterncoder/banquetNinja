@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 
 function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
+    console.log("tmMenuDocSvc called!");
+
     this.__proto__ = tmDocFactory('Menu', ninjaSchemas.production.Menu);
 
     console.log("__proto__:", this.__proto__);
@@ -202,6 +204,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
             console.log("Assigned groups:", this.assignedGroups);
         });
     };
+
 
     // need to set the existing group as the visible default value IF one is set.
     // this.selGroup = () => {

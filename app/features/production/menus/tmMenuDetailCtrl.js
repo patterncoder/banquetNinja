@@ -20,6 +20,8 @@ function tmMenuDetailCtrl(
         addHeaderText: "Add Menu"
     }
 
+    console.log("tmMenuDetailCtrl called!");
+
     this.__proto__ = tmDetailFactory(constructorArgs);
 
     this.$scope.$watch(function () {
@@ -32,16 +34,6 @@ function tmMenuDetailCtrl(
             self.detailForm.$setUntouched();
         }
     });
-
-    this.changeFilter = function (value) {
-        console.log("filter called!", value);
-        // var filter = {
-        //     select: "firstName lastName phoneNumbers",
-        //     "startsWith[lastName]": value.value,
-        //     "sort[lastName]": 1
-        // };
-        // this.loadData(filter, true);
-    };
 
     this.loadData().then(() => {
 
