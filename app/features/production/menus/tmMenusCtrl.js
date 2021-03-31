@@ -18,14 +18,18 @@ class tmMenusCtrl {
         console.log("tmMenusCtrl this:", this);
 
         let stripNums = (menuObj) => {
-            let name = menuObj.name;
             let nwName = "";
-            for (let i = 0; i < name.length; ++i) {
-                if (isNaN(name[i])) {
-                    nwName += name[i];
+            if (menuObj.hasOwnProperty("name")) {
+                let name = menuObj.name;
+                for (let i = 0; i < name.length; ++i) {
+                    if (isNaN(name[i])) {
+                        nwName += name[i];
+                    }
                 }
+                console.log(nwName);
+            } else {
+                console.log("NO NAME PROPERTY!!!", menuObj);
             }
-            console.log(nwName);
             return nwName;
         };
 
@@ -33,7 +37,7 @@ class tmMenusCtrl {
             let alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
             let str = nwName.toUpperCase();
             let char = str[0];
-            if(alphabet.indexOf(char) > -1) {
+            if (alphabet.indexOf(char) > -1) {
                 return char;
             }
 
@@ -43,6 +47,7 @@ class tmMenusCtrl {
 
         this.changeFilter = function (value) {
             console.log("filter called!", value);
+            this.filter = value;
 
             // we need to hide and show objects, based on alphabetical.
 
