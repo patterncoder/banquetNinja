@@ -29,6 +29,17 @@ class tmMenusCtrl {
             return nwName;
         };
 
+        let getFilterChar = (nwName) => {
+            let alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+            let str = nwName.toUpperCase();
+            let char = str[0];
+            if(alphabet.indexOf(char) > -1) {
+                return char;
+            }
+
+            return "A";
+        };
+
 
         this.changeFilter = function (value) {
             console.log("filter called!", value);
@@ -51,8 +62,12 @@ class tmMenusCtrl {
         this.loadData().then((tmp) => {
             console.log("loadData result:", tmp);
 
+            this.items.reverse() //comes in from db oldest first...
+
             this.items.map((obj) => {
                 obj.nwName = stripNums(obj);
+                obj.filterChar = getFilterChar(obj.nwName);
+                console.log("filterChar:", obj.filterChar);
             });
         });
 
