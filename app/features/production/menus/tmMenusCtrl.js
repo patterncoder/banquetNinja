@@ -13,6 +13,8 @@ class tmMenusCtrl {
             listTitle: 'Menus'
         };
 
+        this.filter = "";
+
         console.log("tmMenusCtrl this:", this);
 
         let stripNums = (menuObj) => {
@@ -27,8 +29,14 @@ class tmMenusCtrl {
             return nwName;
         };
 
+
         this.changeFilter = function (value) {
             console.log("filter called!", value);
+
+            // we need to hide and show objects, based on alphabetical.
+
+
+
             // var filter = {
             //     select: "firstName lastName phoneNumbers",
             //     "startsWith[lastName]": value.value,
