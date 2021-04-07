@@ -13,8 +13,11 @@ class tmMenusCtrl {
             listTitle: 'Menus'
         };
 
-        this.activeFilter= "A";
+        this.activeFilter = "A";
+
         this.activeMenus = [];
+
+        let alphaSorted = {"A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": []};
 
         console.log("tmMenusCtrl this:", this);
 
@@ -47,8 +50,8 @@ class tmMenusCtrl {
 
 
         this.changeFilter = function (value) {
-            console.log("filter called!", value);
-            this.activeFilter = value;
+            this.activeFilter = value.value;
+            this.activeMenus = alphaSorted[this.activeFilter];
 
             // we need to hide and show objects, based on alphabetical.
 
@@ -74,7 +77,10 @@ class tmMenusCtrl {
                 obj.nwName = this.stripNums(obj);
                 obj.filterChar = this.getFilterChar(obj.nwName);
                 console.log("filterChar:", obj.filterChar);
+                alphaSorted[obj.filterChar].push(obj);
             });
+
+            this.activeMenus = alphaSorted[this.activeFilter]; //Usually "A".
 
             // this.menus = this.items; //this is to help angular bindings...
         });
