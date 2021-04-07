@@ -14,6 +14,7 @@ class tmMenusCtrl {
         };
 
         this.activeFilter= "A";
+        this.activeMenus = [];
 
         console.log("tmMenusCtrl this:", this);
 
@@ -74,6 +75,8 @@ class tmMenusCtrl {
                 obj.filterChar = this.getFilterChar(obj.nwName);
                 console.log("filterChar:", obj.filterChar);
             });
+
+            // this.menus = this.items; //this is to help angular bindings...
         });
 
     }
