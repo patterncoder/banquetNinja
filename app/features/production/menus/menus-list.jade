@@ -14,7 +14,7 @@ div(flex="100")
             th.text-right
                 button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
         tbody
-            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder" ng-show="item.filterChar == vm.filter")
+            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder" ng-show="vm.getFilterChar(vm.stripNums(item)) == vm.activeFilter")
                 td {{::item.name}}
                 td {{::item.description}}
                 td(style="padding: 4px;")

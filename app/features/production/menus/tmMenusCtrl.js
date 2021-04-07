@@ -13,11 +13,11 @@ class tmMenusCtrl {
             listTitle: 'Menus'
         };
 
-        this.filter = "";
+        this.activeFilter= "A";
 
         console.log("tmMenusCtrl this:", this);
 
-        let stripNums = (menuObj) => {
+        this.stripNums = (menuObj) => {
             let nwName = "";
             if (menuObj.hasOwnProperty("name")) {
                 let name = menuObj.name;
@@ -33,7 +33,7 @@ class tmMenusCtrl {
             return nwName;
         };
 
-        let getFilterChar = (nwName) => {
+        this.getFilterChar = (nwName) => {
             let alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
             let str = nwName.toUpperCase();
             let char = str[0];
@@ -47,7 +47,7 @@ class tmMenusCtrl {
 
         this.changeFilter = function (value) {
             console.log("filter called!", value);
-            this.filter = value;
+            this.activeFilter = value;
 
             // we need to hide and show objects, based on alphabetical.
 
@@ -67,11 +67,11 @@ class tmMenusCtrl {
         this.loadData().then((tmp) => {
             console.log("loadData result:", tmp);
 
-            this.items.reverse() //comes in from db oldest first...
+            //this.items.reverse() //comes in from db oldest first...
 
             this.items.map((obj) => {
-                obj.nwName = stripNums(obj);
-                obj.filterChar = getFilterChar(obj.nwName);
+                obj.nwName = this.stripNums(obj);
+                obj.filterChar = this.getFilterChar(obj.nwName);
                 console.log("filterChar:", obj.filterChar);
             });
         });
