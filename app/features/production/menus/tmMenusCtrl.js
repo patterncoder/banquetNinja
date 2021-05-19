@@ -13,11 +13,9 @@ class tmMenusCtrl {
             listTitle: 'Menus'
         };
 
-        this.activeFilter = "A";
+        this.__proto__ = tmListFactory(constructorArgs);
 
-        // this.activeMenus = [{
-        //     "name": "loading",
-        // }];
+        this.activeFilter = "A";
 
         this.activeMenus = [];
 
@@ -57,36 +55,23 @@ class tmMenusCtrl {
             this.activeFilter = value.value;
             this.activeMenus = alphaSorted[this.activeFilter];
 
-            // we need to hide and show objects, based on alphabetical.
-
-
-
-            // var filter = {
-            //     select: "firstName lastName phoneNumbers",
-            //     "startsWith[lastName]": value.value,
-            //     "sort[lastName]": 1
-            // };
-            // this.loadData(filter, true);
         };
 
-        this.__proto__ = tmListFactory(constructorArgs);
-
-        //loadData needs to be async or return a promise.
-        this.loadData().then((tmp) => {
-            console.log("loadData result:", tmp);
-
+        this.afterLoad = () => {
             //this.items.reverse() //comes in from db oldest first...
 
             this.items.map((obj) => {
                 obj.nwName = this.stripNums(obj);
                 obj.filterChar = this.getFilterChar(obj.nwName);
-                console.log("filterChar:", obj.filterChar);
                 alphaSorted[obj.filterChar].push(obj);
             });
 
             this.activeMenus = alphaSorted[this.activeFilter]; //Usually "A".
+        };
 
-            // this.menus = this.items; //this is to help angular bindings...
+        //loadData needs to be async or return a promise.
+        this.loadData().then((tmp) => {
+            console.log("loadData result:", tmp);
         });
 
     }
