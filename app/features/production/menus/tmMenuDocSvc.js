@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 
 function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
+    console.log("tmMenuDocSvc called!");
+
     this.__proto__ = tmDocFactory('Menu', ninjaSchemas.production.Menu);
 
     console.log("__proto__:", this.__proto__);
@@ -21,12 +23,13 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.categories = [];
     this.menugroups = [];
+    this.assignedGroups = [];
 
     this.addableMenuItems = [];
 
     this.selCategory = "";
 
-    this.selectedGroup = undefined;
+    // this.selectedGroup = undefined;
 
     let self = this;
 
@@ -91,31 +94,31 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     };
 
     // Ensure menu only shows up in one group at a time.
-    let clrGroups = () => {
-        let dfd = new Promise((resolve, reject) => {
+    // let clrGroups = () => {
+    //     let dfd = new Promise((resolve, reject) => {
 
-            getGroups().then((groups) => {
-                groups.map((group) => {
-                    group.menus.map((menu, indx) => {
-                        if (menu.menuId == this.doc["_id"].toString()) {
-                            //don't mess with the group we want to save!
-                            if (group["_id"] != this.selectedGroup["_id"]) {
-                                console.log("menu at index:", indx);
-                                let removed = group.menus.splice(indx, 1);
-                                svGroup(group).then((returned) => {
-                                    console.log("saved!");
-                                });
-                            }
-                        }
-                    });
-                    resolve(true);
-                });
-            });
+    //         getGroups().then((groups) => {
+    //             groups.map((group) => {
+    //                 group.menus.map((menu, indx) => {
+    //                     if (menu.menuId == this.doc["_id"].toString()) {
+    //                         //don't mess with the group we want to save!
+    //                         if (group["_id"] != this.selectedGroup["_id"]) {
+    //                             console.log("menu at index:", indx);
+    //                             let removed = group.menus.splice(indx, 1);
+    //                             svGroup(group).then((returned) => {
+    //                                 console.log("saved!");
+    //                             });
+    //                         }
+    //                     }
+    //                 });
+    //                 resolve(true);
+    //             });
+    //         });
 
-        });
+    //     });
 
-        return dfd;
-    };
+    //     return dfd;
+    // };
 
 
 
@@ -132,25 +135,25 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
         console.log("obj:", menu);
 
-        clrGroups().then(() => {
+        // clrGroups().then(() => {
 
-            //passing in menuid as string.
-            if (!hasMenu(this.selectedGroup, menu.menuId.toString())) {
+        //passing in menuid as string.
+        if (!hasMenu(this.selectedGroup, menu.menuId.toString())) {
 
-                this.selectedGroup.menus.push(menu);
-                // console.log("group to save:", this.selectedGroup);
+            this.selectedGroup.menus.push(menu);
+            // console.log("group to save:", this.selectedGroup);
 
-                svGroup(this.selectedGroup).then((returned) => {
-                    console.log("saved!");
-                    //this.selectedGroup = returned;
-                    this.selGroup();
-                });
+            svGroup(this.selectedGroup).then((returned) => {
+                console.log("saved!");
+                //this.selectedGroup = returned;
+                this.selGroup();
+            });
 
-            }
-        });
+        }
+        // });
     };
 
-
+    //Generic get: Gets all of the groups, so we can loop through them later.
     let getGroups = () => {
         let dfd = new Promise((resolve, reject) => {
 
@@ -177,8 +180,8 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         return dfd;
     };
 
-    // need to set the existing group as the visible default value IF one is set.
-    this.selGroup = () => {
+    // need to find all of the groups this menu is assigned to.
+    this.findAssignedGroups = () => {
         getGroups().then((groups) => {
             //I don't think self.doc has finished loading by the time this code is run.
             console.log("self id:", this.doc["_id"], this.doc["_id"].toString());
@@ -191,13 +194,39 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
                 //have the correct group appear as default.
                 if (hasMenu(group, this.doc["_id"].toString())) {
                     // this.selectedGroup = this.menugroups.indexOf(group);
-                    this.selectedGroup = group;
-                    this.bkupGroup = group; //this variable doesn't change immediately on-blur.
-                    console.log("selected group:", this.selectedGroup);
+                    this.assignedGroups.push(group);
+                    // this.selectedGroup = group;
+                    // this.bkupGroup = group; //this variable doesn't change immediately on-blur.
+                    // console.log("selected group:", this.selectedGroup);
                 }
             });
+
+            console.log("Assigned groups:", this.assignedGroups);
         });
     };
+
+
+    // need to set the existing group as the visible default value IF one is set.
+    // this.selGroup = () => {
+    //     getGroups().then((groups) => {
+    //         //I don't think self.doc has finished loading by the time this code is run.
+    //         console.log("self id:", this.doc["_id"], this.doc["_id"].toString());
+    //         console.log("got groups!", groups);
+    //         this.menugroups = groups; //dropdown select populates on this statement.
+
+    //         //let selfObjectId = mongoose.Types.ObjectId(self.doc["_id"]);
+
+    //         groups.map((group) => {
+    //             //have the correct group appear as default.
+    //             if (hasMenu(group, this.doc["_id"].toString())) {
+    //                 // this.selectedGroup = this.menugroups.indexOf(group);
+    //                 this.selectedGroup = group;
+    //                 this.bkupGroup = group; //this variable doesn't change immediately on-blur.
+    //                 console.log("selected group:", this.selectedGroup);
+    //             }
+    //         });
+    //     });
+    // };
 
     // title, subtitle, items, footer
     this.addSection = function (section) {
@@ -230,13 +259,15 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     let getDateLastYear = () => {
         let now = new Date();
-        now.setFullYear(now.getFullYear() - 1);
+        now.setFullYear(now.getFullYear() - 2);
         return now;
     };
 
     this.runSearch = () => {
 
         let url = `${config.apiBase}/production/menuitems?where[categories]=${[this.selCategory]}`;
+        console.log("runSearch: url:", url);
+
         let request = {
             method: "GET",
             url: url
@@ -244,12 +275,33 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
         let filtered = [];
         this.$http(request).then((data) => {
-            data.data.data.map((menItm) => {
-                let dt = new Date(menItm.meta.dateLastMod);
-                if (dt.getTime() >= (getDateLastYear().getTime())) {
-                    filtered.push(menItm);
-                }
-            });
+            console.log("runSearch: data:", data);
+
+            let tmp = data.data;
+
+            console.log(getDateLastYear());
+
+            let filter = (dta) => {
+                dta.map((menItm) => {
+                    // console.log("filter:", menItm);
+                    // if(menItm.length) { //is menItm an array?
+                    //     console.log("menItm is an array...");
+                    //     filter(menItm);
+                    // }
+                    let dt = new Date(menItm.meta.dateLastMod);
+                    console.log("dt:", dt);
+                    if (dt.getTime() >= (getDateLastYear().getTime())) {
+                        filtered.push(menItm);
+                    }
+                });
+            };
+
+            if(tmp.length) {
+                filter(tmp);
+            } else if(tmp.hasOwnProperty("data")) {
+                filter(tmp.data);
+            }
+
             console.log("menuItems:", filtered);
             this.addableMenuItems = filtered;
         });
@@ -268,7 +320,20 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         this.activeObj.visible = index;
     };
 
+    this.setIndex = (index) => {
+        this.activeObj.index = index;
+    };
+
+    this.openAddGroup = () => {
+        console.log("openAddGroup called.");
+    };
+
+    this.removeGroup = (index) => {
+        console.log("remove group called, index:", index);
+    };
+
     this.openAddFood = () => {
+        console.log("openAddFood called");
         this.getCategories().then(() => {
             this.setActiveTab(2);
         });
@@ -286,6 +351,10 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.removeSection = function (index) {
         this.doc.sections.splice(index, 1);
+    };
+
+    this.setSelCategory = (category) => {
+        this.selCategory = category;
     };
 
     this.updateSection = function (section) { };

@@ -1,0 +1,34 @@
+div(layout="row" layout-padding)
+    div(flex=33)
+        h3 Groups
+        p This menu is assigned to these groups.
+        md-button(ng-click="vm.docSvc.openAddGroup()") Add Group
+        div(ng-repeat="item in vm.docSvc.assignedGroups")
+            div(layout="row")
+                div(ng-click="" style="padding: 2px")
+                    span {{item.name}}
+                    span(flex)
+                a(href="" ng-click="vm.docSvc.removeGroup($index)")
+                    div(style="margin:5px; float:left")
+                        span.glyphicon.glyphicon-remove
+                //- a(href="" ng-click="vm.docSvc.editSection($index)")
+                //-     div(style="margin:5px; float:left")
+                //-         span.glyphicon.glyphicon-pencil                
+
+
+        //- div(ng-repeat="item in vm.docSvc.doc.sections track by $index")
+        //-     div(layout="row")
+        //-         div(ng-click="vm.docSvc.editSection($index)" style="padding: 2px")
+        //-             span {{item.title}}
+        //-             span(flex)
+        //-         a(href="" ng-click="vm.docSvc.removeSection($index)")
+        //-             div(style="margin:5px; float:left")
+        //-                 span.glyphicon.glyphicon-remove
+        //-         a(href="" ng-click="vm.docSvc.editSection($index)")
+        //-             div(style="margin:5px; float:left")
+        //-                 span.glyphicon.glyphicon-pencil
+
+//- div(flex layout="row")
+//-     .form-group(flex="30")
+//-         label.control-label(for="group") Assigned Group
+//-         select.form-control(ng-model="vm.docSvc.selectedGroup", ng-blur="vm.docSvc.setSelGroup()" ng-options="item.name for item in vm.docSvc.menugroups")

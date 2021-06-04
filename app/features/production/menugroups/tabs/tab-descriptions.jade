@@ -1,0 +1,8 @@
+div(layout="row" flex layout-fill layout-padding)
+    div(flex="90" align-content="flex-start" layout="column")
+        .form-group(flex="90")
+            label.control-label(for="title") Title
+            input.form-control(ng-model="vm.docSvc.doc.title" )
+        .form-group(flex="90")
+            label.control-label(for="subTitle") Sub Title
+            input.form-control(ng-model="vm.docSvc.doc.subtitle")        

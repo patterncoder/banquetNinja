@@ -1,8 +1,16 @@
-div(layout="row" flex layout-fill layout-padding)
-    div(flex="90" align-content="flex-start" layout="column")
-        .form-group(flex="90")
-            label.control-label(for="title") Title
-            input.form-control(ng-model="vm.docSvc.doc.title" )
-        .form-group(flex="90")
-            label.control-label(for="subTitle") Sub Title
-            input.form-control(ng-model="vm.docSvc.doc.subtitle")        
+div(layout="row" layout-padding)
+    div(flex=33)
+        h3 Menus
+        p These are the menus assigned to this group.
+        //- md-button(ng-click="vm.docSvc.addSection()") Add Menu
+        div(ng-repeat="item in vm.docSvc.doc.menus track by $index")
+            div(layout="row")
+                div(ng-click="vm.docSvc.editGroup($index)" style="padding: 2px")
+                    span {{item.name ? item.name : item.title}}
+                    span(flex)
+                a(href="" ng-click="vm.docSvc.removeGroup($index)")
+                    div(style="margin:5px; float:left")
+                        span.glyphicon.glyphicon-remove
+                //- a(href="" ng-click="vm.docSvc.editGroup($index)")
+                //-     div(style="margin:5px; float:left")
+                //-         span.glyphicon.glyphicon-pencil

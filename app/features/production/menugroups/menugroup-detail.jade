@@ -8,15 +8,25 @@
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         md-tab( label="Descriptions")
+                            include ./tabs/tab-descriptions.jade
+                        md-tab( label="Menus")
                             include ./tabs/add-menus.jade
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
         div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()
-                    h3 Add Category
-                    a(href="") Add categories to the list
-                    lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
-                        a(href="" ng-click="dCtrl.addItem(item)") 
+                    h3 Add Menu
+                    div Add menus to this group
+                    div(ng-repeat="item in vm.docSvc.displayedMenus")
+                        a(href="" ng-click="vm.docSvc.addMenu(item)") 
                             span.glyphicon.glyphicon-circle-arrow-left 
-                        span &nbsp; {{item}}
+                        span &nbsp; {{item.name}}
+                    div
+                        a(href="" ng-click="vm.docSvc.loadMore()") Load More
+                            //- span.glyphicon.glyphicon-circle-arrow-left 
+                        //- span &nbsp; Load More
+                    //- lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
+                    //-     a(href="" ng-click="dCtrl.addItem(item)") 
+                    //-         span.glyphicon.glyphicon-circle-arrow-left 
+                    //-     span &nbsp; {{item}}
     detail-footer
