@@ -27,6 +27,14 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         this.doc.eventSteps.splice(index, 1);
     };
 
+    this.addDeposit = function (newDepositEntry) {
+        this.doc.deposits.push(newDepositEntry);
+    };
+
+    this.removeDeposit = function (index) {
+        this.doc.deposits.splice(index, 1);
+    };
+
     this.addCommLog = function (logType) {
         var logToAdd = {
             date: new Date(),

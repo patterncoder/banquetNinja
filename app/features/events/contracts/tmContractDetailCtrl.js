@@ -32,6 +32,7 @@ function tmContractDetailCtrl(
     this.filterSection = undefined;
 
     self.models = { newEventStep: {} };
+    self.models.newDeposit = {};
 
     _.forEach(ninjaSchemas.events.Contract.paths.eventSteps.schema.paths, (item, key) => {
         self.models.newEventStep[key] = null;
@@ -42,6 +43,14 @@ function tmContractDetailCtrl(
         self.models.newEventStep.time.setSeconds(0);
         this.docSvc.addTimeline(self.models.newEventStep);
         self.models.newEventStep = _.mapValues(self.models.newEventStep, () => null);
+    };
+
+    this.addDeposit = () => {
+        //add the deposit
+        self.models.newDeposit.date.setMilliseconds(0);
+        self.models.newDeposit.date.setSeconds(0);
+        this.docSvc.addDeposit(self.models.newDeposit); //submits?
+        self.models.newDeposit = _.mapValues(self.models.newDeposit, () => null); //clears all of the values?
     };
 
     this.moreFunctions.print = {
