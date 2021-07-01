@@ -47,8 +47,11 @@ function tmContractDetailCtrl(
 
     this.addDeposit = () => {
         //add the deposit
-        self.models.newDeposit.date.setMilliseconds(0);
-        self.models.newDeposit.date.setSeconds(0);
+        self.models.newDeposit.dateAdd = new Date();
+        if (self.models.newDeposit.date) {
+            self.models.newDeposit.date.setMilliseconds(0);
+            self.models.newDeposit.date.setSeconds(0);
+        }
         this.docSvc.addDeposit(self.models.newDeposit); //submits?
         self.models.newDeposit = _.mapValues(self.models.newDeposit, () => null); //clears all of the values?
     };

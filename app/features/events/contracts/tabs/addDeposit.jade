@@ -5,13 +5,10 @@ div(layout="column" )
     h3 Add New Deposit
     .form-group(flex="25")
         label.control-label(for="title") Date Paid
-        date-picker(field="vm.models.newDeposit.date")
+        date-picker(field="vm.models.newDeposit.dateComplete")
     .form-group(flex="33")
         label.control-label(for="title") Amount
         input.form-control(ng-model="vm.models.newDeposit.amount" )
-    .form-group(flex="33")
-        label.control-label(for="title") Completed
-        input.form-control(ng-model="vm.models.newDeposit.completed" )
     .form-group(flex="33")
         label.control-label(for="title") Description
         input.form-control(ng-model="vm.models.newDeposit.description" )
