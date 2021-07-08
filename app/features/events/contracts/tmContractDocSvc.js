@@ -52,7 +52,8 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
     this.addVenue = function (venue) {
         var venueToAdd = {
             name: venue.name,
-            notes: "",
+            notes: venue.notes,
+            price: venue.price,
             baseId: venue._id
         };
         this.doc.venues.push(venueToAdd);
