@@ -89,18 +89,18 @@ function tmContractDetailCtrl(
 
             console.log("print the handout!");
 
-            // let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/pdf`;
-            // var req = {
-            //     method: 'GET',
-            //     url: url,
-            //     responseType: 'arraybuffer'
-            // };
-            // self.$http(req).then(function (result) {
-            //     console.log(result);
-            //     var file = new Blob([result.data], { type: 'application/pdf' });
-            //     var fileURL = URL.createObjectURL(file);
-            //     window.open(fileURL);
-            // });
+            let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/handoutPdf`;
+            var req = {
+                method: 'GET',
+                url: url,
+                responseType: 'arraybuffer'
+            };
+            self.$http(req).then(function (result) {
+                console.log(result);
+                var file = new Blob([result.data], { type: 'application/pdf' });
+                var fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
+            });
         }
     }
 
