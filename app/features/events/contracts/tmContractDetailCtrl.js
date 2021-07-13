@@ -219,6 +219,29 @@ function tmContractDetailCtrl(
         //this.sectionsHidden = true;
     };
 
+    this.addSectionDivider = () => {
+        console.log("called addSectionDivider");
+        /*
+        var menuItem = {
+            sortOrder: Number,
+            name: String,
+            description: String,
+            baseId : {type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem'},
+            quantity: Number,
+            price: Number
+        };
+        */
+        let divider = {
+            name: "New Divider",
+            description: "This is a divider",
+            // baseId: "divider",
+            quantity: 0,
+            price: 0,
+            type: "divider"
+        };
+        this.docSvc.doc.menuItems.push(divider);
+    };
+
     this.getDetailTitle = function () {
         const customer = self.docSvc.doc.customer;
         if (customer) {
