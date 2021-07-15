@@ -110,6 +110,7 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         //  depopulate for saving
         var stripped = _.pick(self.doc.customer, "_id");
         self.doc.customer = stripped._id;
+        console.log("customer", self.doc.customer);
         var monDoc = new this.tmMongoose.Document(self.doc, self.docSchema);
         monDoc.validate(function (err) {
             if (err) {

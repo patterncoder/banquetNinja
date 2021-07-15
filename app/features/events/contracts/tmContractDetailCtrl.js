@@ -234,10 +234,10 @@ function tmContractDetailCtrl(
         let divider = {
             name: "New Divider",
             description: "This is a divider",
-            // baseId: "divider",
+            baseId: "5e503ce5229c5d33d41b05a7", //this is the id of a random menu item for testing purposes.
             quantity: 0,
             price: 0,
-            type: "divider"
+            itemType: "divider"
         };
         this.docSvc.doc.menuItems.push(divider);
     };
