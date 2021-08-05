@@ -16,6 +16,13 @@ export default [
             methods: {update: { method: 'PUT', isArray: false },
                         query: { method: 'GET', isArray: false}}
         });        
+        $dataSourceProvider.addApiRoute({
+            key: "Settings",
+            url: config.apiBase + "/settings",
+            defaults: { _id: "@id" },
+            methods: {update: { method: 'PUT', isArray: false },
+                        query: { method: 'GET', isArray: false}}
+        });
     }
 ]
 

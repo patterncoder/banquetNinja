@@ -13,6 +13,17 @@ export default function states($stateProvider){
                 }
             }
         })
+    .state('root.settings', {
+            url:'/settings',
+            roles: ['admin', 'superUser'],
+            views: {
+                'content@': {
+                    template: require('./settings/settings-detail.jade'),
+                    controller: 'tmSettingsDetailCtrl',
+                    controllerAs: 'vm'
+                }
+            }
+        })
     .state('root.userDetail', {
             url: '/users/:id',
             roles: ['admin', 'superUser'],

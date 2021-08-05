@@ -11,8 +11,16 @@ export default ['navigationProvider', function(navigationProvider){
             roles: [ 'admin', 'superUser']
         });
         navigationProvider.addNav({
-            name: 'Lookups',
+            name: "Settings",
             sortOrder: 40,
+            sref: "root.settings",
+            parent: "Administration",
+            endSection: false,
+            roles: ["admin", "superUser"]
+        });
+        navigationProvider.addNav({
+            name: 'Lookups',
+            sortOrder: 50,
             sref: 'root.lookups',
             parent: 'Administration',
             endSection: false,
