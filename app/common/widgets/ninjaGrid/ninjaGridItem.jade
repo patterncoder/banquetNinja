@@ -9,7 +9,8 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
         div.gridItemCell(ng-repeat="(key, val) in $ctrl.fields" 
                 flex="{{val.width}}"
                 ng-focus="$ctrl.editItem($ctrl.item, key)" 
-                ng-click="$ctrl.editItem($ctrl.item, key)") {{$ctrl.formatter($ctrl.item[key], val.type)}}
+                ng-click="$ctrl.editItem($ctrl.item, key)"
+                ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}") {{$ctrl.formatter($ctrl.item[key], val.type)}}
         div.gridItemCell(flex="5" layout="column" layout-align="center center")
             a(href= "" ng-click="$ctrl.deleteItem()"  ng-blur="vm.detailBlur(item, $index, $event)" )
                  span.glyphicon.glyphicon-remove 
@@ -20,7 +21,8 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
             input.form-control(ng-if="val.input==='text'" ng-model="$ctrl.item[key]" type="val.type"
                 focus="$ctrl.item.clickedField[key]" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
-                ng-blur="$ctrl.detailBlur($ctrl.item, $event)")
+                ng-blur="$ctrl.detailBlur($ctrl.item, $event)"
+                ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}")
             textarea.form-control(rows="3" ng-if="val.input==='textarea'" ng-model="$ctrl.item[key]" type="val.type"
                 focus="$ctrl.item.clickedField[key]" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
