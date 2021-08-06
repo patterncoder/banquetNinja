@@ -122,6 +122,23 @@ class tmAddContractCtrl {
         console.log(self);
         var custId = self.customerId || newContract.customer.id;
         newContract.customer = custId;
+
+        let nwDeposit = {
+            //dateAdd: {
+            // 	type: Date, 
+            // 	required: "Enter a deposit date."
+            // },
+            // dateComplete: {type: Date},
+            // amount: {type: Number},
+            // description: {type: String}
+
+            dateAdd: new Date(),
+            dateComplete: undefined,
+            amount: 100,
+            description: "Initial Deposit"
+        };
+        newContract.deposits = [nwDeposit];
+
         var newItemDoc = new self.tmMongoose.Document(newContract, this.schema);
         newItemDoc.validate(function (err) {
             if (err) {

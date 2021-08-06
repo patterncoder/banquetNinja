@@ -32,6 +32,7 @@ function tmContractDetailCtrl(
     this.filterSection = undefined;
 
     self.models = { newEventStep: {} };
+    self.models.newDeposit = {};
 
     _.forEach(ninjaSchemas.events.Contract.paths.eventSteps.schema.paths, (item, key) => {
         self.models.newEventStep[key] = null;
@@ -42,6 +43,17 @@ function tmContractDetailCtrl(
         self.models.newEventStep.time.setSeconds(0);
         this.docSvc.addTimeline(self.models.newEventStep);
         self.models.newEventStep = _.mapValues(self.models.newEventStep, () => null);
+    };
+
+    this.addDeposit = () => {
+        //add the deposit
+        self.models.newDeposit.dateAdd = new Date();
+        if (self.models.newDeposit.date) {
+            self.models.newDeposit.date.setMilliseconds(0);
+            self.models.newDeposit.date.setSeconds(0);
+        }
+        this.docSvc.addDeposit(self.models.newDeposit); //submits?
+        self.models.newDeposit = _.mapValues(self.models.newDeposit, () => null); //clears all of the values?
     };
 
     this.moreFunctions.print = {
@@ -70,6 +82,27 @@ function tmContractDetailCtrl(
             });
         }
     };
+
+    this.moreFunctions.printHandoutPDF = {
+        label: "Print Handouts",
+        method: () => {
+
+            console.log("print the handout!");
+
+            let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/handoutPdf`;
+            var req = {
+                method: 'GET',
+                url: url,
+                responseType: 'arraybuffer'
+            };
+            self.$http(req).then(function (result) {
+                console.log(result);
+                var file = new Blob([result.data], { type: 'application/pdf' });
+                var fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
+            });
+        }
+    }
 
 
     this.contractStatusOptions = constructorArgs.schema.paths.status.enumValues.map((status) => status);
@@ -184,6 +217,29 @@ function tmContractDetailCtrl(
         this.addableMenuItems = this.filterSection.items;
         console.log(this.addableMenuItems);
         //this.sectionsHidden = true;
+    };
+
+    this.addSectionDivider = () => {
+        console.log("called addSectionDivider");
+        /*
+        var menuItem = {
+            sortOrder: Number,
+            name: String,
+            description: String,
+            baseId : {type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem'},
+            quantity: Number,
+            price: Number
+        };
+        */
+        let divider = {
+            name: "New Divider",
+            description: "This is a divider",
+            baseId: "5e503ce5229c5d33d41b05a7", //this is the id of a random menu item for testing purposes.
+            quantity: 0,
+            price: 0,
+            itemType: "divider"
+        };
+        this.docSvc.doc.menuItems.push(divider);
     };
 
     this.getDetailTitle = function () {

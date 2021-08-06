@@ -15,6 +15,8 @@
                             include ./tabs/tab-rentalItems.jade
                         md-tab(label="Event Timeline")
                             include ./tabs/tab-timeline.jade
+                        md-tab(label="Deposit Timeline")
+                            include ./tabs/tab-depositsTimeline.jade
                         md-tab(label="Communication")
                             include ./tabs/tab-commlog.jade
                         md-tab(label="Event Notes")
@@ -29,6 +31,8 @@
             include ./tabs/addRentalItem.jade
         div.detailRightPanel(flex="20" ng-show="vm.sideTab.timeline && vm.tabIndex == 3" layout-padding)
             include ./tabs/addTimeline.jade
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.commLog  && vm.tabIndex == 4" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.deposit && vm.tabIndex == 4" layout-padding)
+            include ./tabs/addDeposit.jade
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.commLog  && vm.tabIndex == 5" layout-padding)
             include ./tabs/add-commlog.jade
     detail-footer

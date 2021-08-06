@@ -26,6 +26,7 @@ function ninjaGridItemCtrl ($timeout, $filter) {
     };
     
     $ctrl.editItem = function(item, clickedField) {
+        console.log("editItem: item: ", item);
         $timeout(function(){
             item.isEditing = true;
             item.clickedField = {};

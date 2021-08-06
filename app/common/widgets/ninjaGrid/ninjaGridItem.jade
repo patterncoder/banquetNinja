@@ -1,11 +1,16 @@
-div.itemCard(id="{{$parent.$index}}" style="padding: 3px"  ng-class="{'active-card': item.isEditing}" tm-draggable tm-droppable )
+
+
+//- div.itemCard(id="{{$parent.$index}}" style=`padding: 3px${item.itemType == "divider" ? "; background-color: blue;" : ""}`  ng-class="{'active-card': item.isEditing}" tm-draggable tm-droppable )
+//- div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{'active-card': item.isEditing, 'active-divider': item.itemType == 'divider'}" tm-draggable tm-droppable )
+div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard: $ctrl.item.isEditing, activeDivider: $ctrl.item.itemType == 'divider'}" tm-draggable tm-droppable )
     div.foodViewDiv(ng-hide="$ctrl.item.isEditing"  layout="row")
         div(flex="5" layout="row" layout-align="center center" )
             span.glyphicon.glyphicon-sort
         div.gridItemCell(ng-repeat="(key, val) in $ctrl.fields" 
                 flex="{{val.width}}"
                 ng-focus="$ctrl.editItem($ctrl.item, key)" 
-                ng-click="$ctrl.editItem($ctrl.item, key)") {{$ctrl.formatter($ctrl.item[key], val.type)}}
+                ng-click="$ctrl.editItem($ctrl.item, key)"
+                ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}") {{$ctrl.formatter($ctrl.item[key], val.type)}}
         div.gridItemCell(flex="5" layout="column" layout-align="center center")
             a(href= "" ng-click="$ctrl.deleteItem()"  ng-blur="vm.detailBlur(item, $index, $event)" )
                  span.glyphicon.glyphicon-remove 
@@ -16,13 +21,18 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px"  ng-class="{'active-ca
             input.form-control(ng-if="val.input==='text'" ng-model="$ctrl.item[key]" type="val.type"
                 focus="$ctrl.item.clickedField[key]" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
-                ng-blur="$ctrl.detailBlur($ctrl.item, $event)")
+                ng-blur="$ctrl.detailBlur($ctrl.item, $event)"
+                ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}")
             textarea.form-control(rows="3" ng-if="val.input==='textarea'" ng-model="$ctrl.item[key]" type="val.type"
                 focus="$ctrl.item.clickedField[key]" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
                 ng-blur="$ctrl.detailBlur($ctrl.item, $event)")
             input.form-control(rows="3" ng-if="val.input==='timefield'" ng-model="$ctrl.item[key]" type="time"
                 focus="$ctrl.item.clickedField[key]" placeholder="HH:mm:ss"
+                ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
+                ng-blur="$ctrl.detailBlur($ctrl.item, $event)")
+            input.form-control(rows="3" ng-if="val.input==='date'" ng-model="$ctrl.item[key]" type="date"
+                focus="$ctrl.item.clickedField[key]" placeholder="dd/mm/yy"
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
                 ng-blur="$ctrl.detailBlur($ctrl.item, $event)")
             // time-field(ng-if="val.input==='timefield'" ng-model="$ctrl.item[key]" field="$ctrl.item[key]" type="val.type")
