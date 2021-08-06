@@ -344,6 +344,10 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         // this.setActiveTab(2);
     };
 
+    this.closeAddFood = () => {
+        this.setActiveTab(1);
+    };
+
     this.openEditSection = () => {
         // this.getCategories();
         this.setActiveTab(1);

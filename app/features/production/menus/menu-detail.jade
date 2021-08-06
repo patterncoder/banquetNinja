@@ -8,7 +8,7 @@
                     include ./tabs/top-panel.jade
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
-                        md-tab(ng-repeat="tabs in vm.docSvc.doc.sections track by $index" label="{{tabs.title}}" ng-click="vm.docSvc.setIndex(vm.tabIndex)")
+                        md-tab(ng-repeat="tabs in vm.docSvc.doc.sections | orderBy:'printOrder' track by $index" label="{{tabs.title}}" ng-click="vm.docSvc.setIndex(vm.tabIndex)")
                             include ./tabs/section-food.jade
                         //- md-tab(ng-click="console.log('click!')")
                         //-     span.glyphicon.glyphicon-plus
@@ -39,6 +39,9 @@
                     h5 
                         b Title
                     input.form-control(ng-model="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title")
+                    h5 
+                        b Print Order 
+                    input.form-control(ng-model="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].printOrder")
         //-             br
         //-             h3 Menu Items
         //-             br
@@ -63,6 +66,6 @@
                         span &nbsp; {{item.name}}
                     br
                     md-button.md-raised(ng-click="vm.docSvc.runSearch()") Search
-                    md-button.md-raised(ng-click="vm.docSvc.openEditSection()") Back
+                    md-button.md-raised(ng-click="vm.sideTab.menuItems = !vm.sideTab.menuItems") Close
                     br
     detail-footer

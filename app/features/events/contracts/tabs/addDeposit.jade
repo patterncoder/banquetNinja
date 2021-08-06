@@ -1,0 +1,19 @@
+div(layout="row" layout-align="end start")
+    md-button( ng-click="vm.sideTab.deposit = !vm.sideTab.deposit") Close
+
+div(layout="column" )
+    h3 Add New Deposit
+    .form-group(flex="25")
+        label.control-label(for="title") Date Paid
+        date-picker(field="vm.models.newDeposit.dateComplete")
+    .form-group(flex="33")
+        label.control-label(for="title") Amount
+        input.form-control(ng-model="vm.models.newDeposit.amount" )
+    .form-group(flex="33")
+        label.control-label(for="title") Description
+        input.form-control(ng-model="vm.models.newDeposit.description" )
+    .form-group
+        .btn.btn-primary(ng-click="vm.addDeposit()") Add Item
+
+
+    

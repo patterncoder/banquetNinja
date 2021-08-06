@@ -27,6 +27,14 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         this.doc.eventSteps.splice(index, 1);
     };
 
+    this.addDeposit = function (newDepositEntry) {
+        this.doc.deposits.push(newDepositEntry);
+    };
+
+    this.removeDeposit = function (index) {
+        this.doc.deposits.splice(index, 1);
+    };
+
     this.addCommLog = function (logType) {
         var logToAdd = {
             date: new Date(),
@@ -44,7 +52,8 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
     this.addVenue = function (venue) {
         var venueToAdd = {
             name: venue.name,
-            notes: "",
+            notes: venue.notes,
+            price: venue.price,
             baseId: venue._id
         };
         this.doc.venues.push(venueToAdd);
@@ -101,6 +110,7 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         //  depopulate for saving
         var stripped = _.pick(self.doc.customer, "_id");
         self.doc.customer = stripped._id;
+        console.log("customer", self.doc.customer);
         var monDoc = new this.tmMongoose.Document(self.doc, self.docSchema);
         monDoc.validate(function (err) {
             if (err) {
