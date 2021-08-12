@@ -8,15 +8,15 @@ export default ['navigationProvider', function(navigationProvider){
             sref: 'root.users',
             parent: 'Administration',
             endSection: false,
-            roles: [ 'admin', 'superUser']
+            roles: [ 'admin', 'superUser', 'bronze']
         });
         navigationProvider.addNav({
             name: "Settings",
             sortOrder: 40,
-            sref: "root.settings",
+            sref: "root.companyDetail",
             parent: "Administration",
             endSection: false,
-            roles: ["admin", "superUser"]
+            roles: ["admin", "superUser", 'bronze']
         });
         navigationProvider.addNav({
             name: 'Lookups',
@@ -24,7 +24,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: 'root.lookups',
             parent: 'Administration',
             endSection: false,
-            roles: [ 'admin', 'superUser']
+            roles: [ 'admin', 'superUser', 'bronze']
         });
         
     }]

@@ -8,18 +8,21 @@
 */
 
 import ninjaSchemas from 'ninjaSchemas';
+import tmIdentity from '../../../shell/account/tmIdentity';
 
-class tmUsersCtrl {
-    constructor($scope, tmListFactory, $dataSource) {
+class tmSettingsCtrl {
+    constructor($scope, tmListFactory, $dataSource, tmIdentity) {
 
         var constructorArgs = {
-            schema: ninjaSchemas.account.Settings,
-            model: 'Setting',
+            schema: ninjaSchemas.account.Company,
+            model: 'Company',
             listView: 'root.settings',
             detailView: 'root.settingsDetail',
             addHeaderText: 'Add Setting',
             listTitle: 'Settings'
         };
+
+        console.log("tmSettingsCtrl: tmIdentity:", tmIdentity);
 
         this.__proto__ = tmListFactory(constructorArgs);
         this.loadData();
@@ -37,6 +40,6 @@ class tmUsersCtrl {
     }
 }
 
-    tmUsersCtrl.$inject = ['$scope', 'tmListFactory', '$dataSource'];
+    tmSettingsCtrl.$inject = ['$scope', 'tmListFactory', '$dataSource', 'tmIdentity'];
 
-    export default tmUsersCtrl;
+    export default tmSettingsCtrl;

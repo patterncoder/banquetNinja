@@ -8,7 +8,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: 'root.contractsPending',
             parent: 'Events',
             endSection: false,
-            roles: [ 'gold', 'admin', 'superUser']
+            roles: [ 'gold', 'admin', 'superUser', 'bronze']
         });
         navigationProvider.addNav({
             name: 'Contracts',
@@ -16,7 +16,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: 'root.contracts',
             parent: 'Events',
             endSection: true,
-            roles: [ 'gold', 'admin', 'superUser']
+            roles: [ 'gold', 'admin', 'superUser', 'bronze']
         });
         navigationProvider.addNav({
             name: 'Venues',
@@ -24,7 +24,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: 'root.venues',
             parent: 'Events',
             endSection: false,
-            roles: [ 'gold', 'admin', 'superUser']
+            roles: [ 'gold', 'admin', 'superUser', 'bronze']
         });
         navigationProvider.addNav({
             name: 'Rental Items',
@@ -32,7 +32,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: 'root.rentalitems',
             parent: 'Events',
             endSection: false,
-            roles: [ 'gold', 'admin', 'superUser']
+            roles: [ 'gold', 'admin', 'superUser', 'bronze']
         });
         
     }]

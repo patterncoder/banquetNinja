@@ -7,7 +7,7 @@ export default function states($stateProvider){
     
     .state('root.contracts', {
             url: '/events/contracts',
-            roles: ['gold', 'admin', 'superUser'],
+            roles: ['gold', 'admin', 'superUser', 'bronze'],
             // Can't remember how the isModal flag works...I'm getting alzheimers!
             // Oh yeah!!! in the index.html master page the header/nav/footer are visible
             // when the isModal is false
@@ -23,7 +23,7 @@ export default function states($stateProvider){
     )
     .state('root.contractsPending', {
             url: '/events/contracts-pending',
-            roles: ['gold', 'admin', 'superUser'],
+            roles: ['gold', 'admin', 'superUser', 'bronze'],
             isModal: false,
             views: {
             'content@': {

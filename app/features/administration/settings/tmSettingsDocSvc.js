@@ -1,24 +1,25 @@
 import ninjaSchemas from 'ninjaSchemas';
 import angular from 'angular';
 
-function tmUserDocSvc (tmDocFactory) {
+function tmSettingsDocSvc (tmDocFactory) {
+
+
+    // Reference: from tmDocFactory.js
+    // this.loadDocument = function (id){
+    //     var self = this;
+    //     return this.docModel.getOne(id, true).then(function(data, status){
+    //         data = convertDateStrings(data);
+    //         self.validationError = null;
+    //         self.doc = data;
+    //         self.master = angular.copy(data);
+    //         return data;
+    //     }, function(error){
+    //         console.log(error);
+    //         return(error);
+    //     });
+    // };
     
-    this.__proto__ = tmDocFactory('Users', ninjaSchemas.account.User);
-    
-    this.addRole = function (role) {
-        this.doc.roles.push(role)
-        console.log(`addRoles adds ${this.doc.roles}`);
-    };
-    this.updateRole = function (oldRole, newRole) {
-        var idx = this.doc.roles.indexOf(oldRole);
-        if (idx >= 0) {
-            this.doc.roles[idx] = newRole;
-        }
-    };
-    this.removeRole = function (idx) {
-        this.doc.roles.splice(idx, 1);
-        console.log(`removeRole set arr to ${this.doc.roles}`);
-    };
+    this.__proto__ = tmDocFactory('Company', ninjaSchemas.account.Company);
     
     this.saveChanges = function () {
         var self = this;
@@ -50,6 +51,6 @@ function tmUserDocSvc (tmDocFactory) {
 }
 
 
-tmUserDocSvc.$inject = ['tmDocFactory'];
+tmSettingsDocSvc.$inject = ['tmDocFactory'];
 
-export default tmUserDocSvc;
+export default tmSettingsDocSvc;
