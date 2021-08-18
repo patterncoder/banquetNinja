@@ -1,10 +1,11 @@
 //- div(flex="100")
 //-     list-header
-.detailForm(ng-cloak)
-    detail-header
-    .detailContent(layout="row" flex)
-        div.detailLeftPanel(flex layout="column")
-            div.detailLeftPanelContainer(layout-fill)
+detail-header
+.detailForm(flex ng-cloak layout="row")
+    //- .detailContent(flex="75" layout="column" layout-align="start end")
+    //- .detailContent(layout="column")
+    div.detailLeftPanel(flex)
+            div.detailLeftPanelContainer
                 div.detailTopPanel(layout-padding)
                     include ./tabs/topPanel.jade                
                 div.detailSection(layout-padding)

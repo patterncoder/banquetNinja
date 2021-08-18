@@ -27,7 +27,7 @@ export default function states($stateProvider){
     .state('root.companyDetail', {
         url: '/company/:id',
         roles: ['admin', 'superUser', 'bronze'],
-        isModal: true,
+        // isModal: true,
         views: {
             'content@': {
                 template: require('./settings/settings-detail.jade'),
