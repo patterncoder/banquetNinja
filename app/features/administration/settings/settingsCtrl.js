@@ -26,6 +26,7 @@ class tmSettingsCtrl {
 
         this.__proto__ = tmListFactory(constructorArgs);
         this.loadData();
+
         // this.schemaExtensions = {
         //     password: {
         //         type: String,

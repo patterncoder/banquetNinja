@@ -21,6 +21,8 @@ detail-header
                         md-tab( label="Address")
                             include ./tabs/addresses.jade
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
-        //- div.detailRightPanel(flex="20" ng-show="vm.sideTab.roles" layout-padding)
-        //-     include ./tabs/addRole.jade               
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.emails" layout-padding)
+            include ./tabs/addEmail.jade               
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.addresses" layout-padding)
+            include ./tabs/addAddress.jade               
     detail-footer

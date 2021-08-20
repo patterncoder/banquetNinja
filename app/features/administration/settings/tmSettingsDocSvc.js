@@ -1,26 +1,19 @@
 import ninjaSchemas from 'ninjaSchemas';
 import angular from 'angular';
 
-function tmSettingsDocSvc (tmDocFactory) {
+function tmSettingsDocSvc(tmDocFactory) {
 
-
-    // Reference: from tmDocFactory.js
-    // this.loadDocument = function (id){
-    //     var self = this;
-    //     return this.docModel.getOne(id, true).then(function(data, status){
-    //         data = convertDateStrings(data);
-    //         self.validationError = null;
-    //         self.doc = data;
-    //         self.master = angular.copy(data);
-    //         return data;
-    //     }, function(error){
-    //         console.log(error);
-    //         return(error);
-    //     });
-    // };
-    
     this.__proto__ = tmDocFactory('Company', ninjaSchemas.account.Company);
-    
+
+
+    this.deleteEmail = (input) => {
+        console.log("deleteEmail called!", input);
+    };
+
+    this.deleteAddress = (input) => {
+        console.log("deleteEmail called!", input);
+    };
+
     this.saveChanges = function () {
         var self = this;
         var deferred = this.$q.defer();
@@ -40,14 +33,14 @@ function tmSettingsDocSvc (tmDocFactory) {
             self.docModel.update(self.doc).then(function (data) {
                 self.doc = data;
                 self.master = angular.copy(data);
-                deferred.resolve();                
+                deferred.resolve();
             });
         });
         return deferred.promise;
     };
-    
+
     return this;
-    
+
 }
 
 
