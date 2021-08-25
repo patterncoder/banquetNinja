@@ -87,6 +87,12 @@ class tmSettingsDetailCtrl {
         this.addEmail = (input) => {
             console.log("settingsDetailCtrl: addEmail:", input);
             console.log("nwEmail:", this.nwEmail);
+            let eml = {
+                emailType: this.nwEmail.emailType,
+                primary: this.nwEmail.isPrimary,
+                email: this.nwEmail.emailAddress
+            };
+            this.docSvc.doc.emails.push(eml);
         };
 
         this.addAddress = (input) => {
@@ -95,12 +101,12 @@ class tmSettingsDetailCtrl {
 
 
         this.arrowKeyOut = function (item, index, event, clickedField) {
-            if (event.keyCode == 38) {
-                this.editMenuItem(this.docSvc.doc.menuItems[--index], index--, clickedField);
-            }
-            if (event.keyCode == 40) {
-                this.editMenuItem(this.docSvc.doc.menuItems[++index], index++, clickedField);
-            }
+            // if (event.keyCode == 38) {
+            //     this.editMenuItem(this.docSvc.doc.menuItems[--index], index--, clickedField);
+            // }
+            // if (event.keyCode == 40) {
+            //     this.editMenuItem(this.docSvc.doc.menuItems[++index], index++, clickedField);
+            // }
         };
 
         this.detailBlur = function (item, index, event) {
