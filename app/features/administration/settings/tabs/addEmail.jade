@@ -8,8 +8,8 @@ div(layout="row" )
         //- a(ui-sref="root.emails") Create new email
         p Email Type 
         select.form-control(ng-model = "vm.nwEmail.emailType")
-            option(value="accountAdmin") Admin
-            option(value="guest") Guest
+            option(value="admin") Admin
+            option(value="additional") Additional
         br 
         select.form-control(ng-model="vm.nwEmail.isPrimary")
             option(value="true") Primary Email 

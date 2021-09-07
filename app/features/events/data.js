@@ -30,5 +30,12 @@ export default [
             methods: {update: { method: 'PUT', isArray: false },
                         query: { method: 'GET', isArray: false}}
         });
+        $dataSourceProvider.addApiRoute({
+            key: 'StaffMember', 
+            url: config.apiBase + '/events/staffmember/:_id', 
+            defaults: { _id: "@id" },
+            methods: {update: { method: 'PUT', isArray: false },
+                        query: { method: 'GET', isArray: false}}
+        });
     }
 ]

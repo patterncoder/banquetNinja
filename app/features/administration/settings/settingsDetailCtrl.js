@@ -77,28 +77,30 @@ class tmSettingsDetailCtrl {
             emailType: "accountAdmin"
         };
 
-        /*
-        emails: [{
-            emailType: {type: String, enum: ['accountAdmin']},
-            primary: Boolean,
-            email: { type: String, validate: validate.validators.emailValidator }
-        }],
-        */
+        this.nwAddress = {
+            //['subscriptionBilling', 'headquarters', 'additionalLocation']
+            addressType: "additionalLocation",
+            primary: false,
+            address1: "",
+            address2: "",
+            city: "",
+            state: "",
+            zip: ""
+        };
+
         this.addEmail = (input) => {
-            console.log("settingsDetailCtrl: addEmail:", input);
-            console.log("nwEmail:", this.nwEmail);
             let eml = {
                 emailType: this.nwEmail.emailType,
                 primary: this.nwEmail.isPrimary,
                 email: this.nwEmail.emailAddress
             };
+            console.log("nwEmail:", eml);
             this.docSvc.doc.emails.push(eml);
         };
 
         this.addAddress = (input) => {
-            console.log("settingsDetailCtrl: addAddress:", input);
+            this.docSvc.doc.addresses.push(this.nwAddress);
         };
-
 
         this.arrowKeyOut = function (item, index, event, clickedField) {
             // if (event.keyCode == 38) {

@@ -3,5 +3,37 @@ div(layout="row" layout-align="end start")
 div(layout="row" )
     div(layout="column")
         h3 Add Address to Account
-        a(ui-sref="root.emails") Create Address
+        //- a(ui-sref="root.emails") Create new email
+
+        //- this.nwAddress = {
+        //-     //['subscriptionBilling', 'headquarters', 'additionalLocation']
+        //-     addressType: "additionalLocation",
+        //-     primary: false,
+        //-     address1: "",
+        //-     address2: "",
+        //-     city: "",
+        //-     state: "",
+        //-     zip: ""
+        //- };
+        p Address Type 
+        select.form-control(ng-model = "vm.nwAddress.addressType")
+            option(value="subscriptionBilling") Billing
+            option(value="headquarters") Headquarters 
+            option(value="additionalLocation") Additional Location
+        br 
+        select.form-control(ng-model="vm.nwAddress.primary")
+            option(value="true") Primary Address
+            option(value="false") Alternative Address
+        p Address 1
+        input.form-control(ng-model="vm.nwAddress.address1")
+        p Address 2
+        input.form-control(ng-model="vm.nwAddress.address2")
+        p City 
+        input.form-control(ng-model="vm.nwAddress.city")
+        p State 
+        input.form-control(ng-model="vm.nwAddress.state")
+        p Zip 
+        input.form-control(ng-model="vm.nwAddress.zip")
+        br
+        //- a(ui-sref="root.emails") Create Address
         md-button.md-raised(ng-click="vm.addAddress()") Add Address 

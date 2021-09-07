@@ -96,13 +96,22 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
           this.doc.rentalItems = []; //object wasn't properly initialized...
       }
       this.doc.rentalItems.push(itemToAdd);
-    }
+    };
     
     this.removeRentalItem = function (index) {
       this.doc.rentalItems.splice(index, 1);
     };
 
+    this.addStaffMember = (staffMember) => {
+        if(this.doc.staffMembers == undefined) {
+            this.doc.staffMembers = [];
+        }
+        this.doc.staffMembers.push(staffMember);
+    };
 
+    this.removeStaffMember = (index) => {
+        this.doc.staffMembers.splice(index, 1);
+    };
 
     this.saveChanges = function () {
         var self = this;
