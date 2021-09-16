@@ -34,5 +34,13 @@ export default ['navigationProvider', function(navigationProvider){
             endSection: false,
             roles: [ 'gold', 'admin', 'superUser', 'bronze']
         });
+        navigationProvider.addNav({
+            name: 'Staff Members',
+            sortOrder: 50,
+            sref: 'root.staffMembers',
+            parent: 'Events',
+            endSection: false,
+            roles: [ 'gold', 'admin', 'superUser', 'bronze']
+        });
         
     }]

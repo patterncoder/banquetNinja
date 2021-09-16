@@ -6,6 +6,8 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
 
     this.__proto__ = tmDocFactory('Contract', ninjaSchemas.events.Contract);
 
+    console.log(this.doc);
+
     function convertDateStrings(data) {
         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
         _.forIn(data, function (value, key) {
@@ -103,10 +105,11 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
     };
 
     this.addStaffMember = (staffMember) => {
-        if(this.doc.staffMembers == undefined) {
-            this.doc.staffMembers = [];
+        console.log("adding:", staffMember);
+        if(this.doc.assignedStaff == undefined) {
+            this.doc.assignedStaff = [];
         }
-        this.doc.staffMembers.push(staffMember);
+        this.doc.assignedStaff.push(staffMember);
     };
 
     this.removeStaffMember = (index) => {

@@ -1,0 +1,15 @@
+.detailForm
+    detail-header
+    .detailContent(layout="row" flex)
+        form(name="vm.detailForm")
+        div.detailLeftPanel(flex layout="column")
+            div.detailLeftPanelContainer(layout-fill)
+                div.detailTopPanel(layout-padding)
+                    include ./tabs/top-panel.jade
+                div.detailSection(layout-padding)
+                    md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
+                        md-tab( label="Pricing")
+                           include ./tabs/tab-pricing.jade
+                div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
+                    div Some footer text here
+    detail-footer

@@ -1,0 +1,30 @@
+div(flex layout="column")
+    div(flex layout="row")
+        .form-group(flex="33")
+            label.control-label(for="title") Staff Member Name
+            input.form-control(ng-model="vm.docSvc.doc.memberName" )
+        .form-group(flex="66")
+            label.control-label(for="description") Job Title
+            input.form-control(ng-model="vm.docSvc.doc.jobTitle")
+        .form-group(flex="33")
+            label.control-label(for="price") Price 
+            input.form-control(ng-model="vm.docSvc.doc.price")
+    
+    
+    //- memberName: {
+    //-     type: String,
+    //-     required: 'The staff member name is required',
+    //-     //minlength: [8, 'The rental item name must be at least 8 characters'], 
+    //-     caption: 'Staff Member Name',
+    //-     tabOrder: 10
+    //- },
+    //- jobTitle: {
+    //-     type: String,
+    //-     required: 'The staff member job title is required',
+    //-     caption: 'Staff Member Job Title',
+    //-     tabOrder: 20
+    //- },
+    //- price: {
+    //-     type:Number,
+    //- 	min: 0
+    //- },

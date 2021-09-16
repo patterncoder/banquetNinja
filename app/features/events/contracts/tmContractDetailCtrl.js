@@ -284,6 +284,14 @@ function tmContractDetailCtrl(
         self.docSvc.removeVenue(index);
     };
 
+    this.addStaffMember = (staffMember) => {
+        console.log("adding:", staffMember);
+        if(this.doc.assignedStaff == undefined) {
+            this.doc.assignedStaff = [];
+        }
+        this.doc.assignedStaff.push(staffMember);
+    };
+
     this.addItem = (item) => {
         console.log("item:", item);
         // getByID("MenuItem", item.menuItemId).then((returned) => {
