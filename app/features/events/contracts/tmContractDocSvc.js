@@ -37,14 +37,8 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         this.doc.deposits.splice(index, 1);
     };
 
-    this.addCommLog = function (logType) {
-        var logToAdd = {
-            date: new Date(),
-            commType: logType,
-            employee: `${tmIdentity.currentUser.user.firstName} ${tmIdentity.currentUser.user.lastName}`,
-            description: ""
-        };
-        this.doc.commLog.push(logToAdd);
+    this.addCommLog = (commLog) => {
+        this.doc.commLog.push(commLog);
     };
 
     this.removeCommLog = function (indx) {

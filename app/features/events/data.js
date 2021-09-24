@@ -37,5 +37,12 @@ export default [
             methods: {update: { method: 'PUT', isArray: false },
                         query: { method: 'GET', isArray: false}}
         });
+        $dataSourceProvider.addApiRoute({
+            key: 'CommEntry', 
+            url: config.apiBase + '/events/commentries/:_id', 
+            defaults: { _id: "@id" },
+            methods: {update: { method: 'PUT', isArray: false },
+                        query: { method: 'GET', isArray: false}}
+        });
     }
 ]
