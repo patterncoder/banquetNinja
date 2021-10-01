@@ -1,0 +1,22 @@
+div(flex="100")
+    list-header
+    alpha-select(on-select="vm.changeFilter({value: letter})")
+    table.table.table-responsive
+        colgroup
+            col(span="1")
+            col(span="1")
+            col.tableNav(span="1")
+        thead
+            th Staff Members
+            th Description
+            th Charge
+            th.text-right
+                button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
+        tbody
+            //- tr(ng-repeat="item in vm.items | filter:searchText | orderBy:vm.sortOrder")
+            tr(ng-repeat="item in vm.activeStaff | filter:searchText | orderBy:sortOrder")
+                td {{::item.memberName}}
+                td {{::item.jobTitle}}
+                td {{::item.price}}
+                td(style="padding: 4px;")
+                    list-item-buttons(id-val="item._id" delete-fn="vm.deleteItem(idVal)" edit-fn="vm.details(idVal)")

@@ -1,11 +1,25 @@
-div(layout="row" layout-align="end start")
-    md-button(href="" ng-click="vm.sideTab.commLog = !vm.sideTab.commLog") Close
-div(layout="row" )
-    div()
-        h3 Add Communication
-        //- a(href="" ng-click="vm.sideTab.commLog = !vm.sideTab.commLog") Close
-        lookups(tm-data-source="Lookups" limit-to-list  doc-list="vm.docSvc.doc.commLog" list="commTypes" doc-service-add-method="tmContractDocSvc.addCommLog")
-            div.itemCard(style="border: solid black 1px; background-color: white")
-                a(href="" ng-click="dCtrl.addItem(item)") 
-                    span.glyphicon.glyphicon-circle-arrow-left 
-                span &nbsp; {{item}}
+
+
+div(layout="column" )
+    h3 Add Communication
+    .form-group(flex="25")
+        label.control-label(for="title") Date
+        date-picker(field="vm.models.newCommLog.date")
+    .form-group(flex="25")
+        label.control-label(for="title") Time
+        time-picker(field="vm.models.newCommLog.time")
+    select.form-control(ng-model="vm.models.newCommLog.commType")
+        option(value="Emailed") Emailed 
+        option(value="Left Voicemail") Left Voicemail
+        option(value="Met With") Met With
+        option(value="Rec. Email") Rec. Email
+        option(value="Rec. Voicemail") Rec. Voicemail
+        option(value="Talked With") Talked With
+    //- .form-group(flex="33")
+    //-     label.control-label(for="title") Employee
+    //-     input.form-control(ng-model="vm.models.newEventStep.employee" )
+    .form-group(flex="33")
+        label.control-label(for="title") Description
+        input.form-control(ng-model="vm.models.newCommLog.description" )
+    .form-group
+        .btn.btn-primary(ng-click="vm.addCommLog()") Add Item

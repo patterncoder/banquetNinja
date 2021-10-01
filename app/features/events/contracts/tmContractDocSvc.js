@@ -6,6 +6,8 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
 
     this.__proto__ = tmDocFactory('Contract', ninjaSchemas.events.Contract);
 
+    console.log(this.doc);
+
     function convertDateStrings(data) {
         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
         _.forIn(data, function (value, key) {
@@ -35,14 +37,8 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         this.doc.deposits.splice(index, 1);
     };
 
-    this.addCommLog = function (logType) {
-        var logToAdd = {
-            date: new Date(),
-            commType: logType,
-            employee: `${tmIdentity.currentUser.user.firstName} ${tmIdentity.currentUser.user.lastName}`,
-            description: ""
-        };
-        this.doc.commLog.push(logToAdd);
+    this.addCommLog = (commLog) => {
+        this.doc.commLog.push(commLog);
     };
 
     this.removeCommLog = function (indx) {
@@ -96,13 +92,23 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
           this.doc.rentalItems = []; //object wasn't properly initialized...
       }
       this.doc.rentalItems.push(itemToAdd);
-    }
+    };
     
     this.removeRentalItem = function (index) {
       this.doc.rentalItems.splice(index, 1);
     };
 
+    this.addStaffMember = (staffMember) => {
+        console.log("adding:", staffMember);
+        if(this.doc.assignedStaff == undefined) {
+            this.doc.assignedStaff = [];
+        }
+        this.doc.assignedStaff.push(staffMember);
+    };
 
+    this.removeStaffMember = (index) => {
+        this.doc.staffMembers.splice(index, 1);
+    };
 
     this.saveChanges = function () {
         var self = this;

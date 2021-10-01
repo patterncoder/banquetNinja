@@ -1,0 +1,19 @@
+
+
+div(layout="row" layout-align="end start")
+    md-button( ng-click="vm.sideTab.emails = !vm.sideTab.emails") Close
+div(layout="row" )
+    div(layout="column")
+        h3 Add New Email
+        //- a(ui-sref="root.emails") Create new email
+        p Email Type 
+        select.form-control(ng-model = "vm.nwEmail.emailType")
+            option(value="admin") Admin
+            option(value="additional") Additional
+        br 
+        select.form-control(ng-model="vm.nwEmail.isPrimary")
+            option(value="true") Primary Email 
+            option(value="false") Alternative Email
+        p Email Address 
+        input.form-control(ng-model="vm.nwEmail.emailAddress")
+        md-button.md-raised(ng-click="vm.addEmail()") Add Email 

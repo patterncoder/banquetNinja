@@ -13,7 +13,7 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
     //set to last two years currently. set 2 to 1 in prod.
     let getDateLastYear = () => {
         let now = new Date();
-        now.setFullYear(now.getFullYear() - 2);
+        now.setFullYear(now.getFullYear() - 1);
         return now;
     };
 

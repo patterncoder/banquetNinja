@@ -9,7 +9,8 @@ function tmContractDetailCtrl(
     tmContractDocSvc,
     $timeout,
     uibDateParser,
-    $state
+    $state,
+    tmIdentity
 ) {
     var self = this;
     var constructorArgs = {
@@ -31,8 +32,11 @@ function tmContractDetailCtrl(
     this.menuObjs = [];
     this.filterSection = undefined;
 
-    self.models = { newEventStep: {} };
-    self.models.newDeposit = {};
+    self.models = {
+        newEventStep: {},
+        newDeposit: {},
+        newCommLog: {},
+    };
 
     _.forEach(ninjaSchemas.events.Contract.paths.eventSteps.schema.paths, (item, key) => {
         self.models.newEventStep[key] = null;
@@ -54,6 +58,14 @@ function tmContractDetailCtrl(
         }
         this.docSvc.addDeposit(self.models.newDeposit); //submits?
         self.models.newDeposit = _.mapValues(self.models.newDeposit, () => null); //clears all of the values?
+    };
+
+    this.addCommLog = function (logType) {
+        console.log("addCommLog called!", logType);
+
+        this.models.newCommLog.employee = `${tmIdentity.currentUser.user.firstName} ${tmIdentity.currentUser.user.lastName}`;
+
+        this.docSvc.addCommLog(self.models.newCommLog);
     };
 
     this.moreFunctions.print = {
@@ -284,6 +296,14 @@ function tmContractDetailCtrl(
         self.docSvc.removeVenue(index);
     };
 
+    this.addStaffMember = (staffMember) => {
+        console.log("adding:", staffMember);
+        if (this.doc.assignedStaff == undefined) {
+            this.doc.assignedStaff = [];
+        }
+        this.doc.assignedStaff.push(staffMember);
+    };
+
     this.addItem = (item) => {
         console.log("item:", item);
         // getByID("MenuItem", item.menuItemId).then((returned) => {
@@ -380,7 +400,8 @@ tmContractDetailCtrl.$inject = [
     'tmContractDocSvc',
     '$timeout',
     'uibDateParser',
-    '$state'
+    '$state',
+    'tmIdentity'
 ];
 
 export default tmContractDetailCtrl;
