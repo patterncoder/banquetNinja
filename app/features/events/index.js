@@ -14,11 +14,14 @@ import tmRentalItemsCtrl from './rentalitems/tmRentalItemsCtrl';
 
 import tmContractDocSvc from './contracts/tmContractDocSvc';
 import tmRentalItemDocSvc from './rentalitems/tmRentalItemDocSvc';
+import tmStaffMembersDocSvc from './staffMembers/tmStaffMembersDocSvc';
 import tmVenueDocSvc from './venues/tmVenueDocSvc';
 
 import tmContractDetailCtrl from './contracts/tmContractDetailCtrl';
 import tmContractPrintCtrl from './contracts/tmContractPrintCtrl';
 import tmRentalItemDetailCtrl from './rentalitems/tmRentalItemDetailCtrl';
+import tmStaffMembersCtrl from './staffMembers/tmStaffMembersCtrl';
+import tmStaffMembersDetailCtrl from './staffMembers/tmStaffMembersDetailCtrl';
 import tmVenueDetailCtrl from './venues/tmVenueDetailCtrl';
 import tmAddContractCtrl from './contracts/tmAddContractCtrl';
 // components
@@ -33,6 +36,7 @@ export default angular.module('events', [uirouter, uibs])
     .config(data)
     .factory('tmContractDocSvc', tmContractDocSvc)
     .factory('tmRentalItemDocSvc', tmRentalItemDocSvc)
+    .factory('tmStaffMembersDocSvc', tmStaffMembersDocSvc)
     .factory('tmVenueDocSvc', tmVenueDocSvc)
     .controller("tmContractsCtrl", tmContractsCtrl)
     .controller("tmContractsPendingCtrl", tmContractsPendingCtrl)
@@ -41,6 +45,8 @@ export default angular.module('events', [uirouter, uibs])
     .controller('tmContractDetailCtrl', tmContractDetailCtrl)
     .controller('tmContractPrintCtrl', tmContractPrintCtrl)
     .controller('tmRentalItemDetailCtrl', tmRentalItemDetailCtrl)
+    .controller('tmStaffMembersCtrl', tmStaffMembersCtrl)
+    .controller('tmStaffMembersDetailCtrl', tmStaffMembersDetailCtrl)
     .controller('tmAddContractCtrl', tmAddContractCtrl)
     .controller('tmVenueDetailCtrl', tmVenueDetailCtrl)
     .component('tmDocGrid', tmDocGrid)

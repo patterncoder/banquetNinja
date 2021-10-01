@@ -1,0 +1,28 @@
+//- div(flex="100")
+//-     list-header
+detail-header
+.detailForm(flex ng-cloak layout="row")
+    //- .detailContent(flex="75" layout="column" layout-align="start end")
+    //- .detailContent(layout="column")
+    div.detailLeftPanel(flex)
+            div.detailLeftPanelContainer
+                div.detailTopPanel(layout-padding)
+                    include ./tabs/topPanel.jade                
+                div.detailSection(layout-padding)
+                    md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
+                        //- md-tab( label="Tax")
+                        //-     include ./tabs/tax.jade
+                        //- md-tab( label="Gratuity")
+                        //-     include ./tabs/gratuity.jade
+                        //- md-tab( label="Logo")
+                        //-     include ./tabs/logo.jade
+                        md-tab( label="Email")
+                            include ./tabs/emails.jade
+                        md-tab( label="Address")
+                            include ./tabs/addresses.jade
+                div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.emails" layout-padding)
+            include ./tabs/addEmail.jade               
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.addresses" layout-padding)
+            include ./tabs/addAddress.jade               
+    detail-footer

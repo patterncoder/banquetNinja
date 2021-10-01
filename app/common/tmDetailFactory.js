@@ -121,6 +121,7 @@ function BaseDetail(
 
     this.loadData = function () {
         var self = this;
+        console.log("TESTING:", self);
         self.setLoading(true);
         self.getDetailTitle();
         return this.docSvc.loadDocument(this.$stateParams.id).then(function (doc) {

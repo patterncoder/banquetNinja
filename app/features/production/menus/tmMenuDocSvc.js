@@ -259,7 +259,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     let getDateLastYear = () => {
         let now = new Date();
-        now.setFullYear(now.getFullYear() - 2);
+        now.setFullYear(now.getFullYear() - 1);
         return now;
     };
 

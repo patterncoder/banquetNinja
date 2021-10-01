@@ -1,0 +1,21 @@
+
+//- Not used, reference only.
+
+div(flex="100")
+    list-header
+    table.table.table-responsive
+        colgroup
+            col(span="1")
+            col(span="1")
+            col.tableNav(span="1")
+        thead
+            th Username
+            th Name
+            th.text-right
+                button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog(vm.schemaExtensions)") {{::vm.constructorArgs.addHeaderText}}
+        tbody
+            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
+                td {{::item.username}}
+                td {{::item.firstName}}
+                td(style="padding: 4px")
+                    list-item-buttons(id-val="item._id" delete-fn="vm.deleteItem(idVal)" edit-fn="vm.details(idVal)")

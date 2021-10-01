@@ -1,4 +1,4 @@
 module.exports = {
     
-    apiBase: "http://restaurant.ninja/api/v1"
+    apiBase: "https://banquet.ninja/api/v1"
 };

@@ -7,7 +7,7 @@ export default function states($stateProvider){
     
     .state('root.contracts', {
             url: '/events/contracts',
-            roles: ['gold', 'admin', 'superUser'],
+            roles: ['gold', 'admin', 'superUser', 'bronze'],
             // Can't remember how the isModal flag works...I'm getting alzheimers!
             // Oh yeah!!! in the index.html master page the header/nav/footer are visible
             // when the isModal is false
@@ -23,7 +23,7 @@ export default function states($stateProvider){
     )
     .state('root.contractsPending', {
             url: '/events/contracts-pending',
-            roles: ['gold', 'admin', 'superUser'],
+            roles: ['gold', 'admin', 'superUser', 'bronze'],
             isModal: false,
             views: {
             'content@': {
@@ -126,6 +126,38 @@ export default function states($stateProvider){
             'content@': {
                 template: require('./rentalitems/rentalitem-detail.jade'),
                 controller: 'tmRentalItemDetailCtrl',
+                controllerAs: 'vm'
+                }
+            }
+        }
+    )
+    .state('root.staffMembers', {
+            url: '/events/staffMembers',
+            roles: ['gold', 'admin', 'superUser'],
+            // Can't remember how the isModal flag works...I'm getting alzheimers!
+            // Oh yeah!!! in the index.html master page the header/nav/footer are visible
+            // when the isModal is false
+            isModal: false,
+            views: {
+            'content@': {
+                template: require('./staffMembers/staffMembers-list.jade'),
+                controller: 'tmStaffMembersCtrl',
+                controllerAs: 'vm'
+                }
+            }
+        }
+    )
+    .state('root.staffMembersDetail', {
+            url: '/events/staffMembers/:id',
+            roles: ['gold', 'admin', 'superUser'],
+            // Can't remember how the isModal flag works...I'm getting alzheimers!
+            // Oh yeah!!! in the index.html master page the header/nav/footer are visible
+            // when the isModal is false
+            isModal: true,
+            views: {
+            'content@': {
+                template: require('./staffMembers/staffMembers-detail.jade'),
+                controller: 'tmStaffMembersDetailCtrl',
                 controllerAs: 'vm'
                 }
             }

@@ -1,0 +1,11 @@
+div(layout="row" layout-align="end start")
+    md-button( ng-click="vm.sideTab.staffMembers = !vm.sideTab.staffMembers") Close
+div(layout="row" )
+    div()
+        h3 Add Staff Member to Contract
+        lookups(tm-data-source="StaffMember" doc-list="vm.tmContractDocSvc.doc.assignedStaff" list="root" doc-service-add-method="tmContractDocSvc.addStaffMember")
+            div.itemCard(style="border: solid black 1px; background-color: white")
+                a(href="" ng-click="dCtrl.addItem(item)") 
+                    span.glyphicon.glyphicon-circle-arrow-left 
+                span &nbsp; {{item.memberName}}
+    

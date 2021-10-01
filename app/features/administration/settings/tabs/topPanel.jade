@@ -1,0 +1,10 @@
+form(name="vm.detailForm")
+    div(flex layout="row")
+        div(flex="80" align-content="flex-start" layout="column")
+            div(layout="row")
+                .form-group(flex="48")
+                    label.control-label(for="companyName") Company Name 
+                    input.form-control(ng-model="vm.docSvc.doc.companyName")
+                .form-group(flex="48")
+                    label.control-label(for="companyStatus") Status
+                    input.form-control(ng-model="vm.docSvc.doc.accountState")
