@@ -17,11 +17,11 @@ class tmContractsCtrl {
         this.__proto__ = tmListFactory(constructorArgs);
         
         this.loadData({
-                "select": "eventName eventDate time customer",
+                "select": "eventName eventDate time customer venues",
                 "where[status]": "booked",
                 "populate[customer]": "firstName lastName"
             }, true);
-            
+
         console.log("this: ", this);
         
         this.sortOptions = [ { value: "eventDate", text: "Sort by Event Date A-Z" }, { value: "-eventDate", text: "Sort by Event Date Z-A" }, { value: "eventName", text: "Sort by Event Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];

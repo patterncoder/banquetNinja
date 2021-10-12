@@ -35,6 +35,7 @@ class tmSettingsDetailCtrl {
             this.getDetailTitle();
 
             let id = tmIdentity.currentUser.user.company;
+            console.log("tmIdentity:", tmIdentity);
             console.log("company id:", id);
 
             if ($window.sessionStorage['token']) {
