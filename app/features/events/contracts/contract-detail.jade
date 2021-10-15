@@ -39,4 +39,6 @@
             include ./tabs/addDeposit.jade
         div.detailRightPanel(flex="20" ng-show="vm.sideTab.commLog  && vm.tabIndex == 6" layout-padding)
             include ./tabs/add-commlog.jade
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.printSettings" layout-padding)
+            include ./tabs/printSettings.jade
     detail-footer
