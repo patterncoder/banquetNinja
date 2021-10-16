@@ -41,16 +41,11 @@
                     input.form-control(ng-model="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title")
                     h5 
                         b Print Order 
-                    input.form-control(ng-model="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].printOrder")
-        //-             br
-        //-             h3 Menu Items
-        //-             br
-        //-             div.itemCard(ng-repeat="item in vm.docSvc.doc.sections[vm.docSvc.activeObj.index].items" style="border: solid black 1px; background-color: white")
-        //-                 a(href="" ng-click="vm.docSvc.delItem(item)") 
-        //-                     span.glyphicon.glyphicon-remove
-        //-                 span &nbsp; {{item.name}}
-        //-             md-button.md-raised(ng-click="vm.docSvc.openAddFood()") Add Menu Item
-        //-             br
+                    //- input.form-control(ng-change="vm.docSvc.runSort()" ng-model="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].printOrder")
+                    select.form-control(ng-model="vm.selectedIndex")
+                        option(ng-repeat="section in vm.docSvc.doc.selArr" value="section.printOrder") {{vm.docSvc.doc.selArr.indexOf(section) + 1}}
+                    md-button.md-raised(ng-click="vm.docSvc.runSort(vm.docSvc.activeObj.index)") Save
+                    //- md-button.md-raised(ng-click="vm.sideTab")
         div.detailRightPanel(flex="20" ng-show="vm.sideTab.menuItems && vm.tabIndex != vm.docSvc.doc.sections.length" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()

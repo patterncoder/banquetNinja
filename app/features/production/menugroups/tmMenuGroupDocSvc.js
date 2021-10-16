@@ -49,6 +49,10 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
         this.doc.menus.push(item);
     };
 
+    this.editGroup = (input) => {
+        console.log("editGroup: ", this.doc.menus[input]);
+    };
+
     // //ensures that we are not showing menus from over two years ago.
     // let filter = (dta) => {
     //     let filtered = [];

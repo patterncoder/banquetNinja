@@ -39,6 +39,14 @@ function tmMenuDetailCtrl(
 
         console.log("this.docSvc:", this.docSvc);
 
+        this.docSvc.doc.selArr = this.docSvc.doc.sections;
+        this.docSvc.doc.selArr.map((obj, index) => {
+            if (obj["printOrder"] === undefined) {
+
+                obj.printOrder = index;
+            }
+        });
+
         try {
             //this.docSvc.getGroups();
             // this.docSvc.selGroup(); //we want to see if this menu is assigned to a group.

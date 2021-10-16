@@ -3,12 +3,16 @@ form(name="vm.detailForm")
 div(flex layout="row")
     div(flex="80" align-content="flex-start" layout="column")
         div(layout="row")
-            .form-group(flex="33")
+            .form-group(flex="66")
                 label.control-label(for="title") Event Name
                 input.form-control(ng-model="vm.docSvc.doc.eventName" )
-            .form-group(flex="66")
-                label.control-label(for="description") Nature of Event
-                input.form-control(ng-model="vm.docSvc.doc.natureOfEvent")
+            .form-group(flex="33")
+                label.control-label(for="serviceType") Service Type
+                select.form-control(ng-model="vm.docSvc.doc.serviceType", ng-options="serviceType for serviceType in vm.serviceTypeOptions")
+                //- label.control-label(for="subTitle") Description 
+                //- input.form-control(ng-model="vm.docSvc.doc.description")
+                //- label.control-label(for="description") Nature of Event
+                //- input.form-control(ng-model="vm.docSvc.doc.natureOfEvent")
         div(layout="row")
             .form-group(flex="100")
                 label.control-label(for="subTitle") Description 
@@ -33,9 +37,9 @@ div(flex layout="row")
             .form-group(flex="25")
                 label.control-label(for="maxAttendees") Maximum number of attendees
                 input.form-control(ng-model="vm.docSvc.doc.banquetAttendeeHigh", type='text')
-            .form-group(flex="30")
-                label.control-label(for="serviceType") Service Type
-                select.form-control(ng-model="vm.docSvc.doc.serviceType", ng-options="serviceType for serviceType in vm.serviceTypeOptions")
+            //- .form-group(flex="30")
+            //-     label.control-label(for="serviceType") Service Type
+            //-     select.form-control(ng-model="vm.docSvc.doc.serviceType", ng-options="serviceType for serviceType in vm.serviceTypeOptions")
                 
     //- div(flex="20" layout="column")
     //-     div

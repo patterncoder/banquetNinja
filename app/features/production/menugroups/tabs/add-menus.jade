@@ -11,6 +11,6 @@ div(layout="row" layout-padding)
                 a(href="" ng-click="vm.docSvc.removeGroup($index)")
                     div(style="margin:5px; float:left")
                         span.glyphicon.glyphicon-remove
-                //- a(href="" ng-click="vm.docSvc.editGroup($index)")
-                //-     div(style="margin:5px; float:left")
-                //-         span.glyphicon.glyphicon-pencil
+                a(ui-sref="root.menuDetail({id:vm.docSvc.doc.menus[$index].menuId})")
+                    div(style="margin:5px; float:left")
+                        span.glyphicon.glyphicon-pencil

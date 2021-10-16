@@ -26,6 +26,17 @@ export default function states($stateProvider){
             }
         }
     })
+    // .state('root.menuDetail', {
+    //     url:'/menus/:id',
+    //     roles: ['gold', 'admin', 'superUser'],
+    //     views: {
+    //         'content@': {
+    //             template: require('./menus/menu-detail.jade'),
+    //             controller: 'tmMenuDetailCtrl',
+    //             controllerAs: 'vm'
+    //         }
+    //     }
+    // })
     .state('root.menuitems', {
         url:'/menuitems',
         roles: ['gold', 'admin', 'superUser'],

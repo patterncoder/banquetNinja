@@ -68,12 +68,12 @@ function tmContractDetailCtrl(
         this.docSvc.addCommLog(self.models.newCommLog);
     };
 
-    this.moreFunctions.print = {
-        label: "Print HTML",
-        method: function () {
-            $state.go('root.contracts.print', { id: self.docSvc.doc._id });
-        }
-    };
+    // this.moreFunctions.print = {
+    //     label: "Print HTML",
+    //     method: function () {
+    //         $state.go('root.contracts.print', { id: self.docSvc.doc._id });
+    //     }
+    // };
 
 
     this.moreFunctions.pdf = {
@@ -92,6 +92,19 @@ function tmContractDetailCtrl(
                 var fileURL = URL.createObjectURL(file);
                 window.open(fileURL);
             });
+        }
+    };
+
+    this.moreFunctions.setSettings = {
+        label: "Print Settings",
+        method: () => {
+            //$state.go('root.settings.print', { id: self.docSvc.doc._id });
+
+            //close all side tabs.
+            for(let property in this.sideTab) {
+                this.sideTab[property] = false;
+            }
+            this.sideTab.printSettings = true;
         }
     };
 
@@ -162,12 +175,20 @@ function tmContractDetailCtrl(
         cleanup(this); //making sure everything is clean.
         this.getDetailTitle();
 
+        //working with some historical data for service type.
+        if (!this.docSvc.doc["serviceType"] && this.docSvc.doc.natureOfEvent) {
+            let natureOfEvent = this.docSvc.doc.natureOfEvent.toLowerCase();
+            if (this.serviceTypeOptions.indexOf(natureOfEvent) !== undefined) {
+                this.docSvc.doc.serviceType = this.docSvc.doc.natureOfEvent.toLowerCase();
+            }
+        }
+
         // I would like to load up Menu Groups also...
         let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
         menuGroups.query().then((returned) => {
-            console.log("menuGroups:", returned);
+            // console.log("menuGroups:", returned);
             this.menuGroups = returned;
-            console.log("menuGroups:", this.menuGroups);
+            // console.log("menuGroups:", this.menuGroups);
         });
     });
 
@@ -274,7 +295,8 @@ function tmContractDetailCtrl(
         rentalItems: false,
         timeline: false,
         rooms: false,
-        commLog: false
+        commLog: false,
+        printSettings: false,
     };
 
     this.openSideTab = function (tab) {
