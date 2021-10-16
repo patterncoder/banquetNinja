@@ -12,6 +12,8 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     console.log("__proto__:", this.__proto__);
 
     this.doc.sections = this.doc["sections"] ? this.doc.sections : [];
+    // this.doc.selArr = this.doc.sections;
+    // console.log("selArr: ", this.doc.selArr);
     // this.doc.sections.map((item) => {
     //     item.visible = true;
     // });
@@ -28,6 +30,8 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     this.addableMenuItems = [];
 
     this.selCategory = "";
+
+    this.selectedIndex = 0;
 
     // this.selectedGroup = undefined;
 
@@ -263,6 +267,63 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         return now;
     };
 
+    this.runSort = (objIndx) => {
+        console.log("before: ", this.doc.sections);
+
+        console.log("selected index: ", this.selectedIndex);
+
+        let tmp = this.doc.sections.splice(objIndx, 1);
+        this.doc.sections.splice(this.selectedIndex, 0, tmp[0]);
+
+        //make sure every object has an index set.
+        this.doc.sections.map((obj, index) => {
+            obj.printOrder = index;
+        });
+        
+        console.log("after: ", this.doc.sections);
+
+        // let maxLoops = 0;
+        // let sorted = this.doc.sections;
+        // let isSorted = () => {
+        //     let bool = false;
+        //     sorted.map((obj, index) => {
+        //         if (index > 0) {
+        //             if (!sorted[index - 1].printOrder && obj.printOrder) {
+        //                 bool = false;
+        //             } else if (sorted[index - 1].printOrder > obj.printOrder) {
+        //                 bool = false;
+        //             }
+        //         }
+        //     });
+        //     return bool;
+        // };
+        // let looping = () => {
+        //     maxLoops++;
+        //     if (!isSorted && maxLoops < 10000) {
+        //         sorted.map((obj, index) => {
+        //             if (index > 0) {
+        //                 let move = (index) => {
+        //                     let tmp = sorted.splice(index, 1);
+        //                     sorted.splice((index - 1), 0, tmp);
+        //                 };
+
+        //                 if (!sorted[index - 1].printOrder && obj.printOrder) {
+        //                     move(index);
+        //                 } else if (sorted[index - 1].printOrder > obj.printOrder) {
+        //                     move(index);
+        //                 }
+        //             }
+        //         });
+        //     }
+        //     if (!isSorted) {
+        //         looping();
+        //     } else {
+        //         this.doc.sections = sorted;
+        //         console.log("after: ", this.doc.sections);
+        //     }
+        // }
+    };
+
     this.runSearch = () => {
 
         let url = `${config.apiBase}/production/menuitems?where[categories]=${[this.selCategory]}`;
@@ -296,9 +357,9 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
                 });
             };
 
-            if(tmp.length) {
+            if (tmp.length) {
                 filter(tmp);
-            } else if(tmp.hasOwnProperty("data")) {
+            } else if (tmp.hasOwnProperty("data")) {
                 filter(tmp.data);
             }
 

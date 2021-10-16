@@ -23,7 +23,7 @@ class tmRentalItemsCtrl {
 
         this.activeRentals = [];
 
-        let alphaSorted = {"A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": []};
+        let alphaSorted = {"A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": []};
 
         console.log("tmRentalItemsCtrl this:", this);
 
@@ -64,10 +64,15 @@ class tmRentalItemsCtrl {
         this.afterLoad = () => {
             //this.items.reverse() //comes in from db oldest first...
 
+            if(this.items.length < 25) {
+                this.activeFilter = "*";
+            }
+
             this.items.map((obj) => {
                 obj.nwName = this.stripNums(obj);
                 obj.filterChar = this.getFilterChar(obj.nwName);
                 alphaSorted[obj.filterChar].push(obj);
+                alphaSorted["*"].push(obj); //store all in this one
             });
 
             this.activeRentals = alphaSorted[this.activeFilter]; //Usually "A".

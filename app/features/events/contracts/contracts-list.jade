@@ -4,9 +4,12 @@ div(flex="100")
         colgroup
             col(span="1")
             col(span="1")
+            col(span="1")
+            col(span="1")
             col.tableNav(span="1")
         thead
             th Event Name
+            th Venue
             th Date
             th Time
             th.text-right
@@ -14,7 +17,13 @@ div(flex="100")
         tbody
             tr(ng-repeat="item in vm.items | filter:searchText | orderBy:vm.sortOrder")
                 td {{::item.eventName }} ({{::item.customer.firstName}} {{::item.customer.lastName}})
-                td {{::item.eventDate | date:'longDate'}}
-                td(style="white-space: nowrap") {{::item.eventDate | tmZuluTime | date:'shortTime'}}
+                td 
+                    div(ng-repeat="venue in item.venues")
+                        div {{::venue.name}}
+                //- td {{::item.eventDate | date:'longDate'}}
+                td 
+                    div(style="float: left") {{::item.eventDate.toDateString()}}
+                //- td(style="white-space: nowrap") {{::item.eventDate | tmZuluTime | date:'shortTime'}}
+                td(style="white-space: nowrap") {{::item.time | date:'shortTime'}}
                 td(style="padding: 4px")
                     list-item-buttons(id-val="item._id" edit-fn="vm.details(idVal)" print-fn="vm.print(idVal)" delete-fn="vm.deleteItem(idVal)")

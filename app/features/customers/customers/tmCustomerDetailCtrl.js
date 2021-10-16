@@ -50,24 +50,46 @@ function tmCustomerDetailCtrl(
     });
 
     this.getRelatedContracts = function () {
-        var self = this;
-        let relatedContracts = self.docSvc.doc.contracts.map(contract => `valueIn[_id]=${contract._id}`).join("&");
-        if (relatedContracts.length === 0) return;
-        let url = config.apiBase + '/events/contracts?select=eventDate%20status%20eventName&' + relatedContracts;
-        console.log("contracts api url:", url);
+        let custID = this.docSvc.doc["_id"];
 
         var req = {
             method: 'GET',
-            url: url
+            url: `${config.apiBase}/events/contracts/customer/${custID}`,
+            // params: {
+            //     customer: custID
+            // }
         };
-        $http(req).then(function (result) {
-            console.log("result:", result);
-            if (self.contractsList == undefined) {
-                self.contractsList = [];
+
+        this.$http(req).then((response) => {
+            if (this.contractsList == undefined) {
+                this.contractsList = [];
             }
-            self.contractsList = result.data.data;
-            console.log("getRelatedContracts: result:", result.data.data);
+
+            console.log("data: ", response.data);
+
+            this.contractsList = response.data.data;
         });
+
+
+        // OLD CODE BELOW, WOULD GRAB ALL CONTRACTS... BAD!
+        // var self = this;
+        // let relatedContracts = self.docSvc.doc.contracts.map(contract => `valueIn[_id]=${contract._id}`).join("&");
+        // if (relatedContracts.length === 0) return;
+        // let url = config.apiBase + '/events/contracts?select=eventDate%20status%20eventName&' + relatedContracts;
+        // console.log("contracts api url:", url);
+
+        // var req = {
+        //     method: 'GET',
+        //     url: url
+        // };
+        // $http(req).then(function (result) {
+        //     console.log("result:", result);
+        //     if (self.contractsList == undefined) {
+        //         self.contractsList = [];
+        //     }
+        //     self.contractsList = result.data.data;
+        //     console.log("getRelatedContracts: result:", result.data.data);
+        // });
     }
 
     this.getDetailTitle = function () {

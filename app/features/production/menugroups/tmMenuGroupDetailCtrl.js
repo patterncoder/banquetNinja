@@ -30,6 +30,7 @@ function tmMenuGroupDetailCtrl (
             self.detailForm.$setUntouched();
         }
     });
+
     
     this.loadData().then(() => {
         this.docSvc.getMenus();
