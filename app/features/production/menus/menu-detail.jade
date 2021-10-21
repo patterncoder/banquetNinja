@@ -51,6 +51,9 @@
                 div()
                     h3 Add Food
                     br
+                    h5 
+                        b By Name 
+                    input.form-control(ng-model="vm.docSvc.byNameEntry")
                     h5
                         b Category
                     select.form-control(ng-model="vm.docSvc.selCategory", ng-options="item for item in vm.docSvc.categories.menuItemTags") 
@@ -60,7 +63,7 @@
                             span.glyphicon.glyphicon-circle-arrow-left 
                         span &nbsp; {{item.name}}
                     br
-                    md-button.md-raised(ng-click="vm.docSvc.runSearch()") Search
+                    md-button.md-raised(ng-click="vm.docSvc.byNameEntry ? vm.docSvc.runSearch('name', vm.docSvc.byNameEntry) : vm.docSvc.runSearch('category', vm.docSvc.selCategory)") Search
                     md-button.md-raised(ng-click="vm.sideTab.menuItems = !vm.sideTab.menuItems") Close
                     br
     detail-footer
