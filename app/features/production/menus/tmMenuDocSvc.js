@@ -457,6 +457,10 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         // this.setActiveTab(2);
     };
 
+    this.deleteMenuItem =(index) => {
+        this.doc.sections[this.activeObj.index].items.splice(index, 1);
+    };
+
     this.closeAddFood = () => {
         this.setActiveTab(1);
     };

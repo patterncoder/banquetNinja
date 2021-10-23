@@ -126,14 +126,24 @@ export default class CachedResource {
     }
 
     update(item) {
+        console.log("CachedResource update called");
         var self = this;
         return self.Resource.update({ _id: item._id }, item).$promise.then(function (response) {
             var json = JSON.stringify(response.data);
             var parsedJson = JSON.parse(json, jsonReviver);
-            var itemIndex = self.List.map(function (i) {
-                return i._id;
-            }).indexOf(response.data._id);
-            self.List[itemIndex] = parsedJson;
+            console.log("self.List: ", self.List);
+            // console.log("parsedJson: ", parsedJson);
+
+            //this bugs out when we are working with a contract...
+            if (self.List) {
+
+                var itemIndex = self.List.map(function (i) {
+                    return i._id;
+                }).indexOf(response.data._id);
+
+                self.List[itemIndex] = parsedJson;
+            }
+
             return parsedJson;
         }, function (err) {
             return err;
@@ -141,7 +151,6 @@ export default class CachedResource {
     }
 
     remove(id) {
-
         var self = this;
         return this.Resource.remove({ _id: id }).$promise.then(function () {
             var item = self.List.map(function (i) {
