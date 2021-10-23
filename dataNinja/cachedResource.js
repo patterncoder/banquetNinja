@@ -135,6 +135,7 @@ export default class CachedResource {
             // console.log("parsedJson: ", parsedJson);
 
             //this bugs out when we are working with a contract...
+            //we need to know why self.List is undefined when updating a contract.
             if (self.List) {
 
                 var itemIndex = self.List.map(function (i) {
