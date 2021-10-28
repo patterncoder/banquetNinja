@@ -235,11 +235,18 @@ function tmContractDetailCtrl(
 
         let tmp = []; //stores promises.
 
+        console.log("searchGroup: ", this.searchGroup);
+
         this.searchGroup.menus.map((menu) => {
+            console.log("getMenus: ", menu);
+            if(!menu.menuId) {
+                menu.menuId = menu["_id"];
+            }
             tmp.push(getByID("Menu", menu.menuId));
         });
 
         Promise.all(tmp).then((obj) => { //waits until all done.
+            console.log("PROMISE ALL: ", obj);
             this.menuObjs = obj; //updates for angular all at once.
             toggle(false); //display the results.
             $scope.$apply(); //DOM WILL NOT PROPERLY REFRESH WITHOUT THIS!!!
@@ -247,6 +254,7 @@ function tmContractDetailCtrl(
     };
 
     this.showMenuItems = () => {
+        console.log("showMenuItems: ", this.filterSection);
         this.addableMenuItems = this.filterSection.items;
         console.log(this.addableMenuItems);
         //this.sectionsHidden = true;
