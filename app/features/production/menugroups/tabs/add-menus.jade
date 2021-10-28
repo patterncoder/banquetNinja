@@ -8,9 +8,9 @@ div(layout="row" layout-padding)
                 div(ng-click="vm.docSvc.editGroup($index)" style="padding: 2px")
                     span {{item.name ? item.name : item.title}}
                     span(flex)
-                a(href="" ng-click="vm.docSvc.removeGroup($index)")
+                a(href="" ng-click="vm.docSvc.removeMenu($index)")
                     div(style="margin:5px; float:left")
                         span.glyphicon.glyphicon-remove
-                a(ui-sref="root.menuDetail({id:vm.docSvc.doc.menus[$index].menuId})")
+                a(ui-sref="root.menuDetail({id:vm.docSvc.doc.menus[$index]['_id']})")
                     div(style="margin:5px; float:left")
                         span.glyphicon.glyphicon-pencil

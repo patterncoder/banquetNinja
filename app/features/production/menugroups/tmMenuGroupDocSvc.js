@@ -53,6 +53,11 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
         console.log("editGroup: ", this.doc.menus[input]);
     };
 
+    this.removeMenu = (input) => {
+        console.log("remove group clicked: ", input);
+        this.doc.menus.splice(input, 1);
+    };
+
     // //ensures that we are not showing menus from over two years ago.
     // let filter = (dta) => {
     //     let filtered = [];
