@@ -1,4 +1,5 @@
-
+div(layout="row" layout-align="end start")
+    md-button( ng-click="vm.sideTab.commLog = false") Close
 
 div(layout="column" )
     h3 Add Communication
@@ -20,6 +21,6 @@ div(layout="column" )
     //-     input.form-control(ng-model="vm.models.newEventStep.employee" )
     .form-group(flex="33")
         label.control-label(for="title") Description
-        input.form-control(ng-model="vm.models.newCommLog.description" )
+        textarea(style="width: 100%; height: 500px; text-align: justify;" ng-model="vm.models.newCommLog.description" )
     .form-group
         .btn.btn-primary(ng-click="vm.addCommLog()") Add Item

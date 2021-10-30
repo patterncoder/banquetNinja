@@ -29,6 +29,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     this.addableMenuItems = [];
 
+    this.byNameEntry = "";
     this.selCategory = "";
 
     this.selectedIndex = 0;
@@ -234,14 +235,21 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     // title, subtitle, items, footer
     this.addSection = function (section) {
+        if (!this.hasOwnProperty("doc")) {
+            this.doc.sections = [];
+        }
+
         var newSection = {
             title: "Section Title",
             subtitle: "Section subtitle",
             items: [],
             footer: "section footer",
+            printOrder: this.doc.sections.length + 1,
             //visible: true
         }
+
         this.doc.sections.push(newSection);
+        this.secSort();
     };
 
     this.delItem = (item) => {
@@ -267,20 +275,58 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         return now;
     };
 
-    this.runSort = (objIndx) => {
-        console.log("before: ", this.doc.sections);
+    this.secSort = () => {
+        let selectedObj = this.doc.sections[this.activeObj.index];
+        let arr = [];
+        let lastIndx = this.doc.sections.length - 1;
+        for (let i = 0; i < this.doc.sections.length; ++i) {
+            arr.push({}); //lets fill up the array with empty objs.
+        }
 
-        console.log("selected index: ", this.selectedIndex);
-
-        let tmp = this.doc.sections.splice(objIndx, 1);
-        this.doc.sections.splice(this.selectedIndex, 0, tmp[0]);
-
-        //make sure every object has an index set.
-        this.doc.sections.map((obj, index) => {
-            obj.printOrder = index;
+        this.doc.sections.map((section) => {
+            if (section.printOrder === undefined) {
+                if (selectedObj == section) {
+                    selectedObj.printOrder = lastIndx + 1;
+                }
+                section.printOrder = lastIndx + 1;
+                arr[lastIndx] = section;
+                --lastIndx;
+            } else {
+                arr[section.printOrder - 1] = section;
+            }
         });
-        
-        console.log("after: ", this.doc.sections);
+
+        this.doc.sections = arr;
+        this.activeObj.index = selectedObj ? this.doc.sections.indexOf(selectedObj) : 0;
+        this.activeObj.visible = selectedObj ? 1 : 0;
+    };
+
+    this.runSort = (objIndx) => {
+        let tmp = this.doc.sections.splice(this.activeObj.index, 1);
+        this.doc.sections.splice(objIndx, 0, tmp[0]);
+
+        // this.doc.sections[this.activeObj.index].printOrder = objIndx;
+
+        //lets make sure that we don't have two objects with the same printOrder
+        this.doc.sections.map((obj, index) => {
+            obj.printOrder = index + 1;
+        });
+
+        this.secSort();
+
+        // console.log("before: ", this.doc.sections);
+
+        // console.log("selected index: ", this.selectedIndex);
+
+        // let tmp = this.doc.sections.splice(objIndx, 1);
+        // this.doc.sections.splice(this.selectedIndex, 0, tmp[0]);
+
+        // //make sure every object has an index set.
+        // this.doc.sections.map((obj, index) => {
+        //     obj.printOrder = index;
+        // });
+
+        // console.log("after: ", this.doc.sections);
 
         // let maxLoops = 0;
         // let sorted = this.doc.sections;
@@ -324,9 +370,15 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         // }
     };
 
-    this.runSearch = () => {
+    this.runSearch = (type, value) => {
+        let url = "";
+        if (type == "category") {
+            url = `${config.apiBase}/production/menuitems?where[categories]=${[value]}`;
+        } else if(type == "name") {
+            url = `${config.apiBase}/production/menuitems?like[name]=${value}`;
+        }
 
-        let url = `${config.apiBase}/production/menuitems?where[categories]=${[this.selCategory]}`;
+
         console.log("runSearch: url:", url);
 
         let request = {
@@ -403,6 +455,10 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         // });
 
         // this.setActiveTab(2);
+    };
+
+    this.deleteMenuItem =(index) => {
+        this.doc.sections[this.activeObj.index].items.splice(index, 1);
     };
 
     this.closeAddFood = () => {
