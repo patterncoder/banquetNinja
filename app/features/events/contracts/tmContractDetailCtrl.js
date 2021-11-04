@@ -228,6 +228,44 @@ function tmContractDetailCtrl(
         this.sectionsHidden = bl;
         this.statusHidden = !bl;
     };
+    
+    let getDateLastYear = (o) => {
+        let now = new Date();
+        now.setFullYear(now.getFullYear() - o ? o : 1);
+        return now;
+    };
+
+    this.runSearch = (type, value) => {
+
+        let request = {
+            method: "GET",
+            url: `${config.apiBase}/production/menuitems?like[name]=.*${value}.*`
+        };
+
+        let filtered = [];
+        this.$http(request).then((data) => {
+
+            let tmp = data.data;
+
+            let filter = (dta) => {
+                dta.map((menItm) => {
+                    let dt = new Date(menItm.meta.dateLastMod);
+                    if (dt.getTime() >= (getDateLastYear(2).getTime())) {
+                        filtered.push(menItm);
+                    }
+                });
+            };
+
+            if (tmp.length) {
+                filter(tmp);
+            } else if (tmp.hasOwnProperty("data")) {
+                filter(tmp.data);
+            }
+
+            this.addableMenuItems = filtered;
+        });
+
+    };
 
     this.getMenus = () => {
         toggle(true);
