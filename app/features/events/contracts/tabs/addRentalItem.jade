@@ -3,9 +3,18 @@ div(layout="row" layout-align="end start")
 div(layout="row" )
     div()
         h3 Add Rental Item to Contract
-        lookups(tm-data-source="RentalItem" doc-list="vm.tmContractDocSvc.doc.rentalItems" list="root" doc-service-add-method="tmContractDocSvc.addRentalItem")
-            div.itemCard(style="border: solid black 1px; background-color: white")
-                a(href="" ng-click="dCtrl.addItem(item)") 
-                    span.glyphicon.glyphicon-circle-arrow-left 
-                span &nbsp; {{item.name}}
+        br
+        label By Name 
+        input.form-control(ng-model="vm.byNameEntry")
+        br
+        md-button.md-raised(ng-hide="vm.searchGroup", ng-click="vm.runSearch({'schema': '/events/rentalitems', 'model': 'addableRentalItems'}, vm.byNameEntry)") Search
+        div.itemCard(ng-repeat="item in vm.addableRentalItems" style="border: solid black 1px; background-color: white")
+          a(href="" ng-click="vm.addRentalItem(item)") 
+              span.glyphicon.glyphicon-circle-arrow-left 
+          span(title="{{item.description}}") &nbsp; {{item.name}}
+        //- lookups(tm-data-source="RentalItem" doc-list="vm.tmContractDocSvc.doc.rentalItems" list="root" doc-service-add-method="tmContractDocSvc.addRentalItem")
+        //-     div.itemCard(style="border: solid black 1px; background-color: white")
+                //- a(href="" ng-click="dCtrl.addItem(item)") 
+                //-     span.glyphicon.glyphicon-circle-arrow-left 
+                //- span &nbsp; {{item.name}}
     

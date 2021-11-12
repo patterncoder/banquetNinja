@@ -6,7 +6,10 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
 
     this.__proto__ = tmDocFactory('Contract', ninjaSchemas.events.Contract);
 
+
     console.log(this.doc);
+
+
 
     function convertDateStrings(data) {
         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
@@ -109,6 +112,7 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
     this.removeStaffMember = (index) => {
         this.doc.staffMembers.splice(index, 1);
     };
+
 
     this.saveChanges = function () {
         var self = this;

@@ -31,6 +31,7 @@ function tmContractDetailCtrl(
     this.menuGroups = [];
     this.menuObjs = [];
     this.filterSection = undefined;
+    this.addableRentalItems = [];
 
     self.models = {
         newEventStep: {},
@@ -101,7 +102,7 @@ function tmContractDetailCtrl(
             //$state.go('root.settings.print', { id: self.docSvc.doc._id });
 
             //close all side tabs.
-            for(let property in this.sideTab) {
+            for (let property in this.sideTab) {
                 this.sideTab[property] = false;
             }
             this.sideTab.printSettings = true;
@@ -167,6 +168,7 @@ function tmContractDetailCtrl(
 
         // obj.menuObjs = [];
         obj.addableMenuItems = [];
+        obj.addableRentalItems = [];
         obj.filterMenu = undefined;
         obj.filterSection = undefined;
     };
@@ -228,7 +230,7 @@ function tmContractDetailCtrl(
         this.sectionsHidden = bl;
         this.statusHidden = !bl;
     };
-    
+
     let getDateLastYear = (o) => {
         let now = new Date();
         now.setFullYear(now.getFullYear() - o ? o : 1);
@@ -236,21 +238,27 @@ function tmContractDetailCtrl(
     };
 
     this.runSearch = (type, value) => {
+        let settings = {
+            url: `${config.apiBase}${type.schema ? type.schema : "/production/menuItems"}?like[name]=.*${value}.*`,
+            years: 10,
+            model: type.model ? type.model : "addableMenuItems"
+        };
 
         let request = {
             method: "GET",
-            url: `${config.apiBase}/production/menuitems?like[name]=.*${value}.*`
+            url: settings.url
         };
 
         let filtered = [];
         this.$http(request).then((data) => {
+            console.log("data: ", data);
 
             let tmp = data.data;
 
             let filter = (dta) => {
                 dta.map((menItm) => {
-                    let dt = new Date(menItm.meta.dateLastMod);
-                    if (dt.getTime() >= (getDateLastYear(2).getTime())) {
+                    let dt = new Date(menItm.meta.dateLastMod || menItm.meta.dateCreated);
+                    if (dt.getTime() >= (getDateLastYear(settings.years).getTime())) {
                         filtered.push(menItm);
                     }
                 });
@@ -262,7 +270,8 @@ function tmContractDetailCtrl(
                 filter(tmp.data);
             }
 
-            this.addableMenuItems = filtered;
+            this[settings.model] = filtered;
+            console.log(`${settings.model}: `, this[settings.model]);
         });
 
     };
@@ -277,7 +286,7 @@ function tmContractDetailCtrl(
 
         this.searchGroup.menus.map((menu) => {
             console.log("getMenus: ", menu);
-            if(!menu.menuId) {
+            if (!menu.menuId) {
                 menu.menuId = menu["_id"];
             }
             tmp.push(getByID("Menu", menu.menuId));
@@ -390,6 +399,11 @@ function tmContractDetailCtrl(
         console.log("adding this:", item);
         console.log("menuItems:", this.docSvc.doc.menuItems);
         this.docSvc.doc.menuItems.push(item);
+    };
+
+    this.addRentalItem = (item) => {
+        console.log("item:", item);
+        this.docSvc.doc.rentalItems.push(item);
     };
 
 
