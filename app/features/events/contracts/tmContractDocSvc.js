@@ -7,9 +7,7 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
     this.__proto__ = tmDocFactory('Contract', ninjaSchemas.events.Contract);
 
 
-    console.log(this.doc);
-
-
+    console.log(this);
 
     function convertDateStrings(data) {
         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
@@ -25,6 +23,14 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
     }
 
     this.addTimeline = function (newTimeEntry) {
+        console.log("timeline entry: ", newTimeEntry);
+
+        let diff = newTimeEntry.time - newTimeEntry.endTime;
+
+        let diffMinutes = Math.floor((Math.abs(diff) / 1000) / 60);
+
+        newTimeEntry.duration = diffMinutes;
+
         this.doc.eventSteps.push(newTimeEntry);
     };
 
@@ -86,24 +92,24 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
     };
 
     this.addRentalItem = function (rentalItem) {
-      let itemToAdd = {
-        name: rentalItem.name,
-        quantity: 0,
-        price: 0
-      }
-      if(this.doc.rentalItems == undefined) {
-          this.doc.rentalItems = []; //object wasn't properly initialized...
-      }
-      this.doc.rentalItems.push(itemToAdd);
+        let itemToAdd = {
+            name: rentalItem.name,
+            quantity: 0,
+            price: 0
+        }
+        if (this.doc.rentalItems == undefined) {
+            this.doc.rentalItems = []; //object wasn't properly initialized...
+        }
+        this.doc.rentalItems.push(itemToAdd);
     };
-    
+
     this.removeRentalItem = function (index) {
-      this.doc.rentalItems.splice(index, 1);
+        this.doc.rentalItems.splice(index, 1);
     };
 
     this.addStaffMember = (staffMember) => {
         console.log("adding:", staffMember);
-        if(this.doc.assignedStaff == undefined) {
+        if (this.doc.assignedStaff == undefined) {
             this.doc.assignedStaff = [];
         }
         this.doc.assignedStaff.push(staffMember);
@@ -117,6 +123,15 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
     this.saveChanges = function () {
         var self = this;
         var deferred = this.$q.defer();
+
+        console.log("saving: ", self);
+
+        //now that we are saving as unix epoch, we won't need historical time stamps.
+        if(self.doc.hasOwnProperty("startTime24") && self.doc.hasOwnProperty("endTime24") && self.doc.hrMinFix) {
+            self.doc.startTime24 = "0";
+            self.doc.endTime24 = "0";
+        }
+
         //  depopulate for saving
         var stripped = _.pick(self.doc.customer, "_id");
         self.doc.customer = stripped._id;

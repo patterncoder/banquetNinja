@@ -23,6 +23,11 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
                 ng-blur="$ctrl.detailBlur($ctrl.item, $event)"
                 ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}")
+            input.form-control(ng-if="val.input==='nonedit'" ng-model="$ctrl.item[key]" type="val.type"
+                focus="$ctrl.item.clickedField[key]" 
+                ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
+                ng-blur="$ctrl.detailBlur($ctrl.item, $event)"
+                disabled=true)
             textarea.form-control(rows="3" ng-if="val.input==='textarea'" ng-model="$ctrl.item[key]" type="val.type"
                 focus="$ctrl.item.clickedField[key]" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 

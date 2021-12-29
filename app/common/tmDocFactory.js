@@ -1,8 +1,9 @@
-import angular from  'angular';
+import angular from 'angular';
 import _ from 'lodash';
+import timeCorrection from "./filters/dstHistCheck";
 
-function tmDocFactory ($http, $dataSource, tmMongoose, $q) {
-    return function(model, schema) {
+function tmDocFactory($http, $dataSource, tmMongoose, $q) {
+    return function (model, schema) {
         return new BaseDocService($http, $dataSource, tmMongoose, $q, model, schema);
     };
 }
@@ -13,8 +14,8 @@ export default tmDocFactory;
 
 
 
-function BaseDocService ($http, $dataSource, tmMongoose, $q, model, schema){
-    
+function BaseDocService($http, $dataSource, tmMongoose, $q, model, schema) {
+
     // instance vars
     this.doc = {};
     this.master = {};
@@ -28,49 +29,59 @@ function BaseDocService ($http, $dataSource, tmMongoose, $q, model, schema){
     this.docModel = $dataSource.load(model);
     // set mongoose schema here
     this.docSchema = schema;
-    
-    function convertDateStrings(data){
+
+    function convertDateStrings(data) {
         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
-        _.forIn(data, function(value, key) {
-                //console.log(key);
-                if (typeof value === 'string') {
-                    var a = reISO.exec(value);
-                    if (a) {
-                        data[key] = new Date(value);
-                    }
+        _.forIn(data, function (value, key) {
+            //console.log(key);
+            if (typeof value === 'string') {
+                var a = reISO.exec(value);
+                if (a) {
+                    data[key] = new Date(value);
                 }
-            });
+            }
+        });
         return data;
     }
-    
-    this.loadDocument = function (id){
+
+    this.loadDocument = function (id) {
         var self = this;
-        return this.docModel.getOne(id, true).then(function(data, status){
+        return this.docModel.getOne(id, true).then(function (data, status) {
             data = convertDateStrings(data);
+
+            console.log("checking historical data...");
+
+            if (data.hasOwnProperty("startTime24") && data.hasOwnProperty("endTime24")) {
+                data = timeCorrection()(data, "time", data.startTime24);
+                data = timeCorrection()(data, "endTime", data.endTime24);
+                console.log("historical data check done!", data);
+            }
+
             self.validationError = null;
             self.doc = data;
             self.master = angular.copy(data);
+
             return data;
-        }, function(error){
+        }, function (error) {
             console.log(error);
-            return(error);
+            return (error);
         });
     };
 
-    this.deleteDocument = function (){
+    this.deleteDocument = function () {
         this.docModel.remove(this.doc._id);
-    };  
-    
-    this.refreshFromServer = function (){
+    };
+
+    this.refreshFromServer = function () {
         this.loadDocument(this.doc._id);
     };
-    
-    this.saveChanges = function (){
+
+    this.saveChanges = function () {
         var self = this;
         var deferred = $q.defer();
         var monDoc = new tmMongoose.Document(self.doc, self.docSchema);
-        monDoc.validate(function(err){
-            if(err){
+        monDoc.validate(function (err) {
+            if (err) {
                 console.log(err);
                 self.validationError = err;
                 console.log(self.validationError);
@@ -80,34 +91,34 @@ function BaseDocService ($http, $dataSource, tmMongoose, $q, model, schema){
             console.log("prior to update call");
             console.log(self.docModel);
             console.log("I think it is breaking here");
-            self.docModel.update(self.doc).then(function(data){
+            self.docModel.update(self.doc).then(function (data) {
                 console.log("update call");
                 data = convertDateStrings(data);
                 self.doc = data;
                 self.master = angular.copy(data);
                 deferred.resolve();
-            }, function(err){
+            }, function (err) {
                 deferred.reject(err);
                 return;
             });
         });
         return deferred.promise;
     };
-    
-    this.isDirty = function (){
+
+    this.isDirty = function () {
         return !angular.equals(this.master, this.doc);
     };
-    
-    this.clearDocument = function (){
+
+    this.clearDocument = function () {
         this.doc = {};
     };
-    
-    this.undoChanges = function (){
+
+    this.undoChanges = function () {
         var self = this;
         self.doc = angular.copy(self.master);
         self.validationError = null;
     };
-    
-    
+
+
 }
 
