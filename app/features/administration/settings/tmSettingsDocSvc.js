@@ -6,12 +6,12 @@ function tmSettingsDocSvc(tmDocFactory) {
     this.__proto__ = tmDocFactory('Company', ninjaSchemas.account.Company);
 
 
-    this.deleteEmail = (input) => {
-        console.log("deleteEmail called!", input);
+    this.deleteEmail = (index) => {
+        this.doc.emails.splice(index, 1);
     };
 
-    this.deleteAddress = (input) => {
-        console.log("deleteEmail called!", input);
+    this.deleteAddress = (index) => {
+        this.doc.addresses.splice(index, 1);
     };
 
     this.saveChanges = function () {
