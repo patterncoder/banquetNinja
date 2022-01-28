@@ -66,6 +66,9 @@ class tmDialogAddItem {
             self.setLoading(true);
             self.model.add(self.newItem).then(function(data){
                 self.tmNotifier.notify("Item was sucessfully added.")
+                // if(self.hasOwnProperty("activateAndSort")) {
+                //     self.activateAndSort();
+                // }
                 self.setLoading(false);
                 self.$mdDialog.hide();
                 if (nextView === 'details') {

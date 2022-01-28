@@ -262,8 +262,8 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     };
 
     this.addItem = (item) => {
+        console.log("tmMenuDocSvc: addItem", item);
         //vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title
-        console.log("add this:", item);
         console.log("section:", this.doc.sections[this.activeObj.index]);
         let selSection = this.doc.sections[this.activeObj.index];
         selSection.items.push(item);

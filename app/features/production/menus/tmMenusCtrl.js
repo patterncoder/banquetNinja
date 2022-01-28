@@ -19,7 +19,7 @@ class tmMenusCtrl {
 
         this.activeMenus = [];
 
-        let alphaSorted = {"A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": []};
+        let alphaSorted = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [] };
 
         console.log("tmMenusCtrl this:", this);
 
@@ -32,7 +32,7 @@ class tmMenusCtrl {
                         nwName += name[i];
                     }
                 }
-                console.log(nwName);
+                // console.log(nwName);
             } else {
                 console.log("NO NAME PROPERTY!!!", menuObj);
             }
@@ -45,20 +45,27 @@ class tmMenusCtrl {
             let char = str[0];
             if (alphabet.indexOf(char) > -1) {
                 return char;
-            }
+            }                // if(self.hasOwnProperty("activateAndSort")) {
+                //     self.activateAndSort();
+                // }
 
             return "A";
         };
 
 
         this.changeFilter = function (value) {
+            //refresh the list, in case a new item was added.
+            alphaSorted = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [] };
+            this.activateAndSort();
+
             this.activeFilter = value.value;
             this.activeMenus = alphaSorted[this.activeFilter];
 
         };
 
-        this.afterLoad = () => {
-            //this.items.reverse() //comes in from db oldest first...
+        this.activateAndSort = () => {
+
+            console.log(this.items);
 
             this.items.map((obj) => {
                 obj.nwName = this.stripNums(obj);
@@ -67,6 +74,17 @@ class tmMenusCtrl {
             });
 
             this.activeMenus = alphaSorted[this.activeFilter]; //Usually "A".
+        }
+
+        this.reload = () => {
+            this.loadData().then((tmp) => {
+                this.activateAndSort();
+            });
+        };
+
+        this.afterLoad = () => {
+            //this.items.reverse() //comes in from db oldest first...
+            this.activateAndSort();
         };
 
         //loadData needs to be async or return a promise.
