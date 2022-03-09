@@ -80,22 +80,6 @@ function tmContractDetailCtrl(
     this.moreFunctions.pdf = {
         label: "Print PDF",
         method: function () {
-            // var self = this;
-            // self.setLoading(true);
-            // saveAndGo = self.closeButtonText === 'Save and Close' ? true : false;
-            // this.docSvc.saveChanges().then(function () {
-            //     self.detailForm.$setPristine();
-            //     self.detailForm.$setUntouched();
-            //     self.getDetailTitle();
-            //     self.tmNotifier.detailNotify("The item has been saved.");
-            //     self.setLoading(false);
-            //     if (saveAndGo) {
-            //         self.close();
-            //     }
-            // }, function (err) {
-            //     console.log(err);
-            //     self.tmNotifier.error("There was a problem with saving...try again.");
-            // });
             let openPDF = () => {
                 let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/pdf`;
                 var req = {
@@ -111,6 +95,7 @@ function tmContractDetailCtrl(
                 });
             };
 
+            //lets save the contract before trying to print it!
             self.setLoading(true);
             self.docSvc.saveChanges().then(() => {
                 openPDF();
@@ -119,8 +104,6 @@ function tmContractDetailCtrl(
                 self.tmNotifier.error("There was a problem with saving...");
                 self.setLoading(false);
             });
-
-
         }
     };
 
