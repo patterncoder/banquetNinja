@@ -80,19 +80,47 @@ function tmContractDetailCtrl(
     this.moreFunctions.pdf = {
         label: "Print PDF",
         method: function () {
-
-            let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/pdf`;
-            var req = {
-                method: 'GET',
-                url: url,
-                responseType: 'arraybuffer'
+            // var self = this;
+            // self.setLoading(true);
+            // saveAndGo = self.closeButtonText === 'Save and Close' ? true : false;
+            // this.docSvc.saveChanges().then(function () {
+            //     self.detailForm.$setPristine();
+            //     self.detailForm.$setUntouched();
+            //     self.getDetailTitle();
+            //     self.tmNotifier.detailNotify("The item has been saved.");
+            //     self.setLoading(false);
+            //     if (saveAndGo) {
+            //         self.close();
+            //     }
+            // }, function (err) {
+            //     console.log(err);
+            //     self.tmNotifier.error("There was a problem with saving...try again.");
+            // });
+            let openPDF = () => {
+                let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/pdf`;
+                var req = {
+                    method: 'GET',
+                    url: url,
+                    responseType: 'arraybuffer'
+                };
+                self.$http(req).then(function (result) {
+                    console.log(result);
+                    var file = new Blob([result.data], { type: 'application/pdf' });
+                    var fileURL = URL.createObjectURL(file);
+                    window.open(fileURL);
+                });
             };
-            self.$http(req).then(function (result) {
-                console.log(result);
-                var file = new Blob([result.data], { type: 'application/pdf' });
-                var fileURL = URL.createObjectURL(file);
-                window.open(fileURL);
+
+            self.setLoading(true);
+            self.docSvc.saveChanges().then(() => {
+                openPDF();
+                self.setLoading(false);
+            }, (err) => {
+                self.tmNotifier.error("There was a problem with saving...");
+                self.setLoading(false);
             });
+
+
         }
     };
 

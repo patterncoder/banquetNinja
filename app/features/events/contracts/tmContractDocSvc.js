@@ -34,6 +34,16 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         this.doc.eventSteps.push(newTimeEntry);
     };
 
+    this.editTimeline = function (timeEntry) {
+        console.log("timeline entry:", timeEntry);
+
+        let diff = timeEntry.time - timeEntry.endTime;
+
+        let diffMinutes = Math.floor((Math.abs(diff) / 1000) / 60);
+
+        timeEntry.duration = diffMinutes;
+    };
+
     this.removeTimeline = function (index) {
         this.doc.eventSteps.splice(index, 1);
     };
