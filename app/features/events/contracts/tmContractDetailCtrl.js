@@ -32,6 +32,11 @@ function tmContractDetailCtrl(
     this.menuObjs = [];
     this.filterSection = undefined;
     this.addableRentalItems = [];
+    // this.printOptions = {
+    //     contract: {},
+    //     handouts: {},
+    //     commLogs: {}
+    // };
 
     self.models = {
         newEventStep: {},
