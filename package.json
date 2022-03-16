@@ -12,7 +12,7 @@
     "postinstall": "node deploy.js",
     "dev": "webpack-dev-server --devtool eval --config webpack.config.js --progress --colors --hot --content-base --hide-modules app/ ",
     "prodStart": "set NODE_ENV=production webpack -p --config webpack.production.config.js",
-    "buildProd": "export NODE_ENV=production && webpack --config webpack.production.config.js --progress --colors",
+    "buildProd": "export NODE_ENV=production || set NODE_ENV=production && webpack --config webpack.production.config.js --progress --colors",
     "buildDev": "set NODE_ENV=development && webpack --config webpack.config.js --progress --colors",
     "buildOnLinux": "export NODE_ENV=production && webpack --config webpack.production.config.js --progress --colors"
   },
