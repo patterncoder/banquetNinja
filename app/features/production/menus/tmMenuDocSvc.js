@@ -262,16 +262,16 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     };
 
     this.addItem = (item) => {
+        console.log("tmMenuDocSvc: addItem", item);
         //vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title
-        console.log("add this:", item);
         console.log("section:", this.doc.sections[this.activeObj.index]);
         let selSection = this.doc.sections[this.activeObj.index];
         selSection.items.push(item);
     };
 
-    let getDateLastYear = () => {
+    let getDateLastYear = (o) => {
         let now = new Date();
-        now.setFullYear(now.getFullYear() - 1);
+        now.setFullYear(now.getFullYear() - o ? o : 1);
         return now;
     };
 
@@ -375,7 +375,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
         if (type == "category") {
             url = `${config.apiBase}/production/menuitems?where[categories]=${[value]}`;
         } else if(type == "name") {
-            url = `${config.apiBase}/production/menuitems?like[name]=${value}`;
+            url = `${config.apiBase}/production/menuitems?like[name]=.*${value}.*`;
         }
 
 
@@ -403,7 +403,7 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
                     // }
                     let dt = new Date(menItm.meta.dateLastMod);
                     console.log("dt:", dt);
-                    if (dt.getTime() >= (getDateLastYear().getTime())) {
+                    if (dt.getTime() >= (getDateLastYear(2).getTime())) {
                         filtered.push(menItm);
                     }
                 });

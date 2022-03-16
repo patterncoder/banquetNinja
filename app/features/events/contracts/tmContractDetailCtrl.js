@@ -31,6 +31,12 @@ function tmContractDetailCtrl(
     this.menuGroups = [];
     this.menuObjs = [];
     this.filterSection = undefined;
+    this.addableRentalItems = [];
+    // this.printOptions = {
+    //     contract: {},
+    //     handouts: {},
+    //     commLogs: {}
+    // };
 
     self.models = {
         newEventStep: {},
@@ -79,18 +85,29 @@ function tmContractDetailCtrl(
     this.moreFunctions.pdf = {
         label: "Print PDF",
         method: function () {
-
-            let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/pdf`;
-            var req = {
-                method: 'GET',
-                url: url,
-                responseType: 'arraybuffer'
+            let openPDF = () => {
+                let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/pdf`;
+                var req = {
+                    method: 'GET',
+                    url: url,
+                    responseType: 'arraybuffer'
+                };
+                self.$http(req).then(function (result) {
+                    console.log(result);
+                    var file = new Blob([result.data], { type: 'application/pdf' });
+                    var fileURL = URL.createObjectURL(file);
+                    window.open(fileURL);
+                });
             };
-            self.$http(req).then(function (result) {
-                console.log(result);
-                var file = new Blob([result.data], { type: 'application/pdf' });
-                var fileURL = URL.createObjectURL(file);
-                window.open(fileURL);
+
+            //lets save the contract before trying to print it!
+            self.setLoading(true);
+            self.docSvc.saveChanges().then(() => {
+                openPDF();
+                self.setLoading(false);
+            }, (err) => {
+                self.tmNotifier.error("There was a problem with saving...");
+                self.setLoading(false);
             });
         }
     };
@@ -101,7 +118,7 @@ function tmContractDetailCtrl(
             //$state.go('root.settings.print', { id: self.docSvc.doc._id });
 
             //close all side tabs.
-            for(let property in this.sideTab) {
+            for (let property in this.sideTab) {
                 this.sideTab[property] = false;
             }
             this.sideTab.printSettings = true;
@@ -129,6 +146,26 @@ function tmContractDetailCtrl(
         }
     }
 
+    this.moreFunctions.printCommLogPDF = {
+        label: "Print Communications",
+        method: () => {
+
+            console.log("print the commLog!");
+
+            let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/commLogPdf`;
+            var req = {
+                method: 'GET',
+                url: url,
+                responseType: 'arraybuffer'
+            };
+            self.$http(req).then(function (result) {
+                console.log(result);
+                var file = new Blob([result.data], { type: 'application/pdf' });
+                var fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
+            });
+        }
+    }
 
     this.contractStatusOptions = constructorArgs.schema.paths.status.enumValues.map((status) => status);
 
@@ -167,6 +204,7 @@ function tmContractDetailCtrl(
 
         // obj.menuObjs = [];
         obj.addableMenuItems = [];
+        obj.addableRentalItems = [];
         obj.filterMenu = undefined;
         obj.filterSection = undefined;
     };
@@ -229,6 +267,51 @@ function tmContractDetailCtrl(
         this.statusHidden = !bl;
     };
 
+    let getDateLastYear = (o) => {
+        let now = new Date();
+        now.setFullYear(now.getFullYear() - o ? o : 1);
+        return now;
+    };
+
+    this.runSearch = (type, value) => {
+        let settings = {
+            url: `${config.apiBase}${type.schema ? type.schema : "/production/menuItems"}?like[name]=.*${value}.*`,
+            years: 10,
+            model: type.model ? type.model : "addableMenuItems"
+        };
+
+        let request = {
+            method: "GET",
+            url: settings.url
+        };
+
+        let filtered = [];
+        this.$http(request).then((data) => {
+            console.log("data: ", data);
+
+            let tmp = data.data;
+
+            let filter = (dta) => {
+                dta.map((menItm) => {
+                    let dt = new Date(menItm.meta.dateLastMod || menItm.meta.dateCreated);
+                    if (dt.getTime() >= (getDateLastYear(settings.years).getTime())) {
+                        filtered.push(menItm);
+                    }
+                });
+            };
+
+            if (tmp.length) {
+                filter(tmp);
+            } else if (tmp.hasOwnProperty("data")) {
+                filter(tmp.data);
+            }
+
+            this[settings.model] = filtered;
+            console.log(`${settings.model}: `, this[settings.model]);
+        });
+
+    };
+
     this.getMenus = () => {
         toggle(true);
         cleanup(this);
@@ -239,7 +322,7 @@ function tmContractDetailCtrl(
 
         this.searchGroup.menus.map((menu) => {
             console.log("getMenus: ", menu);
-            if(!menu.menuId) {
+            if (!menu.menuId) {
                 menu.menuId = menu["_id"];
             }
             tmp.push(getByID("Menu", menu.menuId));
@@ -352,6 +435,11 @@ function tmContractDetailCtrl(
         console.log("adding this:", item);
         console.log("menuItems:", this.docSvc.doc.menuItems);
         this.docSvc.doc.menuItems.push(item);
+    };
+
+    this.addRentalItem = (item) => {
+        console.log("item:", item);
+        this.docSvc.doc.rentalItems.push(item);
     };
 
 

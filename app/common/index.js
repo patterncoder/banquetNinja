@@ -32,6 +32,7 @@ import tmDialogAddDocPartCtrl from './tmDialogAddDocPartCtrl';
 import tmPhoneFilter from './tmPhoneFilter';
 import tmCapitalizeFilter from './tmCapitalizeFilter';
 import tmZuluTime from './filters/tmZuluTime';
+import timeCorrection from './filters/dstHistCheck';
 
 // sub modules
 import ninjaGrid from './widgets/ninjaGrid';
@@ -66,5 +67,6 @@ export default angular.module('common', [ninjaGrid, datePickers, alphaSelect])
     .filter('tmPhoneFilter', tmPhoneFilter)
     .filter('tmCapitalizeFilter', tmCapitalizeFilter)
     .filter('tmZuluTime', tmZuluTime)
+    .filter('timeCorrection', timeCorrection)
     .name;
 

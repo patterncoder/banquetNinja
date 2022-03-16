@@ -63,7 +63,7 @@
                     div.itemCard(ng-repeat="item in vm.docSvc.addableMenuItems" style="border: solid black 1px; background-color: white")
                         a(href="" ng-click="vm.docSvc.addItem(item)") 
                             span.glyphicon.glyphicon-circle-arrow-left 
-                        span &nbsp; {{item.name}}
+                        span(title="{{item.description}}") &nbsp; {{item.name}}
                     br
                     md-button.md-raised(ng-click="vm.docSvc.byNameEntry ? vm.docSvc.runSearch('name', vm.docSvc.byNameEntry) : vm.docSvc.runSearch('category', vm.docSvc.selCategory)") Search
                     md-button.md-raised(ng-click="vm.sideTab.menuItems = !vm.sideTab.menuItems") Close

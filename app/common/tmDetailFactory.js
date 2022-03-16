@@ -192,9 +192,9 @@ function BaseDetail(
         this.canILeave().then(function (canILeave) {
             if (canILeave) {
                 self.docSvc.clearDocument();
-                //self.$state.go(self.$state.back.fromState, self.$state.back.fromParams)
+                self.$state.go(self.$state.back.fromState, self.$state.back.fromParams)
 
-                self.$state.go(constructorArgs.listView);
+                // self.$state.go(constructorArgs.listView);
             }
         });
     };

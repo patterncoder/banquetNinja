@@ -1,8 +1,8 @@
 import ninjaSchemas from 'ninjaSchemas';
 
 class tmRentalItemsCtrl {
-    constructor($scope, tmListFactory){
-        
+    constructor($scope, tmListFactory) {
+
         var constructorArgs = {
             schema: ninjaSchemas.events.RentalItem,
             model: 'RentalItem',
@@ -11,10 +11,10 @@ class tmRentalItemsCtrl {
             addHeaderText: 'Add Rental Item',
             listTitle: 'Rental Items'
         };
-        
+
         this.__proto__ = tmListFactory(constructorArgs);
         // this.loadData();
-        
+
         // this.sortOptions = [ { value: "name", text: "Sort by Item" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
 
         // this.sortOrder = this.sortOptions[0].value;
@@ -23,7 +23,7 @@ class tmRentalItemsCtrl {
 
         this.activeRentals = [];
 
-        let alphaSorted = {"A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": []};
+        let alphaSorted = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": [] };
 
         console.log("tmRentalItemsCtrl this:", this);
 
@@ -36,7 +36,7 @@ class tmRentalItemsCtrl {
                         nwName += name[i];
                     }
                 }
-                console.log(nwName);
+                // console.log(nwName);
             } else {
                 console.log("NO NAME PROPERTY!!!", rentObj);
             }
@@ -56,15 +56,18 @@ class tmRentalItemsCtrl {
 
 
         this.changeFilter = function (value) {
+            //refresh the list, in case a new item was added.
+            alphaSorted = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": [] };
+            this.activateAndSort();
+
             this.activeFilter = value.value;
             this.activeRentals = alphaSorted[this.activeFilter];
 
         };
 
-        this.afterLoad = () => {
-            //this.items.reverse() //comes in from db oldest first...
+        this.activateAndSort = () => {
 
-            if(this.items.length < 25) {
+            if (this.items.length < 25) {
                 this.activeFilter = "*";
             }
 
@@ -76,15 +79,21 @@ class tmRentalItemsCtrl {
             });
 
             this.activeRentals = alphaSorted[this.activeFilter]; //Usually "A".
+        }
+
+        this.afterLoad = () => {
+            //this.items.reverse() //comes in from db oldest first...
+            this.activateAndSort();
+
         };
 
         //loadData needs to be async or return a promise.
         this.loadData().then((tmp) => {
             console.log("loadData result:", tmp);
         });
-        
+
     }
-    
+
 }
 
 tmRentalItemsCtrl.$inject = ['$scope', 'tmListFactory'];

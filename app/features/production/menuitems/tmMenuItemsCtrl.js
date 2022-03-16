@@ -1,6 +1,6 @@
 import ninjaSchemas from 'ninjaSchemas';
 class tmMenuItemsCtrl {
-    constructor($scope, tmListFactory){
+    constructor($scope, tmListFactory) {
         var constructorArgs = {
             schema: ninjaSchemas.production.MenuItem,
             model: 'MenuItem',
@@ -9,10 +9,10 @@ class tmMenuItemsCtrl {
             addHeaderText: 'Add Menu Item',
             listTitle: 'Menu Items'
         };
-        
+
         this.__proto__ = tmListFactory(constructorArgs);
         // this.loadData();
-        
+
         // this.sortOptions = [ { value: "name", text: "Sort by Item" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
 
         // this.sortOrder = this.sortOptions[0].value;
@@ -21,7 +21,7 @@ class tmMenuItemsCtrl {
 
         this.activeMenuItems = [];
 
-        let alphaSorted = {"A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": []};
+        let alphaSorted = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": [] };
 
         console.log("tmMenuItemsCtrl this:", this);
 
@@ -34,7 +34,7 @@ class tmMenuItemsCtrl {
                         nwName += name[i];
                     }
                 }
-                console.log(nwName);
+                // console.log(nwName);
             } else {
                 console.log("NO NAME PROPERTY!!!", menuObj);
             }
@@ -54,15 +54,18 @@ class tmMenuItemsCtrl {
 
 
         this.changeFilter = function (value) {
+            //refresh the list, in case a new item was added.
+            alphaSorted = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": [] };
+            this.activateAndSort();
+
             this.activeFilter = value.value;
             this.activeMenuItems = alphaSorted[this.activeFilter];
 
         };
 
-        this.afterLoad = () => {
-            //this.items.reverse() //comes in from db oldest first...
+        this.activateAndSort = () => {
 
-            if(this.items.length < 25) {
+            if (this.items.length < 25) {
                 this.activeFilter = "*";
             }
 
@@ -74,6 +77,11 @@ class tmMenuItemsCtrl {
             });
 
             this.activeMenuItems = alphaSorted[this.activeFilter]; //Usually "A".
+        }
+
+        this.afterLoad = () => {
+            //this.items.reverse() //comes in from db oldest first...
+            this.activateAndSort();
         };
 
         this.loadData();
