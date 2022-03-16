@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <base href="/"></base>
+</head>
+<body layout="column">
+    <md-toolbar layout="row" ui-view="header" ng-hide="vm.isModal()">
+    </md-toolbar>
+    <div layout="row" layout-margin>
+        <div flex="15"  ng-hide="vm.hideNavigation() || vm.isModal()" ui-view="navigation"></div>
+        <div flex ui-view="content"></div>
+    </div>
+    <!--<div layout="row" ng-hide="vm.isModal()" layout-align="center end" flex ui-view="footer"></div>-->
+</body>
+</html>
