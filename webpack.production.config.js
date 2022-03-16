@@ -7,6 +7,8 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // var env = "production";
 var Promise = require('es6-promise').Promise;
+const configPath = path.resolve(__dirname, 'app/config', env);
+console.log(configPath)
 
 
 var config = {
@@ -64,7 +66,8 @@ var config = {
   ],
   resolve: {
       alias: {
-          config: path.join(__dirname, '/app/config', env)
+          config: configPath,
+          ninjaSchemas: path.resolve(__dirname, 'schemas')
       }
   }
 };
