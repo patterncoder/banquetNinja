@@ -12,7 +12,8 @@
     "postinstall": "node deploy.js",
     "dev": "webpack-dev-server --devtool eval --config webpack.config.js --progress --colors --hot --content-base --hide-modules app/ ",
     "prodStart": "set NODE_ENV=production webpack -p --config webpack.production.config.js",
-    "build": "set NODE_ENV=production && webpack --config webpack.production.config.js --progress --colors",
+    "build": "set NODE_ENV=development && webpack --config webpack.production.config.js --progress --colors",
+    "buildDev": "set NODE_ENV=development && webpack --config webpack.config.js --progress --colors",
     "buildOnLinux": "export NODE_ENV=production && webpack --config webpack.production.config.js --progress --colors"
   },
   "author": "Christopher J. Baily",
@@ -36,6 +37,7 @@
     "express": "^4.13.3",
     "file-loader": "^0.8.4",
     "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^3.2.0",
     "http-proxy": "^1.11.2",
     "imports-loader": "^0.6.5",
     "jade": "^1.11.0",
@@ -58,6 +60,7 @@
   },
   "devDependencies": {
     "stylus-loader": "^3.0.2",
-    "webpack-dev-server": "^1.12.0"
+    "webpack-dev-server": "^1.12.0",
+    "html-webpack-plugin": "^3.2.0"
   }
 }
