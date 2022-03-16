@@ -1,9 +1,10 @@
 var Webpack = require('webpack');
 var path = require('path');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var buildPath = path.resolve(__dirname, 'public', 'build');
+var buildPath = path.resolve(__dirname, 'public');
 var mainPath = path.resolve(__dirname, 'app', 'main.js');
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // var env = "production";
 var Promise = require('es6-promise').Promise;
 
@@ -56,7 +57,10 @@ var config = {
       new Webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
-        })
+        }),
+      new HtmlWebpackPlugin({
+        template: './app/index.html'
+      })
   ],
   resolve: {
       alias: {

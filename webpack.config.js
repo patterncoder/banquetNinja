@@ -107,7 +107,7 @@ var config = {
   // This sets up config based on environment 
   resolve: {
       alias: {
-          config: path.join(__dirname, '/app/config', env)
+          config: path.resolve(__dirname, './app/config', env)
           
       },
       extensions: ['', '.js', '.node']
