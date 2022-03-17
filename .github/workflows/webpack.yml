@@ -42,3 +42,6 @@ jobs:
 
     - name: Deploy
       run: scp -r public root@${{ secrets.SSH_HOST }}:/home/upload
+
+    - name: Trigger restart
+      run: ssh -t root@${{ secrets.SSH_HOST }} "bash /home/update.sh"
