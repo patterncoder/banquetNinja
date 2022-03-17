@@ -1,10 +1,13 @@
 var Webpack = require('webpack');
 var path = require('path');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var buildPath = path.resolve(__dirname, 'public', 'build');
+var buildPath = path.resolve(__dirname, 'public');
 var mainPath = path.resolve(__dirname, 'app', 'main.js');
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 var Promise = require('es6-promise').Promise;
+const configPath = path.resolve(__dirname, 'app/config', env);
+console.log(configPath)
 
 var config = {
 
@@ -37,7 +40,7 @@ var config = {
     // error will occur if nothing is specified. We use the buildPath
     // as that points to where the files will eventually be bundled
     // in production
-    path: path.resolve(__dirname, 'public'),
+    path: buildPath,
     filename: 'bundle.js',
     
     // Everything related to Webpack should go through a build path,
@@ -48,7 +51,7 @@ var config = {
     // --devtool eval --config webpack.config.js --progress --colors --hot --content-base --hide-modules app/ 
     historyApiFallback: true,
     contentBase: "./public",
-    watchContentBase: true
+		watchContentBase: true
   },
   externals: [
     {
@@ -102,13 +105,16 @@ var config = {
     new Webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
-        })
+        }),
+				new HtmlWebpackPlugin({
+					template: './app/index.html'
+				})
   ],
   // This sets up config based on environment 
   resolve: {
       alias: {
-          config: path.resolve(__dirname, './app/config', env)
-          
+          config: configPath,
+          ninjaSchemas: path.resolve(__dirname, 'schemas')
       },
       extensions: ['', '.js', '.node']
   }
