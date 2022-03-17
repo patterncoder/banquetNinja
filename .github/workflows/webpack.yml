@@ -27,5 +27,6 @@ jobs:
 
     - name: Build
       run: |
+        git submodule update --init --recursive
         npm install
         npm run buildOnLinux
