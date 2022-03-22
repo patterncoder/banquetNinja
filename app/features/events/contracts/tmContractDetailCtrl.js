@@ -417,6 +417,32 @@ function tmContractDetailCtrl(
         this.doc.assignedStaff.push(staffMember);
     };
 
+    this.addEmpty = () => {
+
+        console.log("called addEmpty");
+        /*
+        var menuItem = {
+            sortOrder: Number,
+            name: String,
+            description: String,
+            baseId : {type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem'},
+            quantity: Numbejr,
+            price: Number
+        };
+        */
+        let item = {
+            name: "New Item",
+            description: "Description",
+            baseId: "5e503ce5229c5d33d41b05a7", //reuires a valid id.
+            quantity: 0,
+            price: 0,
+            itemType: ""
+        };
+        // this.docSvc.doc.menuItems.push(divider);
+
+        this.addItem(item);
+    };
+
     this.addItem = (item) => {
         console.log("item:", item);
         // getByID("MenuItem", item.menuItemId).then((returned) => {
