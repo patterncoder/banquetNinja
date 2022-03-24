@@ -190,6 +190,7 @@ function BaseDetail(
     this.close = function () {
         var self = this;
         this.canILeave().then(function (canILeave) {
+            console.log("what are we?", self);
             if (canILeave) {
                 self.docSvc.clearDocument();
                 self.$state.go(self.$state.back.fromState, self.$state.back.fromParams)

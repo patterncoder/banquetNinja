@@ -25,6 +25,23 @@ function tmContractDetailCtrl(
 
     this.__proto__ = tmDetailFactory(constructorArgs);
 
+    console.log("what is our close?", self.close);
+
+    //close override
+    this.close = () => {
+
+        var self = this;
+        this.canILeave().then((canILeave) => {
+            console.log("what are we?", self);
+            if (canILeave) {
+                this.docSvc.clearDocument();
+                // self.$state.go(self.$state.back.fromState, self.$state.back.fromParams)
+                this.$state.go(this.constructorArgs.listView);
+
+                // self.$state.go(constructorArgs.listView);
+            }
+        });
+    };
 
     this.sectionsHidden = true;
     this.statusHidden = true;
