@@ -2,6 +2,8 @@
 
 function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
     var $ctrl = this;
+
+    console.log("ninjaGridCtrl called!", $ctrl);
     
     $ctrl.arrowKeyOut = function(item, keyCode, currentField) {
         var index = $ctrl.list.indexOf(item);
@@ -29,6 +31,7 @@ function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
     };
     
     $ctrl.create = function(item){
+        console.log("create method called!");
         $ctrl.docSvc[$attrs.createMethod](item);
     };
     
@@ -43,6 +46,10 @@ function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
             return $ctrl.addToggle;
         }
     }
+    // $ctrl.optionsList = (item) => {
+    //     console.log("optionsList: ", item);
+    //     $ctrl.options = $ctrl.docSvc[$attrs.optionsList](item);
+    // };
 
     $ctrl.toggleAdd = function(){
         if (typeof $ctrl.addToggle === 'function') {
@@ -63,6 +70,9 @@ function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
         $ctrl.list.splice(insertIndex, 0, moving[0]);
         $scope.$apply();
     };
+
+
+
 
     // function convertDateStrings(data){
     //     var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
@@ -100,6 +110,7 @@ var ninjaGridComponent =  {
         docSvc: '<',
         list: '<',
         fields: '<',
+        optionsList: '<',
         gridTitle: '@',
         noDataText: '@',
         addToggle: '=',

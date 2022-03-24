@@ -1,8 +1,9 @@
 import ninjaSchemas from 'ninjaSchemas';
+import config from 'config';
 
 class tmMenuGroupsCtrl {
-    constructor($scope, tmListFactory){
-        
+    constructor($scope, tmListFactory, $http, $dataSource) {
+
         var constructorArgs = {
             schema: ninjaSchemas.production.MenuGroup,
             model: 'MenuGroup',
@@ -11,20 +12,47 @@ class tmMenuGroupsCtrl {
             addHeaderText: 'Add Menu Group',
             listTitle: 'Menu Groups'
         };
-        
+
         this.__proto__ = tmListFactory(constructorArgs);
 
         // this.loadData();
-        
+
         // this.sortOptions = [ { value: "name", text: "Sort by Item" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
 
         // this.sortOrder = this.sortOptions[0].value;
+
+        this.activatedGroup = undefined;
 
         this.activeFilter = "A";
 
         this.activeGroups = [];
 
-        let alphaSorted = {"A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": []};
+        const sortTemplate = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": [] };
+
+        let alphaSorted = sortTemplate;
+
+        console.log("tmMenuGroupsCtrl this:", this);
+
+        this.setActive = (item) => {
+            // console.log("clicked!", item);
+            // console.log("this", this);
+            let req = {
+                method: "PUT",
+                url: `${config.apiBase}/production/menugroups/active/${item["_id"]}`
+            };
+
+            this.$http(req).then((response) => {
+                if (response.status == 200) {
+                    this.items.map((obj) => {
+                        if (obj.hasOwnProperty("active") && obj["_id"] != item["_id"]) {
+                            if (obj.active) {
+                                obj.active = false;
+                            }
+                        }
+                    });
+                }
+            });
+        };
 
         this.stripNums = (menuObj) => {
             let nwName = "";
@@ -58,31 +86,46 @@ class tmMenuGroupsCtrl {
 
         };
 
-        this.afterLoad = () => {
-            //this.items.reverse() //comes in from db oldest first...
+        this.loadSort = () => {
 
-            if(this.items.length < 25) {
-                this.activeFilter = "*";
-            }
+            alphaSorted = sortTemplate;
 
             this.items.map((obj) => {
+                // if (obj.hasOwnProperty("active")) {
+                //     if (obj.active) {
+                //         this.activatedGroup = obj;
+                //     }
+                // }
                 obj.nwName = this.stripNums(obj);
                 obj.filterChar = this.getFilterChar(obj.nwName);
                 alphaSorted[obj.filterChar].push(obj);
                 alphaSorted["*"].push(obj); //store all in this one
             });
 
+            this.activeGroups = [];
+
             this.activeGroups = alphaSorted[this.activeFilter]; //Usually "A".
         };
 
+        this.afterLoad = () => {
+            //this.items.reverse() //comes in from db oldest first...
 
-        this.loadData();
-        
+            if (this.items.length < 25) {
+                this.activeFilter = "*";
+            }
+
+            this.loadSort();
+
+        };
+
+
+        this.loadData(undefined, true);
+
     }
-    
+
 }
 
-tmMenuGroupsCtrl.$inject = ['$scope', 'tmListFactory'];
+tmMenuGroupsCtrl.$inject = ['$scope', 'tmListFactory', '$http', '$dataSource'];
 
 export default tmMenuGroupsCtrl;
 

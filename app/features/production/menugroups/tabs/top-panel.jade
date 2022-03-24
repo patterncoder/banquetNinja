@@ -8,3 +8,7 @@ form(name="vm.detailForm")
                 .form-group(flex="66")
                     label.control-label(for="description") Description
                     input.form-control(ng-model="vm.docSvc.doc.description")
+            div(layout="row")
+                .form-group(flex="33")
+                    //- label.control-label(for="active") Active Group
+                    md-checkbox(ng-model="vm.docSvc.doc.active" ng-change="vm.setActive()") Set as active group

@@ -5,8 +5,6 @@ import mongoose from "mongoose";
 
 function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
-    console.log("tmMenuDocSvc called!");
-
     this.__proto__ = tmDocFactory('Menu', ninjaSchemas.production.Menu);
 
     console.log("__proto__:", this.__proto__);
@@ -36,6 +34,8 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     // this.selectedGroup = undefined;
 
+
+
     let self = this;
 
     //the term categories and sections is used interchangeably.
@@ -52,6 +52,10 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
                     this.categories = data;
                     resolve(data.menuItemTags);
                 });
+                // mylookups.getOne(tmIdentity.currentUser.user.company, true).then((data) => {
+                //     console.log("data:", data);
+                //     resolve(data.menuItemTags);
+                // });
 
             } catch (e) {
                 // reject(e);
@@ -419,6 +423,20 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
             this.addableMenuItems = filtered;
         });
 
+    };
+
+    this.runSearch = () => {
+        console.log(this.selCategory);
+        let url = `${config.apiBase}/production/menuitems?where[categories]=${this.selCategory}`;
+        let request = {
+            method: "GET",
+            url: url
+        };
+        this.$http(request).then((data) => {
+            console.log("success!!", data);
+            // self.addableMenuItems = data.data.data;
+        });
+        // console.log("clicked!");
     };
 
     this.editSection = (index) => {

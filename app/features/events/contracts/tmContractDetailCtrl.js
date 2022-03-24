@@ -10,7 +10,8 @@ function tmContractDetailCtrl(
     $timeout,
     uibDateParser,
     $state,
-    tmIdentity
+    tmIdentity,
+    $http
 ) {
     var self = this;
     var constructorArgs = {
@@ -24,7 +25,32 @@ function tmContractDetailCtrl(
     };
 
     this.__proto__ = tmDetailFactory(constructorArgs);
+    console.log("we are at tmContractDetailCtrl");
 
+    console.log("what is our close?", self.close);
+
+
+    //close overrides from tmDetailFactory.js
+    // this.close = () => {
+    //     this.canILeave().then((result) => {
+
+    //         if (result) {
+
+    //             if (this.docSvc.doc.hasOwnProperty("status")) {
+    //                 if (this.docSvc.doc.status == "pending") {
+    //                     this.docSvc.clearDocument();
+    //                     this.$state.go("root.contractsPending");
+    //                 } else {
+    //                     this.docSvc.clearDocument();
+    //                     this.$state.go(this.constructorArgs.listView);
+    //                 }
+    //             } else {
+    //                 this.docSvc.clearDocument();
+    //                 this.$state.go(this.constructorArgs.listView);
+    //             }
+    //         }
+    //     });
+    // };
 
     this.sectionsHidden = true;
     this.statusHidden = true;
@@ -32,11 +58,6 @@ function tmContractDetailCtrl(
     this.menuObjs = [];
     this.filterSection = undefined;
     this.addableRentalItems = [];
-    // this.printOptions = {
-    //     contract: {},
-    //     handouts: {},
-    //     commLogs: {}
-    // };
 
     self.models = {
         newEventStep: {},
@@ -47,6 +68,22 @@ function tmContractDetailCtrl(
     _.forEach(ninjaSchemas.events.Contract.paths.eventSteps.schema.paths, (item, key) => {
         self.models.newEventStep[key] = null;
     }, {});
+
+    this.foodOptions = [{
+        title: "Add Empty Line",
+        width: "200px",
+        func: () => {
+            console.log("click on add food");
+            this.addEmpty();
+        }
+    }, {
+        title: "Add Divider",
+        width: "200px",
+        func: () => {
+            console.log("clicked on add blank");
+            this.addSectionDivider();
+        }
+    }];
 
     this.addEventStep = function () {
         self.models.newEventStep.time.setMilliseconds(0);
@@ -72,14 +109,6 @@ function tmContractDetailCtrl(
 
         this.docSvc.addCommLog(self.models.newCommLog);
     };
-
-    // this.moreFunctions.print = {
-    //     label: "Print HTML",
-    //     method: function () {
-    //         $state.go('root.contracts.print', { id: self.docSvc.doc._id }); root.customerDetail
-    //     }
-    // };
-
 
     this.moreFunctions.pdf = {
         label: "Print Contract",
@@ -245,10 +274,31 @@ function tmContractDetailCtrl(
             }
         }
 
-        // I would like to load up Menu Groups also...
-        let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
-        menuGroups.query().then((returned) => {
-            this.menuGroups = returned;
+        console.log("what are we?", this.docSvc.doc.status);
+
+        // // I would like to load up Menu Groups also...
+        // let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
+        // menuGroups.query().then((returned) => {
+        //     // console.log("menuGroups:", returned);
+        //     this.menuGroups = returned;
+        //     // console.log("menuGroups:", this.menuGroups);
+        // });
+
+        let req = {
+            method: "GET",
+            url: `${config.apiBase}/production/menugroups/active`,
+        };
+
+        this.$http(req).then((response) => {
+            console.log("response: ", response);
+            this.menuGroups = response.data.data;
+            this.searchGroup = this.menuGroups[0];
+
+            this.getMenus(this.searchGroup).then((obj) => {
+                this.menuObjs = obj; //updates for angular all at once.
+                toggle(false); //display the results.
+                $scope.$apply(); //DOM WILL NOT PROPERLY REFRESH WITHOUT THIS!!!
+            });
         });
     });
 
@@ -329,31 +379,44 @@ function tmContractDetailCtrl(
 
     };
 
-    this.getMenus = () => {
-        toggle(true);
-        cleanup(this);
+    this.getMenus = (searchGroup) => {
+        let dfd = new Promise((resolve, reject) => {
+            toggle(true);
+            cleanup(this);
 
-        let tmp = []; //stores promises.
+            let tmp = []; //stores promises.
 
 
-        this.searchGroup.menus.map((menu) => {
-            if (!menu.menuId) {
-                menu.menuId = menu["_id"];
-            }
-            tmp.push(getByID("Menu", menu.menuId));
+            searchGroup.menus.map((menu) => {
+                if (!menu.menuId) {
+                    menu.menuId = menu["_id"];
+                }
+                tmp.push(getByID("Menu", menu.menuId));
+            });
+
+            Promise.all(tmp).then((obj) => { //waits until all done.
+                resolve(obj);
+            });
         });
 
-        Promise.all(tmp).then((obj) => { //waits until all done.
-            this.menuObjs = obj; //updates for angular all at once.
-            toggle(false); //display the results.
-            $scope.$apply(); //DOM WILL NOT PROPERLY REFRESH WITHOUT THIS!!!
-        });
+        return dfd;
     };
 
-    this.showMenuItems = () => {
-        this.addableMenuItems = this.filterSection.items;
-        //this.sectionsHidden = true;
+    this.showIt = (section) => {
+        if (section) {
+            console.log("section: ", section);
+            this.addableMenuItems = section.items;
+        } else {
+            this.addableMenuItems = [];
+        }
     };
+
+    // this.showMenuItems = (filterSection) => {
+    //     console.log("filterSection: ", filterSection);
+    //     // console.log(this.filterSection);
+    //     // this.addableMenuItems = this.filterSection.items;
+    //     //this.sectionsHidden = true;
+    // };
 
     this.addSectionDivider = () => {
         /*
@@ -384,6 +447,20 @@ function tmContractDetailCtrl(
     this.deleteAdditionalContact = (index) => {
         self.docSvc.deleteAdditionalContact(index);
     }
+    this.getCachedMenuItems = (section) => {
+        let sectionItems = [];
+        self.menuSectionsRawData.map((obj) => {
+            if (obj.title == section) {
+                sectionItems = obj.items;
+            }
+        });
+        //self.addableMenuItems = sectionItems;
+        return sectionItems;
+    };
+
+    this.showMenuItems = () => {
+        self.addableMenuItems = self.getCachedMenuItems(self.filterSection);
+    };
 
     this.getDetailTitle = function () {
         const customer = self.docSvc.doc.customer;
@@ -407,7 +484,7 @@ function tmContractDetailCtrl(
                 // capture jumping to another state from detail...this is needed to prevent circular
                 // close button issue...without it will keep bouncing between two details states
                 self.$state.data = 'root.customerDetail';
-                self.$state.go('root.customerDetail', { id: self.docSvc.doc.customer._id, returnToList: 'true' }); 
+                self.$state.go('root.customerDetail', { id: self.docSvc.doc.customer._id, returnToList: 'true' });
             }
         }
     }
@@ -574,7 +651,8 @@ tmContractDetailCtrl.$inject = [
     '$timeout',
     'uibDateParser',
     '$state',
-    'tmIdentity'
+    'tmIdentity',
+    '$http'
 ];
 
 export default tmContractDetailCtrl;
