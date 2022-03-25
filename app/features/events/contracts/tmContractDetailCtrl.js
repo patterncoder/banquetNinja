@@ -24,15 +24,29 @@ function tmContractDetailCtrl(
     };
 
     this.__proto__ = tmDetailFactory(constructorArgs);
+    console.log("we are at tmContractDetailCtrl");
 
     console.log("what is our close?", self.close);
+
 
     //close overrides from tmDetailFactory.js
     this.close = () => {
         this.canILeave().then((result) => {
+
             if (result) {
-                this.docSvc.clearDocument();
-                this.$state.go(this.constructorArgs.listView);
+
+                if (this.docSvc.doc.hasOwnProperty("status")) {
+                    if (this.docSvc.doc.status == "pending") {
+                        this.docSvc.clearDocument();
+                        this.$state.go("root.contractsPending");
+                    } else {
+                        this.docSvc.clearDocument();
+                        this.$state.go(this.constructorArgs.listView);
+                    }
+                } else {
+                    this.docSvc.clearDocument();
+                    this.$state.go(this.constructorArgs.listView);
+                }
             }
         });
     };
@@ -218,6 +232,8 @@ function tmContractDetailCtrl(
                 this.docSvc.doc.serviceType = this.docSvc.doc.natureOfEvent.toLowerCase();
             }
         }
+
+        console.log("what are we?", this.docSvc.doc.status);
 
         // I would like to load up Menu Groups also...
         let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
