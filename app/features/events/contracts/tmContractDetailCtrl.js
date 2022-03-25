@@ -27,18 +27,12 @@ function tmContractDetailCtrl(
 
     console.log("what is our close?", self.close);
 
-    //close override
+    //close overrides from tmDetailFactory.js
     this.close = () => {
-
-        var self = this;
-        this.canILeave().then((canILeave) => {
-            console.log("what are we?", self);
-            if (canILeave) {
+        this.canILeave().then((result) => {
+            if (result) {
                 this.docSvc.clearDocument();
-                // self.$state.go(self.$state.back.fromState, self.$state.back.fromParams)
                 this.$state.go(this.constructorArgs.listView);
-
-                // self.$state.go(constructorArgs.listView);
             }
         });
     };
@@ -49,11 +43,6 @@ function tmContractDetailCtrl(
     this.menuObjs = [];
     this.filterSection = undefined;
     this.addableRentalItems = [];
-    // this.printOptions = {
-    //     contract: {},
-    //     handouts: {},
-    //     commLogs: {}
-    // };
 
     self.models = {
         newEventStep: {},
@@ -90,14 +79,6 @@ function tmContractDetailCtrl(
 
         this.docSvc.addCommLog(self.models.newCommLog);
     };
-
-    // this.moreFunctions.print = {
-    //     label: "Print HTML",
-    //     method: function () {
-    //         $state.go('root.contracts.print', { id: self.docSvc.doc._id });
-    //     }
-    // };
-
 
     this.moreFunctions.pdf = {
         label: "Print PDF",

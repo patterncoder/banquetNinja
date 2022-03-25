@@ -17,6 +17,16 @@ class tmContractsPendingCtrl {
 
     this.__proto__ = tmListFactory(constructorArgs);
 
+    //close overrides from tmDetailFactory.js -> tmContractDetailCtrl.js
+    this.close = () => {
+      this.canILeave().then((result) => {
+        if (result) {
+          this.docSvc.clearDocument();
+          this.$state.go(this.constructorArgs.listView);
+        }
+      });
+    };
+
     //http://localhost:3001/api/v1/events/contracts?where[status]=pending
 
     this.loadData({
