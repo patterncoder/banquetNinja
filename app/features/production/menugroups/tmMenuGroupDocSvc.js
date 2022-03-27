@@ -44,8 +44,6 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
     };
 
     this.addMenu = (item) => {
-        console.log("add this!", item);
-        console.log(this);
         this.doc.menus.push(item);
     };
 
@@ -97,7 +95,6 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
 
             try {
                 Menus.query().then((data) => {
-                    console.log("data:", data);
 
                     data.map((dta) => {
                         let dt = new Date(dta.meta.dateLastMod ? dta.meta.dateLastMod : dta.meta.dateCreated);
@@ -112,7 +109,6 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
                     this.allMenus.reverse() //objects come in sorted by oldest to newest, we want to reverse that...
                     fillDisplayMenus(this.allMenus);
 
-                    console.log("allMenus:", this.allMenus);
                     resolve(data);
                 });
 
