@@ -8,9 +8,12 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
             span.glyphicon.glyphicon-sort
         div.gridItemCell(ng-repeat="(key, val) in $ctrl.fields" 
                 flex="{{val.width}}"
+                layout-align="{{val.input==='checkbox' && 'center center' || ''}}"
                 ng-focus="$ctrl.editItem($ctrl.item, key)" 
                 ng-click="$ctrl.editItem($ctrl.item, key)"
-                ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}") {{$ctrl.formatter($ctrl.item[key], val.type)}}
+                ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}") 
+            div(ng-if="val.input!=='checkbox'") {{$ctrl.formatter($ctrl.item[key], val.type)}}
+            md-checkbox(ng-if="val.input==='checkbox'" ng-model="$ctrl.item[key]" ng-disabled="true")
         div.gridItemCell(flex="5" layout="column" layout-align="center center")
             a(href= "" ng-click="$ctrl.deleteItem()"  ng-blur="vm.detailBlur(item, $index, $event)" )
                  span.glyphicon.glyphicon-remove 
@@ -18,6 +21,10 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
         div(flex="5" layout="row" layout-align="center center" )
             span.glyphicon.glyphicon-sort
         div.gridItemEditCell(ng-repeat="(key, val) in $ctrl.fields" flex="{{val.width}}" layout="row" )
+            md-checkbox(ng-if="val.input==='checkbox'" ng-model="$ctrl.item[key]" type="val.type"
+                focus="$ctrl.item.clickedField[key]" 
+                ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
+                ng-blur="$ctrl.detailBlur($ctrl.item, $event)")
             input.form-control(ng-if="val.input==='text'" ng-model="$ctrl.item[key]" type="val.type"
                 focus="$ctrl.item.clickedField[key]" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 

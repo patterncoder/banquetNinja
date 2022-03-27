@@ -81,6 +81,7 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
 
     this.addMenuItem = function (menuItem) {
         var itemToAdd = {
+            printOnHandoutMenu: false,
             name: menuItem.name,
             description: menuItem.description,
             baseId: menuItem._id,
