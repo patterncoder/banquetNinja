@@ -17,8 +17,8 @@ export default () => {
                 // if (iIDs.indexOf(contract["_id"]) == -1) {
                 //     iIDs.push(contract["_id"]);
                 // }
-                console.log("from db hrs: ", dbHr, "from 24hr: ", hr);
-                console.log("from db min: ", dbMn, "from 24hr: ", min);
+                // console.log("from db hrs: ", dbHr, "from 24hr: ", hr);
+                // console.log("from db min: ", dbMn, "from 24hr: ", min);
                 contract[property].setHours(hr);
                 contract[property].setMinutes(min);
             }

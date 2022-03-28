@@ -52,46 +52,47 @@ export default class CachedResource {
         if (!self.List) {
             // this case is pretty rare...it requires putting in a details url with a record
             // id so we have to first populate the the full list then get the full record of the detail
-            self.Resource.query(function (data) {
-                // console.log("getOne data:", data);
 
-                var json = JSON.stringify(data.data);
-                var parsedJson = JSON.parse(json, jsonReviver);
-                self.List = parsedJson;
+            self.Resource.get({ _id: id }, function (response) {
+                // console.log("getOne: response", response);
+                // if (self.List.length) {
 
-                // console.log("getOne self.List:", self.List);
+                // !! not sure what the purpose was for getting "index," code would simply fail, as self.List is not an array.
 
-                self.Resource.get({ _id: id }, function (response) {
-                    // console.log("getOne: response", response);
-                    // if (self.List.length) {
+                // var itemIndex = self.List.map(function (i) {
+                //     return i._id;
+                // }).indexOf(id);
+                var json2 = JSON.stringify(response.data);
+                var parsedJson2 = JSON.parse(json2, jsonReviver);
+                // self.List[itemIndex] = parsedJson2;
+                var dataCopy = angular.copy(parsedJson2);
+                deferred.resolve(dataCopy);
 
-                    // !! not sure what the purpose was for getting "index," code would simply fail, as self.List is not an array.
-
-                    var itemIndex = self.List.map(function (i) {
-                        return i._id;
-                    }).indexOf(id);
-                    var json2 = JSON.stringify(response.data);
-                    var parsedJson2 = JSON.parse(json2, jsonReviver);
-                    self.List[itemIndex] = parsedJson2;
-                    var dataCopy = angular.copy(parsedJson2);
-                    deferred.resolve(dataCopy);
-
-                    // } else {
-                    // let json2 = JSON.stringify(response.data);
-                    // let parsedJson2 = JSON.parse(json2, jsonReviver);
-                    // console.log("getOne parsedJson2:", parsedJson2);
-                    // self.List = parsedJson2;
-                    // let dataCopy = angular.copy(parsedJson2);
-                    // console.log("getOne angular data copy:", dataCopy);
-                    // deferred.resolve(dataCopy);
-                    // }
-                }, function (error) {
-                    console.log(error);
-                    console.log('in reject');
-                    deferred.reject(error);
-                });
-
+                // } else {
+                // let json2 = JSON.stringify(response.data);
+                // let parsedJson2 = JSON.parse(json2, jsonReviver);
+                // console.log("getOne parsedJson2:", parsedJson2);
+                // self.List = parsedJson2;
+                // let dataCopy = angular.copy(parsedJson2);
+                // console.log("getOne angular data copy:", dataCopy);
+                // deferred.resolve(dataCopy);
+                // }
+            }, function (error) {
+                console.log(error);
+                console.log('in reject');
+                deferred.reject(error);
             });
+            // self.Resource.query(function (data) {
+            //     // console.log("getOne data:", data);
+
+            //     var json = JSON.stringify(data.data);
+            //     var parsedJson = JSON.parse(json, jsonReviver);
+            //     self.List = parsedJson;
+
+            //     // console.log("getOne self.List:", self.List);
+
+
+            // });
         }
         else {
             if (fullDocumentFromDb) {

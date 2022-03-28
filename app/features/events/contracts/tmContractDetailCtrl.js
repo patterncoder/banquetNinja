@@ -445,6 +445,7 @@ function tmContractDetailCtrl(
         };
         */
         let item = {
+            printOnHandoutMenu: false,
             name: "New Item",
             description: "Description",
             baseId: "5e503ce5229c5d33d41b05a7", //reuires a valid id.

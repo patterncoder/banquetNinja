@@ -193,7 +193,9 @@ function BaseDetail(
             console.log("what are we?", self);
             if (canILeave) {
                 self.docSvc.clearDocument();
-                self.$state.go(self.$state.back.fromState, self.$state.back.fromParams)
+                let goToState = self.$state.back.fromState.abstract ? [ 'root.home' ] :
+                    [ self.$state.back.fromState, self.$state.back.fromParams ];
+                self.$state.go(...goToState);
 
                 // self.$state.go(constructorArgs.listView);
             }
