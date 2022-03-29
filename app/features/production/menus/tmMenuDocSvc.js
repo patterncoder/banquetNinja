@@ -36,6 +36,8 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     // this.selectedGroup = undefined;
 
+
+
     let self = this;
 
     //the term categories and sections is used interchangeably.

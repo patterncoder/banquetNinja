@@ -4,6 +4,7 @@ import ninjaSchemas from 'ninjaSchemas';
 
 function tmMenuDetailCtrl(
     $scope,
+    $state,
     $dataSource,
     tmDetailFactory,
     tmMenuDocSvc
@@ -23,6 +24,23 @@ function tmMenuDetailCtrl(
     console.log("tmMenuDetailCtrl called!");
 
     this.__proto__ = tmDetailFactory(constructorArgs);
+
+    //close overrides from tmDetailFactory.js
+    this.close = () => {
+        this.canILeave().then((result) => {
+            if (result) {
+
+                let backState = $state.back.fromState.name;
+
+                this.docSvc.clearDocument();
+                if (backState && backState != "") {
+                    this.$state.go(backState, $state.back.fromParams);
+                } else {
+                    this.$state.go(constructorArgs.listView);
+                }
+            }
+        });
+    };
 
     this.$scope.$watch(function () {
         return self.docSvc.isDirty();
@@ -70,6 +88,7 @@ function tmMenuDetailCtrl(
 
 tmMenuDetailCtrl.$inject = [
     '$scope',
+    '$state',
     '$dataSource',
     'tmDetailFactory',
     'tmMenuDocSvc'

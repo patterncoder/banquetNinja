@@ -4,6 +4,7 @@ import ninjaSchemas from 'ninjaSchemas';
 
 function tmVenueDetailCtrl (
     $scope,
+    $state,
     tmDetailFactory,
     tmVenueDocSvc
 ) {
@@ -20,6 +21,23 @@ function tmVenueDetailCtrl (
     
     this.__proto__ = tmDetailFactory(constructorArgs);
     
+    //close overrides from tmDetailFactory.js
+    this.close = () => {
+        this.canILeave().then((result) => {
+            if (result) {
+
+                let backState = $state.back.fromState.name;
+
+                this.docSvc.clearDocument();
+                if (backState && backState != "") {
+                    this.$state.go(backState, $state.back.fromParams);
+                } else {
+                    this.$state.go(constructorArgs.listView);
+                }
+            }
+        });
+    };
+
     this.$scope.$watch(function(){
         return self.docSvc.isDirty();
     }, function(newVal, oldVal,  scope){
@@ -48,6 +66,7 @@ function tmVenueDetailCtrl (
 
 tmVenueDetailCtrl.$inject = [
     '$scope',
+    '$state',
     'tmDetailFactory',
     'tmVenueDocSvc'
 ];
