@@ -27,6 +27,13 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
         return 0;
     };
 
+    /*
+        get localhost:3001/api/v1/production/menugroups/active
+        put localhost:3001/api/v1/production/menugroups/active/6226dd3ff5de8511e092bc76
+
+        we need to get the active group, and we need to set active.
+    */
+
     //now angular will show more menus.
     this.loadMore = () => {
         let dmlen = this.displayedMenus.length;
