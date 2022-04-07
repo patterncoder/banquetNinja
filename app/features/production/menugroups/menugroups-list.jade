@@ -17,6 +17,7 @@ div(flex="100")
                 td {{::item.name}}
                 td {{::item.description}}
                 td 
-                    md-checkbox(ng-model="item.active")
+                    //- md-checkbox(ng-model="item.active")
+                    md-checkbox(ng-model="item.active" ng-change="vm.setActive()")
                 td(style="padding: 4px;")
                     list-item-buttons(id-val="item._id" delete-fn="vm.deleteItem(idVal)" edit-fn="vm.details(idVal)")
