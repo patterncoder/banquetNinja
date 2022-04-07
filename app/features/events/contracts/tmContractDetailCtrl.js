@@ -10,7 +10,8 @@ function tmContractDetailCtrl(
     $timeout,
     uibDateParser,
     $state,
-    tmIdentity
+    tmIdentity,
+    $http
 ) {
     var self = this;
     var constructorArgs = {
@@ -235,12 +236,22 @@ function tmContractDetailCtrl(
 
         console.log("what are we?", this.docSvc.doc.status);
 
-        // I would like to load up Menu Groups also...
-        let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
-        menuGroups.query().then((returned) => {
-            // console.log("menuGroups:", returned);
-            this.menuGroups = returned;
-            // console.log("menuGroups:", this.menuGroups);
+        // // I would like to load up Menu Groups also...
+        // let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
+        // menuGroups.query().then((returned) => {
+        //     // console.log("menuGroups:", returned);
+        //     this.menuGroups = returned;
+        //     // console.log("menuGroups:", this.menuGroups);
+        // });
+
+        let req = {
+            method: "GET",
+            url: `${config.apiBase}/production/menugroups/active`,
+        };
+
+        this.$http(req).then((response) => {
+            console.log("response: ", response);
+            this.menuGroups = response.data.data;
         });
     });
 
@@ -560,7 +571,8 @@ tmContractDetailCtrl.$inject = [
     '$timeout',
     'uibDateParser',
     '$state',
-    'tmIdentity'
+    'tmIdentity',
+    '$http'
 ];
 
 export default tmContractDetailCtrl;

@@ -1,12 +1,14 @@
 import angular from 'angular';
 import lodash from 'lodash';
 import ninjaSchemas from 'ninjaSchemas';
+import config from 'config';
 
 function tmMenuGroupDetailCtrl (
     $scope,
     $state,
     tmDetailFactory,
-    tmMenuGroupDocSvc
+    tmMenuGroupDocSvc,
+    $http
 ) {
     var self = this;
     var constructorArgs = {
@@ -49,6 +51,18 @@ function tmMenuGroupDetailCtrl (
         }
     });
 
+    this.setActive = () => {
+        console.log("set active!");
+        console.log(this.$stateParams.id);
+        let req = {
+            method: "PUT",
+            url: `${config.apiBase}/production/menugroups/active/${this.$stateParams.id}`
+        };
+
+        this.$http(req).then((response) => {
+            console.log("response: ", response);
+        });
+    };
     
     this.loadData().then(() => {
         this.docSvc.getMenus();
@@ -62,7 +76,8 @@ tmMenuGroupDetailCtrl.$inject = [
     '$scope',
     '$state',
     'tmDetailFactory',
-    'tmMenuGroupDocSvc'
+    'tmMenuGroupDocSvc',
+    '$http'
 ];
 
 export default tmMenuGroupDetailCtrl;

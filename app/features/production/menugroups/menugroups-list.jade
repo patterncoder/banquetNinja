@@ -9,11 +9,14 @@ div(flex="100")
         thead
             th Menu Group
             th Description
+            th Active
             th.text-right
                 button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
         tbody
             tr(ng-repeat="item in vm.activeGroups | filter:searchText | orderBy:sortOrder")
                 td {{::item.name}}
                 td {{::item.description}}
+                td 
+                    md-checkbox(ng-model="item.active")
                 td(style="padding: 4px;")
                     list-item-buttons(id-val="item._id" delete-fn="vm.deleteItem(idVal)" edit-fn="vm.details(idVal)")

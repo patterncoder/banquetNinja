@@ -11,4 +11,4 @@ form(name="vm.detailForm")
             div(layout="row")
                 .form-group(flex="33")
                     //- label.control-label(for="active") Active Group
-                    md-checkbox(ng-model="vm.docSvc.doc.active") Set as active group
+                    md-checkbox(ng-model="vm.docSvc.doc.active" ng-change="vm.setActive()") Set as active group
