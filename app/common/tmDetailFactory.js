@@ -191,12 +191,13 @@ function BaseDetail(
         var self = this;
         this.canILeave().then(function (canILeave) {
             if (canILeave) {
+                let backState = self.$state.back.fromState.name;
                 self.docSvc.clearDocument();
-                let goToState = self.$state.back.fromState.abstract ? [ 'root.home' ] :
-                    [ self.$state.back.fromState, self.$state.back.fromParams ];
-                self.$state.go(...goToState);
-
-                // self.$state.go(constructorArgs.listView);
+                if (backState && backState != "") {
+                    self.$state.go(backState, $state.back.fromParams);
+                } else {
+                    self.$state.go(self.constructorArgs.listView);
+                }
             }
         });
     };
