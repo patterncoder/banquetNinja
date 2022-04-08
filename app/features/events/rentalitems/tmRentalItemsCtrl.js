@@ -25,8 +25,6 @@ class tmRentalItemsCtrl {
 
         let alphaSorted = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": [] };
 
-        console.log("tmRentalItemsCtrl this:", this);
-
         this.stripNums = (rentObj) => {
             let nwName = "";
             if (rentObj.hasOwnProperty("name")) {
@@ -36,9 +34,7 @@ class tmRentalItemsCtrl {
                         nwName += name[i];
                     }
                 }
-                // console.log(nwName);
             } else {
-                console.log("NO NAME PROPERTY!!!", rentObj);
             }
             return nwName;
         };
@@ -89,7 +85,6 @@ class tmRentalItemsCtrl {
 
         //loadData needs to be async or return a promise.
         this.loadData().then((tmp) => {
-            console.log("loadData result:", tmp);
         });
 
     }

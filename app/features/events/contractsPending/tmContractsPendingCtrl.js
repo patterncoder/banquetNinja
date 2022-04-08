@@ -37,7 +37,6 @@ class tmContractsPendingCtrl {
     */
     this.afterLoad = () => {
 
-      console.log("checking dst");
 
       let iIDs = [];
 
@@ -51,8 +50,6 @@ class tmContractsPendingCtrl {
         }
       });
 
-      console.log(`corrected ${iIDs.length} bad DST's.`);
-      console.log(iIDs);
     };
 
     this.sortOptions = [{ value: "-eventDate", text: "Sort by Event Date Z-A" }, { value: "eventDate", text: "Sort by Event Date A-Z" }, { value: "eventName", text: "Sort by Event Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
@@ -68,7 +65,6 @@ class tmContractsPendingCtrl {
         responseType: 'arraybuffer'
       };
       this.$http(req).then(function (result) {
-        console.log(result);
         var file = new Blob([result.data], { type: 'application/pdf' });
         var fileURL = URL.createObjectURL(file);
         window.open(fileURL);
@@ -90,7 +86,6 @@ class tmContractsPendingCtrl {
           customerId: null
         }
       };
-      console.log("hello");
       self.tmDialogSvc.showDialog(dialogConfig);
     };
 

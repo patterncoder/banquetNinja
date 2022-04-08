@@ -26,8 +26,6 @@ class tmMenuGroupsCtrl {
 
         let alphaSorted = {"A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": []};
 
-        console.log("tmMenuGroupsCtrl this:", this);
-
         this.stripNums = (menuObj) => {
             let nwName = "";
             if (menuObj.hasOwnProperty("name")) {
@@ -37,9 +35,7 @@ class tmMenuGroupsCtrl {
                         nwName += name[i];
                     }
                 }
-                console.log(nwName);
             } else {
-                console.log("NO NAME PROPERTY!!!", menuObj);
             }
             return nwName;
         };

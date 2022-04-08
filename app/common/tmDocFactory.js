@@ -33,7 +33,6 @@ function BaseDocService($http, $dataSource, tmMongoose, $q, model, schema) {
     function convertDateStrings(data) {
         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
         _.forIn(data, function (value, key) {
-            //console.log(key);
             if (typeof value === 'string') {
                 var a = reISO.exec(value);
                 if (a) {
@@ -49,12 +48,9 @@ function BaseDocService($http, $dataSource, tmMongoose, $q, model, schema) {
         return this.docModel.getOne(id, true).then(function (data, status) {
             data = convertDateStrings(data);
 
-            console.log("checking historical data...");
-
             if (data.hasOwnProperty("startTime24") && data.hasOwnProperty("endTime24")) {
                 data = timeCorrection()(data, "time", data.startTime24);
                 data = timeCorrection()(data, "endTime", data.endTime24);
-                console.log("historical data check done!", data);
             }
 
             self.validationError = null;
@@ -88,11 +84,7 @@ function BaseDocService($http, $dataSource, tmMongoose, $q, model, schema) {
                 deferred.reject('base doc service has errors');
                 return;
             }
-            console.log("prior to update call");
-            console.log(self.docModel);
-            console.log("I think it is breaking here");
             self.docModel.update(self.doc).then(function (data) {
-                console.log("update call");
                 data = convertDateStrings(data);
                 self.doc = data;
                 self.master = angular.copy(data);

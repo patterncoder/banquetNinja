@@ -25,8 +25,6 @@ class tmStaffMembersCtrl {
 
         let alphaSorted = {"A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": []};
 
-        console.log("tmStaffMembersCtrl this:", this);
-        console.log("StaffMember Schema:", ninjaSchemas.events.StaffMember);
 
         this.stripNums = (staffObj) => {
             let nwName = "";
@@ -37,9 +35,7 @@ class tmStaffMembersCtrl {
                         nwName += name[i];
                     }
                 }
-                console.log(nwName);
             } else {
-                console.log("NO NAME PROPERTY!!!", staffObj);
             }
             return nwName;
         };
@@ -81,7 +77,6 @@ class tmStaffMembersCtrl {
 
         //loadData needs to be async or return a promise.
         this.loadData().then((tmp) => {
-            console.log("loadData result:", tmp);
         });
         
     }

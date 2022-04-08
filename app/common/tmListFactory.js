@@ -55,7 +55,6 @@ function BaseList(
         let dfd = new Promise((resolve, reject) => {
             self.setLoading(true);
             self.Model.query(queryString, flush).then(function (items) {
-                console.log("tmListFactory.loadData() flush: ", flush);
                 self.setLoading(false);
                 self.items = items;
                 self.afterLoad();
