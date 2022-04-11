@@ -366,7 +366,10 @@ function tmContractDetailCtrl(
         customerDetail: {
             label: 'Customer Detail',
             method: () => {
-                self.$state.go('root.customerDetail', { id: self.docSvc.doc.customer._id }); 
+                // capture jumping to another state from detail...this is needed to prevent circular
+                // close button issue...without it will keep bouncing between two details states
+                self.$state.data = 'root.customerDetail';
+                self.$state.go('root.customerDetail', { id: self.docSvc.doc.customer._id, returnToList: 'true' }); 
             }
         }
     }
