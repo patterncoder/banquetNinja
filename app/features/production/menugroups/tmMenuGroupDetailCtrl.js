@@ -32,7 +32,7 @@ function tmMenuGroupDetailCtrl (
 
                 this.docSvc.clearDocument();
                 if (backState && backState != "") {
-                    this.$state.go(backState, $state.back.fromParams);
+                    this.$state.go(backState);
                 } else {
                     this.$state.go(constructorArgs.listView);
                 }
@@ -61,6 +61,9 @@ function tmMenuGroupDetailCtrl (
 
         this.$http(req).then((response) => {
             console.log("response: ", response);
+            if(response.status == 200) {
+                console.log("this: ", this);
+            }
         });
     };
     
