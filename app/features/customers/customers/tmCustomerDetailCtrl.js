@@ -65,7 +65,6 @@ function tmCustomerDetailCtrl(
                 this.contractsList = [];
             }
 
-            console.log("data: ", response.data);
 
             this.contractsList = response.data.data;
         });

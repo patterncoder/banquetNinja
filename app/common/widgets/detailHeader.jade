@@ -3,6 +3,8 @@
         // Header Name Value Here
         //div.md-headline {{vm.detailTitle}}
         ellipsis-title(title="vm.detailTitle" char-size="50")
+        md-button(ng-repeat="(key, val) in vm.detailBtns" ng-click="vm.buttonHandler(val)" aria-label="close")
+            {{val.label}}
     //- div(flex="33" layout="row" layout-align="center center") 
     //-     div()
     //-         h5 Banquet.Ninja

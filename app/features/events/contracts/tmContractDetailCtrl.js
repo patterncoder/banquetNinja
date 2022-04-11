@@ -76,7 +76,7 @@ function tmContractDetailCtrl(
     // this.moreFunctions.print = {
     //     label: "Print HTML",
     //     method: function () {
-    //         $state.go('root.contracts.print', { id: self.docSvc.doc._id });
+    //         $state.go('root.contracts.print', { id: self.docSvc.doc._id }); root.customerDetail
     //     }
     // };
 
@@ -361,6 +361,20 @@ function tmContractDetailCtrl(
             }
         }
     };
+
+    this.detailBtns = {
+        customerDetail: {
+            label: 'Customer Detail',
+            method: () => {
+                self.$state.go('root.customerDetail', { id: self.docSvc.doc.customer._id }); 
+            }
+        }
+    }
+
+
+    this.buttonHandler = function (btn) {
+        btn.method();
+    }
 
     this.sideTab = {
         menuItems: false,
