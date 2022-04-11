@@ -79,7 +79,6 @@ export default class CachedResource {
                 // }
             }, function (error) {
                 console.log(error);
-                console.log('in reject');
                 deferred.reject(error);
             });
             // self.Resource.query(function (data) {
@@ -127,12 +126,10 @@ export default class CachedResource {
     }
 
     update(item) {
-        console.log("CachedResource update called");
         var self = this;
         return self.Resource.update({ _id: item._id }, item).$promise.then(function (response) {
             var json = JSON.stringify(response.data);
             var parsedJson = JSON.parse(json, jsonReviver);
-            console.log("self.List: ", self.List);
             // console.log("parsedJson: ", parsedJson);
 
             //this bugs out when we are working with a contract...

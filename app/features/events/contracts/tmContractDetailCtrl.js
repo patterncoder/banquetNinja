@@ -67,7 +67,6 @@ function tmContractDetailCtrl(
     };
 
     this.addCommLog = function (logType) {
-        console.log("addCommLog called!", logType);
 
         this.models.newCommLog.employee = `${tmIdentity.currentUser.user.firstName} ${tmIdentity.currentUser.user.lastName}`;
 
@@ -83,7 +82,7 @@ function tmContractDetailCtrl(
 
 
     this.moreFunctions.pdf = {
-        label: "Print PDF",
+        label: "Print Contract",
         method: function () {
             let openPDF = () => {
                 let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/pdf`;
@@ -93,7 +92,6 @@ function tmContractDetailCtrl(
                     responseType: 'arraybuffer'
                 };
                 self.$http(req).then(function (result) {
-                    console.log(result);
                     var file = new Blob([result.data], { type: 'application/pdf' });
                     var fileURL = URL.createObjectURL(file);
                     window.open(fileURL);
@@ -113,7 +111,7 @@ function tmContractDetailCtrl(
     };
 
     this.moreFunctions.setSettings = {
-        label: "Print Settings",
+        label: "Contract Page Settings",
         method: () => {
             //$state.go('root.settings.print', { id: self.docSvc.doc._id });
 
@@ -126,10 +124,9 @@ function tmContractDetailCtrl(
     };
 
     this.moreFunctions.printHandoutPDF = {
-        label: "Print Handouts",
+        label: "Print Guest Menu",
         method: () => {
 
-            console.log("print the handout!");
 
             let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/handoutPdf`;
             var req = {
@@ -138,7 +135,6 @@ function tmContractDetailCtrl(
                 responseType: 'arraybuffer'
             };
             self.$http(req).then(function (result) {
-                console.log(result);
                 var file = new Blob([result.data], { type: 'application/pdf' });
                 var fileURL = URL.createObjectURL(file);
                 window.open(fileURL);
@@ -147,10 +143,9 @@ function tmContractDetailCtrl(
     }
 
     this.moreFunctions.printCommLogPDF = {
-        label: "Print Communications",
+        label: "Print Comm Log",
         method: () => {
 
-            console.log("print the commLog!");
 
             let url = `${config.apiBase}/events/contracts/${self.$stateParams.id}/view/commLogPdf`;
             var req = {
@@ -159,7 +154,6 @@ function tmContractDetailCtrl(
                 responseType: 'arraybuffer'
             };
             self.$http(req).then(function (result) {
-                console.log(result);
                 var file = new Blob([result.data], { type: 'application/pdf' });
                 var fileURL = URL.createObjectURL(file);
                 window.open(fileURL);
@@ -224,9 +218,7 @@ function tmContractDetailCtrl(
         // I would like to load up Menu Groups also...
         let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
         menuGroups.query().then((returned) => {
-            // console.log("menuGroups:", returned);
             this.menuGroups = returned;
-            // console.log("menuGroups:", this.menuGroups);
         });
     });
 
@@ -236,9 +228,7 @@ function tmContractDetailCtrl(
             try {
                 //must clear the cache, or we will keep getting the same menus for every group...
                 let tmp = this.docSvc.$dataSource.clearCache();
-                console.log("clearCache:", tmp);
             } catch (e) {
-                console.log("err:", e);
                 //reject(e);
                 //return;
             }
@@ -262,7 +252,6 @@ function tmContractDetailCtrl(
     };
 
     let toggle = (bl) => {
-        console.log("toggle");
         this.sectionsHidden = bl;
         this.statusHidden = !bl;
     };
@@ -287,7 +276,6 @@ function tmContractDetailCtrl(
 
         let filtered = [];
         this.$http(request).then((data) => {
-            console.log("data: ", data);
 
             let tmp = data.data;
 
@@ -307,7 +295,6 @@ function tmContractDetailCtrl(
             }
 
             this[settings.model] = filtered;
-            console.log(`${settings.model}: `, this[settings.model]);
         });
 
     };
@@ -318,10 +305,8 @@ function tmContractDetailCtrl(
 
         let tmp = []; //stores promises.
 
-        console.log("searchGroup: ", this.searchGroup);
 
         this.searchGroup.menus.map((menu) => {
-            console.log("getMenus: ", menu);
             if (!menu.menuId) {
                 menu.menuId = menu["_id"];
             }
@@ -329,7 +314,6 @@ function tmContractDetailCtrl(
         });
 
         Promise.all(tmp).then((obj) => { //waits until all done.
-            console.log("PROMISE ALL: ", obj);
             this.menuObjs = obj; //updates for angular all at once.
             toggle(false); //display the results.
             $scope.$apply(); //DOM WILL NOT PROPERLY REFRESH WITHOUT THIS!!!
@@ -337,14 +321,11 @@ function tmContractDetailCtrl(
     };
 
     this.showMenuItems = () => {
-        console.log("showMenuItems: ", this.filterSection);
         this.addableMenuItems = this.filterSection.items;
-        console.log(this.addableMenuItems);
         //this.sectionsHidden = true;
     };
 
     this.addSectionDivider = () => {
-        console.log("called addSectionDivider");
         /*
         var menuItem = {
             sortOrder: Number,
@@ -395,14 +376,12 @@ function tmContractDetailCtrl(
             this.sideTab[k] = false;
         }
         this.sideTab[tab] = true;
-        console.log("sidetab:", this.sideTab, "tab:", tab);
     };
 
     this.closeSideTab = function () {
         for (var k in this.sideTab) {
             this.sideTab[k] = false;
         }
-        console.log("sideTab:", this.sideTab);
     };
 
     this.removeVenue = function (index) {
@@ -410,7 +389,6 @@ function tmContractDetailCtrl(
     };
 
     this.addStaffMember = (staffMember) => {
-        console.log("adding:", staffMember);
         if (this.doc.assignedStaff == undefined) {
             this.doc.assignedStaff = [];
         }
@@ -419,7 +397,6 @@ function tmContractDetailCtrl(
 
     this.addEmpty = () => {
 
-        console.log("called addEmpty");
         /*
         var menuItem = {
             sortOrder: Number,
@@ -445,7 +422,6 @@ function tmContractDetailCtrl(
     };
 
     this.addItem = (item) => {
-        console.log("item:", item);
         // getByID("MenuItem", item.menuItemId).then((returned) => {
 
         //     console.log("adding this:", returned);
@@ -459,13 +435,10 @@ function tmContractDetailCtrl(
         //         console.log(e);
         //     }
         // });
-        console.log("adding this:", item);
-        console.log("menuItems:", this.docSvc.doc.menuItems);
         this.docSvc.doc.menuItems.push(item);
     };
 
     this.addRentalItem = (item) => {
-        console.log("item:", item);
         this.docSvc.doc.rentalItems.push(item);
     };
 
