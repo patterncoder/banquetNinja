@@ -75,7 +75,6 @@ function BaseDetail(
         delete: {
             label: "Delete",
             method: function () {
-                console.log(self);
                 var dialogOptions = {
                     closeButtonText: 'No',
                     actionButtonText: 'Yes',
@@ -84,8 +83,6 @@ function BaseDetail(
                 };
                 self.tmDialogSvc.showDialog({}, dialogOptions).then(function () {
                     //were not supposed to actually delete, only MARK deleted...
-                    console.log("tmDetailFactory, moreFunctions / delete: self.docSvc:", self.docSvc, self.status);
-                    console.log("tmDetailFactory, moreFunctions / delete: self.doc:", self.doc);
                     
                     self.docSvc.doc.status = "abandoned";
 
@@ -121,7 +118,6 @@ function BaseDetail(
 
     this.loadData = function () {
         var self = this;
-        console.log("TESTING:", self);
         self.setLoading(true);
         self.getDetailTitle();
         return this.docSvc.loadDocument(this.$stateParams.id).then(function (doc) {
@@ -192,12 +188,13 @@ function BaseDetail(
         this.canILeave().then(function (canILeave) {
             console.log("what are we?", self);
             if (canILeave) {
+                let backState = self.$state.back.fromState.name;
                 self.docSvc.clearDocument();
-                let goToState = self.$state.back.fromState.abstract ? [ 'root.home' ] :
-                    [ self.$state.back.fromState, self.$state.back.fromParams ];
-                self.$state.go(...goToState);
-
-                // self.$state.go(constructorArgs.listView);
+                if (backState && backState != "") {
+                    self.$state.go(backState, $state.back.fromParams);
+                } else {
+                    self.$state.go(self.constructorArgs.listView);
+                }
             }
         });
     };

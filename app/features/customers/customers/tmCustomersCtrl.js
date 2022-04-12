@@ -25,15 +25,11 @@ class tmMenuGroupsCtrl {
         });
 
         this.afterLoad = function () {
-            console.log("done loading...");
-            console.log("total items: " + this.items.length);
-            console.log("items:", this.items);
             // this.setPagination();
             // this.pageChanged();
         };
 
         this.changeFilter = function (value) {
-            console.log(value);
             var filter = {
                 select: "firstName lastName phoneNumbers",
                 "startsWith[lastName]": value.value,

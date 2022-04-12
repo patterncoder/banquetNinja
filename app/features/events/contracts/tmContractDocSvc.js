@@ -6,9 +6,6 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
 
     this.__proto__ = tmDocFactory('Contract', ninjaSchemas.events.Contract);
 
-
-    console.log(this);
-
     function convertDateStrings(data) {
         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
         _.forIn(data, function (value, key) {
@@ -23,7 +20,6 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
     }
 
     this.addTimeline = function (newTimeEntry) {
-        console.log("timeline entry: ", newTimeEntry);
 
         let diff = newTimeEntry.time - newTimeEntry.endTime;
 
@@ -35,7 +31,6 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
     };
 
     this.editTimeline = function (timeEntry) {
-        console.log("timeline entry:", timeEntry);
 
         let diff = timeEntry.time - timeEntry.endTime;
 
@@ -75,7 +70,6 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
     };
 
     this.removeVenue = function (index) {
-        console.log(index);
         this.doc.venues.splice(index, 1);
     };
 
@@ -119,7 +113,6 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
     };
 
     this.addStaffMember = (staffMember) => {
-        console.log("adding:", staffMember);
         if (this.doc.assignedStaff == undefined) {
             this.doc.assignedStaff = [];
         }
@@ -135,7 +128,6 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         var self = this;
         var deferred = this.$q.defer();
 
-        console.log("saving: ", self);
 
         //now that we are saving as unix epoch, we won't need historical time stamps.
         if(self.doc.hasOwnProperty("startTime24") && self.doc.hasOwnProperty("endTime24") && self.doc.hrMinFix) {
@@ -146,7 +138,6 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         //  depopulate for saving
         var stripped = _.pick(self.doc.customer, "_id");
         self.doc.customer = stripped._id;
-        console.log("customer", self.doc.customer);
         var monDoc = new this.tmMongoose.Document(self.doc, self.docSchema);
         monDoc.validate(function (err) {
             if (err) {

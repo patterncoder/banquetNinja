@@ -23,7 +23,6 @@ class tmContractsCtrl {
       "populate[customer]": "firstName lastName"
     }, true);
 
-    console.log("this: ", this);
 
     /*
       This is used only for historical SQL imported data, as date and time stamps 
@@ -35,7 +34,6 @@ class tmContractsCtrl {
     */
     this.afterLoad = () => {
 
-      console.log("checking dst");
 
       let iIDs = [];
 
@@ -49,8 +47,6 @@ class tmContractsCtrl {
         }
       });
 
-      console.log(`corrected ${iIDs.length} bad DST's.`);
-      console.log(iIDs);
     };
 
 
@@ -67,7 +63,6 @@ class tmContractsCtrl {
         responseType: 'arraybuffer'
       };
       this.$http(req).then(function (result) {
-        console.log(result);
         var file = new Blob([result.data], { type: 'application/pdf' });
         var fileURL = URL.createObjectURL(file);
         window.open(fileURL);

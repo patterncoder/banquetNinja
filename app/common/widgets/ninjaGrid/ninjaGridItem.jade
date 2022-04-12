@@ -13,7 +13,8 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
                 ng-click="$ctrl.editItem($ctrl.item, key)"
                 ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}") 
             div(ng-if="val.input!=='checkbox'") {{$ctrl.formatter($ctrl.item[key], val.type)}}
-            md-checkbox(ng-if="val.input==='checkbox'" ng-model="$ctrl.item[key]" ng-disabled="true")
+            md-checkbox(ng-if="val.input==='checkbox'" ng-model="$ctrl.item[key]" ng-disabled="true" 
+                aria-label="Print On Menu")
         div.gridItemCell(flex="5" layout="column" layout-align="center center")
             a(href= "" ng-click="$ctrl.deleteItem()"  ng-blur="vm.detailBlur(item, $index, $event)" )
                  span.glyphicon.glyphicon-remove 
@@ -22,6 +23,7 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
             span.glyphicon.glyphicon-sort
         div.gridItemEditCell(ng-repeat="(key, val) in $ctrl.fields" flex="{{val.width}}" layout="row" )
             md-checkbox(ng-if="val.input==='checkbox'" ng-model="$ctrl.item[key]" type="val.type"
+                aria-label="Print On Menu"
                 focus="$ctrl.item.clickedField[key]" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
                 ng-blur="$ctrl.detailBlur($ctrl.item, $event)")

@@ -63,9 +63,7 @@ class tmMenuGroupsCtrl {
                         nwName += name[i];
                     }
                 }
-                console.log(nwName);
             } else {
-                console.log("NO NAME PROPERTY!!!", menuObj);
             }
             return nwName;
         };
