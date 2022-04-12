@@ -20,7 +20,7 @@ class tmContractsPendingCtrl {
     //http://localhost:3001/api/v1/events/contracts?where[status]=pending
 
     this.loadData({
-      select: 'eventName eventDate startTime customer venues',
+      select: 'eventName eventDate time customer venues',
       'where[status]': 'pending',
       "populate[customer]": "firstName lastName"
     }, true);
