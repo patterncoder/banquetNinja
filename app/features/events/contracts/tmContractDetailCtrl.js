@@ -244,6 +244,7 @@ function tmContractDetailCtrl(
         this.$http(req).then((response) => {
             console.log("response: ", response);
             this.menuGroups = response.data.data;
+            // this.searchGroup = this.menuGroups;
         });
     });
 
