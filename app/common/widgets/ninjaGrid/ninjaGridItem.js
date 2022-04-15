@@ -1,9 +1,15 @@
 
 
-function ninjaGridItemCtrl ($timeout, $filter) {
+function ninjaGridItemCtrl ($timeout, $filter, $scope) {
     var $ctrl = this;
-
     $ctrl.formatter = function (value, type) {
+
+        const hasInternalTextOnly = /!!(.*?)!!/g;
+        const hasContractTextOnly = /{{(.*?)}}/g;
+
+
+        // console.log(Array.from(testString.matchAll(x1)));
+        // console.log(Array.from(testString.matchAll(x2)));
         if (type == 'time') {
             return $filter('date')(value, "shortTime");
         } else if (type == 'timepicker') {
@@ -12,7 +18,21 @@ function ninjaGridItemCtrl ($timeout, $filter) {
             return $filter('date')(value, "fullDate");
         }
         else {
-            return value;
+            if (typeof value === 'string') {
+                if(hasInternalTextOnly.test(value)) {
+                    value = value.replace(hasInternalTextOnly, (match, $1) => {
+                        return `<span class="highlight-yellow">${$1}</span>`
+                    });
+                }
+                if(hasContractTextOnly.test(value)) {
+                    value = value.replace(hasContractTextOnly, (match, $1) => {
+                        return `<span class="highlight-light-blue">${$1}</span>`
+                    });
+                }
+                return value;
+            } else {
+                return value;
+            }
         }
     };
     
@@ -26,7 +46,6 @@ function ninjaGridItemCtrl ($timeout, $filter) {
     };
     
     $ctrl.editItem = function(item, clickedField) {
-        console.log("editItem: item: ", item);
         $timeout(function(){
             item.isEditing = true;
             item.clickedField = {};
@@ -63,7 +82,7 @@ function ninjaGridItemCtrl ($timeout, $filter) {
     
 }
 
-ninjaGridItemCtrl.$inject = ['$timeout', '$filter'];
+ninjaGridItemCtrl.$inject = ['$timeout', '$filter', '$scope'];
 
 var ninjaGridItem = {
     template: require('!raw!jade-html!./ninjaGridItem.jade'),
