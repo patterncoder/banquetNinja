@@ -4,10 +4,16 @@ div(layout="row" )
     div(layout="column")
         h3 Add Food to Contracts
         a(ui-sref="root.menuitems") Create menu item
-        md-button.md-raised(ng-click="vm.addSectionDivider()") Add Section
-        md-button.md-raised(ng-click="vm.addEmpty()") Add Empty
+        //- md-button.md-raised(ng-click="vm.addSectionDivider()") Add Section
+        //- md-button.md-raised(ng-click="vm.addEmpty()") Add Empty
         //- input(ng-model="vm.searchName")
         //- label.control-label(for="status") Status
+        br
+        div(style="display: flex")
+            .btn-round.btn-sm(ng-click=""  style="padding-left: 4px; padding-top: 4px; color: white; background-color: #337ab7")
+                span.glyphicon.glyphicon-print(style="margin-left: 4px; margin-top: 3px")
+            .btn-round.btn-sm(ng-click="" style="color: white; background-color: #337ab7")
+                span.glyphicon.glyphicon-pencil(style="margin-left: -1px; margin-top: 2px")
         br
         label By Name 
         input.form-control(ng-model="vm.byNameEntry", ng-disabled="vm.searchGroup")

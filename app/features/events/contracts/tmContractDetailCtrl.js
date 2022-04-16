@@ -69,6 +69,22 @@ function tmContractDetailCtrl(
         self.models.newEventStep[key] = null;
     }, {});
 
+    this.foodOptions = [{
+        title: "Add Empty Line",
+        width: "200px",
+        func: () => { 
+            console.log("click on add food");
+            this.addEmpty();
+        }
+    }, {
+        title: "Add Divider",
+        width: "200px",
+        func: () => { 
+            console.log("clicked on add blank");
+            this.addSectionDivider();
+        }
+    }];
+
     this.addEventStep = function () {
         self.models.newEventStep.time.setMilliseconds(0);
         self.models.newEventStep.time.setSeconds(0);
