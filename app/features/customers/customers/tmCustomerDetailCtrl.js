@@ -32,22 +32,23 @@ function tmCustomerDetailCtrl(
         bodyText: 'Delete this item?'
     };
 
-    this.$scope.$watch(function () {
-        return self.docSvc.isDirty();
-    }, function (newVal, oldVal, scope) {
-        if (newVal) {
-            self.detailForm.$setDirty();
-        } else {
-            self.detailForm.$setPristine();
-            self.detailForm.$setUntouched();
-        }
-    });
 
     this.loadData().then(function () {
         // running code here happens after the detail doc has been loaded
         self.getDetailTitle();
         self.getRelatedContracts();
     });
+
+    // @HowTo: go from one detail screen to another
+    this.goToContract = function (contract) {
+        this.canILeave().then(function(iCanLeave) {
+            if (iCanLeave) {
+                self.docSvc.clearDocument();
+                self.$state.data = 'root.contractDetail';
+                self.$state.go('root.contractDetail', {id: contract._id});
+            }
+        });
+    }
 
     this.getRelatedContracts = function () {
         let custID = this.docSvc.doc["_id"];
@@ -91,11 +92,32 @@ function tmCustomerDetailCtrl(
         // });
     }
 
+    this.$scope.$watch(function () {
+        return self.docSvc.isDirty();
+    }, function (newVal, oldVal, scope) {
+        if (newVal) {
+            self.detailForm.$setDirty();
+        } else {
+            self.detailForm.$setPristine();
+            self.detailForm.$setUntouched();
+        }
+    });
+
     this.getDetailTitle = function () {
         self.detailTitle = {
             leader: 'Customer Detail: ',
             text: self.docSvc.doc.lastName + ', ' + self.docSvc.doc.firstName
         };
+        this.$scope.$watchGroup(['vm.docSvc.doc.firstName', 'vm.docSvc.doc.lastName', 'vm.docSvc.doc.companyName'], function (newVal, oldVal, scope) {
+            if (newVal) {
+                self.detailTitle = {
+                    leader: 'Customer Detail: ',
+                    text: `${self.docSvc.doc.companyName || ''}${self.docSvc.doc.companyName 
+                        ? ` (${self.docSvc.doc.firstName} ${self.docSvc.doc.lastName})` 
+                        : `${self.docSvc.doc.firstName} ${self.docSvc.doc.lastName}`}`
+                };
+            }
+        });
     };
 
     this.addContract = function () {
