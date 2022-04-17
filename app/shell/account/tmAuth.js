@@ -21,7 +21,7 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
     }
     
     function getClaimsFromToken(newToken) {
-        var token = newToken || $window.sessionStorage['token'];
+        var token = newToken || $window.localStorage['token'];
         var user = {};
         if (typeof token !== 'undefined') {
             var encoded = token.split('.')[1];
@@ -46,8 +46,8 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
                     accessToken: result.data.token,
                     user: getClaimsFromToken(result.data.token)
                 };
-                $window.sessionStorage['token'] = result.data.token;
-                $window.sessionStorage['user'] = JSON.stringify(result.data.user);
+                $window.localStorage['token'] = result.data.token;
+                $window.localStorage['user'] = JSON.stringify(result.data.user);
                 $http.defaults.headers.common['x-access-token'] = result.data.token;
                 
                 tmIdentity.currentUser = userInfo;
@@ -72,9 +72,9 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
         $http.post(config.apiBase + '/account/logout', {
             headers: {"access_token": userInfo.accessToken}
         }).then(function(result){
-            //$window.sessionStorage["token"] = null;
-            delete $window.sessionStorage.token;
-            delete $window.sessionStorage.user;
+            //$window.localStorage["token"] = null;
+            delete $window.localStorage.token;
+            delete $window.localStorage.user;
             userInfo = null;
             // remove token from default headers
             $http.defaults.headers.common['x-access-token'] = null;
@@ -91,10 +91,10 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
     }
     
     function init(){
-        if($window.sessionStorage['token']){
+        if($window.localStorage['token']){
             userInfo = {
-                    accessToken: $window.sessionStorage['token'],
-                    user: getClaimsFromToken($window.sessionStorage['token'])
+                    accessToken: $window.localStorage['token'],
+                    user: getClaimsFromToken($window.localStorage['token'])
                 };
         }
         

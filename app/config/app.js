@@ -46,8 +46,8 @@ module.exports = angular.module('app', [Shell, Features, Common])
         
     }])
     .run(['$http', '$window', function($http, $window){
-        if($window.sessionStorage['token']){
-            $http.defaults.headers.common['x-access-token'] = $window.sessionStorage['token'];
+        if($window.localStorage['token']){
+            $http.defaults.headers.common['x-access-token'] = $window.localStorage['token'];
         }
         //wake up api server...not sure if this is doing the trick
         $http.get(config.apiBase + '/wakeup', function(err, result){
