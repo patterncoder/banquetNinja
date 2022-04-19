@@ -377,6 +377,14 @@ function tmContractDetailCtrl(
         this.docSvc.doc.menuItems.push(divider);
     };
 
+    this.additionalContactTemplate = () => {
+        this.docSvc.additionalContactTemplate();
+    }
+
+    this.deleteAdditionalContact = (index) => {
+        self.docSvc.deleteAdditionalContact(index);
+    }
+
     this.getDetailTitle = function () {
         const customer = self.docSvc.doc.customer;
         if (customer) {

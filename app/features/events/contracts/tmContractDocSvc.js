@@ -96,6 +96,23 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         }
     };
 
+    this.deleteAdditionalContact = function (index) {
+        this.doc.additionalContacts.splice(index, 1);
+    }
+
+    this.additionalContactTemplate = function () {
+        this.doc.additionalContacts.push({
+            firstName: '',
+            lastName: '',
+            email: '',
+            cellPhone: '',
+            homePhone: '',
+            relationToCustomer: '',
+            aNumber: 4
+        });
+        return;
+    }
+
     this.addRentalItem = function (rentalItem) {
         let itemToAdd = {
             name: rentalItem.name,
@@ -136,14 +153,14 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         }
 
         //  depopulate for saving
+        var customerMemo = self.doc.customer;
         var stripped = _.pick(self.doc.customer, "_id");
         self.doc.customer = stripped._id;
         var monDoc = new this.tmMongoose.Document(self.doc, self.docSchema);
         monDoc.validate(function (err) {
             if (err) {
-                console.log(err);
+                self.doc.customer = customerMemo;
                 self.validationError = err;
-                console.log(self.validationError);
                 deferred.reject('contract doc service has errors');
                 return;
             }
