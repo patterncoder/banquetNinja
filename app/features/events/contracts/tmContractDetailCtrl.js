@@ -389,6 +389,21 @@ function tmContractDetailCtrl(
         this.docSvc.doc.menuItems.push(divider);
     };
 
+    this.getCachedMenuItems = (section) => {
+        let sectionItems = [];
+        self.menuSectionsRawData.map((obj) => {
+            if(obj.title == section) {
+                sectionItems = obj.items;
+            }
+        });
+        //self.addableMenuItems = sectionItems;
+        return sectionItems;
+    };
+
+    this.showMenuItems = () => {
+        self.addableMenuItems = self.getCachedMenuItems(self.filterSection);
+    };
+
     this.getDetailTitle = function () {
         const customer = self.docSvc.doc.customer;
         if (customer) {
