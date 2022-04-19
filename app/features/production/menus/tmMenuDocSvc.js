@@ -52,6 +52,10 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
                     this.categories = data;
                     resolve(data.menuItemTags);
                 });
+                // mylookups.getOne(tmIdentity.currentUser.user.company, true).then((data) => {
+                //     console.log("data:", data);
+                //     resolve(data.menuItemTags);
+                // });
 
             } catch (e) {
                 // reject(e);
@@ -419,6 +423,11 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
             this.addableMenuItems = filtered;
         });
 
+    };
+
+    this.runSearch = () => {
+        console.log(this.selCategory);
+        console.log("clicked!");
     };
 
     this.editSection = (index) => {
