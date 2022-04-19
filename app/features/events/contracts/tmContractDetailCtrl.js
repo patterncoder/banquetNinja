@@ -72,14 +72,14 @@ function tmContractDetailCtrl(
     this.foodOptions = [{
         title: "Add Empty Line",
         width: "200px",
-        func: () => { 
+        func: () => {
             console.log("click on add food");
             this.addEmpty();
         }
     }, {
         title: "Add Divider",
         width: "200px",
-        func: () => { 
+        func: () => {
             console.log("clicked on add blank");
             this.addSectionDivider();
         }
@@ -290,7 +290,13 @@ function tmContractDetailCtrl(
         this.$http(req).then((response) => {
             console.log("response: ", response);
             this.menuGroups = response.data.data;
-            // this.searchGroup = this.menuGroups;
+            this.searchGroup = this.menuGroups[0];
+
+            this.getMenus(this.searchGroup).then((obj) => {
+                this.menuObjs = obj; //updates for angular all at once.
+                toggle(false); //display the results.
+                $scope.$apply(); //DOM WILL NOT PROPERLY REFRESH WITHOUT THIS!!!
+            });
         });
     });
 
@@ -371,31 +377,44 @@ function tmContractDetailCtrl(
 
     };
 
-    this.getMenus = () => {
-        toggle(true);
-        cleanup(this);
+    this.getMenus = (searchGroup) => {
+        let dfd = new Promise((resolve, reject) => {
+            toggle(true);
+            cleanup(this);
 
-        let tmp = []; //stores promises.
+            let tmp = []; //stores promises.
 
 
-        this.searchGroup.menus.map((menu) => {
-            if (!menu.menuId) {
-                menu.menuId = menu["_id"];
-            }
-            tmp.push(getByID("Menu", menu.menuId));
+            searchGroup.menus.map((menu) => {
+                if (!menu.menuId) {
+                    menu.menuId = menu["_id"];
+                }
+                tmp.push(getByID("Menu", menu.menuId));
+            });
+
+            Promise.all(tmp).then((obj) => { //waits until all done.
+                resolve(obj);
+            });
         });
 
-        Promise.all(tmp).then((obj) => { //waits until all done.
-            this.menuObjs = obj; //updates for angular all at once.
-            toggle(false); //display the results.
-            $scope.$apply(); //DOM WILL NOT PROPERLY REFRESH WITHOUT THIS!!!
-        });
+        return dfd;
     };
 
-    this.showMenuItems = () => {
-        this.addableMenuItems = this.filterSection.items;
-        //this.sectionsHidden = true;
+    this.showIt = (section) => {
+        if (section) {
+            console.log("section: ", section);
+            this.addableMenuItems = section.items;
+        } else {
+            this.addableMenuItems = [];
+        }
     };
+
+    // this.showMenuItems = (filterSection) => {
+    //     console.log("filterSection: ", filterSection);
+    //     // console.log(this.filterSection);
+    //     // this.addableMenuItems = this.filterSection.items;
+    //     //this.sectionsHidden = true;
+    // };
 
     this.addSectionDivider = () => {
         /*
@@ -422,7 +441,7 @@ function tmContractDetailCtrl(
     this.getCachedMenuItems = (section) => {
         let sectionItems = [];
         self.menuSectionsRawData.map((obj) => {
-            if(obj.title == section) {
+            if (obj.title == section) {
                 sectionItems = obj.items;
             }
         });
@@ -456,7 +475,7 @@ function tmContractDetailCtrl(
                 // capture jumping to another state from detail...this is needed to prevent circular
                 // close button issue...without it will keep bouncing between two details states
                 self.$state.data = 'root.customerDetail';
-                self.$state.go('root.customerDetail', { id: self.docSvc.doc.customer._id, returnToList: 'true' }); 
+                self.$state.go('root.customerDetail', { id: self.docSvc.doc.customer._id, returnToList: 'true' });
             }
         }
     }
