@@ -5,8 +5,6 @@ import mongoose from "mongoose";
 
 function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
-    console.log("tmMenuDocSvc called!");
-
     this.__proto__ = tmDocFactory('Menu', ninjaSchemas.production.Menu);
 
     console.log("__proto__:", this.__proto__);
