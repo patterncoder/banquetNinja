@@ -8,6 +8,7 @@ import ngAnimate from 'angular-animate';
 import ngMessages from 'angular-messages';
 import ngAria from 'angular-aria';
 import ngMaterial from 'angular-material';
+import ngSanitize from 'angular-sanitize';
 // tm custom modules
 import navNinja from '../../navNinja';
 import dataNinja from '../../dataNinja';
@@ -25,7 +26,7 @@ import data from './data';
 import nav from './nav';
 import states from './states';
 
-export default angular.module('shell', [uirouter, uibs, dataNinja, navNinja, ngAnimate, ngMaterial])
+export default angular.module('shell', [uirouter, uibs, dataNinja, navNinja, ngAnimate, ngMaterial, ngSanitize])
     
     .factory('tmAuth', tmAuth)
     .factory('tmIdentity', tmIdentity)

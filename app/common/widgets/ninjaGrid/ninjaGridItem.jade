@@ -12,7 +12,7 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
                 ng-focus="$ctrl.editItem($ctrl.item, key)" 
                 ng-click="$ctrl.editItem($ctrl.item, key)"
                 ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}") 
-            div(ng-if="val.input!=='checkbox'") {{$ctrl.formatter($ctrl.item[key], val.type)}}
+            div(ng-if="val.input!=='checkbox'" id="textFor_{{key}}" ng-bind-html="$ctrl.formatter($ctrl.item[key], val.type)")
             md-checkbox(ng-if="val.input==='checkbox'" ng-model="$ctrl.item[key]" ng-disabled="true" 
                 aria-label="Print On Menu")
         div.gridItemCell(flex="5" layout="column" layout-align="center center")
@@ -22,7 +22,7 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
         div(flex="5" layout="row" layout-align="center center" )
             span.glyphicon.glyphicon-sort
         div.gridItemEditCell(ng-repeat="(key, val) in $ctrl.fields" flex="{{val.width}}" layout="row" )
-            md-checkbox(ng-if="val.input==='checkbox'" ng-model="$ctrl.item[key]" type="val.type"
+            input(ng-if="val.input==='checkbox'" type="checkbox" ng-model="$ctrl.item[key]"
                 aria-label="Print On Menu"
                 focus="$ctrl.item.clickedField[key]" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
