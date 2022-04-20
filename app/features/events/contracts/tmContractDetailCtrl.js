@@ -452,6 +452,13 @@ function tmContractDetailCtrl(
     this.showMenuItems = () => {
         self.addableMenuItems = self.getCachedMenuItems(self.filterSection);
     };
+    this.additionalContactTemplate = () => {
+        this.docSvc.additionalContactTemplate();
+    }
+
+    this.deleteAdditionalContact = (index) => {
+        self.docSvc.deleteAdditionalContact(index);
+    }
 
     this.getDetailTitle = function () {
         const customer = self.docSvc.doc.customer;

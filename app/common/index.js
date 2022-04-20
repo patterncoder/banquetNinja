@@ -3,7 +3,7 @@ import tmNotifier from './tmNotifier';
 import toastr from 'toastr';
 import tmModalSvc from './tmModalSvc';
 import tmDialogSvc from './tmDialogSvc';
-import mongoose from 'mongoose';
+import mongoose from 'mongoose/browser';
 // config items
 import data from './data';
 // common directives

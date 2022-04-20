@@ -6,7 +6,7 @@ div.itemCardHeader(layout="row")
     div
         h4
             a(href="" ng-click="$ctrl.toggleAdd()")
-                span.glyphicon.glyphicon-plus(ng-hide="$ctrl.addToggle")
+                span.glyphicon.glyphicon-plus(ng-hide="$ctrl.hideToggle()")
                 span.glyphicon.glyphicon-times
             div(class="dropdown" style="float: right;" ng-show="$ctrl.optionsList")
                 {{console.log($ctrl.optionsList)}}

@@ -21,7 +21,7 @@ function tmIdentity($window, $rootScope){
     }
     
     function getClaimsFromToken(newToken) {
-        var token = newToken || $window.sessionStorage['token'];
+        var token = newToken || $window.localStorage['token'];
         var user = {};
         if (typeof token !== 'undefined') {
             var encoded = token.split('.')[1];
@@ -30,15 +30,15 @@ function tmIdentity($window, $rootScope){
         return user;
     }
     
-    // if($window.sessionStorage['token']){
+    // if($window.localStorage['token']){
     //         currentUser = {};
-    //         currentUser.user = getClaimsFromToken($window.sessionStorage['token']);
-    //         //currentUser = JSON.parse($window.sessionStorage['userInfo']);
+    //         currentUser.user = getClaimsFromToken($window.localStorage['token']);
+    //         //currentUser = JSON.parse($window.localStorage['userInfo']);
     // }
-    if($window.sessionStorage['user']){
+    if($window.localStorage['user']){
             currentUser = {};
-            currentUser.user = JSON.parse($window.sessionStorage['user']);
-            //currentUser = JSON.parse($window.sessionStorage['userInfo']);
+            currentUser.user = JSON.parse($window.localStorage['user']);
+            //currentUser = JSON.parse($window.localStorage['userInfo']);
     }
 
     function updateCurrentUser (user) {
