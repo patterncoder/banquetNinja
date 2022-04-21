@@ -6,8 +6,8 @@ import ninjaSchemas from 'ninjaSchemas';
 
 class tmMenuItemDetailCtrl {
     constructor(
+
         $scope,
-        $state,
         tmDetailFactory,
         tmMenuItemDocSvc) {
         var self = this;
@@ -23,23 +23,6 @@ class tmMenuItemDetailCtrl {
         };
 
         this.__proto__ = tmDetailFactory(constructorArgs);
-
-        //close overrides from tmDetailFactory.js
-        this.close = () => {
-            this.canILeave().then((result) => {
-                if (result) {
-
-                    let backState = $state.back.fromState.name;
-
-                    this.docSvc.clearDocument();
-                    if (backState && backState != "") {
-                        this.$state.go(backState, $state.back.fromParams);
-                    } else {
-                        this.$state.go(constructorArgs.listView);
-                    }
-                }
-            });
-        };
 
         this.dialogOptions = {
             closeButtonText: 'No',
@@ -88,8 +71,8 @@ class tmMenuItemDetailCtrl {
 }
 
 tmMenuItemDetailCtrl.$inject = [
+
     '$scope',
-    '$state',
     'tmDetailFactory',
     'tmMenuItemDocSvc'
 ];

@@ -186,7 +186,6 @@ function BaseDetail(
     this.close = function () {
         var self = this;
         this.canILeave().then(function (canILeave) {
-            console.log("what are we?", self);
             if (canILeave) {
                 let backState = self.$state.back.fromState.name;
                 self.docSvc.clearDocument();
