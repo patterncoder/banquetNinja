@@ -35,17 +35,13 @@ function tmMenuGroupDetailCtrl (
     });
 
     this.setActive = () => {
-        console.log("set active!");
-        console.log(this.$stateParams.id);
         let req = {
             method: "PUT",
             url: `${config.apiBase}/production/menugroups/active/${this.$stateParams.id}`
         };
 
         this.$http(req).then((response) => {
-            console.log("response: ", response);
             if(response.status == 200) {
-                console.log("this: ", this);
             }
         });
     };
