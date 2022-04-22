@@ -2,8 +2,9 @@ import angular from 'angular';
 import lodash from 'lodash';
 import ninjaSchemas from 'ninjaSchemas';
 import config from 'config';
+import { Deferred } from 'jquery';
 
-function tmMenuGroupDetailCtrl (
+function tmMenuGroupDetailCtrl(
     $scope,
     $state,
     tmDetailFactory,
@@ -20,13 +21,13 @@ function tmMenuGroupDetailCtrl (
         detailView: "root.menuGroupDetail",
         addHeaderText: "Add Menu Group"
     }
-    
+
     this.__proto__ = tmDetailFactory(constructorArgs);
-    
-    this.$scope.$watch(function(){
+
+    this.$scope.$watch(function () {
         return self.docSvc.isDirty();
-    }, function(newVal, oldVal,  scope){
-        if(newVal){
+    }, function (newVal, oldVal, scope) {
+        if (newVal) {
             self.detailForm.$setDirty();
         } else {
             self.detailForm.$setPristine();
@@ -35,27 +36,29 @@ function tmMenuGroupDetailCtrl (
     });
 
     this.setActive = () => {
-        console.log("set active!");
-        console.log(this.$stateParams.id);
-        let req = {
-            method: "PUT",
-            url: `${config.apiBase}/production/menugroups/active/${this.$stateParams.id}`
-        };
+        let dfd = new Promise((resolve, reject) => {
+            let req = {
+                method: "PUT",
+                url: `${config.apiBase}/production/menugroups/active/${this.$stateParams.id}`
+            };
 
-        this.$http(req).then((response) => {
-            console.log("response: ", response);
-            if(response.status == 200) {
-                console.log("this: ", this);
-            }
+            this.$http(req).then((response) => {
+                if (response.status == 200) {
+                    resolve(response);
+                } else {
+                    reject(response);
+                }
+            });
         });
+        return dfd;
     };
-    
+
     this.loadData().then(() => {
         this.docSvc.getMenus();
     });
-    
+
     return this;
-    
+
 }
 
 tmMenuGroupDetailCtrl.$inject = [

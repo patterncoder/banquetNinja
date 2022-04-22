@@ -25,32 +25,6 @@ function tmContractDetailCtrl(
     };
 
     this.__proto__ = tmDetailFactory(constructorArgs);
-    console.log("we are at tmContractDetailCtrl");
-
-    console.log("what is our close?", self.close);
-
-
-    //close overrides from tmDetailFactory.js
-    // this.close = () => {
-    //     this.canILeave().then((result) => {
-
-    //         if (result) {
-
-    //             if (this.docSvc.doc.hasOwnProperty("status")) {
-    //                 if (this.docSvc.doc.status == "pending") {
-    //                     this.docSvc.clearDocument();
-    //                     this.$state.go("root.contractsPending");
-    //                 } else {
-    //                     this.docSvc.clearDocument();
-    //                     this.$state.go(this.constructorArgs.listView);
-    //                 }
-    //             } else {
-    //                 this.docSvc.clearDocument();
-    //                 this.$state.go(this.constructorArgs.listView);
-    //             }
-    //         }
-    //     });
-    // };
 
     this.sectionsHidden = true;
     this.statusHidden = true;
@@ -73,14 +47,12 @@ function tmContractDetailCtrl(
         title: "Add Empty Line",
         width: "200px",
         func: () => {
-            console.log("click on add food");
             this.addEmpty();
         }
     }, {
         title: "Add Divider",
         width: "200px",
         func: () => {
-            console.log("clicked on add blank");
             this.addSectionDivider();
         }
     }];
@@ -109,14 +81,6 @@ function tmContractDetailCtrl(
 
         this.docSvc.addCommLog(self.models.newCommLog);
     };
-
-    // this.moreFunctions.print = {
-    //     label: "Print HTML",
-    //     method: function () {
-    //         $state.go('root.contracts.print', { id: self.docSvc.doc._id }); root.customerDetail
-    //     }
-    // };
-
 
     this.moreFunctions.pdf = {
         label: "Print Contract",
@@ -282,13 +246,21 @@ function tmContractDetailCtrl(
             }
         }
 
+
+        // // I would like to load up Menu Groups also...
+        // let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
+        // menuGroups.query().then((returned) => {
+        //     // console.log("menuGroups:", returned);
+        //     this.menuGroups = returned;
+        //     // console.log("menuGroups:", this.menuGroups);
+        // });
+
         let req = {
             method: "GET",
             url: `${config.apiBase}/production/menugroups/active`,
         };
 
         this.$http(req).then((response) => {
-            console.log("response: ", response);
             this.menuGroups = response.data.data;
             this.searchGroup = this.menuGroups[0];
 
@@ -402,7 +374,6 @@ function tmContractDetailCtrl(
 
     this.showIt = (section) => {
         if (section) {
-            console.log("section: ", section);
             this.addableMenuItems = section.items;
         } else {
             this.addableMenuItems = [];
@@ -459,6 +430,20 @@ function tmContractDetailCtrl(
     this.deleteAdditionalContact = (index) => {
         self.docSvc.deleteAdditionalContact(index);
     }
+    this.getCachedMenuItems = (section) => {
+        let sectionItems = [];
+        self.menuSectionsRawData.map((obj) => {
+            if (obj.title == section) {
+                sectionItems = obj.items;
+            }
+        });
+        //self.addableMenuItems = sectionItems;
+        return sectionItems;
+    };
+
+    this.showMenuItems = () => {
+        self.addableMenuItems = self.getCachedMenuItems(self.filterSection);
+    };
 
     this.getDetailTitle = function () {
         const customer = self.docSvc.doc.customer;

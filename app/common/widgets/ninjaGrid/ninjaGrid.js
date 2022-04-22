@@ -3,8 +3,6 @@
 function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
     var $ctrl = this;
 
-    console.log("ninjaGridCtrl called!", $ctrl);
-    
     $ctrl.arrowKeyOut = function(item, keyCode, currentField) {
         var index = $ctrl.list.indexOf(item);
         function updateItem (index) {
@@ -50,6 +48,10 @@ function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
             return $ctrl.addToggle;
         }
     }
+    // $ctrl.optionsList = (item) => {
+    //     console.log("optionsList: ", item);
+    //     $ctrl.options = $ctrl.docSvc[$attrs.optionsList](item);
+    // };
 
     $ctrl.toggleAdd = function(){
         if (typeof $ctrl.addToggle === 'function') {
