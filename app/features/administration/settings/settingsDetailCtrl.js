@@ -38,8 +38,8 @@ class tmSettingsDetailCtrl {
             console.log("tmIdentity:", tmIdentity);
             console.log("company id:", id);
 
-            if ($window.sessionStorage['token']) {
-                $http.defaults.headers.common['x-access-token'] = $window.sessionStorage['token'];
+            if ($window.localStorage['token']) {
+                $http.defaults.headers.common['x-access-token'] = $window.localStorage['token'];
             }
 
             //not the correct way to do it, but something is going on in $dataSource, cannot simply call loadData, or loadDocument.

@@ -2,14 +2,12 @@ package-lock.json
 .gitignore
 
 node_modules/*
-public/*
+!node_modules/ninjaSchemas
 
 # These are modules we are in control of 
 # !node_modules/mongoose/
-!node_modules/ninjaSchemas
 .vscode/temp.sql
 .vscode/launch.json
-!node_modules/ninjaSchemas
 
 vendor/mongoose/node_modules
 

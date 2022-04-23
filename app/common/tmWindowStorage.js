@@ -3,12 +3,12 @@
 function tmWindowStorage ($window) {
     
     function setSessionKey(key, data) {
-        $window.sessionStorage[key] = data;
+        $window.localStorage[key] = data;
     }
     
     function getSessionKey(key) {
         
-        return $window.sessionStorage[key] ? $window.sessionStorage[key] : false;
+        return $window.localStorage[key] ? $window.localStorage[key] : false;
     }
     
     function setLocalKey(key, data) {
