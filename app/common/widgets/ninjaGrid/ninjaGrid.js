@@ -29,7 +29,6 @@ function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
     };
     
     $ctrl.create = function(item){
-        console.log("create method called!");
         $ctrl.docSvc[$attrs.createMethod](item);
     };
     
@@ -37,10 +36,6 @@ function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
         $ctrl.docSvc[$attrs.updateMethod](item);
     };
 
-    // $ctrl.optionsList = (item) => {
-    //     console.log("optionsList: ", item);
-    //     $ctrl.options = $ctrl.docSvc[$attrs.optionsList](item);
-    // };
     $ctrl.hideToggle = function () {
         if (typeof $ctrl.addToggle === 'function') {
             return false;
