@@ -110,14 +110,6 @@ function tmContractDetailCtrl(
         this.docSvc.addCommLog(self.models.newCommLog);
     };
 
-    // this.moreFunctions.print = {
-    //     label: "Print HTML",
-    //     method: function () {
-    //         $state.go('root.contracts.print', { id: self.docSvc.doc._id }); root.customerDetail
-    //     }
-    // };
-
-
     this.moreFunctions.pdf = {
         label: "Print Contract",
         method: function () {
@@ -459,6 +451,20 @@ function tmContractDetailCtrl(
     this.deleteAdditionalContact = (index) => {
         self.docSvc.deleteAdditionalContact(index);
     }
+    this.getCachedMenuItems = (section) => {
+        let sectionItems = [];
+        self.menuSectionsRawData.map((obj) => {
+            if (obj.title == section) {
+                sectionItems = obj.items;
+            }
+        });
+        //self.addableMenuItems = sectionItems;
+        return sectionItems;
+    };
+
+    this.showMenuItems = () => {
+        self.addableMenuItems = self.getCachedMenuItems(self.filterSection);
+    };
 
     this.getDetailTitle = function () {
         const customer = self.docSvc.doc.customer;
