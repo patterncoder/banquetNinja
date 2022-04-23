@@ -31,26 +31,26 @@ function tmContractDetailCtrl(
 
 
     //close overrides from tmDetailFactory.js
-    this.close = () => {
-        this.canILeave().then((result) => {
+    // this.close = () => {
+    //     this.canILeave().then((result) => {
 
-            if (result) {
+    //         if (result) {
 
-                if (this.docSvc.doc.hasOwnProperty("status")) {
-                    if (this.docSvc.doc.status == "pending") {
-                        this.docSvc.clearDocument();
-                        this.$state.go("root.contractsPending");
-                    } else {
-                        this.docSvc.clearDocument();
-                        this.$state.go(this.constructorArgs.listView);
-                    }
-                } else {
-                    this.docSvc.clearDocument();
-                    this.$state.go(this.constructorArgs.listView);
-                }
-            }
-        });
-    };
+    //             if (this.docSvc.doc.hasOwnProperty("status")) {
+    //                 if (this.docSvc.doc.status == "pending") {
+    //                     this.docSvc.clearDocument();
+    //                     this.$state.go("root.contractsPending");
+    //                 } else {
+    //                     this.docSvc.clearDocument();
+    //                     this.$state.go(this.constructorArgs.listView);
+    //                 }
+    //             } else {
+    //                 this.docSvc.clearDocument();
+    //                 this.$state.go(this.constructorArgs.listView);
+    //             }
+    //         }
+    //     });
+    // };
 
     this.sectionsHidden = true;
     this.statusHidden = true;
@@ -452,6 +452,13 @@ function tmContractDetailCtrl(
     this.showMenuItems = () => {
         self.addableMenuItems = self.getCachedMenuItems(self.filterSection);
     };
+    this.additionalContactTemplate = () => {
+        this.docSvc.additionalContactTemplate();
+    }
+
+    this.deleteAdditionalContact = (index) => {
+        self.docSvc.deleteAdditionalContact(index);
+    }
 
     this.getDetailTitle = function () {
         const customer = self.docSvc.doc.customer;

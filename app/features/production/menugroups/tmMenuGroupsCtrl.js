@@ -121,46 +121,6 @@ class tmMenuGroupsCtrl {
 
         this.loadData(undefined, true);
 
-        //double check, and make sure we are showing the group change
-        // (() => {
-        //     console.log("tmMenuGroupsCtrl called!");
-        //     if (this.$state.back.fromState.name == "root.menuGroupDetail") {
-        //         // this.$dataSource.clearCache();
-        //         // this.loadData();
-        //         let req = {
-        //             method: "GET",
-        //             url: `${config.apiBase}/production/menugroups/active`
-        //         };
-
-        //         this.$http(req).then((response) => {
-        //             console.log(response);
-
-        //             let activeItem = response.data.data[0];
-
-        //             this.items.map((obj) => {
-        //                 if (obj.hasOwnProperty("active")) {
-        //                     if(obj["_id"] == activeItem["_id"]) {
-        //                         obj.active = true;
-        //                     } else {
-        //                         if (obj.active) {
-        //                             obj.active = false;
-        //                         }
-        //                     }
-        //                 }
-        //             });
-
-        //             // if (response.data == 200) {
-        //             //     this.items.map((obj) => {
-        //             //         if (obj.hasOwnProperty("active") && obj["_id"] != item["_id"]) {
-        //             //             if (obj.active) {
-        //             //                 obj.active = false;
-        //             //             }
-        //             //         }
-        //             //     });
-        //             // }
-        //         });
-        //     }
-        // })();
     }
 
 }
