@@ -19,14 +19,6 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
         return data;
     }
 
-    // this.foodOptions = [{
-    //     title: "Add Food",
-    //     func: () => { console.log("click on add food"); console.log(this)}
-    // }, {
-    //     title: "Add Blank",
-    //     func: () => { console.log("clicked on add blank")}
-    // }];
-
     this.addTimeline = function (newTimeEntry) {
 
         let diff = newTimeEntry.time - newTimeEntry.endTime;

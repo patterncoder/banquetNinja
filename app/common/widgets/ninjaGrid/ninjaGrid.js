@@ -3,8 +3,6 @@
 function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
     var $ctrl = this;
 
-    console.log("ninjaGridCtrl called!", $ctrl);
-    
     $ctrl.arrowKeyOut = function(item, keyCode, currentField) {
         var index = $ctrl.list.indexOf(item);
         function updateItem (index) {
@@ -31,7 +29,6 @@ function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
     };
     
     $ctrl.create = function(item){
-        console.log("create method called!");
         $ctrl.docSvc[$attrs.createMethod](item);
     };
     
