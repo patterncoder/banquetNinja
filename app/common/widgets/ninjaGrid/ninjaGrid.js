@@ -39,13 +39,20 @@ function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
         $ctrl.docSvc[$attrs.updateMethod](item);
     };
 
-    // $ctrl.optionsList = (item) => {
-    //     console.log("optionsList: ", item);
-    //     $ctrl.options = $ctrl.docSvc[$attrs.optionsList](item);
-    // };
+    $ctrl.hideToggle = function () {
+        if (typeof $ctrl.addToggle === 'function') {
+            return false;
+        } else {
+            return $ctrl.addToggle;
+        }
+    }
 
     $ctrl.toggleAdd = function(){
-        $ctrl.addToggle = !$ctrl.addToggle;
+        if (typeof $ctrl.addToggle === 'function') {
+            $ctrl.addToggle();
+        } else {
+            $ctrl.addToggle = !$ctrl.addToggle;
+        }
     };
     
     $ctrl.delete = function(index){
@@ -102,7 +109,8 @@ var ninjaGridComponent =  {
         optionsList: '<',
         gridTitle: '@',
         noDataText: '@',
-        addToggle: '='
+        addToggle: '=',
+        addLineItem: '='
     }
 };
 

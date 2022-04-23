@@ -10,6 +10,7 @@ div(layout="column" flex layout-fill layout-padding)
     //md-button(ng-click="vm.addContract()") Add Contract
     div.itemCard(ng-repeat="contract in vm.contractsList" ng-hide="contract.status == 'abandoned'")
         .pull-right
-            a(ui-sref="root.contractDetail({id: contract._id})") View
+            md-button(ng-click="vm.goToContract(contract)" aria-label="close") View Contract
+            //- a(ui-sref="root.contractDetail({id: contract._id})") View
         div.md-title {{::contract.eventName}}
         div {{::contract.eventDate  | date:'fullDate' }}
