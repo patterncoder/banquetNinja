@@ -1,13 +1,45 @@
-ninja-grid(no-data-text="No deposits yet..." 
-        grid-title="Event Deposit Timeline" 
-        doc-svc="vm.docSvc" 
-        list="vm.docSvc.doc.deposits" 
-        create-method="addDeposit" 
-        update-method="" 
-        delete-method="removeDeposit"
-        add-toggle="vm.sideTab.deposit"
-        fields=`{
-                dateAdd: {header: 'Date Added', input: 'date', order: 5, width: 15, type: 'date'},
-                dateComplete: {header: 'Date Paid', input: 'date', order: 10, width: 15, type: 'date'},  
-                amount: {header: 'Amount', input: 'text', order: 20, width: 15, type: 'number'}, 
-                description: {header: 'Description', input: 'textarea', order: 30, width: 60, type: 'string'}}`)
+div(layout="row")
+  div(flex="65")
+    ninja-grid(no-data-text="No deposits yet..." 
+            grid-title="Event Deposit Timeline" 
+            doc-svc="vm.docSvc" 
+            list="vm.docSvc.doc.deposits" 
+            create-method="addDeposit" 
+            update-method="" 
+            delete-method="removeDeposit"
+            add-toggle="vm.sideTab.deposit"
+            fields=`{
+                    dateAdd: {header: 'Date Added', input: 'date', order: 5, width: 15, type: 'date'},
+                    dateComplete: {header: 'Date Paid', input: 'date', order: 10, width: 15, type: 'date'},  
+                    amount: {header: 'Amount', input: 'text', order: 20, width: 15, type: 'number'}, 
+                    description: {header: 'Description', input: 'textarea', order: 30, width: 60, type: 'string'}}`)
+  div(flex="35")
+    .itemCardHeader(layout="row")
+        div
+          h4 Contract Totals
+        div(flex)
+        div
+          h4
+            a(href="" ng-click="vm.updateContractTotals()")
+                  span.glyphicon.glyphicon-refresh
+    .itemCard(layout="row" layout-align="space-between")
+       div Food Total:
+       div.text-right {{ vm.contractTotals.foodTotal }}
+    .itemCard(layout="row" layout-align="space-between")
+       div Rental Total:
+       div.text-right {{ vm.contractTotals.rentalTotal }}
+    .itemCard(layout="row" layout-align="space-between")
+       div Sub Total:
+       div.text-right {{ vm.contractTotals.subTotal }}
+    .itemCard(layout="row" layout-align="space-between")
+       div Tax:
+       div.text-right {{ vm.contractTotals.tax }}
+    .itemCard(layout="row" layout-align="space-between")
+       div Total:
+       div.text-right {{ vm.contractTotals.total }}
+    .itemCard(layout="row" layout-align="space-between")
+       div Deposit:
+       div.text-right {{ vm.contractTotals.depositTotal }}
+    .itemCard(layout="row" layout-align="space-between")
+       div Amount Due:
+       div.text-right {{ vm.contractTotals.amountDue }}

@@ -29,6 +29,16 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
 
         this.doc.eventSteps.push(newTimeEntry);
     };
+    
+    this.getDepositTotal = function() {
+      const total = this.docSchema.statics.getDepositTotal(this.doc);
+      return total;
+    };
+    
+    this.getContractTotals = function() {
+      const total = this.docSchema.statics.getContractTotals(this.doc);
+      return total;
+    };
 
     this.editTimeline = function (timeEntry) {
 
@@ -151,6 +161,7 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
             self.doc.startTime24 = "0";
             self.doc.endTime24 = "0";
         }
+        this.taxRate = this.taxRate || .0875;
 
         //  depopulate for saving
         var customerMemo = self.doc.customer;

@@ -1,45 +1,44 @@
 form(name="vm.detailForm")
     // div(layout-gt-xs="row" layout-padding)
 div(flex layout="row")
-    div(flex="80" align-content="flex-start" layout="column")
+    div(flex="100" align-content="flex-start" layout="column")
         div(layout="row")
-            .form-group(flex="25")
+            .form-group(flex="50")
                 label.control-label(for="title") Event Name
                 input.form-control(ng-model="vm.docSvc.doc.eventName" )
-            .form-group(flex="25")
-                label.control-label(for="serviceType") Service Type
-                select.form-control(ng-model="vm.docSvc.doc.serviceType", ng-options="serviceType for serviceType in vm.serviceTypeOptions")
             .form-group(flex="50")
                 label.control-label(for="title") Nature of Event
                 input.form-control(ng-model="vm.docSvc.doc.natureOfEvent" )
-                //- label.control-label(for="subTitle") Description 
-                //- input.form-control(ng-model="vm.docSvc.doc.description")
-                //- label.control-label(for="description") Nature of Event
-                //- input.form-control(ng-model="vm.docSvc.doc.natureOfEvent")
         div(layout="row")
-            .form-group(flex="100")
+            .form-group(flex="25")
+                label.control-label(for="serviceType") Food Service Type
+                select.form-control(ng-model="vm.docSvc.doc.serviceType", ng-options="serviceType.value as serviceType.label for serviceType in vm.serviceTypeOptions")
+            .form-group(flex="25")
+                label.control-label(for="serviceType") Beverage Service Type
+                select.form-control(ng-model="vm.docSvc.doc.beverageServiceType", ng-options="serviceType.value as serviceType.label for serviceType in vm.beverageServiceTypeOptions")
+            .form-group(flex="50")
                 label.control-label(for="subTitle") Menu Text 
                 input.form-control(ng-model="vm.docSvc.doc.description")
         div(layout="row")
-            .form-group(flex="25")
+            .form-group(flex="10")
                 label.control-label(for="title") Date of Event
                 date-picker(field="vm.docSvc.doc.eventDate")
-            .form-group(flex="15")
+            .form-group(flex="10")
                 label.control-label(for="title") Start Time
                 time-picker(field="vm.docSvc.doc.time")
-            .form-group(flex="15")
+            .form-group(flex="10")
                 label.control-label(for="title") End Time
                 time-picker(field="vm.docSvc.doc.endTime")
-            .form-group(flex="30")
-                label.control-label(for="status") Status
-                select.form-control(ng-model="vm.docSvc.doc.status", ng-options="contract for contract in vm.contractStatusOptions")
-        div(layout="row")
-            .form-group(flex="25")
-                label.control-label(for="minAttendees") Minimum number of attendees
+            .form-group(flex="10")
+                label.control-label(for="minAttendees") Guest # low
                 input.form-control(ng-model="vm.docSvc.doc.banquetAttendeeLow", type='text')
-            .form-group(flex="25")
-                label.control-label(for="maxAttendees") Maximum number of attendees
+            .form-group(flex="10")
+                label.control-label(for="maxAttendees") Guest # high
                 input.form-control(ng-model="vm.docSvc.doc.banquetAttendeeHigh", type='text')
+            .form-group(flex="25")
+                label.control-label(for="status") Contract Status
+                select.form-control(ng-model="vm.docSvc.doc.status", ng-options="status.value as status.label for status in vm.contractStatusOptions")
+        // div(layout="row")
             //- .form-group(flex="30")
             //-     label.control-label(for="serviceType") Service Type
             //-     select.form-control(ng-model="vm.docSvc.doc.serviceType", ng-options="serviceType for serviceType in vm.serviceTypeOptions")

@@ -1,13 +1,38 @@
-ninja-grid(no-data-text="No communication log yet..." 
-        grid-title="Communication Log" 
+div(layout="row")
+  div(flex="35")
+    .itemCardHeader(layout="column")
+        h4 Contract Notes
+    .form-group(style="margin: 5px")
+        textarea.form-control(name="notes" placeholder="Customer only notes here" rows="15" ng-model="vm.docSvc.doc.notes")
+    .itemCardHeader(layout="column")
+        h4 Staff Only Event Order Notes
+    .form-group(style="margin: 5px")
+        textarea.form-control(name="notes" placeholder="Staff only notes here" rows="15" ng-model="vm.docSvc.doc.staffNotes")
+  div(flex="65")
+    ninja-grid(no-data-text="No additional contacts yet..." 
+        grid-title="Additional Contacts" 
         doc-svc="vm.docSvc" 
-        list="vm.docSvc.doc.commLog" 
-        create-method="addCommLog" 
+        list="vm.docSvc.doc.additionalContacts" 
+        create-method="addAdditionalContact" 
         update-method="" 
-        delete-method="removeCommLog"
-        add-toggle="vm.sideTab.commLog"
-        fields="{date: {input: 'text', header: 'Date', order: 10, width: 20, type: 'date'}," + 
-                " time: {input: 'text', header: 'Time', order: 15, width: 20, type: 'time'}," +
-                " commType: {input: 'text', header: 'Type', order: 20, width: 10, type: 'string'}," +
-                " employee: {input: 'text', header: 'Employee', order: 30, width: 10, type: 'string'}," +
-                " description: {input: 'text', header: 'Description', order: 30, width: 60, type: 'string'}}")
+        delete-method="deleteAdditionalContact"
+        add-toggle="vm.additionalContactTemplate"
+        fields="{firstName: {input: 'text', header: 'First Name', order: 10, width: 15, type: 'string'}," + 
+                " lastName: {input: 'text', header: 'Last Name', order: 15, width: 15, type: 'string'}," +
+                " relationToCustomer: {input: 'text', header: 'Relation To Customer', order: 30, width: 20, type: 'string'}," +
+                " email: {input: 'text', header: 'Email', order: 30, width: 15, type: 'string'}," +
+                " cellPhone: {input: 'text', header: 'Cell Phone', order: 40, width: 15, type: 'string'}," +
+                " homePhone: {input: 'text', header: 'Other Phone', order: 50, width: 15, type: 'string'}}")
+    ninja-grid(no-data-text="No communication log yet..." 
+            grid-title="Communication Log" 
+            doc-svc="vm.docSvc" 
+            list="vm.docSvc.doc.commLog" 
+            create-method="addCommLog" 
+            update-method="" 
+            delete-method="removeCommLog"
+            add-toggle="vm.sideTab.commLog"
+            fields="{date: {input: 'text', header: 'Date', order: 10, width: 20, type: 'date'}," + 
+                    " time: {input: 'text', header: 'Time', order: 15, width: 20, type: 'time'}," +
+                    " commType: {input: 'text', header: 'Type', order: 20, width: 10, type: 'string'}," +
+                    " employee: {input: 'text', header: 'Employee', order: 30, width: 10, type: 'string'}," +
+                    " description: {input: 'text', header: 'Description', order: 30, width: 60, type: 'string'}}")

@@ -141,18 +141,18 @@ function tmContractDetailCtrl(
         }
     };
 
-    this.moreFunctions.setSettings = {
-        label: "Contract Page Settings",
-        method: () => {
-            //$state.go('root.settings.print', { id: self.docSvc.doc._id });
+    // this.moreFunctions.setSettings = {
+    //     label: "Contract Page Settings",
+    //     method: () => {
+    //         //$state.go('root.settings.print', { id: self.docSvc.doc._id });
 
-            //close all side tabs.
-            for (let property in this.sideTab) {
-                this.sideTab[property] = false;
-            }
-            this.sideTab.printSettings = true;
-        }
-    };
+    //         //close all side tabs.
+    //         for (let property in this.sideTab) {
+    //             this.sideTab[property] = false;
+    //         }
+    //         this.sideTab.printSettings = true;
+    //     }
+    // };
 
     this.moreFunctions.printHandoutPDF = {
         label: "Print Guest Menu",
@@ -192,9 +192,26 @@ function tmContractDetailCtrl(
         }
     }
 
-    this.contractStatusOptions = constructorArgs.schema.paths.status.enumValues.map((status) => status);
+    this.contractStatusOptions = constructorArgs.schema.paths.status.enumValues.map((status) => {
+        return {
+            label: `${status.charAt(0).toUpperCase()}${status.slice(1)}`,
+            value: status
+        }
+    });
 
-    this.serviceTypeOptions = constructorArgs.schema.paths.serviceType.enumValues.map((serviceTypes) => serviceTypes);
+    this.serviceTypeOptions = constructorArgs.schema.paths.serviceType.enumValues.map((type) => {
+        return {
+            label: `${type.charAt(0).toUpperCase()}${type.slice(1)}`,
+            value: type
+        }
+    });
+
+    this.beverageServiceTypeOptions = constructorArgs.schema.paths.beverageServiceType.enumValues.map((type) => {
+        return {
+            label: `${type.charAt(0).toUpperCase()}${type.slice(1)}`,
+            value: type
+        }
+    });
 
     this.moreFunctions.addItem.method = function () {
 
@@ -234,9 +251,14 @@ function tmContractDetailCtrl(
         obj.filterSection = undefined;
     };
 
+    this.updateContractTotals = function () {
+      this.contractTotals = this.docSvc.getContractTotals();
+    };
+
     this.loadData().then((data) => {
         cleanup(this); //making sure everything is clean.
         this.getDetailTitle();
+        this.updateContractTotals();
 
         //working with some historical data for service type.
         if (!this.docSvc.doc["serviceType"] && this.docSvc.doc.natureOfEvent) {

@@ -7,40 +7,41 @@
                     include ./tabs/topPanel.jade
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex" md-stretch-tabs="never")
-                        md-tab( label="Food & Beverage")
-                            include ./tabs/food.jade
+                        md-tab(label="Communication")
+                            include ./tabs/tab-commlog.jade
                         md-tab(label="Rooms")
                             include ./tabs/tab-rooms.jade
+                        md-tab( label="Food & Beverage")
+                            include ./tabs/food.jade
                         md-tab(label="Rental Items")
                             include ./tabs/tab-rentalItems.jade
                         md-tab(label="Event Timeline")
                             include ./tabs/tab-timeline.jade
-                        md-tab(label="Assigned Staff")
-                            include ./tabs/tab-staff.jade
-                        md-tab(label="Deposit Timeline")
+                        //- md-tab(label="Assigned Staff")
+                        //-     include ./tabs/tab-staff.jade
+                        md-tab(label="Financial")
                             include ./tabs/tab-depositsTimeline.jade
-                        md-tab(label="Communication")
-                            include ./tabs/tab-commlog.jade
-                        md-tab(label="Additional Contacts")
-                            include ./tabs/additionalContacts.jade
-                        md-tab(label="Event Notes")
-                            include ./tabs/tab-notes.jade
+                        //- md-tab(label="Additional Contacts")
+                        //-     include ./tabs/additionalContacts.jade
+                        //- moved notes into the comm log
+                        //- md-tab(label="Event Notes")
+                        //-     include ./tabs/tab-notes.jade
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
                 //-     div hello
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.menuItems && vm.tabIndex == 0" layout-padding)
-            include ./tabs/addFood.jade
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.commLog  && vm.tabIndex == 0" layout-padding)
+            include ./tabs/add-commlog.jade
         div.detailRightPanel(flex="20" ng-show="vm.sideTab.rooms  && vm.tabIndex == 1" layout-padding)
             include ./tabs/addVenue.jade
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.rentalItems  && vm.tabIndex == 2" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.menuItems && vm.tabIndex == 2" layout-padding)
+            include ./tabs/addFood.jade
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.rentalItems  && vm.tabIndex == 3" layout-padding)
             include ./tabs/addRentalItem.jade
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.timeline && vm.tabIndex == 3" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm.sideTab.timeline && vm.tabIndex == 4" layout-padding)
             include ./tabs/addTimeline.jade
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.staffMembers && vm.tabIndex == 4" layout-padding)
-            include ./tabs/addStaffMember.jade
+        //- div.detailRightPanel(flex="20" ng-show="vm.sideTab.staffMembers && vm.tabIndex == 4" layout-padding)
+        //-     include ./tabs/addStaffMember.jade
         div.detailRightPanel(flex="20" ng-show="vm.sideTab.deposit && vm.tabIndex == 5" layout-padding)
             include ./tabs/addDeposit.jade
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.commLog  && vm.tabIndex == 6" layout-padding)
-            include ./tabs/add-commlog.jade
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.printSettings" layout-padding)
-            include ./tabs/printSettings.jade
+        //- div.detailRightPanel(flex="20" ng-show="vm.sideTab.printSettings" layout-padding)
+        //-     include ./tabs/printSettings.jade
     detail-footer
