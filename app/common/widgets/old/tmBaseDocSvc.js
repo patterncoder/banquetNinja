@@ -70,6 +70,7 @@ function tmBaseDocSvc ($dataSource, tmMongoose, $q, model, schema){
     return {
         // standard doc api
         doc: doc,
+        docSchema: docSchema,
         loadDocument: loadDocument,
         clearDocument: clearDocument,
         undoChanges: undoChanges,
