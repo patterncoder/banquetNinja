@@ -32,6 +32,9 @@ div(layout="row")
        div Sub Total:
        div.text-right {{ vm.contractTotals.subTotal }}
     .itemCard(layout="row" layout-align="space-between")
+       div Service Charge:
+       div.text-right {{ vm.contractTotals.serviceCharge }}
+    .itemCard(layout="row" layout-align="space-between")
        div Tax:
        div.text-right {{ vm.contractTotals.tax }}
     .itemCard(layout="row" layout-align="space-between")
