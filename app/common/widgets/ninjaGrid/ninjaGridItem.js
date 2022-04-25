@@ -6,10 +6,6 @@ function ninjaGridItemCtrl ($timeout, $filter, $scope) {
 
         const hasInternalTextOnly = /!!(.*?)!!/g;
         const hasContractTextOnly = /{{(.*?)}}/g;
-
-
-        // console.log(Array.from(testString.matchAll(x1)));
-        // console.log(Array.from(testString.matchAll(x2)));
         if (type == 'time') {
             return $filter('date')(value, "shortTime");
         } else if (type == 'timepicker') {
@@ -63,9 +59,12 @@ function ninjaGridItemCtrl ($timeout, $filter, $scope) {
             $ctrl.onArrowKeyOut({item: item, keyCode: 'down',  currentField: currentField});
         }
     };
-    
-    
-    $ctrl.detailBlur = function (item, event) {
+
+    $ctrl.detailBlur = function (item, event, key, fieldDef) {
+
+        if (fieldDef && fieldDef.type && fieldDef.type === 'number') {
+          item[key] = parseFloat(item[key])
+        }
         var relatedTarget = event.relatedTarget || event.explicitOriginalTarget;
         if (relatedTarget == null || event.target.parentElement.parentElement != relatedTarget.parentElement.parentElement ) {
             $timeout(function(){

@@ -30,7 +30,7 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
             input.form-control(ng-if="val.input==='text'" ng-model="$ctrl.item[key]" type="val.type"
                 focus="$ctrl.item.clickedField[key]" 
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
-                ng-blur="$ctrl.detailBlur($ctrl.item, $event)"
+                ng-blur="$ctrl.detailBlur($ctrl.item, $event, key, val)"
                 ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}")
             input.form-control(ng-if="val.input==='nonedit'" ng-model="$ctrl.item[key]" type="val.type"
                 focus="$ctrl.item.clickedField[key]" 
