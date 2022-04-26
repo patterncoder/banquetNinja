@@ -16,6 +16,19 @@
             md-content(layout-padding style="background: transparent")
                 div()
                     h3 Add Menu
+                    label() Filter By Date 
+                    select.form-control(ng-model="vm.rangeType")
+                        option(value="before") Before 
+                        option(value="after") After
+                    select.form-control(ng-model="vm.selectedMonth", ng-options="month for month in vm.docSvc.months")
+                        option(value="") Select Month
+                    select.form-control(ng-model="vm.selectedYear", ng-options="hour for hour in vm.docSvc.years")
+                        option(value="") Select Year
+                    md-button.md-raised(ng-click="vm.docSvc.fltr({range: vm.rangeType, m: vm.selectedMonth, y: vm.selectedYear})") Filter 
+                    br
+                    br
+                    label Results
+                    br
                     div Add menus to this group
                     div(ng-repeat="item in vm.docSvc.displayedMenus")
                         a(href="" ng-click="vm.docSvc.addMenu(item)") 

@@ -64,6 +64,60 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
         this.doc.menus.splice(input, 1);
     };
 
+    this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    this.years = (() => {
+        let y = [];
+        let dt = new Date();
+        for (let i = 0; i < 10; ++i) {
+            y.push(dt.getFullYear());
+            dt.setFullYear(dt.getFullYear() - 1);
+        }
+        return y;
+    })();
+
+    /*
+        Example input argument input:
+
+        {
+            range: "<",
+            m: Number MM,
+            y: Number YYYY
+        }
+    */
+    this.fltrByDtRange = (input, menus) => {
+
+        let filtered = [];
+        menus.map((menuObj) => {
+            let dt = new Date(menuObj.meta.dateCreated);
+            if (input.range == "before") {
+                if (input.y > dt.getFullYear()) {
+                    filtered.push(menuObj);
+                } else if (input.y == dt.getFullYear()) {
+                    if (input.m > dt.getMonth()) {
+                        filtered.push(menuObj);
+                    }
+                }
+            } else if (input.range == "after") {
+                // console.log(menuObj.meta.dateCreated);
+                if (input.y < dt.getFullYear()) {
+                    filtered.push(menuObj);
+                } else if (input.y == dt.getFullYear()) {
+                    if (input.m <= dt.getMonth()) {
+                        filtered.push(menuObj);
+                    }
+                }
+            }
+        });
+
+        return filtered;
+    };
+
+    this.fltr = (input) => {
+        input.m = this.months.indexOf(input.m);
+        console.log(input);
+        this.displayedMenus = this.fltrByDtRange(input, this.allMenus);
+    };
+
     // //ensures that we are not showing menus from over two years ago.
     // let filter = (dta) => {
     //     let filtered = [];
@@ -85,7 +139,7 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
     // };
 
     let fillDisplayMenus = (menus) => {
-        for(let i = 0; i < 25; ++i) {
+        for (let i = 0; i < 25; ++i) {
             this.displayedMenus.push(menus[i]);
         }
     };
