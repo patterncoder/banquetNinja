@@ -268,6 +268,15 @@ function tmContractDetailCtrl(
             }
         }
 
+
+        // // I would like to load up Menu Groups also...
+        // let menuGroups = this.docSvc.$dataSource.load("MenuGroup");
+        // menuGroups.query().then((returned) => {
+        //     // console.log("menuGroups:", returned);
+        //     this.menuGroups = returned;
+        //     // console.log("menuGroups:", this.menuGroups);
+        // });
+
         let req = {
             method: "GET",
             url: `${config.apiBase}/production/menugroups/active`,
