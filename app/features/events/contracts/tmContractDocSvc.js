@@ -29,15 +29,15 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
 
         this.doc.eventSteps.push(newTimeEntry);
     };
-    
-    this.getDepositTotal = function() {
-      const total = this.docSchema.statics.getDepositTotal(this.doc);
-      return total;
+
+    this.getDepositTotal = function () {
+        const total = this.docSchema.statics.getDepositTotal(this.doc);
+        return total;
     };
-    
-    this.getContractTotals = function() {
-      const total = this.docSchema.statics.getContractTotals(this.doc);
-      return total;
+
+    this.getContractTotals = function () {
+        const total = this.docSchema.statics.getContractTotals(this.doc);
+        return total;
     };
 
     this.editTimeline = function (timeEntry) {
@@ -157,10 +157,21 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
 
 
         //now that we are saving as unix epoch, we won't need historical time stamps.
-        if(self.doc.hasOwnProperty("startTime24") && self.doc.hasOwnProperty("endTime24") && self.doc.hrMinFix) {
+        if (self.doc.hasOwnProperty("startTime24") && self.doc.hasOwnProperty("endTime24") && self.doc.hrMinFix) {
             self.doc.startTime24 = "0";
             self.doc.endTime24 = "0";
         }
+
+        if (self.doc.hasOwnProperty("serviceType")) {
+            let serviceTypeOptions = this.docSchema.paths.serviceType.enumValues;
+            if (self.doc.serviceType) {
+                let indx = serviceTypeOptions.indexOf(self.doc.serviceType);
+                if (indx < 0) {
+                    self.doc.serviceType = undefined;
+                }
+            }
+        }
+
         this.taxRate = this.taxRate || .0875;
 
         //  depopulate for saving
@@ -172,7 +183,10 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
             if (err) {
                 self.doc.customer = customerMemo;
                 self.validationError = err;
-                deferred.reject('contract doc service has errors');
+                deferred.reject({
+                    msg: 'contract doc service has errors',
+                    err: err
+                });
                 return;
             }
             self.docModel.update(self.doc).then(function (data) {
