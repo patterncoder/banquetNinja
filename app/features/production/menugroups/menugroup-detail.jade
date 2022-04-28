@@ -35,7 +35,7 @@
                             span.glyphicon.glyphicon-circle-arrow-left 
                         span &nbsp; {{item.name}}
                     div
-                        a(href="" ng-click="vm.docSvc.loadMore()") Load More
+                        a(ng-hide="vm.selectedYear" href="" ng-click="vm.docSvc.loadMore()") Load More
                             //- span.glyphicon.glyphicon-circle-arrow-left 
                         //- span &nbsp; Load More
                     //- lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")

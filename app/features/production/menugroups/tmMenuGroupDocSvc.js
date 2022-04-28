@@ -60,7 +60,7 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
     };
 
     this.removeMenu = (input) => {
-        console.log("remove group clicked: ", input);
+        // console.log("remove group clicked: ", input);
         this.doc.menus.splice(input, 1);
     };
 
@@ -114,7 +114,7 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
 
     this.fltr = (input) => {
         input.m = this.months.indexOf(input.m);
-        console.log(input);
+        // console.log(input);
         this.displayedMenus = this.fltrByDtRange(input, this.allMenus);
     };
 
@@ -149,8 +149,6 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
 
             let Menus = this.$dataSource.load("Menu");
 
-            console.log("menus:", Menus);
-
             if (this.allMenus.length) {
                 this.allMenus = [];
             }
@@ -158,15 +156,17 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
             try {
                 Menus.query().then((data) => {
 
-                    data.map((dta) => {
-                        let dt = new Date(dta.meta.dateLastMod ? dta.meta.dateLastMod : dta.meta.dateCreated);
-                        if (dt.getTime() >= (getDateLastYear().getTime())) {
-                            this.allMenus.push(dta);
-                            // if (this.displayedMenus.length < 25) {
-                            //     this.displayedMenus.push(dta); //store the top 25
-                            // }
-                        }
-                    });
+                    // data.map((dta) => {
+                    //     let dt = new Date(dta.meta.dateLastMod ? dta.meta.dateLastMod : dta.meta.dateCreated);
+                    //     if (dt.getTime() >= (getDateLastYear().getTime())) {
+                    //         this.allMenus.push(dta);
+                    //         // if (this.displayedMenus.length < 25) {
+                    //         //     this.displayedMenus.push(dta); //store the top 25
+                    //         // }
+                    //     }
+                    // });
+
+                    this.allMenus = data;
 
                     this.allMenus.reverse() //objects come in sorted by oldest to newest, we want to reverse that...
                     fillDisplayMenus(this.allMenus);
