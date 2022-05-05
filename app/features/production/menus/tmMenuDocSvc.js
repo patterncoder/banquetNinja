@@ -425,20 +425,6 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 
     };
 
-    this.runSearch = () => {
-        console.log(this.selCategory);
-        let url = `${config.apiBase}/production/menuitems?where[categories]=${this.selCategory}`;
-        let request = {
-            method: "GET",
-            url: url
-        };
-        this.$http(request).then((data) => {
-            console.log("success!!", data);
-            // self.addableMenuItems = data.data.data;
-        });
-        // console.log("clicked!");
-    };
-
     this.editSection = (index) => {
         let doc = this.doc.sections[index];
         console.log("editSection", index, doc);
