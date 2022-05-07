@@ -11,6 +11,7 @@ div(flex="100")
             th Event Name
             th Venue
             th Date
+            th Guests
             th Time
             th.text-right
                 button.btn.btn-primary.btn-xs(ng-click="vm.addContract()") {{::vm.constructorArgs.addHeaderText}}
@@ -23,6 +24,8 @@ div(flex="100")
                 //- td {{::item.eventDate | date:'longDate'}}
                 td 
                     div(style="float: left") {{::item.eventDate.toDateString()}}
+                td
+                    div(style="float: left") {{::vm.getGstNum(item)}}
                 //- td(style="white-space: nowrap") {{::item.eventDate | tmZuluTime | date:'shortTime'}}
                 td(style="white-space: nowrap") {{::item.time | date:'shortTime'}}
                 td(style="padding: 4px")

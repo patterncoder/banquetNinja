@@ -18,10 +18,18 @@ class tmContractsCtrl {
     this.__proto__ = tmListFactory(constructorArgs);
 
     this.loadData({
-      "select": "eventName eventDate time endTime startTime24 endTime24 customer venues",
+      "select": "eventName eventDate time endTime startTime24 endTime24 customer venues banquetAttendeeLow banquetAttendeeHigh",
       "where[status]": "booked",
       "populate[customer]": "firstName lastName"
     }, true);
+
+    this.getGstNum = (item) => {
+      let str = item.banquetAttendeeLow.toString();
+      if(item.banquetAttendeeLow != item.banquetAttendeeHigh) {
+        str += `-${item.banquetAttendeeHigh.toString()}`;
+      }
+      return str;
+    };
 
 
     /*
@@ -33,7 +41,7 @@ class tmContractsCtrl {
       creation.
     */
     this.afterLoad = () => {
-
+      console.log(this.items);
 
       let iIDs = [];
 

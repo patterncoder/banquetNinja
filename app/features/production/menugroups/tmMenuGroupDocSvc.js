@@ -60,8 +60,62 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
     };
 
     this.removeMenu = (input) => {
-        console.log("remove group clicked: ", input);
+        // console.log("remove group clicked: ", input);
         this.doc.menus.splice(input, 1);
+    };
+
+    this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    this.years = (() => {
+        let y = [];
+        let dt = new Date();
+        for (let i = 0; i < 10; ++i) {
+            y.push(dt.getFullYear());
+            dt.setFullYear(dt.getFullYear() - 1);
+        }
+        return y;
+    })();
+
+    /*
+        Example input argument input:
+
+        {
+            range: "<",
+            m: Number MM,
+            y: Number YYYY
+        }
+    */
+    this.fltrByDtRange = (input, menus) => {
+
+        let filtered = [];
+        menus.map((menuObj) => {
+            let dt = new Date(menuObj.meta.dateCreated);
+            if (input.range == "before") {
+                if (input.y > dt.getFullYear()) {
+                    filtered.push(menuObj);
+                } else if (input.y == dt.getFullYear()) {
+                    if (input.m > dt.getMonth()) {
+                        filtered.push(menuObj);
+                    }
+                }
+            } else if (input.range == "after") {
+                // console.log(menuObj.meta.dateCreated);
+                if (input.y < dt.getFullYear()) {
+                    filtered.push(menuObj);
+                } else if (input.y == dt.getFullYear()) {
+                    if (input.m <= dt.getMonth()) {
+                        filtered.push(menuObj);
+                    }
+                }
+            }
+        });
+
+        return filtered;
+    };
+
+    this.fltr = (input) => {
+        input.m = this.months.indexOf(input.m);
+        // console.log(input);
+        this.displayedMenus = this.fltrByDtRange(input, this.allMenus);
     };
 
     // //ensures that we are not showing menus from over two years ago.
@@ -85,7 +139,7 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
     // };
 
     let fillDisplayMenus = (menus) => {
-        for(let i = 0; i < 25; ++i) {
+        for (let i = 0; i < 25; ++i) {
             this.displayedMenus.push(menus[i]);
         }
     };
@@ -95,8 +149,6 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
 
             let Menus = this.$dataSource.load("Menu");
 
-            console.log("menus:", Menus);
-
             if (this.allMenus.length) {
                 this.allMenus = [];
             }
@@ -104,15 +156,17 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
             try {
                 Menus.query().then((data) => {
 
-                    data.map((dta) => {
-                        let dt = new Date(dta.meta.dateLastMod ? dta.meta.dateLastMod : dta.meta.dateCreated);
-                        if (dt.getTime() >= (getDateLastYear().getTime())) {
-                            this.allMenus.push(dta);
-                            // if (this.displayedMenus.length < 25) {
-                            //     this.displayedMenus.push(dta); //store the top 25
-                            // }
-                        }
-                    });
+                    // data.map((dta) => {
+                    //     let dt = new Date(dta.meta.dateLastMod ? dta.meta.dateLastMod : dta.meta.dateCreated);
+                    //     if (dt.getTime() >= (getDateLastYear().getTime())) {
+                    //         this.allMenus.push(dta);
+                    //         // if (this.displayedMenus.length < 25) {
+                    //         //     this.displayedMenus.push(dta); //store the top 25
+                    //         // }
+                    //     }
+                    // });
+
+                    this.allMenus = data;
 
                     this.allMenus.reverse() //objects come in sorted by oldest to newest, we want to reverse that...
                     fillDisplayMenus(this.allMenus);
