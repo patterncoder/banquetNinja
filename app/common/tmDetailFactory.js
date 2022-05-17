@@ -182,21 +182,38 @@ function BaseDetail(
         return deferred.promise;
     };
 
+    this.stateCache = "";
+    // $state.stateCache = "";
 
     this.close = function () {
-        var self = this;
+        // var self = this;
         this.canILeave().then(function (canILeave) {
+            
             if (canILeave) {
                 let backState = self.$state.back.fromState.name;
                 self.docSvc.clearDocument();
-                // !($state.data === backState) handle circlular issue with back button
-                // the back state and the to state are the same
-                if (backState && backState != "" && !($state.data === backState)) {
-                    self.$state.go(backState, $state.back.fromParams);
-                } else {
+
+                let goListView = () => {
                     // we are going back to the list so clear out the $state.data for next circular issue
                     $state.data = null;
                     self.$state.go(self.constructorArgs.listView);
+                }
+
+                let goBack = () => {
+                    $state.stateCache = self.$state.current.name;
+                    self.$state.go(backState, $state.back.fromParams);
+                }
+
+                // !($state.data === backState) handle circlular issue with back button
+                // the back state and the to state are the same
+                if (backState && backState != "" && !($state.data === backState)) {
+                    if(backState == $state.stateCache) {
+                        goListView();
+                    } else {
+                        goBack();
+                    }
+                } else {
+                    goListView();
                 }
             }
         });
