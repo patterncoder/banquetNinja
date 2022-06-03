@@ -34,10 +34,24 @@ export default class CachedResource {
         }
         if (!self.List) {
             self.Resource.query(queryString, function (data) {
-                var json = JSON.stringify(data.data);
-                var jsonParsed = JSON.parse(json, jsonReviver);
-                self.List = jsonParsed;
-                deferred.resolve(self.List);
+                let run = () => {
+                    // console.log("cachedResource query:", data);
+                    var json = JSON.stringify(data.data);
+                    var jsonParsed = JSON.parse(json, jsonReviver);
+                    self.List = jsonParsed;
+                    deferred.resolve(self.List);
+                }
+
+                if (data.hasOwnProperty("$promise")) {
+                    if (!data["$promise"].success) {
+                        deferred.reject(data["$promise"]);
+                        console.log(data.message);
+                    } else {
+                        run();
+                    }
+                } else {
+                    run();
+                }
             });
         }
         else {
@@ -99,6 +113,7 @@ export default class CachedResource {
                     if (response.noData) {
                         deferred.reject(response.noData);
                     }
+                    console.log("cachedResource: ", response.data);
                     var json = JSON.stringify(response.data);
                     var parsedJson = JSON.parse(json, jsonReviver);
                     var itemIndex = self.List.map(function (i) {

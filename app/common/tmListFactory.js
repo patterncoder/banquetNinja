@@ -59,6 +59,13 @@ function BaseList(
                 self.items = items;
                 self.afterLoad();
                 resolve(items);
+            }, (e) => {
+                console.log("err: ", e);
+                if (e.hasOwnProperty("$$state")) {
+                    if (!e.$$state.success) {
+                        self.tmNotifier.error("Your session has expired. Please log in again.");
+                    }
+                }
             });
         });
         return dfd; //returns a promise, so we can work with the data.

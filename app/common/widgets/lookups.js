@@ -53,6 +53,8 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', '$timeout', fu
                 self.updateList();
             }, 0);
         }
+    }, (msg) => {
+        console.log("err: ", msg);
     });
     
     
