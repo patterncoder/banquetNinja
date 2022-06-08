@@ -33,26 +33,20 @@ export default class CachedResource {
             self.List = null;
         }
         if (!self.List) {
-            self.Resource.query(queryString, function (data) {
-                let run = () => {
+
+            self.Resource.query(queryString, (one, two) => {
+                one.$promise.then((data) => {
                     // console.log("cachedResource query:", data);
                     var json = JSON.stringify(data.data);
                     var jsonParsed = JSON.parse(json, jsonReviver);
                     self.List = jsonParsed;
                     deferred.resolve(self.List);
-                }
-
-                if (data.hasOwnProperty("$promise")) {
-                    if (!data["$promise"].success) {
-                        deferred.reject(data["$promise"]);
-                        console.log(data.message);
-                    } else {
-                        run();
-                    }
-                } else {
-                    run();
-                }
+                }, (err) => {
+                    console.log(err);
+                    deferred.reject(err);
+                })
             });
+
         }
         else {
             deferred.resolve(self.List);

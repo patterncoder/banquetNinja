@@ -54,7 +54,8 @@ function BaseList(
         var self = this;
         let dfd = new Promise((resolve, reject) => {
             self.setLoading(true);
-            self.Model.query(queryString, flush).then(function (items) {
+            self.Model.query(queryString, flush).then((items) => {
+                console.log("items", items);
                 self.setLoading(false);
                 self.items = items;
                 self.afterLoad();
@@ -65,6 +66,7 @@ function BaseList(
                     if (!e.$$state.success) {
                         self.tmNotifier.error("Your session has expired. Please log in again.");
                     }
+                    reject(e);
                 }
             });
         });
