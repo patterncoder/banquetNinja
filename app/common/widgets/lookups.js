@@ -53,6 +53,10 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', '$timeout', fu
                 self.updateList();
             }, 0);
         }
+    }, (msg) => {
+        //i don't think this ever catches an error...
+        console.log("err: ", msg);
+        // throw(msg);
     });
     
     

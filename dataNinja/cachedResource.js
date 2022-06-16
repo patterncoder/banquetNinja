@@ -26,6 +26,7 @@ export default class CachedResource {
     }
 
     query(queryString, flush) {
+        // console.log("cachedResource query called")
         var deferred = this.$q.defer();
         queryString = queryString || {};
         var self = this;
@@ -33,12 +34,28 @@ export default class CachedResource {
             self.List = null;
         }
         if (!self.List) {
-            self.Resource.query(queryString, function (data) {
-                var json = JSON.stringify(data.data);
-                var jsonParsed = JSON.parse(json, jsonReviver);
-                self.List = jsonParsed;
-                deferred.resolve(self.List);
+
+            self.Resource.query(queryString, (data) => {
+
+                let run = () => {
+                    var json = JSON.stringify(data.data);
+                    var jsonParsed = JSON.parse(json, jsonReviver);
+                    self.List = jsonParsed;
+                    deferred.resolve(self.List);
+                }
+
+                // console.log("data: ", data);
+                if(data.hasOwnProperty("success")) {
+                    if(!data.success) {
+                        deferred.reject(data);
+                    } else {
+                        run();
+                    }
+                } else {
+                    run();
+                }
             });
+
         }
         else {
             deferred.resolve(self.List);
@@ -99,6 +116,7 @@ export default class CachedResource {
                     if (response.noData) {
                         deferred.reject(response.noData);
                     }
+                    // console.log("cachedResource: ", response.data);
                     var json = JSON.stringify(response.data);
                     var parsedJson = JSON.parse(json, jsonReviver);
                     var itemIndex = self.List.map(function (i) {
