@@ -55,15 +55,19 @@ function BaseList(
         let dfd = new Promise((resolve, reject) => {
             self.setLoading(true);
             self.Model.query(queryString, flush).then((items) => {
-                console.log("items", items);
+                // console.log("items", items);
                 self.setLoading(false);
                 self.items = items;
                 self.afterLoad();
                 resolve(items);
             }, (e) => {
                 console.log("err: ", e);
-                if(!e.data.success) {
-                    self.tmNotifier.error("Your session has expired. Please log in again.");
+                if(!e.success) {
+                    if(e.hasOwnProperty("message")) {
+                        self.tmNotifier.error(e.message);
+                    } else {
+                        self.tmNotifier.error("Failed to get data");
+                    }
                 }
             });
         });
