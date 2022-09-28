@@ -36,11 +36,7 @@ class tmContractsPendingCtrl {
       creation.
     */
     this.afterLoad = () => {
-
-
       let iIDs = [];
-
-
       this.items.map((contract) => {
         if (contract.hasOwnProperty("startTime24") && contract.hasOwnProperty("endTime24")) {
           contract = timeCorrection()(contract, "time", contract.startTime24);
@@ -49,8 +45,8 @@ class tmContractsPendingCtrl {
           // contract.endTime24 = "0";
         }
       });
-
     };
+    
     this.sortOptions = [
       { value: "eventDate", text: "Sort by Event Date A-Z" },
       { value: "-eventDate", text: "Sort by Event Date Z-A" },

@@ -41,7 +41,6 @@ class tmContractsCtrl {
       creation.
     */
     this.afterLoad = () => {
-      console.log(this.items);
 
       let iIDs = [];
 
