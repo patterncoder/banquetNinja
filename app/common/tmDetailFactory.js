@@ -116,11 +116,11 @@ function BaseDetail(
         self.detailTitle = 'Detail';
     };
 
-    this.loadData = function () {
+    this.loadData = function (queryStringParams) {
         var self = this;
         self.setLoading(true);
         self.getDetailTitle();
-        return this.docSvc.loadDocument(this.$stateParams.id).then(function (doc) {
+        return this.docSvc.loadDocument(this.$stateParams.id, queryStringParams).then(function (doc) {
             self.setLoading(false);
             return doc;
         });

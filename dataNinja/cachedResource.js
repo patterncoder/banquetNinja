@@ -46,14 +46,15 @@ export default class CachedResource {
         return deferred.promise;
     }
 
-    getOne(id, fullDocumentFromDb) {
+    getOne(id, fullDocumentFromDb, queryStringParams = {}) {
         var deferred = this.$q.defer();
+        let params = { _id: id, ...queryStringParams};
         var self = this;
         if (!self.List) {
             // this case is pretty rare...it requires putting in a details url with a record
             // id so we have to first populate the the full list then get the full record of the detail
 
-            self.Resource.get({ _id: id }, function (response) {
+            self.Resource.get(params, function (response) {
                 // console.log("getOne: response", response);
                 // if (self.List.length) {
 
@@ -95,7 +96,7 @@ export default class CachedResource {
         }
         else {
             if (fullDocumentFromDb) {
-                self.Resource.get({ _id: id }, function (response) {
+                self.Resource.get(params, function (response) {
                     if (response.noData) {
                         deferred.reject(response.noData);
                     }

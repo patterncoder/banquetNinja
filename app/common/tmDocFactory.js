@@ -43,9 +43,9 @@ function BaseDocService($http, $dataSource, tmMongoose, $q, model, schema) {
         return data;
     }
 
-    this.loadDocument = function (id) {
+    this.loadDocument = function (id, queryStringParams) {
         var self = this;
-        return this.docModel.getOne(id, true).then(function (data, status) {
+        return this.docModel.getOne(id, true, queryStringParams).then(function (data, status) {
             data = convertDateStrings(data);
 
             if (data.hasOwnProperty("startTime24") && data.hasOwnProperty("endTime24")) {
