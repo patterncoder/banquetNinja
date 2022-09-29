@@ -11,7 +11,7 @@ function EllipsisTitleDirective ($compile){
         }],
         link: function(scope, element, attrs){
             scope.$watch('title', function(v){
-                if(!v.text) return;
+                if(!(v && v.text)) return;
                 var totalLen = v.text.length + v.leader.length;
                 var newText = totalLen > scope.charSize ? v.text.substring(0, scope.charSize - v.leader.length) + '...' : v.text;
                 var html =`<div><span class="md-headline">`+ v.leader +`</span><span class="md-subhead">`+ newText +`</span></div>`;
