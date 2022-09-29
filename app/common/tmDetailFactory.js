@@ -113,15 +113,18 @@ function BaseDetail(
     };
 
     this.getDetailTitle = function () {
-        self.detailTitle = 'Detail';
+        self.detailTitle = {
+            leader: `${self.constructorArgs.model} Record Detail`,
+            text: ' '
+        };
     };
 
     this.loadData = function (queryStringParams) {
         var self = this;
         self.setLoading(true);
-        self.getDetailTitle();
         return this.docSvc.loadDocument(this.$stateParams.id, queryStringParams).then(function (doc) {
             self.setLoading(false);
+            self.getDetailTitle();
             return doc;
         });
     };
@@ -150,8 +153,8 @@ function BaseDetail(
     this.reset = function () {
         var self = this;
         self.docSvc.undoChanges();
-        self.detailForm.$setPristine();
-        self.detailForm.$setUntouched();
+        self.$scope.vm.detailForm.$setPristine();
+        self.$scope.vm.detailForm.$setUntouched();
     };
 
     this.allowTransitionAway = function () {
@@ -206,9 +209,9 @@ function BaseDetail(
         var self = this;
         self.setLoading(true);
         saveAndGo = self.closeButtonText === 'Save and Close' ? true : false;
-        this.docSvc.saveChanges().then(function () {
-            self.detailForm.$setPristine();
-            self.detailForm.$setUntouched();
+        this.docSvc.saveChanges().then(function (data) {
+            self.$scope.vm.detailForm.$setPristine();
+            self.$scope.vm.detailForm.$setUntouched();
             self.getDetailTitle();
             self.tmNotifier.detailNotify("The item has been saved.");
             self.setLoading(false);
