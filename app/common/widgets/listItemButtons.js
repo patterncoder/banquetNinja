@@ -5,11 +5,15 @@ function ListItemButtonsDirective ($compile){
             editFn: "&",
             printFn: "&",
             deleteFn: "&",
+            detailsFn: "&",
             idVal: "="
         },
         restrict: 'E',
         template: require('./listItemButtons.jade'),
         controller: ['$scope', function($scope){
+            $scope.details = function(){
+                $scope.detailsFn({idVal: $scope.idVal});
+            };
             $scope.edit = function(){
                 $scope.editFn({idVal: $scope.idVal});
             };
