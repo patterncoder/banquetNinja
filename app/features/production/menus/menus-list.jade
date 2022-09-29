@@ -2,7 +2,7 @@
 
 div(flex="100")
     list-header
-    alpha-select(on-select="vm.changeFilter({value: letter})")
+    //- alpha-select(on-select="vm.changeFilter({value: letter})")
     table.table.table-responsive
         colgroup
             col(span="1")
@@ -15,7 +15,7 @@ div(flex="100")
                 button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
         tbody
             //- tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder" ng-show="vm.getFilterChar(vm.stripNums(item)) == vm.activeFilter")
-            tr(ng-repeat="item in vm.activeMenus | filter:searchText | orderBy:sortOrder")
+            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:vm.sortOrder")
                 td {{::item.name}}
                 td {{::item.description}}
                 td(style="padding: 4px;")

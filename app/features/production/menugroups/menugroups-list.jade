@@ -1,6 +1,6 @@
 div(flex="100")
     list-header
-    alpha-select(on-select="vm.changeFilter({value: letter})")
+    //- alpha-select(on-select="vm.changeFilter({value: letter})")
     table.table.table-responsive
         colgroup
             col(span="1")
@@ -13,11 +13,10 @@ div(flex="100")
             th.text-right
                 button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
         tbody
-            tr(ng-repeat="item in vm.activeGroups | filter:searchText | orderBy:sortOrder")
+            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
                 td {{::item.name}}
                 td {{::item.description}}
-                td 
-                    //- md-checkbox(ng-model="item.active")
-                    md-checkbox(ng-model="item.active" ng-change="vm.setActive(item)")
+                td(style="padding: 4px;")
+                    md-checkbox(ng-model="item.active" ng-change="vm.setActive(item)" aria-label="{{::item.name}}" style="margin-bottom: 0px;")
                 td(style="padding: 4px;")
                     list-item-buttons(id-val="item._id" delete-fn="vm.deleteItem(idVal)" edit-fn="vm.details(idVal)")

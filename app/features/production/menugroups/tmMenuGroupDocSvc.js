@@ -6,26 +6,26 @@ import mongoose from "mongoose";
 function tmMenuDocSvc(tmDocFactory, $dataSource) {
 
     this.__proto__ = tmDocFactory('MenuGroup', ninjaSchemas.production.MenuGroup);
-
-    this.allMenus = [];
-    this.displayedMenus = [];
+    this.reloadPopulatedDocAfterSave = true;
+    // this.allMenus = [];
+    // this.displayedMenus = [];
 
     //set to last two years currently. set 2 to 1 in prod.
-    let getDateLastYear = () => {
-        let now = new Date();
-        now.setFullYear(now.getFullYear() - 1);
-        return now;
-    };
+    // let getDateLastYear = () => {
+    //     let now = new Date();
+    //     now.setFullYear(now.getFullYear() - 1);
+    //     return now;
+    // };
 
-    let calc = (dmlen, allen) => {
-        let tmp = dmlen + 25; //load 25 at a time...
-        if (tmp <= allen) {
-            return tmp;
-        } else {
-            return allen;
-        }
-        return 0;
-    };
+    // let calc = (dmlen, allen) => {
+    //     let tmp = dmlen + 25; //load 25 at a time...
+    //     if (tmp <= allen) {
+    //         return tmp;
+    //     } else {
+    //         return allen;
+    //     }
+    //     return 0;
+    // };
 
 
     /*
@@ -36,44 +36,50 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
     */
 
     //now angular will show more menus.
-    this.loadMore = () => {
-        let dmlen = this.displayedMenus.length;
-        let allen = this.allMenus.length;
+    // this.loadMore = () => {
+    //     let dmlen = this.displayedMenus.length;
+    //     let allen = this.allMenus.length;
 
-        if (dmlen < allen) {
-            let index = dmlen;
+    //     if (dmlen < allen) {
+    //         let index = dmlen;
 
-            let stop = calc(dmlen, allen);
+    //         let stop = calc(dmlen, allen);
 
-            for (let i = index; i < stop; ++i) {
-                this.displayedMenus.push(this.allMenus[i]);
-            }
-        }
-    };
+    //         for (let i = index; i < stop; ++i) {
+    //             this.displayedMenus.push(this.allMenus[i]);
+    //         }
+    //     }
+    // };
+
+    // this.loadDocument = function (id, queryStringParams) {
+    //     return this.__proto__.loadDocument(id, queryStringParams).then(function(data) {
+    //         console.log(data);
+    //     })
+    // }
 
     this.addMenu = (item) => {
         this.doc.menus.push(item);
     };
 
-    this.editGroup = (input) => {
-        console.log("editGroup: ", this.doc.menus[input]);
+    // this.editGroup = (input) => {
+    //     console.log("editGroup: ", this.doc.menus[input]);
+    // };
+
+    this.removeMenu = (id) => {
+        let idx = this.doc.menus.findIndex((obj) => obj._id === id);
+        this.doc.menus.splice(idx, 1);
     };
 
-    this.removeMenu = (input) => {
-        // console.log("remove group clicked: ", input);
-        this.doc.menus.splice(input, 1);
-    };
-
-    this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    this.years = (() => {
-        let y = [];
-        let dt = new Date();
-        for (let i = 0; i < 10; ++i) {
-            y.push(dt.getFullYear());
-            dt.setFullYear(dt.getFullYear() - 1);
-        }
-        return y;
-    })();
+    // this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    // this.years = (() => {
+    //     let y = [];
+    //     let dt = new Date();
+    //     for (let i = 0; i < 10; ++i) {
+    //         y.push(dt.getFullYear());
+    //         dt.setFullYear(dt.getFullYear() - 1);
+    //     }
+    //     return y;
+    // })();
 
     /*
         Example input argument input:
@@ -84,39 +90,39 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
             y: Number YYYY
         }
     */
-    this.fltrByDtRange = (input, menus) => {
+    // this.fltrByDtRange = (input, menus) => {
 
-        let filtered = [];
-        menus.map((menuObj) => {
-            let dt = new Date(menuObj.meta.dateCreated);
-            if (input.range == "before") {
-                if (input.y > dt.getFullYear()) {
-                    filtered.push(menuObj);
-                } else if (input.y == dt.getFullYear()) {
-                    if (input.m > dt.getMonth()) {
-                        filtered.push(menuObj);
-                    }
-                }
-            } else if (input.range == "after") {
-                // console.log(menuObj.meta.dateCreated);
-                if (input.y < dt.getFullYear()) {
-                    filtered.push(menuObj);
-                } else if (input.y == dt.getFullYear()) {
-                    if (input.m <= dt.getMonth()) {
-                        filtered.push(menuObj);
-                    }
-                }
-            }
-        });
+    //     let filtered = [];
+    //     menus.map((menuObj) => {
+    //         let dt = new Date(menuObj.meta.dateCreated);
+    //         if (input.range == "before") {
+    //             if (input.y > dt.getFullYear()) {
+    //                 filtered.push(menuObj);
+    //             } else if (input.y == dt.getFullYear()) {
+    //                 if (input.m > dt.getMonth()) {
+    //                     filtered.push(menuObj);
+    //                 }
+    //             }
+    //         } else if (input.range == "after") {
+    //             // console.log(menuObj.meta.dateCreated);
+    //             if (input.y < dt.getFullYear()) {
+    //                 filtered.push(menuObj);
+    //             } else if (input.y == dt.getFullYear()) {
+    //                 if (input.m <= dt.getMonth()) {
+    //                     filtered.push(menuObj);
+    //                 }
+    //             }
+    //         }
+    //     });
 
-        return filtered;
-    };
+    //     return filtered;
+    // };
 
-    this.fltr = (input) => {
-        input.m = this.months.indexOf(input.m);
-        // console.log(input);
-        this.displayedMenus = this.fltrByDtRange(input, this.allMenus);
-    };
+    // this.fltr = (input) => {
+    //     input.m = this.months.indexOf(input.m);
+    //     // console.log(input);
+    //     this.displayedMenus = this.fltrByDtRange(input, this.allMenus);
+    // };
 
     // //ensures that we are not showing menus from over two years ago.
     // let filter = (dta) => {
@@ -138,51 +144,51 @@ function tmMenuDocSvc(tmDocFactory, $dataSource) {
     //     });
     // };
 
-    let fillDisplayMenus = (menus) => {
-        for (let i = 0; i < 25; ++i) {
-            this.displayedMenus.push(menus[i]);
-        }
-    };
+    // let fillDisplayMenus = (menus) => {
+    //     for (let i = 0; i < 25; ++i) {
+    //         this.displayedMenus.push(menus[i]);
+    //     }
+    // };
 
-    this.getMenus = () => {
-        let dfd = new Promise((resolve, reject) => {
+    // this.getMenus = () => {
+    //     let dfd = new Promise((resolve, reject) => {
 
-            let Menus = this.$dataSource.load("Menu");
+    //         let Menus = this.$dataSource.load("Menu");
 
-            if (this.allMenus.length) {
-                this.allMenus = [];
-            }
+    //         if (this.allMenus.length) {
+    //             this.allMenus = [];
+    //         }
 
-            try {
-                Menus.query().then((data) => {
+    //         try {
+    //             Menus.query().then((data) => {
 
-                    // data.map((dta) => {
-                    //     let dt = new Date(dta.meta.dateLastMod ? dta.meta.dateLastMod : dta.meta.dateCreated);
-                    //     if (dt.getTime() >= (getDateLastYear().getTime())) {
-                    //         this.allMenus.push(dta);
-                    //         // if (this.displayedMenus.length < 25) {
-                    //         //     this.displayedMenus.push(dta); //store the top 25
-                    //         // }
-                    //     }
-                    // });
+    //                 // data.map((dta) => {
+    //                 //     let dt = new Date(dta.meta.dateLastMod ? dta.meta.dateLastMod : dta.meta.dateCreated);
+    //                 //     if (dt.getTime() >= (getDateLastYear().getTime())) {
+    //                 //         this.allMenus.push(dta);
+    //                 //         // if (this.displayedMenus.length < 25) {
+    //                 //         //     this.displayedMenus.push(dta); //store the top 25
+    //                 //         // }
+    //                 //     }
+    //                 // });
 
-                    this.allMenus = data;
+    //                 this.allMenus = data;
 
-                    this.allMenus.reverse() //objects come in sorted by oldest to newest, we want to reverse that...
-                    fillDisplayMenus(this.allMenus);
+    //                 this.allMenus.reverse() //objects come in sorted by oldest to newest, we want to reverse that...
+    //                 fillDisplayMenus(this.allMenus);
 
-                    resolve(data);
-                });
+    //                 resolve(data);
+    //             });
 
-            } catch (e) {
-                // reject(e);
-                console.log(e);
-            }
+    //         } catch (e) {
+    //             // reject(e);
+    //             console.log(e);
+    //         }
 
-        });
+    //     });
 
-        return dfd;
-    };
+    //     return dfd;
+    // };
 
     return this;
 

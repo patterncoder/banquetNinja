@@ -6,38 +6,48 @@
                 div.detailTopPanel(layout-padding)
                     include ./tabs/top-panel.jade
                 div.detailSection(layout-padding)
-                    md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
-                        md-tab( label="Descriptions")
-                            include ./tabs/tab-descriptions.jade
-                        md-tab( label="Menus")
-                            include ./tabs/add-menus.jade
+                    h4 Assigned Menus
+                    table.table.table-responsive
+                        thead
+                            th Name
+                            th Description
+                            th.text-right
+                                button.btn.btn-primary.btn-xs(ng-click="vm.toggleMenuSelector()") {{vm.menuSelectorLabel || 'Add Menu'}}
+                        tbody
+                            tr(ng-repeat="item in vm.docSvc.doc.menus track by $index")
+                                td {{item.name ? item.name : item.title}}
+                                td {{item.description}}
+                                td(style="padding: 4px;")
+                                    list-item-buttons(id-val="item._id" delete-fn="vm.deleteMenu(idVal)" details-fn="vm.detailsLink(idVal)")
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
-        div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
+        div.detailRightPanel(flex="20" ng-show="vm._menuSelectorOpen" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()
                     h3 Add Menu
-                    label() Filter By Date 
-                    select.form-control(ng-model="vm.rangeType")
-                        option(value="before") Before 
-                        option(value="after") After
-                    select.form-control(ng-model="vm.selectedMonth", ng-options="month for month in vm.docSvc.months")
-                        option(value="") Select Month
-                    select.form-control(ng-model="vm.selectedYear", ng-options="hour for hour in vm.docSvc.years")
-                        option(value="") Select Year
-                    md-button.md-raised(ng-click="vm.docSvc.fltr({range: vm.rangeType, m: vm.selectedMonth, y: vm.selectedYear})") Filter 
-                    br
-                    br
-                    label Results
-                    br
-                    div Add menus to this group
-                    div(ng-repeat="item in vm.docSvc.displayedMenus")
-                        a(href="" ng-click="vm.docSvc.addMenu(item)") 
+                    .form-group
+                        input.form-control(ng-model="searchText", placeholder="Filter Visible")
+                    //- label() Filter By Date 
+                    //- select.form-control(ng-model="vm.rangeType")
+                    //-     option(value="before") Before 
+                    //-     option(value="after") After
+                    //- select.form-control(ng-model="vm.selectedMonth", ng-options="month for month in vm.docSvc.months")
+                    //-     option(value="") Select Month
+                    //- select.form-control(ng-model="vm.selectedYear", ng-options="hour for hour in vm.docSvc.years")
+                    //-     option(value="") Select Year
+                    //- md-button.md-raised(ng-click="vm.docSvc.fltr({range: vm.rangeType, m: vm.selectedMonth, y: vm.selectedYear})") Filter 
+                    //- br
+                    //- br
+                    //- label Results
+                    //- br
+                    //- div Add menus to this group
+                    div(ng-repeat="item in vm.menusForSelector | filter:searchText | orderBy:'-name'")
+                        a(href="" ng-click="vm.addMenu(item)") 
                             span.glyphicon.glyphicon-circle-arrow-left 
                         span &nbsp; {{item.name}}
-                    div
-                        a(ng-hide="vm.selectedYear" href="" ng-click="vm.docSvc.loadMore()") Load More
+                    //- div
+                    //-     a(ng-hide="vm.selectedYear" href="" ng-click="vm.docSvc.loadMore()") Load More
                             //- span.glyphicon.glyphicon-circle-arrow-left 
-                        //- span &nbsp; Load More
+                        
                     //- lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
                     //-     a(href="" ng-click="dCtrl.addItem(item)") 
                     //-         span.glyphicon.glyphicon-circle-arrow-left 

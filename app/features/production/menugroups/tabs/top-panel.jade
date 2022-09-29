@@ -1,14 +1,23 @@
 form(name="vm.detailForm")
     div(flex layout="row")
-        div(flex="80" align-content="flex-start" layout="column")
+        div(flex="100" align-content="flex-start" layout="column")
             div(layout="row")
-                .form-group(flex="33")
-                    label.control-label(for="name") Name
+                .form-group(flex="25")
+                    label.control-label(for="name") Group Name
                     input.form-control(ng-model="vm.docSvc.doc.name" )
-                .form-group(flex="66")
+                .form-group(flex="60")
                     label.control-label(for="description") Description
                     input.form-control(ng-model="vm.docSvc.doc.description")
+                .form-group(flex="15")
+                    label.control-label(for="description") Set as active group
+                    div
+                        md-checkbox(ng-model="vm.docSvc.doc.active" ng-change="vm.setActive()" aria-label="IsGroupActive")
             div(layout="row")
-                .form-group(flex="33")
-                    //- label.control-label(for="active") Active Group
-                    md-checkbox(ng-model="vm.docSvc.doc.active" ng-change="vm.setActive()") Set as active group
+                .form-group(flex="25")
+                    label.control-label(for="subtitle") Title
+                    input.form-control(ng-model="vm.docSvc.doc.title")
+                .form-group(flex="75")
+                    label.control-label(for="description") Sub Title
+                    input.form-control(ng-model="vm.docSvc.doc.subtitle")
+            div(layout="row")
+                
