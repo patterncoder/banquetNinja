@@ -13,14 +13,13 @@
                             include ./tabs/section-food.jade
                         //- md-tab(ng-click="console.log('click!')")
                         //-     span.glyphicon.glyphicon-plus
-                        md-tab(label="Add")
-                            include ./tabs/tab-sections.jade
+                        md-tab(label="Sections Details")
+                            include ./tabs/tab-sections2.jade
                         //- md-tab(label="Groups")
                         //-     include ./tabs/tab-groups.jade
                         //- md-tab(label="Notes")
                         //-     include ./tabs/tab-notes.jade
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
-                    div Some footer text here
         //- div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
         //- div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 0 && vm.tabIndex === 1" layout-padding)
         //- div.detailRightPanel(flex="20" ng-show="vm.sideTab.categories" layout-padding)
@@ -32,21 +31,39 @@
         //-                 a(href="" ng-click="dCtrl.addItem(item)") 
         //-                     span.glyphicon.glyphicon-circle-arrow-left 
         //-                 span &nbsp; {{item}}
-        div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 1 && vm.tabIndex === vm.docSvc.doc.sections.length" layout-padding)
+        //- div.detailRightPanel(flex="20" ng-show="vm.docSvc.activeObj.visible === 1 && vm.tabIndex === vm.docSvc.doc.sections.length" layout-padding)
+        //-     md-content(layout-padding style="background: transparent")
+        //-         div()
+        //-             h3 Edit Section
+        //-             br
+        //-             h5 
+        //-                 b Title
+        //-             input.form-control(ng-model="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title")
+        //-             h5 
+        //-                 b Print Order 
+        //-             //- input.form-control(ng-change="vm.docSvc.runSort()" ng-model="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].printOrder")
+        //-             select.form-control(ng-model="vm.selectedIndex")
+        //-                 option(ng-repeat="section in vm.docSvc.doc.selArr" value="section.printOrder") {{vm.docSvc.doc.selArr.indexOf(section) + 1}}
+        //-             md-button.md-raised(ng-click="vm.docSvc.runSort(vm.docSvc.activeObj.index)") Save
+        //-             //- md-button.md-raised(ng-click="vm.sideTab")
+        div.detailRightPanel(flex="20" ng-show="vm.toggleAddMenuItems" layout-padding)
             md-content(layout-padding style="background: transparent")
-                div()
-                    h3 Edit Section
-                    br
-                    h5 
-                        b Title
-                    input.form-control(ng-model="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title")
-                    h5 
-                        b Print Order 
-                    //- input.form-control(ng-change="vm.docSvc.runSort()" ng-model="vm.docSvc.doc.sections[vm.docSvc.activeObj.index].printOrder")
-                    select.form-control(ng-model="vm.selectedIndex")
-                        option(ng-repeat="section in vm.docSvc.doc.selArr" value="section.printOrder") {{vm.docSvc.doc.selArr.indexOf(section) + 1}}
-                    md-button.md-raised(ng-click="vm.docSvc.runSort(vm.docSvc.activeObj.index)") Save
-                    //- md-button.md-raised(ng-click="vm.sideTab")
+                div(layout="row" layout-align="end start")
+                    md-button( ng-click="vm.toggleAddMenuItems = !vm.toggleAddMenuItems") Close
+                div(layout="row" )
+                    div(layout="column")
+                        h3 Add Items
+                        h5 Title like:
+                        input.form-control(ng-model="titleLike")
+                        h5 Description like:
+                        input.form-control(ng-model="descriptionLike")
+                        h5 Category is:
+                        input.form-control(ng-model="categoryIs")
+                        md-button( ng-click="vm.searchForMenuItems(titleLike, descriptionLike, categoryIs)") Search
+                        div.itemCard(ng-repeat="item in vm.selectableMenuItems" style="border: solid black 1px; background-color: white")
+                            a(href="" ng-click="vm.docSvc.addMenuItem(vm.tabIndex, item)") 
+                                span.glyphicon.glyphicon-circle-arrow-left 
+                            span() &nbsp; {{item.name}}
         div.detailRightPanel(flex="20" ng-show="vm.sideTab.menuItems && vm.tabIndex != vm.docSvc.doc.sections.length" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()
@@ -67,5 +84,6 @@
                     br
                     md-button.md-raised(ng-click="vm.docSvc.byNameEntry ? vm.docSvc.runSearch('name', vm.docSvc.byNameEntry) : vm.docSvc.runSearch('category', vm.docSvc.selCategory)") Search
                     md-button.md-raised(ng-click="vm.sideTab.menuItems = !vm.sideTab.menuItems") Close
+                    md-button(ng-click="vm.changeSectionOrder()") Change Order
                     br
     detail-footer

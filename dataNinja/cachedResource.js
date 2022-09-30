@@ -25,7 +25,7 @@ export default class CachedResource {
         }
     }
 
-    query(queryString, flush) {
+    query(queryString, flush, noCache) {
         var deferred = this.$q.defer();
         queryString = queryString || {};
         var self = this;
@@ -36,8 +36,8 @@ export default class CachedResource {
             self.Resource.query(queryString, function (data) {
                 var json = JSON.stringify(data.data);
                 var jsonParsed = JSON.parse(json, jsonReviver);
-                self.List = jsonParsed;
-                deferred.resolve(self.List);
+                self.List = !noCache && jsonParsed;
+                deferred.resolve(jsonParsed);
             });
         }
         else {

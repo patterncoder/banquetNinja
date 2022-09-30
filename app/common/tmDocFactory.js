@@ -46,8 +46,7 @@ function BaseDocService($http, $dataSource, tmMongoose, $q, model, schema) {
     this.loadDocument = function (id, queryStringParams) {
         var self = this;
         self.queryStringParams = self.queryStringParams || queryStringParams;
-        self.docId = self.docId || id;
-        return this.docModel.getOne(self.docId, true, self.queryStringParams).then(function (data, status) {
+        return this.docModel.getOne(id, true, self.queryStringParams).then(function (data, status) {
             data = convertDateStrings(data);
 
             if (data.hasOwnProperty("startTime24") && data.hasOwnProperty("endTime24")) {
@@ -88,7 +87,7 @@ function BaseDocService($http, $dataSource, tmMongoose, $q, model, schema) {
             }
             self.docModel.update(self.doc).then(function (data) {
                 if(self.reloadPopulatedDocAfterSave) {
-                    self.loadDocument();
+                    self.loadDocument(self.doc._id);
                     return deferred.resolve();
                 }
                 data = convertDateStrings(data);

@@ -20,9 +20,8 @@ function tmMenuDetailCtrl(
         addHeaderText: "Add Menu"
     }
 
-    console.log("tmMenuDetailCtrl called!");
-
     this.__proto__ = tmDetailFactory(constructorArgs);
+    this.$dataSource = $dataSource;
 
     this.$scope.$watch(function () {
         return self.docSvc.isDirty();
@@ -35,34 +34,33 @@ function tmMenuDetailCtrl(
         }
     });
 
-    this.loadData().then(() => {
+    this.toggleAddMenuItems = false;
 
-        console.log("this.docSvc:", this.docSvc);
+    this.loadData().then(() => {});
 
-        this.docSvc.doc.selArr = this.docSvc.doc.sections;
-        this.docSvc.doc.selArr.map((obj, index) => {
-            if (obj["printOrder"] === undefined) {
 
-                obj.printOrder = index;
-            }
+    this.addMenuSection = () => {
+        this.docSvc.doc.sections.push({
+            title: 'New Section',
+            subtitle: '',
+            footer: null,
+            items: []
         });
+        this.tabIndex++;
+    }
 
-        try {
-            //this.docSvc.getGroups();
-            // this.docSvc.selGroup(); //we want to see if this menu is assigned to a group.
-
-            this.docSvc.findAssignedGroups(); //get all groups this menu is assigned to.
-            this.docSvc.getCategories(); //get categories for the add food.
-
-            // this.docSvc.getGroups().done(() => {
-            //     console.log("groups done loading");
-            // });
-        } catch (e) {
-            console.log("err:", e);
-        }
-    });
-
-
+    this.searchForMenuItems = (titleLike, descriptionLike, categoryIs) => {
+        let menuItemsResource = self.$dataSource.load("MenuItem");
+        menuItemsResource.query({
+            select: 'name title description',
+            "like[title]": titleLike,
+            "like[description]": descriptionLike,
+            "in[categories]": categoryIs
+        }, true, true).then((data) => {
+            console.log(data);
+            self.selectableMenuItems = data;
+        });
+    }
 
     return this;
 

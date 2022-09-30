@@ -89,12 +89,12 @@ function tmMenuGroupDetailCtrl (
         });
     }
 
-    this.detailsLink = (item) => {
+    this.detailsLink = (idVal) => {
 
         // capture jumping to another state from detail...this is needed to prevent circular
         // close button issue...without it will keep bouncing between two details states
         self.$state.data = 'root.menuDetail';
-        self.$state.go('root.menuDetail', { id: item._id, returnToList: 'true' });
+        self.$state.go('root.menuDetail', { id: idVal, returnToList: 'true' });
     }
 
     this.deleteMenu = (item) => {
