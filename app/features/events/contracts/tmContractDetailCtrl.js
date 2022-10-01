@@ -11,7 +11,8 @@ function tmContractDetailCtrl(
     uibDateParser,
     $state,
     tmIdentity,
-    $http
+    $http,
+    $dataSource
 ) {
     var self = this;
     var constructorArgs = {
@@ -25,10 +26,11 @@ function tmContractDetailCtrl(
     };
 
     this.__proto__ = tmDetailFactory(constructorArgs);
+    this.$dataSource = $dataSource;
 
     this.sectionsHidden = true;
     this.statusHidden = true;
-    this.menuGroups = [];
+    this.menuGroups = [{_id: '123', name: 'Name123'}, {_id: '125', name: 'Name125'}];
     this.menuObjs = [];
     this.filterSection = undefined;
     this.addableRentalItems = [];
@@ -255,34 +257,70 @@ function tmContractDetailCtrl(
       this.contractTotals = this.docSvc.getContractTotals();
     };
 
-    this.loadData().then((data) => {
-        cleanup(this); //making sure everything is clean.
-        this.getDetailTitle();
-        this.updateContractTotals();
+    this.closeMenuItemSelector = () => {
+        self.sideTab.menuItems = false;
+    }
 
-        //working with some historical data for service type.
-        if (!this.docSvc.doc["serviceType"] && this.docSvc.doc.natureOfEvent) {
-            let natureOfEvent = this.docSvc.doc.natureOfEvent.toLowerCase();
-            if (this.serviceTypeOptions.indexOf(natureOfEvent) !== undefined) {
-                this.docSvc.doc.serviceType = this.docSvc.doc.natureOfEvent.toLowerCase();
-            }
-        }
+    this.getActiveMenuGroups = () => {
+        let menuGroups = this.$dataSource.load("MenuGroup");
+        menuGroups.query({
+            select: "name title subtitle",
+            "populate[menus]": 'all',
+            "where[active]": 'true'
+        }).then((data) => {
+            console.log(data);
+            self.activeMenuGroups = data;
+        })
+    };
 
-        let req = {
-            method: "GET",
-            url: `${config.apiBase}/production/menugroups/active`,
-        };
+    this.resetGroupSelectors = () => {
+        self.selectedMenu = null;
+        self.selectedSection = null;
+    };
 
-        this.$http(req).then((response) => {
-            this.menuGroups = response.data.data;
-            this.searchGroup = this.menuGroups[0];
 
-            this.getMenus(this.searchGroup).then((obj) => {
-                this.menuObjs = obj; //updates for angular all at once.
-                toggle(false); //display the results.
-                $scope.$apply(); //DOM WILL NOT PROPERLY REFRESH WITHOUT THIS!!!
-            });
+    this.searchForMenuItems = (titleLike, descriptionLike, categoryIs) => {
+        let menuItemsResource = self.$dataSource.load("MenuItem");
+        menuItemsResource.query({
+            select: 'name title description',
+            "like[title]": titleLike,
+            "like[description]": descriptionLike,
+            "in[categories]": categoryIs
+        }, true, true).then((data) => {
+            console.log(data);
+            self.selectableMenuItems = data;
         });
+    }
+
+    this.loadData().then((data) => {
+        this.getActiveMenuGroups();
+        // cleanup(this); //making sure everything is clean.
+        // this.getDetailTitle();
+        // this.updateContractTotals();
+
+        // //working with some historical data for service type.
+        // if (!this.docSvc.doc["serviceType"] && this.docSvc.doc.natureOfEvent) {
+        //     let natureOfEvent = this.docSvc.doc.natureOfEvent.toLowerCase();
+        //     if (this.serviceTypeOptions.indexOf(natureOfEvent) !== undefined) {
+        //         this.docSvc.doc.serviceType = this.docSvc.doc.natureOfEvent.toLowerCase();
+        //     }
+        // }
+
+        // let req = {
+        //     method: "GET",
+        //     url: `${config.apiBase}/production/menugroups/active`,
+        // };
+
+        // this.$http(req).then((response) => {
+        //     this.menuGroups = response.data.data;
+        //     this.searchGroup = this.menuGroups[0];
+
+        //     this.getMenus(this.searchGroup).then((obj) => {
+        //         this.menuObjs = obj; //updates for angular all at once.
+        //         toggle(false); //display the results.
+        //         $scope.$apply(); //DOM WILL NOT PROPERLY REFRESH WITHOUT THIS!!!
+        //     });
+        // });
     });
 
     let getByID = (type, id) => {
@@ -634,7 +672,8 @@ tmContractDetailCtrl.$inject = [
     'uibDateParser',
     '$state',
     'tmIdentity',
-    '$http'
+    '$http',
+    '$dataSource'
 ];
 
 export default tmContractDetailCtrl;

@@ -1,0 +1,46 @@
+div(layout="row" layout-align="end start")
+    md-button( ng-click="vm.sideTab.menuItems = !vm.sideTab.menuItems") Close
+div(layout="row" )
+    div(layout="column")
+        h3 Add Food to Contracts
+        a(ui-sref="root.menuitems") Create menu item
+        //- md-button.md-raised(ng-click="vm.addSectionDivider()") Add Section
+        //- md-button.md-raised(ng-click="vm.addEmpty()") Add Empty
+        //- input(ng-model="vm.searchName")
+        //- label.control-label(for="status") Status
+        //- br
+        //- div(style="display: flex")
+        //-     .btn-round.btn-sm(ng-click=""  style="padding-left: 4px; padding-top: 4px; color: white; background-color: #337ab7")
+        //-         span.glyphicon.glyphicon-print(style="margin-left: 4px; margin-top: 3px")
+        //-     .btn-round.btn-sm(ng-click="" style="color: white; background-color: #337ab7")
+        //-         span.glyphicon.glyphicon-pencil(style="margin-left: -1px; margin-top: 2px")
+        br
+        label By Name 
+        input.form-control(ng-model="vm.byNameEntry", ng-disabled="vm.filterMenu")
+        br
+        //- label By Group
+        //- select.form-control(ng-model="vm.searchCategory", ng-options="category for category in vm.menuItemCategories")
+        //- select.form-control(ng-model="vm.searchGroup", ng-options="group.name for group in vm.menuGroups", ng-disabled="vm.byNameEntry", ng-change="vm.searchGroup ? vm.getMenus() : undefined")
+        //-     option(value="") Please Select
+        label(ng-show="vm.searchGroup") By Menu
+        //- select.form-control(ng-show="vm.searchGroup", ng-model="vm.filterMenu", ng-options="(menu.title ? menu.title : menu.name) for menu in vm.menuObjs")
+        select.form-control(ng-model="vm.filterMenu", ng-options="(menu.title ? menu.title : menu.name) for menu in vm.menuObjs")
+            option(value="") Please Select
+        //- select.form-control(ng-hide="vm.sectionsHidden", ng-model="vm.filterMenu")
+        //-     option(ng-repeat="menu in vm.menuObjs", value="menu") {{console.log(menu)}}
+
+        label(ng-show="vm.filterMenu") Section
+        select.form-control(ng-show="vm.filterMenu", ng-model="vm.filterSection", ng-options="section.title for section in vm.filterMenu.sections", ng-change="vm.showIt(vm.filterSection)")
+        label(ng-hide="vm.statusHidden") Working...
+        //- md-button.md-raised(ng-click="vm.searchMenuItem()") Search
+        //- md-button.md-raised(ng-show="vm.sectionsHidden", ng-click="vm.searchMenus()") Search
+        //- md-button.md-raised(ng-show="vm.sectionsHidden", ng-click="vm.getMenus()") Search
+        //- md-button.md-raised(ng-show="vm.filterSection", ng-click="vm.showMenuItems()") Show Items
+        md-button.md-raised(ng-hide="vm.filterMenu", ng-click="vm.byNameEntry ? vm.runSearch('name', vm.byNameEntry) : vm.getMenus()") Search
+        //- lookups(tm-data-source="MenuItem" doc-list="vm.tmContractDocSvc.doc.menuItems" list="root" doc-service-add-method="tmContractDocSvc.addMenuItem")
+        div.itemCard(ng-repeat="item in vm.addableMenuItems" style="border: solid black 1px; background-color: white")
+          a(href="" ng-click="vm.addItem(item)") 
+              span.glyphicon.glyphicon-circle-arrow-left 
+          span(title="{{item.description}}") &nbsp; {{item.name}}
+        br
+

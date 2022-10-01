@@ -43,19 +43,19 @@ function tmMenuGroupDetailCtrl (
         this.menuSelectorLabel = this._menuSelectorOpen ? 'Close Menu Selector' : 'Add Menu';
     }
 
-    /**
-     * @description sets the menugroup to active
-     */
-    this.setActive = () => {
-        let req = {
-            method: "PUT",
-            url: `${config.apiBase}/production/menugroups/active/${this.$stateParams.id}`
-        };
-        this.$http(req).then((response) => {
-            if(response.status == 200) {
-            }
-        });
-    };
+    // /**
+    //  * @description sets the menugroup to active
+    //  */
+    // this.setActive = () => {
+    //     let req = {
+    //         method: "PUT",
+    //         url: `${config.apiBase}/production/menugroups/active/${this.$stateParams.id}`
+    //     };
+    //     this.$http(req).then((response) => {
+    //         if(response.status == 200) {
+    //         }
+    //     });
+    // };
 
     /**
      * @description standard header title called after loading the document

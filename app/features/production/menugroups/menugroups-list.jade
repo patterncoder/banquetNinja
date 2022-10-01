@@ -17,6 +17,6 @@ div(flex="100")
                 td {{::item.name}}
                 td {{::item.description}}
                 td(style="padding: 4px;")
-                    md-checkbox(ng-model="item.active" ng-change="vm.setActive(item)" aria-label="{{::item.name}}" style="margin-bottom: 0px;")
+                    md-checkbox(ng-model="item.active" ng-disabled="true" aria-label="{{::item.name}}" style="margin-bottom: 0px;")
                 td(style="padding: 4px;")
                     list-item-buttons(id-val="item._id" delete-fn="vm.deleteItem(idVal)" edit-fn="vm.details(idVal)")

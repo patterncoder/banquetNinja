@@ -38,17 +38,3 @@ div(flex layout="row")
             .form-group(flex="25")
                 label.control-label(for="status") Contract Status
                 select.form-control(ng-model="vm.docSvc.doc.status", ng-options="status.value as status.label for status in vm.contractStatusOptions")
-        // div(layout="row")
-            //- .form-group(flex="30")
-            //-     label.control-label(for="serviceType") Service Type
-            //-     select.form-control(ng-model="vm.docSvc.doc.serviceType", ng-options="serviceType for serviceType in vm.serviceTypeOptions")
-                
-    //- div(flex="20" layout="column")
-    //-     div
-    //-         span(style="font-weight: bold") Room(s)&nbsp; 
-    //-             a(href="" ng-click="vm.openSideTab('rooms')") +Add
-    //-     div()
-    //-         div.itemCard.itemCard-dark(layout="row" layout-align="start center" ng-repeat="item in vm.docSvc.doc.venue track by $index")
-    //-             div(flex="grow") {{item.name}}
-    //-             div(flex="grow")
-    //-             div.glyphicon.glyphicon-remove-circle( ng-click="vm.removeVenue($index)" style="margin-left: 5px;" )

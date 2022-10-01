@@ -243,7 +243,7 @@ function BaseDetail(
 
     this.setSaveButton = function (text) {
         this.tmWindowStorage.setLocalKey('closeDropDown', text);
-        this.closeButtonText = text;
+        self.closeButtonText = text;
         this.saveChanges();
     };
 
