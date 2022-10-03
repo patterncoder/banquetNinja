@@ -43,10 +43,6 @@ function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
             return $ctrl.addToggle;
         }
     }
-    // $ctrl.optionsList = (item) => {
-    //     console.log("optionsList: ", item);
-    //     $ctrl.options = $ctrl.docSvc[$attrs.optionsList](item);
-    // };
 
     $ctrl.toggleAdd = function(){
         if (typeof $ctrl.addToggle === 'function') {
@@ -67,35 +63,6 @@ function ninjaGridCtrl($scope, $element, $attrs, $timeout) {
         $ctrl.list.splice(insertIndex, 0, moving[0]);
         $scope.$apply();
     };
-
-
-
-
-    // function convertDateStrings(data){
-    //     var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
-    //     _.forIn(data, function(value, key) {
-    //             //console.log(key);
-    //             if (typeof value === 'string') {
-    //                 var a = reISO.exec(value);
-    //                 if (a) {
-    //                     data[key] = new Date(value);
-    //                 }
-    //             }
-    //         });
-    //     return data;
-    // }
-
-    // _.forEach($ctrl.list ,(item)=>{
-    //     _.forEach(item, (fieldVal, key) => {
-    //         console.log('here');
-    //         var reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
-    //         if(typeof fieldVal === "string" && resISO.test(fieldVal)) {
-    //             console.log('here');
-    //             item[key] = convertDateStrings(fieldVal);
-    //         }
-    //     });
-    // });
-    
 }
 
 ninjaGridCtrl.$inject = ['$scope', '$element', '$attrs', '$timeout'];
@@ -103,6 +70,7 @@ ninjaGridCtrl.$inject = ['$scope', '$element', '$attrs', '$timeout'];
 var ninjaGridComponent =  {
     template: require("!raw!jade-html!./ninjaGrid.jade"),
     controller: ninjaGridCtrl,
+    transclude: true,
     bindings: {
         docSvc: '<',
         list: '<',

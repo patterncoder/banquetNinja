@@ -12,9 +12,11 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
                 ng-focus="$ctrl.editItem($ctrl.item, key)" 
                 ng-click="$ctrl.editItem($ctrl.item, key)"
                 ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}") 
-            div(ng-if="val.input!=='checkbox'" id="textFor_{{key}}" ng-bind-html="$ctrl.formatter($ctrl.item[key], val.type)")
+            div(ng-if="val.input!=='checkbox' && val.input!=='array'" id="textFor_{{key}}" ng-bind-html="$ctrl.formatter($ctrl.item[key], val.type)")
+            div(ng-if="val.input == 'array'" ng-bind="$ctrl.item[key][0][val.viewDisplay]")
             md-checkbox(ng-if="val.input==='checkbox'" ng-model="$ctrl.item[key]" ng-disabled="true" 
                 aria-label="Print On Menu")
+        ng-transclude
         div.gridItemCell(flex="5" layout="column" layout-align="center center")
             a(href= "" ng-click="$ctrl.deleteItem()"  ng-blur="vm.detailBlur(item, $index, $event)" )
                  span.glyphicon.glyphicon-remove 
@@ -22,6 +24,7 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
         div(flex="5" layout="row" layout-align="center center" )
             span.glyphicon.glyphicon-sort
         div.gridItemEditCell(ng-repeat="(key, val) in $ctrl.fields" flex="{{val.width}}" layout="row" )
+            ninja-grid-prices-cell(ng-if="val.input==='array'" item-prices="$ctrl.item[key]" is-editing="$ctrl.item.isEditing")
             input(ng-if="val.input==='checkbox'" type="checkbox" ng-model="$ctrl.item[key]"
                 aria-label="Print On Menu"
                 focus="$ctrl.item.clickedField[key]" 
@@ -49,7 +52,7 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
                 focus="$ctrl.item.clickedField[key]" placeholder="dd/mm/yy"
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
                 ng-blur="$ctrl.detailBlur($ctrl.item, $event)")
-            // time-field(ng-if="val.input==='timefield'" ng-model="$ctrl.item[key]" field="$ctrl.item[key]" type="val.type")
+        ng-transclude
         div(flex="5" layout="column" layout-align="center center")
             a(href= "" ng-click="$ctrl.doneEditing($ctrl.item)" ng-blur="$ctrl.detailBlur($ctrl.item, $event)" )
                 span.glyphicon.glyphicon-ok

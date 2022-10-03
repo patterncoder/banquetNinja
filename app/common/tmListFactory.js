@@ -50,11 +50,11 @@ function BaseList(
         this.isLoading = loading;
     };
 
-    this.loadData = function (queryString, flush) {
+    this.loadData = function (queryString, flush, noCache) {
         var self = this;
         let dfd = new Promise((resolve, reject) => {
             self.setLoading(true);
-            self.Model.query(queryString, flush).then(function (items) {
+            self.Model.query(queryString, flush, noCache).then(function (items) {
                 self.setLoading(false);
                 self.items = items;
                 self.afterLoad();

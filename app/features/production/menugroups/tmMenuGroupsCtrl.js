@@ -22,7 +22,7 @@ class tmMenuGroupsCtrl {
 
         this.loadData({
             select: "name description active"
-        }, true);
+        }, true, true);
 
         // this.afterLoad = () => {
         //     if (this.items.length < 25) {

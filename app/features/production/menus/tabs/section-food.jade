@@ -11,9 +11,5 @@ ninja-grid(no-data-text="No menu items yet..."
         add-toggle="vm.toggleAddMenuItems"
         fields="{name: {input: 'text', header: 'Menu Item', order: 10, width: 20, type: 'string'}," + 
                 " description: {input: 'textarea', header: 'Description', order: 20, width: 50, type: 'string'}," + 
-                " price: {input: 'text', header: 'Price', order: 40, width: 10, type: 'string'}}")
-                
-        //- fields="{name: {input: 'text', header: 'Menu Item', order: 10, width: 20, type: 'string'}," + 
-        //-         " description: {input: 'textarea', header: 'Description', order: 20, width: 50, type: 'string'}," + 
-        //-         " quantity: {input: 'text', header: 'Quantity', order: 30, width: 10, type: 'string'}," +
-        //-         " price: {input: 'text', header: 'Price', order: 40, width: 10, type: 'string'}}")
+                "prices: {input: 'array', header: 'Price', order: 40, width: 10, type: 'array', viewDisplay: 'price'}}")
+        

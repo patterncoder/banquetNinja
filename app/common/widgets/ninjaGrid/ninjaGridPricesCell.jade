@@ -1,0 +1,10 @@
+
+
+div(layout="row")
+	input.form-control(ng-model="$ctrl.itemPrices[0].price")
+	button(uib-popover-template="$ctrl.dynamicPopover.templateUrl" popover-title="{{$ctrl.dynamicPopover.title}}" type="button" class="btn btn-default") $
+
+	script(type="text/ng-template" id= "priceTemplate.html")
+		div(ng-repeat="itemPrice in $ctrl.itemPrices" layout="row")
+			input(ng-model="itemPrice.price")
+			input(ng-model="itemPrice.priceFor")

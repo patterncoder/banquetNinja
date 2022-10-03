@@ -261,6 +261,14 @@ function tmContractDetailCtrl(
         self.sideTab.menuItems = false;
     }
 
+    this.getCatergories = () => {
+        let lookups = this.$dataSource.load("Lookups");
+        lookups.query().then((data) => {
+            console.log(data);
+            self.lookups = data;
+        });
+    };
+
     this.getActiveMenuGroups = () => {
         let menuGroups = this.$dataSource.load("MenuGroup");
         menuGroups.query({
@@ -294,6 +302,7 @@ function tmContractDetailCtrl(
 
     this.loadData().then((data) => {
         this.getActiveMenuGroups();
+        this.getCatergories();
         // cleanup(this); //making sure everything is clean.
         // this.getDetailTitle();
         // this.updateContractTotals();

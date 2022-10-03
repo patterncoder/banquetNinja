@@ -34,6 +34,7 @@ ninja-grid-item(ng-repeat="item in $ctrl.list track by $index"
     on-arrow-key-out="$ctrl.arrowKeyOut(item, keyCode, currentField)"
     on-sort = "$ctrl.sort(startIndex, insertIndex)"
     fields="$ctrl.fields"
-    ) 
+    )
+    ng-transclude
 
 

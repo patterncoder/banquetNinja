@@ -24,8 +24,9 @@ div(layout="row" )
             h5 Description like:
             input.form-control(ng-model="descriptionLike")
             h5 Category is:
-            input.form-control(ng-model="categoryIs")
-            md-button( ng-click="vm.searchForMenuItems(titleLike, descriptionLike, categoryIs)") Search
+            select.form-control(name="categoryIs" ng-model="categoryIs", ng-options="category for category in vm.lookups.menuItemTags")
+            //- input.form-control(ng-model="categoryIs")
+            md-button.fullWidth(style="margin: 5px 0px" ng-click="vm.searchForMenuItems(titleLike, descriptionLike, categoryIs)") Search
             hr
             div.itemCard(ng-repeat="item in vm.selectableMenuItems" style="border: solid black 1px; background-color: white" uib-tooltip="{{item.description || 'No description'}}" tooltip-popup-delay='500' tooltip-placement="left")
                 a(href="" ng-click="vm.docSvc.addMenuItem(item)") 

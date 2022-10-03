@@ -86,6 +86,7 @@ ninjaGridItemCtrl.$inject = ['$timeout', '$filter', '$scope'];
 var ninjaGridItem = {
     template: require('!raw!jade-html!./ninjaGridItem.jade'),
     controller: ninjaGridItemCtrl,
+    transclude: true,
     bindings: {
         item: '<',
         itemIndex: '@',
