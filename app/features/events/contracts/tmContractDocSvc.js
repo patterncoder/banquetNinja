@@ -89,7 +89,7 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
             name: menuItem.name,
             description: menuItem.description,
             baseId: menuItem._id,
-            price: menuItem.prices[0].price,
+            price: (menuItem.prices && menuItem.prices[0] && menuItem.prices[0].price) || 0,
             quantity: 0
         };
         this.doc.menuItems.push(itemToAdd);
