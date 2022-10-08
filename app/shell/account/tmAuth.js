@@ -70,7 +70,7 @@ export default ['$http', '$q', '$window', 'tmIdentity', function ($http, $q, $wi
         var deferred = $q.defer();
         
         $http.post(config.apiBase + '/account/logout', {
-            headers: {"access_token": userInfo.accessToken}
+            headers: {"access_token": $window.localStorage['token']}
         }).then(function(result){
             //$window.localStorage["token"] = null;
             delete $window.localStorage.token;

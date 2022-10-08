@@ -2,25 +2,33 @@
 div(layout="column" flex="100")
     .jumbotron
         img.img-responsive(src=require("../../assets/banquetNinja2.png"))
-        p Welcome to banquet.ninja!
+        p Kick ass event contract software
 div(layout="row" flex="100")
-    md-card(flex="20")
+    md-card(flex="33" ng-show="vm.tmIdentity.isAuthenticated()")
         md-card-title
             md-card-title-text 
-                md-headline Some Test Links
-                md-subhead These will be deleted
+                span.md-headline Upcoming Bids To Win
         md-card-content
-            p
-                a(ui-sref="root.menuitems") Menu Items
-            p
-                a(ui-sref="root.signup") Signup
-            p
-                a(ui-sref="root.login") Login
-    md-card(flex="20")
+            div(ng-repeat="event in vm.upcomingBids")
+                a(ui-sref=("root.contractDetail({id:event._id})")) {{event.eventDate}} | {{event.customer.lastName}}
+        md-card-actions(layout="row")
+            md-button(ui-sref="root.contractsPending") ...More
+    md-card(flex="33" ng-show="vm.tmIdentity.isAuthenticated()")
         md-card-title
             md-card-title-text 
-                md-headline Some Test Links
-                md-subhead These will be deleted after I get things working
+                span.md-headline Upcoming Events
         md-card-content
-            a(ui-sref="root.menuitems") Menu Items
+            div(ng-repeat="event in vm.upcomingEvents")
+                a(ui-sref=("root.contractDetail({id:event._id})")) {{(event.eventDate || 'no-date')}} | {{(event.customer.lastName || event.customer.firstName)}} 
+        md-card-actions(layout="row")
+            md-button(ui-sref="root.contracts") ...More
+    md-card(flex="33" ng-show="vm.tmIdentity.isAuthenticated()")
+        md-card-title
+            md-card-title-text 
+                span.md-headline Active Menu Groups
+        md-card-content
+            div(ng-repeat="menuGroup in vm.activeMenuGroups")
+                a(ui-sref=("root.menuGroupDetail({id:menuGroup._id})")) {{menuGroup.name}} 
+        md-card-actions(layout="row")
+            md-button(ui-sref="root.menuGroupDetail") ...More
         

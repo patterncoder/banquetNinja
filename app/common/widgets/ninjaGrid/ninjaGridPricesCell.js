@@ -8,10 +8,16 @@ function ninjaGridPricesCellCtrl ($timeout, $filter, $scope) {
 	};
 
 	this.dynamicPopover = {
-    content: 'Hello, World!',
     templateUrl: 'priceTemplate.html',
-    title: 'Title'
-  };
+    title: 'Multiple Prices'
+	};
+	
+	this.addPrice = () => {
+		this.itemPrices.push({
+			price: 0,
+			priceFor: "Change me"
+		})
+	}
 	
 	
 }

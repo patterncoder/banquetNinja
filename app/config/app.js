@@ -14,33 +14,41 @@ import routing from './routing';
 module.exports = angular.module('app', [Shell, Features, Common])
 .config(routing)
     // below here adds notification on every http request...
-    // .config(['$httpProvider', function($httpProvider){
-    //     $httpProvider.interceptors.push(['$q', '$timeout', 'tmNotifier', function($q, $timeout, tmNotifier){
-    //         var promiseCompleted;
-    //         return {
-    //             'request': function(config){
-    //                 promiseCompleted = false;
-    //                 $timeout(function(){
-    //                     if (!promiseCompleted) {
-    //                         tmNotifier.waiting('communicating with server...');
-    //                     }
+    .config(['$httpProvider', function($httpProvider){
+        $httpProvider.interceptors.push(['$q', '$timeout', 'tmNotifier', '$rootScope', function($q, $timeout, tmNotifier, $rootScope){
+            var promiseCompleted;
+            return {
+                'request': function(config){
+                    promiseCompleted = false;
+                    // $timeout(function(){
+                    //     if (!promiseCompleted) {
+                    //         tmNotifier.waiting('communicating with server...');
+                    //     }
                         
-    //                 }, 1000)
+                    // }, 1000)
                     
-    //                 return config;
-    //             },
-    //             'response': function(response){
-    //                 promiseCompleted = true;
-    //                 tmNotifier.clear();
-    //                 return response;
-    //             }
-    //         }
-    //     }])
-    // }])
-    .run(['$dataSource','$rootScope', function($dataSource, $rootScope){
+                    return config;
+                },
+                'response': function(response){
+                    if(response && response.data && response.data.message === 
+                        "Failed to authenticate token.") {
+                            // broadcast logout event will trigger logout process
+                            $rootScope.$broadcast('loggedOut');
+                            return response;
+                        }
+                    promiseCompleted = true;
+                    tmNotifier.clear();
+                    return response;
+                }
+            }
+        }])
+    }])
+    .run(['$dataSource','$rootScope', 'tmAuth', '$state', function($dataSource, $rootScope, tmAuth, $state){
         $dataSource.init();
         $rootScope.$on('loggedOut', function () {
             $dataSource.clearCache();
+            tmAuth.logout();
+            $state.transitionTo('root.login');
 
         });
         

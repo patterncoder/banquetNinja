@@ -34,7 +34,7 @@ export default class CachedResource {
         }
         if (!self.List) {
             self.Resource.query(queryString, function (data) {
-                var json = JSON.stringify(data.data);
+                var json = JSON.stringify(data.data || {});
                 var jsonParsed = JSON.parse(json, jsonReviver);
                 self.List = !noCache && jsonParsed;
                 deferred.resolve(jsonParsed);
@@ -63,7 +63,7 @@ export default class CachedResource {
                 // var itemIndex = self.List.map(function (i) {
                 //     return i._id;
                 // }).indexOf(id);
-                var json2 = JSON.stringify(response.data);
+                var json2 = JSON.stringify(response.data || {});
                 var parsedJson2 = JSON.parse(json2, jsonReviver);
                 // self.List[itemIndex] = parsedJson2;
                 var dataCopy = angular.copy(parsedJson2);
@@ -100,9 +100,9 @@ export default class CachedResource {
                     if (response.noData) {
                         deferred.reject(response.noData);
                     }
-                    var json = JSON.stringify(response.data);
+                    var json = JSON.stringify(response.data || {});
                     var parsedJson = JSON.parse(json, jsonReviver);
-                    var itemIndex = self.List.map(function (i) {
+                    var itemIndex = (self.List || []).map(function (i) {
                         return i._id;
                     }).indexOf(id);
                     self.List[itemIndex] = parsedJson;

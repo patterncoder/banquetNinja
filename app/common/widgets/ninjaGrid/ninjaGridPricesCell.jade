@@ -2,9 +2,15 @@
 
 div(layout="row")
 	input.form-control(ng-model="$ctrl.itemPrices[0].price")
-	button(uib-popover-template="$ctrl.dynamicPopover.templateUrl" popover-title="{{$ctrl.dynamicPopover.title}}" type="button" class="btn btn-default") $
+	button.btn.btn-default(uib-popover-template="$ctrl.dynamicPopover.templateUrl" popover-title="{{$ctrl.dynamicPopover.title}}" type="button" popover-placement="bottom-right") $
 
 	script(type="text/ng-template" id= "priceTemplate.html")
-		div(ng-repeat="itemPrice in $ctrl.itemPrices" layout="row")
-			input(ng-model="itemPrice.price")
-			input(ng-model="itemPrice.priceFor")
+		div(layout="column" flex="100")
+			div(layout="row")
+				h5(flex="33") Price
+				h5(flex="33") Price for / Size
+				h5(flex="33" ng-click="$ctrl.addPrice()")
+					button.btn.btn-default +
+			div(ng-repeat="itemPrice in $ctrl.itemPrices" layout="row")
+				input(ng-model="itemPrice.price" flex="33")
+				input(ng-model="itemPrice.priceFor" flex="33")
