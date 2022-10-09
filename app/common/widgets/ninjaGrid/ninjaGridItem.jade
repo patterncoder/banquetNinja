@@ -13,7 +13,7 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
                 ng-click="$ctrl.editItem($ctrl.item, key)"
                 ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}") 
             div(ng-if="val.input!=='checkbox' && val.input!=='array'" id="textFor_{{key}}" ng-bind-html="$ctrl.formatter($ctrl.item[key], val.type)")
-            div(ng-if="val.input == 'array'" ng-bind="$ctrl.item[key][0][val.viewDisplay]")
+            div(ng-if="val.input == 'array'" ng-bind="$ctrl.item[key][0][val.viewDisplay]" ng-click="$ctrl.editItem($ctrl.item, key)")
             md-checkbox(ng-if="val.input==='checkbox'" ng-model="$ctrl.item[key]" ng-disabled="true" 
                 aria-label="Print On Menu")
         ng-transclude
@@ -24,7 +24,7 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
         div(flex="5" layout="row" layout-align="center center" )
             span.glyphicon.glyphicon-sort
         div.gridItemEditCell(ng-repeat="(key, val) in $ctrl.fields" flex="{{val.width}}" layout="row" )
-            ninja-grid-prices-cell(ng-if="val.input==='array'" item-prices="$ctrl.item[key]" is-editing="$ctrl.item.isEditing")
+            ninja-grid-prices-cell(ng-if="val.input==='array'" item-prices="$ctrl.item[key]" is-editing="$ctrl.item.isEditing" focus="$ctrl.item.clickedField[key]"  in-focus="$ctrl.item.clickedField[key]" tm-on-blur="$ctrl.detailBlur")
             input(ng-if="val.input==='checkbox'" type="checkbox" ng-model="$ctrl.item[key]"
                 aria-label="Print On Menu"
                 focus="$ctrl.item.clickedField[key]" 

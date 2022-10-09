@@ -1,4 +1,5 @@
 h1 User Profile
+hr
 .col-md-6.col-md
     form.form-horizontal(name="addItemForm")
         .form-group()
@@ -13,4 +14,21 @@ h1 User Profile
             label.col-md-3.control-label(for="customer") Username/Email
             .col-md-9
                 input.form-control(type="text" ng-model="$ctrl.user.username")
-        .btn.btn-primary(ng-click="$ctrl.saveChanges()") Save Changes
+        div(layout-padding)
+            .btn.btn-primary(ng-click="$ctrl.saveChanges()") Save Changes
+        hr
+        h3 Reset Password
+        .form-group()
+            label.col-md-3.control-label(for="customer") Current
+            .col-md-9
+                input.form-control(type="password" ng-model="$ctrl.currentpassword")
+        .form-group()
+            label.col-md-3.control-label(for="customer") New Password
+            .col-md-9
+                input.form-control(type="password" ng-model="$ctrl.newpassword")
+        .form-group()
+            label.col-md-3.control-label(for="customer") Confirm
+            .col-md-9
+                input.form-control(type="password" ng-model="$ctrl.confirmnewpassword")
+        div(layout-padding)
+            .btn.btn-primary(ng-click="$ctrl.resetPassword()") Reset Password

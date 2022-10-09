@@ -24,7 +24,7 @@ class tmContractsCtrl {
     }, true);
 
     this.getGstNum = (item) => {
-      let str = item.banquetAttendeeLow.toString();
+      let str = (item.banquetAttendeeLow || 'N/A').toString();
       if(item.banquetAttendeeLow != item.banquetAttendeeHigh) {
         str += `-${item.banquetAttendeeHigh.toString()}`;
       }

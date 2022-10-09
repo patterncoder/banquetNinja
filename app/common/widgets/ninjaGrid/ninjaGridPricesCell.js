@@ -11,6 +11,10 @@ function ninjaGridPricesCellCtrl ($timeout, $filter, $scope) {
     templateUrl: 'priceTemplate.html',
     title: 'Multiple Prices'
 	};
+
+	this.letsBlur = (item, $event) => {
+		this.tmOnBlur(item, $event);
+	}
 	
 	this.addPrice = () => {
 		this.itemPrices.push({
@@ -29,7 +33,9 @@ var ninjaGridPricesCell = {
 	controller: ninjaGridPricesCellCtrl,
 	bindings: {
 			itemPrices: '<',
-			isEditing: '='
+			isEditing: '=',
+			inFocus: '=',
+			tmOnBlur: '='
 	}
 };
 

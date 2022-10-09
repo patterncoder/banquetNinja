@@ -66,7 +66,7 @@ function ninjaGridItemCtrl ($timeout, $filter, $scope) {
           item[key] = parseFloat(item[key])
         }
         var relatedTarget = event.relatedTarget || event.explicitOriginalTarget;
-        if (relatedTarget == null || event.target.parentElement.parentElement != relatedTarget.parentElement.parentElement ) {
+        if (relatedTarget == null || relatedTarget == undefined || event.target.parentElement.parentElement != relatedTarget.parentElement.parentElement ) {
             $timeout(function(){
                 delete item.isEditing;
                 delete item.clickedField;

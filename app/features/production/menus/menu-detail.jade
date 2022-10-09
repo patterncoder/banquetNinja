@@ -1,13 +1,12 @@
 .detailForm(ng-cloak)
     detail-header
     .detailContent(layout="row" flex)
-        form(name="vm.detailForm")
         div.detailLeftPanel(flex layout="column")
             div.detailLeftPanelContainer(layout-fill)
                 div.detailTopPanel(layout-padding)
                     include ./tabs/top-panel.jade
                 div.detailSection(layout-padding)
-                    md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
+                    md-tabs.with-overflow(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         //- md-tab(ng-repeat="tabs in vm.docSvc.doc.sections | orderBy:'printOrder' track by $index" label="{{tabs.title}}" ng-click="vm.docSvc.setIndex(vm.tabIndex)")
                         md-tab(ng-repeat="tabs in vm.docSvc.doc.sections track by $index" label="{{tabs.title}}" ng-click="vm.docSvc.setIndex(vm.tabIndex)")
                             include ./tabs/section-food.jade
@@ -47,43 +46,42 @@
         //-             md-button.md-raised(ng-click="vm.docSvc.runSort(vm.docSvc.activeObj.index)") Save
         //-             //- md-button.md-raised(ng-click="vm.sideTab")
         div.detailRightPanel(flex="20" ng-show="vm.toggleAddMenuItems" layout-padding)
-            md-content(layout-padding style="background: transparent")
-                div(layout="row" layout-align="end start")
-                    md-button( ng-click="vm.toggleAddMenuItems = !vm.toggleAddMenuItems") Close
-                div(layout="row" )
-                    div(layout="column")
-                        h3 Add Items
-                        h5 Title like:
-                        input.form-control(ng-model="titleLike")
-                        h5 Description like:
-                        input.form-control(ng-model="descriptionLike")
-                        h5 Category is:
-                        input.form-control(ng-model="categoryIs")
-                        md-button( ng-click="vm.searchForMenuItems(titleLike, descriptionLike, categoryIs)") Search
-                        div.itemCard(ng-repeat="item in vm.selectableMenuItems" style="border: solid black 1px; background-color: white")
-                            a(href="" ng-click="vm.docSvc.addMenuItem(vm.tabIndex, item)") 
-                                span.glyphicon.glyphicon-circle-arrow-left 
-                            span() &nbsp; {{item.name}}
-        div.detailRightPanel(flex="20" ng-show="vm.sideTab.menuItems && vm.tabIndex != vm.docSvc.doc.sections.length" layout-padding)
-            md-content(layout-padding style="background: transparent")
-                div()
-                    h3 Add Food
-                    br
-                    h5 
-                        b By Name 
-                    input.form-control(ng-model="vm.docSvc.byNameEntry", ng-disabled="vm.docSvc.selCategory ? true : false")
-                    h5
-                        b Category
-                    select.form-control(ng-model="vm.docSvc.selCategory", ng-disabled="vm.docSvc.byNameEntry ? true : false", ng-options="item for item in vm.docSvc.categories.menuItemTags") 
-                        option(value="") Please Select
-                    br
-                    div.itemCard(ng-repeat="item in vm.docSvc.addableMenuItems" style="border: solid black 1px; background-color: white")
-                        a(href="" ng-click="vm.docSvc.addItem(item)") 
+            div(layout="row" layout-align="end start")
+                md-button( ng-click="vm.toggleAddMenuItems = !vm.toggleAddMenuItems") Close
+            div(layout="row" )
+                div(layout="column")
+                    h3 Add Items
+                    h5 Title like:
+                    input.form-control(ng-model="titleLike")
+                    h5 Description like:
+                    input.form-control(ng-model="descriptionLike")
+                    h5 Category is:
+                    input.form-control(ng-model="categoryIs")
+                    md-button( ng-click="vm.searchForMenuItems(titleLike, descriptionLike, categoryIs)") Search
+                    div.itemCard(ng-repeat="item in vm.selectableMenuItems" style="border: solid black 1px; background-color: white"  uib-tooltip="{{item.description || 'No description'}}" tooltip-popup-delay='500' tooltip-placement="left")
+                        a(href="" ng-click="vm.docSvc.addMenuItem(vm.tabIndex, item)") 
                             span.glyphicon.glyphicon-circle-arrow-left 
-                        span(title="{{item.description}}") &nbsp; {{item.name}}
-                    br
-                    md-button.md-raised(ng-click="vm.docSvc.byNameEntry ? vm.docSvc.runSearch('name', vm.docSvc.byNameEntry) : vm.docSvc.runSearch('category', vm.docSvc.selCategory)") Search
-                    md-button.md-raised(ng-click="vm.sideTab.menuItems = !vm.sideTab.menuItems") Close
-                    md-button(ng-click="vm.changeSectionOrder()") Change Order
-                    br
+                        span() &nbsp; {{item.name}}
+        //- div.detailRightPanel(flex="20" ng-show="vm.sideTab.menuItems && vm.tabIndex != vm.docSvc.doc.sections.length" layout-padding)
+        //-     md-content(layout-padding style="background: transparent")
+        //-         div()
+        //-             h3 Add Food
+        //-             br
+        //-             h5 
+        //-                 b By Name 
+        //-             input.form-control(ng-model="vm.docSvc.byNameEntry", ng-disabled="vm.docSvc.selCategory ? true : false")
+        //-             h5
+        //-                 b Category
+        //-             select.form-control(ng-model="vm.docSvc.selCategory", ng-disabled="vm.docSvc.byNameEntry ? true : false", ng-options="item for item in vm.docSvc.categories.menuItemTags") 
+        //-                 option(value="") Please Select
+        //-             br
+        //-             div.itemCard(ng-repeat="item in vm.docSvc.addableMenuItems" style="border: solid black 1px; background-color: white")
+        //-                 a(href="" ng-click="vm.docSvc.addItem(item)") 
+        //-                     span.glyphicon.glyphicon-circle-arrow-left 
+        //-                 span(title="{{item.description}}") &nbsp; {{item.name}}
+        //-             br
+        //-             md-button.md-raised(ng-click="vm.docSvc.byNameEntry ? vm.docSvc.runSearch('name', vm.docSvc.byNameEntry) : vm.docSvc.runSearch('category', vm.docSvc.selCategory)") Search
+        //-             md-button.md-raised(ng-click="vm.sideTab.menuItems = !vm.sideTab.menuItems") Close
+        //-             md-button(ng-click="vm.changeSectionOrder()") Change Order
+        //-             br
     detail-footer

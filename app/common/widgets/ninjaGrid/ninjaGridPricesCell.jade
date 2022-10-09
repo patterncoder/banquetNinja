@@ -1,7 +1,7 @@
 
 
 div(layout="row")
-	input.form-control(ng-model="$ctrl.itemPrices[0].price")
+	input.form-control(ng-model="$ctrl.itemPrices[0].price" focus="$ctrl.inFocus" ng-blur="$ctrl.letsBlur($ctrl.itemPrices, $event)")
 	button.btn.btn-default(uib-popover-template="$ctrl.dynamicPopover.templateUrl" popover-title="{{$ctrl.dynamicPopover.title}}" type="button" popover-placement="bottom-right") $
 
 	script(type="text/ng-template" id= "priceTemplate.html")

@@ -1,6 +1,7 @@
 
 
-function tmProfileCtrl ($dataSource, tmIdentity) {
+import config from 'config';
+function tmProfileCtrl ($dataSource, tmIdentity, $http) {
     var $ctrl = this;
     var User = $dataSource.load("User");
     console.log(tmIdentity.currentUser.user._id);
@@ -17,9 +18,30 @@ function tmProfileCtrl ($dataSource, tmIdentity) {
         });
     }
 
+    $ctrl.resetPassword = () => {
+        
+        var req = {
+            method: 'PUT',
+            url: `${config.apiBase}/users/${tmIdentity.currentUser.user._id}/resetpassword`,
+            data: {
+                current: $ctrl.currentpassword,
+                new: $ctrl.newpassword
+            }
+        };
+
+        $http(req).then((response) => {
+            if (this.contractsList == undefined) {
+                this.contractsList = [];
+            }
+
+
+            this.contractsList = response.data.data;
+        });
+    };
+
     init();
 }
 
-tmProfileCtrl.$inject = ['$dataSource', 'tmIdentity'];
+tmProfileCtrl.$inject = ['$dataSource', 'tmIdentity', '$http'];
 
 export default tmProfileCtrl;

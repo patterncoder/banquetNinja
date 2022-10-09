@@ -393,6 +393,10 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     this.updateSection = function (section) { };
 
     this.addMenuItem = function (section, menuItem) {
+        menuItem.prices = [{
+            price: 0,
+            priceFor: 'regular'
+        }]
         this.doc.sections[section].items.push(menuItem);
      };
 
