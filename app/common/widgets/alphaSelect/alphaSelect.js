@@ -3,7 +3,6 @@ function alphaSelectCtrl($scope, $element, $attrs, $timeout) {
     var $ctrl = this;
     
     $ctrl.select = function(letter){
-        console.log(letter);
         $ctrl.onSelect({letter: letter});
     };
     
