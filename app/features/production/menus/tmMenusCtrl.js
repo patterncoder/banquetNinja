@@ -90,7 +90,7 @@ class tmMenusCtrl {
         //loadData needs to be async or return a promise.
         this.loadData({
             select: "name title",
-            "sort[name]": 2
+            "sort[name]": -1
         }).then(function (data) {});
 
     }
