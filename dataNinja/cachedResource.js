@@ -36,7 +36,7 @@ export default class CachedResource {
             self.Resource.query(queryString, function (data) {
                 var json = JSON.stringify(data.data || {});
                 var jsonParsed = JSON.parse(json, jsonReviver);
-                self.List = !noCache && jsonParsed;
+                self.List = !noCache ? null : jsonParsed;
                 deferred.resolve(jsonParsed);
             });
         }
