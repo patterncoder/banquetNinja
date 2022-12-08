@@ -50,7 +50,9 @@
                 md-button( ng-click="vm.toggleAddMenuItems = !vm.toggleAddMenuItems") Close
             div(layout="row" )
                 div(layout="column")
-                    h3 Add Items
+                    hr
+                    md-button( ng-click="vm.createNewMenuItem()") Create New
+                    h4 Find Existing
                     h5 Title like:
                     input.form-control(ng-model="titleLike")
                     h5 Description like:

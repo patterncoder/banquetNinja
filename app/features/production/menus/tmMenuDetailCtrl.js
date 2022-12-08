@@ -38,6 +38,27 @@ function tmMenuDetailCtrl(
 
     this.loadData().then(() => {});
 
+    this.createNewMenuItem = () => {
+        var self = this;
+        this.canILeave().then(function (canILeave) {
+            if (canILeave) {
+                var dialogConfig = {
+                    template: require('apply!../../../common/tmDialogAddItem.jade'),
+                    controller: 'tmDialogAddItemCtrl as vm',
+                    locals: {
+                        model: 'MenuItem',
+                        schema: ninjaSchemas.production.MenuItem,
+                        listView: '',
+                        detailView: '',
+                        headerText: 'Add Menu Item'
+                    }
+                };
+                self.tmDialogSvc.showDialog(dialogConfig);
+
+            }
+        });
+    };
+
 
     this.addMenuSection = () => {
         this.docSvc.doc.sections.push({
@@ -51,9 +72,13 @@ function tmMenuDetailCtrl(
 
     this.searchForMenuItems = (titleLike, descriptionLike, categoryIs) => {
         let menuItemsResource = self.$dataSource.load("MenuItem");
+        if (!titleLike && !descriptionLike && !categoryIs) {
+            console.log('will not search without at least one param');
+            return;
+        }
         menuItemsResource.query({
             select: 'name title description',
-            "like[title]": titleLike,
+            "like[name]": titleLike,
             "like[description]": descriptionLike,
             "in[categories]": categoryIs
         }, true, true).then((data) => {
