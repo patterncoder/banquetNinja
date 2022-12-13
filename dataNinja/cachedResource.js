@@ -164,8 +164,9 @@ export default class CachedResource {
 
     }
 
-    add(item) {
+    add(item, options) {
         var self = this;
+        options = options || {};
         return this.Resource.save(item).$promise.then(function (response) {
 
             // self.List does not exist when adding an item before a query has been
@@ -173,12 +174,14 @@ export default class CachedResource {
             // the item is in the returned query so don't push onto the list.
             var json = JSON.stringify(response.data);
             var parsedJson = JSON.parse(json, jsonReviver);
-            if (!self.List) {
+            if (!self.List && !options.skipRequery) {
                 return self.query().then(function () {
                     return parsedJson;
                 });
-            } else {
+            } else if (!options.skipRequery) {
                 self.List.push(parsedJson);
+                return parsedJson;
+            } else {
                 return parsedJson;
             }
 

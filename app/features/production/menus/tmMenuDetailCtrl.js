@@ -48,12 +48,14 @@ function tmMenuDetailCtrl(
                     locals: {
                         model: 'MenuItem',
                         schema: ninjaSchemas.production.MenuItem,
-                        listView: '',
-                        detailView: '',
+                        listView: '', // don't transition away
+                        detailView: 'root.menuitems', // root.menuItem
                         headerText: 'Add Menu Item'
                     }
                 };
-                self.tmDialogSvc.showDialog(dialogConfig);
+                self.tmDialogSvc.showDialog(dialogConfig).then((data) => {
+                    console.log(data);
+                });
 
             }
         });
