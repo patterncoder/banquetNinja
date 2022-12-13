@@ -48,12 +48,16 @@ function tmMenuDetailCtrl(
                     locals: {
                         model: 'MenuItem',
                         schema: ninjaSchemas.production.MenuItem,
-                        listView: '',
-                        detailView: '',
-                        headerText: 'Add Menu Item'
+                        listView: '', // don't transition away
+                        detailView: 'root.menuitems', // root.menuItem
+                        headerText: 'Add Menu Item',
+                        hideDetailButton: true
                     }
                 };
-                self.tmDialogSvc.showDialog(dialogConfig);
+                self.tmDialogSvc.showDialog(dialogConfig).then((item) => {
+                    self.docSvc.addMenuItem(self.tabIndex, item)
+                    console.log(item);
+                });
 
             }
         });

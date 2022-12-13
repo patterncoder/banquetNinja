@@ -43,7 +43,9 @@ class tmDialogSvc{
                 
             } 
             
-            return this.$mdDialog.show(tempDialogDefaults);
+            return this.$mdDialog.show(tempDialogDefaults).then((data) => {
+                return data;
+            });
     }
 }
 

@@ -12,7 +12,8 @@ class tmDialogAddItem {
         schema,
         listView,
         detailView,
-        headerText) {
+        headerText,
+        hideDetailButton) {
             if(typeof(model) === 'string') {
                 this.model = $dataSource.load(model);
             } else {
@@ -26,6 +27,7 @@ class tmDialogAddItem {
             this.schema = schema;
             this.listView = listView;
             this.detailView = detailView;
+            this.hideDetailButton = hideDetailButton;
             this.dialogOptions = {headerText: headerText};
             this.$mdDialog = $mdDialog;
             this.tmMongoose = tmMongoose;
@@ -64,19 +66,17 @@ class tmDialogAddItem {
             }
             delete self.newItem._id;
             self.setLoading(true);
-            self.model.add(self.newItem).then(function(data){
+            return self.model.add(self.newItem, { skipRequery: true }).then(function(data){
                 self.tmNotifier.notify("Item was sucessfully added.")
-                // if(self.hasOwnProperty("activateAndSort")) {
-                //     self.activateAndSort();
-                // }
                 self.setLoading(false);
-                self.$mdDialog.hide();
+                self.$mdDialog.hide(data);
                 if (nextView === 'details') {
-                    self.$state.go(self.detailView, { id: data._id});
+                    self.detailView && self.$state.go(self.detailView, { id: data._id});
                 }
                 if (nextView === 'quick') {
-                    self.$state.go(self.listView);
+                    self.listView && self.$state.go(self.listView);
                 }
+                return data;
             });
         });
         
@@ -97,7 +97,8 @@ tmDialogAddItem.$inject = [
     'schema',
     'listView',
     'detailView',
-    'headerText'
+    'headerText',
+    'hideDetailButton'
 ];
 
 export default tmDialogAddItem;
