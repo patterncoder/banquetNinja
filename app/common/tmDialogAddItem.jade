@@ -8,12 +8,13 @@ md-dialog(aria-label="Dialog Service")
         form(name="addItemForm")
             .form-group(ng-repeat="field in vm.fields | orderBy: 'options.tabOrder'")
                 label.control-label(for="description") {{field.options.caption}}
-                input.form-control(ng-if="!field.options.enum" ng-model="vm.newItem[field.path]")
+                input.form-control(ng-if="!field.options.enum && !field.options.textarea" ng-model="vm.newItem[field.path]")
+                textarea.form-control(ng-if="field.options.textarea" ng-model="vm.newItem[field.path]" rows="5" cols="50")
                 select.form-control(ng-if="field.options.enum" ng-model="vm.newItem[field.path]", ng-options="item for item in field.options.enum")
                     option(value="") {{vm.newItem[field.path][0]}}                        
     md-dialog-actions(layout="row")
         md-button.md-raised(ng-click="vm.addItem('quick')") Quick Add
-        md-button.md-raised(ng-hide="vm.hideDetailButton" ng-click="vm.addItem('details')") Go Details
+        md-button.md-raised(ng-hide="vm. hideDetailButtonDflt || vm.hideDetailButton" ng-click="vm.addItem('details')") Go Details
         md-button.md-raised(ng-click="vm.cancel()") Cancel
 
             //- md-input-container.md-block(ng-class="{'has-error': vm.validationError.errors[field.path].kind}" ng-repeat="field in vm.fields | orderBy: 'options.tabOrder'")

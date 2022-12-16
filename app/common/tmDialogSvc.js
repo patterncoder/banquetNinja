@@ -8,7 +8,7 @@ class tmDialogSvc{
             escapeToClose: true,
             fullscreen: false,
             template: require('apply!./tmDialogSvc.jade'),
-            hideDetailButton: false
+            hideDetailButtonDflt: false
         };
         this.dialogOptions = {
             closeButtonText: 'Close',
