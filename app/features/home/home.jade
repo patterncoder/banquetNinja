@@ -30,5 +30,5 @@ div(layout="row" flex="100")
             div(ng-repeat="menuGroup in vm.activeMenuGroups")
                 a(ui-sref=("root.menuGroupDetail({id:menuGroup._id})")) {{menuGroup.name}} 
         md-card-actions(layout="row")
-            md-button(ui-sref="root.menuGroupDetail") ...More
+            md-button(ui-sref="root.menugroups") ...More
         
