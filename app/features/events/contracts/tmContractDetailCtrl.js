@@ -275,7 +275,7 @@ function tmContractDetailCtrl(
             select: "name title subtitle",
             "populate[menus]": 'all',
             "where[active]": true
-        }).then((data) => {
+        }, true).then((data) => {
             console.log(data);
             self.activeMenuGroups = data;
         })
