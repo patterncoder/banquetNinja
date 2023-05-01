@@ -264,7 +264,6 @@ function tmContractDetailCtrl(
     this.getCatergories = () => {
         let lookups = this.$dataSource.load("Lookups");
         lookups.query().then((data) => {
-            console.log(data);
             self.lookups = data;
         });
     };
@@ -276,7 +275,6 @@ function tmContractDetailCtrl(
             "populate[menus]": 'all',
             "where[active]": true
         }, true).then((data) => {
-            console.log(data);
             self.activeMenuGroups = data;
         })
     };
@@ -295,7 +293,6 @@ function tmContractDetailCtrl(
             "like[description]": descriptionLike,
             "in[categories]": categoryIs
         }, true, true).then((data) => {
-            console.log(data);
             self.selectableMenuItems = data;
         });
     }
@@ -303,33 +300,6 @@ function tmContractDetailCtrl(
     this.loadData().then((data) => {
         this.getActiveMenuGroups();
         this.getCatergories();
-        // cleanup(this); //making sure everything is clean.
-        // this.getDetailTitle();
-        // this.updateContractTotals();
-
-        // //working with some historical data for service type.
-        // if (!this.docSvc.doc["serviceType"] && this.docSvc.doc.natureOfEvent) {
-        //     let natureOfEvent = this.docSvc.doc.natureOfEvent.toLowerCase();
-        //     if (this.serviceTypeOptions.indexOf(natureOfEvent) !== undefined) {
-        //         this.docSvc.doc.serviceType = this.docSvc.doc.natureOfEvent.toLowerCase();
-        //     }
-        // }
-
-        // let req = {
-        //     method: "GET",
-        //     url: `${config.apiBase}/production/menugroups/active`,
-        // };
-
-        // this.$http(req).then((response) => {
-        //     this.menuGroups = response.data.data;
-        //     this.searchGroup = this.menuGroups[0];
-
-        //     this.getMenus(this.searchGroup).then((obj) => {
-        //         this.menuObjs = obj; //updates for angular all at once.
-        //         toggle(false); //display the results.
-        //         $scope.$apply(); //DOM WILL NOT PROPERLY REFRESH WITHOUT THIS!!!
-        //     });
-        // });
     });
 
     let getByID = (type, id) => {
@@ -440,24 +410,7 @@ function tmContractDetailCtrl(
         }
     };
 
-    // this.showMenuItems = (filterSection) => {
-    //     console.log("filterSection: ", filterSection);
-    //     // console.log(this.filterSection);
-    //     // this.addableMenuItems = this.filterSection.items;
-    //     //this.sectionsHidden = true;
-    // };
-
     this.addSectionDivider = () => {
-        /*
-        var menuItem = {
-            sortOrder: Number,
-            name: String,
-            description: String,
-            baseId : {type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem'},
-            quantity: Number,
-            price: Number
-        };
-        */
         let divider = {
             name: "New Divider",
             description: "This is a divider",
@@ -583,19 +536,6 @@ function tmContractDetailCtrl(
     };
 
     this.addItem = (item) => {
-        // getByID("MenuItem", item.menuItemId).then((returned) => {
-
-        //     console.log("adding this:", returned);
-        //     console.log("menuItems:", this.docSvc.doc.menuItems);
-        //     this.docSvc.doc.menuItems.push(returned);
-
-        //     try {
-        //         //must clear the cache, or we will keep getting the same menus for every group...
-        //         this.docSvc.$dataSource.clearCache();
-        //     } catch (e) {
-        //         console.log(e);
-        //     }
-        // });
         this.docSvc.doc.menuItems.push(item);
     };
 

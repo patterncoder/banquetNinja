@@ -12,8 +12,8 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
                 ng-focus="$ctrl.editItem($ctrl.item, key)" 
                 ng-click="$ctrl.editItem($ctrl.item, key)"
                 ng-class="{invisible: $ctrl.item.itemType == 'divider' && (key == 'quantity' || key == 'price')}") 
-            div(ng-if="val.input!=='checkbox' && val.input!=='array'" id="textFor_{{key}}" ng-bind-html="$ctrl.formatter($ctrl.item[key], val.type)")
-            div(ng-if="val.input == 'array'" ng-bind="$ctrl.item[key][0][val.viewDisplay]" ng-click="$ctrl.editItem($ctrl.item, key)")
+            div(ng-if="val.input!=='checkbox' && val.input!=='array'" id="textFor_{{key}}" ng-bind-html="$ctrl.formatter($ctrl.item[key], val.type, val.viewDisplayAs)")
+            div(ng-if="val.input == 'array'" ng-bind="$ctrl.formatter($ctrl.item[key][0][val.viewDisplay], val.type, val.viewDisplayAs) " ng-click="$ctrl.editItem($ctrl.item, key)")
             md-checkbox(ng-if="val.input==='checkbox'" ng-model="$ctrl.item[key]" ng-disabled="true" 
                 aria-label="Print On Menu")
         ng-transclude
