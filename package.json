@@ -14,7 +14,8 @@
     "prodStart": "set NODE_ENV=production webpack -p --config webpack.production.config.js",
     "buildProd": "export NODE_ENV=production || set NODE_ENV=production && webpack --config webpack.production.config.js --progress --colors",
     "buildDev": "set NODE_ENV=development && webpack --config webpack.config.js --progress --colors",
-    "buildOnLinux": "export NODE_ENV=production && webpack --config webpack.production.config.js --progress --colors"
+    "build_production_OnLinux": "export NODE_ENV=production && webpack --config webpack.production.config.js --progress --colors",
+    "build_stage_OnLinux": "export NODE_ENV=stage && webpack --config webpack.production.config.js --progress --colors"
   },
   "author": "Christopher J. Baily",
   "license": "ISC",
