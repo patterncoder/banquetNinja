@@ -1,4 +1,4 @@
 module.exports = {
     
-    apiBase: "https://banquet.ninja/api/v1"
+    apiBase: "https://api.banquet.ninja/api/v1"
 };
