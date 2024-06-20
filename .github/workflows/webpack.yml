@@ -46,5 +46,5 @@ jobs:
     - name: Deploy
       run: scp -r public root@${{ vars.DROPLET_IP_ADDRESS }}:/var/www/banquetNinja
     
-    - name: Trigger restart
-      run: ssh -t root@${{ vars.DROPLET_IP_ADDRESS }} "bash /var/www/banquetNinja/deploy.sh"
+    # - name: Trigger restart
+    #   run: ssh -t root@${{ vars.DROPLET_IP_ADDRESS }} "bash /var/www/banquetNinja/deploy.sh"
