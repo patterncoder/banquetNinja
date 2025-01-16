@@ -7,7 +7,8 @@ class tmMenuItemsCtrl {
             listView: 'root.menuitems',
             detailView: 'root.menuItemDetail',
             addHeaderText: 'Add Menu Item',
-            listTitle: 'Menu Items'
+            listTitle: 'Menu Items',
+            hideDetailButton: true
         };
 
         this.__proto__ = tmListFactory(constructorArgs);

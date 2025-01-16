@@ -79,7 +79,8 @@ function BaseList(
                 schema: this.constructorArgs.schema,
                 listView: this.constructorArgs.listView,
                 detailView: this.constructorArgs.detailView,
-                headerText: this.constructorArgs.addHeaderText
+                headerText: this.constructorArgs.addHeaderText,
+                hideDetailButton: this.constructorArgs.hideDetailButton
             }
         };
         self.tmDialogSvc.showDialog(dialogConfig);
