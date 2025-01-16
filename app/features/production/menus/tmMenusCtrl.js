@@ -10,7 +10,8 @@ class tmMenusCtrl {
             listView: 'root.menus',
             detailView: 'root.menuDetail',
             addHeaderText: 'Add Menu',
-            listTitle: 'Menus'
+            listTitle: 'Menus',
+            hideDetailButton: true
         };
 
         this.__proto__ = tmListFactory(constructorArgs);
@@ -91,7 +92,7 @@ class tmMenusCtrl {
         this.loadData({
             select: "name title",
             "sort[name]": -1
-        }).then(function (data) {});
+        }, true, true).then(function (data) {});
 
     }
 

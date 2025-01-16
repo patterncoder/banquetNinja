@@ -141,7 +141,8 @@ function BaseDetail(
                         schema: self.constructorArgs.schema,
                         listView: self.constructorArgs.listView,
                         detailView: self.constructorArgs.detailView,
-                        headerText: self.constructorArgs.addHeaderText
+                        headerText: self.constructorArgs.addHeaderText,
+                        hideDetailButton: self.constructorArgs.hideDetailButton
                     }
                 };
                 self.tmDialogSvc.showDialog(dialogConfig);
