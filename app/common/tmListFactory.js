@@ -44,6 +44,9 @@ function BaseList(
     this.$state = $state;
     this.$http = $http;
     this.sortOptions = [{ value: "name", text: "Sort by Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
+    
+    this.$scope = constructorArgs.$scope;
+
 
 
     this.setLoading = function (loading) {
