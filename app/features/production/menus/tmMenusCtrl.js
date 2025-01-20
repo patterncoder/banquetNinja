@@ -92,7 +92,14 @@ class tmMenusCtrl {
         this.loadData({
             select: "name title",
             "sort[name]": -1
-        }, true, true).then(function (data) {});
+        }, true).then(function (data) {});
+
+        this.afterAddItemDialogClose = () => {
+            this.loadData({
+                select: "name title",
+                "sort[name]": -1
+            }, true).then(function (data) {});
+        };
 
     }
 
