@@ -24,6 +24,10 @@ class tmUsersCtrl {
             }
         };
 
+        this.afterAddItemDialogClose = () => {
+            this.loadData({}, true);
+        };
+
 
     }
 }
