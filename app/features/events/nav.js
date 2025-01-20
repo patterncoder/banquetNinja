@@ -2,14 +2,14 @@ export default ['navigationProvider', function(navigationProvider){
         
         
         
-        navigationProvider.addNav({
-            name: 'Bids',
-            sortOrder: 10,
-            sref: 'root.contractsPending',
-            parent: 'Events',
-            endSection: false,
-            roles: [ 'gold', 'admin', 'superUser', 'bronze']
-        });
+        // navigationProvider.addNav({
+        //     name: 'Bids',
+        //     sortOrder: 10,
+        //     sref: 'root.contractsPending',
+        //     parent: 'Events',
+        //     endSection: false,
+        //     roles: [ 'gold', 'admin', 'superUser', 'bronze']
+        // });
         navigationProvider.addNav({
             name: 'Contracts',
             sortOrder: 20,
