@@ -133,6 +133,7 @@ function tmCustomerDetailCtrl(
         };
         var Contract = $dataSource.load('Contract');
         self.tmDialogSvc.showDialog(dialogConfig).then(function (item) {
+            item.status = 'pending';
             Contract.add(item).then(function (item) {
                 self.docSvc.addContract(item);
                 self.docSvc.saveChanges().then(function () {

@@ -215,7 +215,6 @@ function tmContractDetailCtrl(
     this.moreFunctions.cloneContract = {
       label: "Clone Contract",
       method: () => {
-
         var dialogConfig = {
           template: require('apply!./addContract.jade'),
           controller: 'tmAddContractCtrl as vm',
@@ -224,8 +223,9 @@ function tmContractDetailCtrl(
               schema: self.constructorArgs.schema,
               listView: self.constructorArgs.listView,
               detailView: self.constructorArgs.detailView,
-              headerText: self.constructorArgs.addHeaderText,
-              hideCustomerInput: true
+              headerText: 'Clone Contract',
+              hideCustomerInput: true,
+              contractToClone: self.docSvc.getDoc()
           }
         };
 

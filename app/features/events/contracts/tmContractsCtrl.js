@@ -12,16 +12,33 @@ class tmContractsCtrl {
       detailView: 'root.contractDetail',
       printView: 'root.contracts.print',
       addHeaderText: 'Add New Bid',
-      listTitle: 'Upcoming Contracts'
+      listTitle: 'Upcoming Contracts',
+      $scope: $scope
     };
 
     this.__proto__ = tmListFactory(constructorArgs);
+    
+    var self = this;
 
-    this.loadData({
-      "select": "eventName eventDate time endTime startTime24 endTime24 customer venues banquetAttendeeLow banquetAttendeeHigh",
-      "where[status]": "booked",
+    this.listQuery = {
+      "select": "eventName eventDate time endTime startTime24 endTime24 customer venues banquetAttendeeLow banquetAttendeeHigh status serviceType",
+      "in[status]": ["booked", "pending"],
       "populate[customer]": "firstName lastName"
-    }, true);
+    };
+
+    this.$scope.$on('$stateChangeSuccess', 
+        function(event, toState, toParams, fromState, fromParams, options) {
+          if (toState.name == "root.contracts") {
+            self.loadData(self.listQuery, true);
+          }
+        }
+    );
+
+    // this.loadData({
+    //   "select": "eventName eventDate time endTime startTime24 endTime24 customer venues banquetAttendeeLow banquetAttendeeHigh",
+    //   "where[status]": "booked",
+    //   "populate[customer]": "firstName lastName"
+    // }, true);
 
     this.getGstNum = (item) => {
       let str = (item.banquetAttendeeLow || 'N/A').toString();
@@ -56,6 +73,8 @@ class tmContractsCtrl {
 
     };
 
+    this.radioModel = "";
+
 
     this.sortOptions = [
       { value: "eventDate", text: "Sort by Event Date A-Z" },
@@ -89,14 +108,17 @@ class tmContractsCtrl {
         locals: {
           model: this.Model,
           schema: this.constructorArgs.schema,
-          listView: "root.contractsPending",
+          listView: this.constructorArgs.listView,
           detailView: this.constructorArgs.detailView,
           headerText: this.constructorArgs.addHeaderText,
           hideCustomerInput: false,
-          customerId: null
+          customerId: null,
+          contractToClone: null
         }
       };
-      self.tmDialogSvc.showDialog(dialogConfig);
+      self.tmDialogSvc.showDialog(dialogConfig).then((item) => {
+        self.loadData(self.listQuery, true);
+      });
     };
 
   }

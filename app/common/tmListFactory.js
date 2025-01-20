@@ -44,6 +44,9 @@ function BaseList(
     this.$state = $state;
     this.$http = $http;
     this.sortOptions = [{ value: "name", text: "Sort by Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
+    
+    this.$scope = constructorArgs.$scope;
+
 
 
     this.setLoading = function (loading) {
@@ -80,10 +83,13 @@ function BaseList(
                 listView: this.constructorArgs.listView,
                 detailView: this.constructorArgs.detailView,
                 headerText: this.constructorArgs.addHeaderText,
-                hideDetailButton: this.constructorArgs.hideDetailButton
+                hideDetailButton: this.constructorArgs.hideDetailButton,
+                documentToClone: null
             }
         };
-        self.tmDialogSvc.showDialog(dialogConfig);
+        self.tmDialogSvc.showDialog(dialogConfig).then(function (data) {
+            self.afterAddItemDialogClose && self.afterAddItemDialogClose();
+        });
     };
 
     this.details = function (id) {

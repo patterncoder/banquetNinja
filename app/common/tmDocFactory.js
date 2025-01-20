@@ -102,6 +102,14 @@ function BaseDocService($http, $dataSource, tmMongoose, $q, model, schema) {
         return deferred.promise;
     };
 
+    this.getDocId = function () {
+        return this.doc._id;
+    };
+
+    this.getDoc = function () {
+        return this.doc;
+    }
+
     this.isDirty = function () {
         return !angular.equals(this.master, this.doc);
     };
