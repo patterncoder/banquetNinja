@@ -34,6 +34,29 @@ function tmMenuDetailCtrl(
         }
     });
 
+
+    this.moreFunctions.cloneMenu = {
+        label: "Clone Menu",
+        method: () => {
+          var dialogConfig = {
+            template: require('apply!../../../common/tmDialogAddItem.jade'),
+            controller: 'tmDialogAddItemCtrl as vm',
+            locals: {
+                model: 'Menu',
+                schema: self.constructorArgs.schema,
+                listView: self.constructorArgs.listView,
+                detailView: self.constructorArgs.detailView,
+                headerText: 'Clone Menu',
+                hideCustomerInput: true,
+                hideDetailButton: true,
+                documentToClone: self.docSvc.getDoc()
+            }
+          };
+  
+          self.tmDialogSvc.showDialog(dialogConfig);
+        }
+      }
+
     this.toggleAddMenuItems = false;
 
     this.loadData().then(() => {});

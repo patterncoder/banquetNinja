@@ -83,7 +83,8 @@ function BaseList(
                 listView: this.constructorArgs.listView,
                 detailView: this.constructorArgs.detailView,
                 headerText: this.constructorArgs.addHeaderText,
-                hideDetailButton: this.constructorArgs.hideDetailButton
+                hideDetailButton: this.constructorArgs.hideDetailButton,
+                documentToClone: null
             }
         };
         self.tmDialogSvc.showDialog(dialogConfig).then(function (data) {
