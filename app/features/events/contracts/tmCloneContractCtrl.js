@@ -15,8 +15,7 @@ class tmAddContractCtrl {
         listView,
         detailView,
         headerText,
-        hideCustomerInput,
-        contractToClone) {
+        hideCustomerInput) {
         if (typeof (model) === 'string') {
             this.model = $dataSource.load(model);
         } else {
@@ -35,16 +34,12 @@ class tmAddContractCtrl {
         this.tmMongoose = tmMongoose;
         //this.newItem = new this.tmMongoose.Document({}, schema);
         this.newItem = {};
-        this.headerText = headerText;
         this.fields = [];
         this.validationError = null;
         this.getFields();
         this.isLoading = false;
         this.hideCustomerInput = hideCustomerInput;
-        this.contractToClone = contractToClone;
-        if(contractToClone) {
-            this.newItem.eventName = contractToClone.eventName + " ** CLONED ***"
-        }
+
     }
 
 
@@ -64,11 +59,6 @@ class tmAddContractCtrl {
                 return { id: item._id, name: item.firstName + ' ' + item.lastName };
             });
         });
-    }
-
-    cloneContract(id) {
-        console.log(this.newItem.eventDate);
-        console.log(this.newItem.eventName);
     }
 
     addCustomer(name) {
@@ -127,37 +117,27 @@ class tmAddContractCtrl {
 
     addItem(nextView) {
         var self = this;
-        var newContract;
-        var custId;
-        if (this.headerText === "Clone Contract") {
-            newContract = angular.copy(this.contractToClone);
-            delete newContract.id;
-            newContract.eventName = this.newItem.eventName;
-            newContract.eventDate = this.newItem.eventDate;
-            custId = newContract.customer._id
-        } else {
-            newContract = angular.copy(self.newItem);
-            newContract.status = "pending";
-            custId = self.customerId || newContract.customer.id;
-            newContract.customer = custId;
-        }
+        var newContract = angular.copy(self.newItem);
+        newContract.status = "pending";
+        console.log(self);
+        var custId = self.customerId || newContract.customer.id;
+        newContract.customer = custId;
 
-        // Andrea wanted this auto deposit removed
-        // let nwDeposit = {
-        //     //dateAdd: {
-        //     // 	type: Date, 
-        //     // 	required: "Enter a deposit date."
-        //     // },
-        //     // dateComplete: {type: Date},
-        //     // amount: {type: Number},
-        //     // description: {type: String}
+        let nwDeposit = {
+            //dateAdd: {
+            // 	type: Date, 
+            // 	required: "Enter a deposit date."
+            // },
+            // dateComplete: {type: Date},
+            // amount: {type: Number},
+            // description: {type: String}
 
-        //     dateAdd: new Date(),
-        //     dateComplete: undefined,
-        //     amount: 100,
-        //     description: "Initial Deposit"
-        // };
-        // newContract.deposits = [nwDeposit];
+            dateAdd: new Date(),
+            dateComplete: undefined,
+            amount: 100,
+            description: "Initial Deposit"
+        };
+        newContract.deposits = [nwDeposit];
 
         var newItemDoc = new self.tmMongoose.Document(newContract, this.schema);
         newItemDoc.validate(function (err) {
@@ -170,7 +150,7 @@ class tmAddContractCtrl {
             delete newContract._id;
             self.setLoading(true);
             self.model.add(newContract).then(function (contract) {
-                var Customer = self.$dataSource.load('Customer'); // @NOTE this could be the problem
+                var Customer = self.$dataSource.load('Customer');
                 Customer.getOne(custId, true).then(function (cust) {
                     cust.contracts.push(contract._id);
                     Customer.update(cust).then(function (cust) {
@@ -182,7 +162,7 @@ class tmAddContractCtrl {
                         }
                         if (nextView === 'quick') {
                             console.log("going to ", self.listView);
-                            self.$state.go(self.listView, {});
+                            self.$state.go(self.listView);
                         }
                     });
 
@@ -210,8 +190,7 @@ tmAddContractCtrl.$inject = [
     'listView',
     'detailView',
     'headerText',
-    'hideCustomerInput',
-    'contractToClone'
+    'hideCustomerInput'
 ];
 
 export default tmAddContractCtrl;

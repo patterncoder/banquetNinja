@@ -192,6 +192,45 @@ function tmContractDetailCtrl(
                 window.open(fileURL);
             });
         }
+    };
+
+
+    this.moreFunctions.addItem.method = function () {
+
+      var dialogConfig = {
+          template: require('apply!./addContract.jade'),
+          controller: 'tmAddContractCtrl as vm',
+          locals: {
+              model: 'Contract',
+              schema: self.constructorArgs.schema,
+              listView: self.constructorArgs.listView,
+              detailView: self.constructorArgs.detailView,
+              headerText: self.constructorArgs.addHeaderText,
+              hideCustomerInput: false
+          }
+      };
+      self.tmDialogSvc.showDialog(dialogConfig);
+    };
+
+    this.moreFunctions.cloneContract = {
+      label: "Clone Contract",
+      method: () => {
+        var dialogConfig = {
+          template: require('apply!./addContract.jade'),
+          controller: 'tmAddContractCtrl as vm',
+          locals: {
+              model: 'Contract',
+              schema: self.constructorArgs.schema,
+              listView: self.constructorArgs.listView,
+              detailView: self.constructorArgs.detailView,
+              headerText: 'Clone Contract',
+              hideCustomerInput: true,
+              contractToClone: self.docSvc.getDoc()
+          }
+        };
+
+        self.tmDialogSvc.showDialog(dialogConfig);
+      }
     }
 
     this.contractStatusOptions = constructorArgs.schema.paths.status.enumValues.map((status) => {
@@ -215,22 +254,6 @@ function tmContractDetailCtrl(
         }
     });
 
-    this.moreFunctions.addItem.method = function () {
-
-        var dialogConfig = {
-            template: require('apply!./addContract.jade'),
-            controller: 'tmAddContractCtrl as vm',
-            locals: {
-                model: 'Contract',
-                schema: self.constructorArgs.schema,
-                listView: self.constructorArgs.listView,
-                detailView: self.constructorArgs.detailView,
-                headerText: self.constructorArgs.addHeaderText,
-                hideCustomerInput: false
-            }
-        };
-        self.tmDialogSvc.showDialog(dialogConfig);
-    };
 
     this.$scope.$watch(function () {
         return self.docSvc.isDirty();
