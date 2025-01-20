@@ -86,7 +86,9 @@ function BaseList(
                 hideDetailButton: this.constructorArgs.hideDetailButton
             }
         };
-        self.tmDialogSvc.showDialog(dialogConfig);
+        self.tmDialogSvc.showDialog(dialogConfig).then(function (data) {
+            self.afterAddItemDialogClose && self.afterAddItemDialogClose();
+        });
     };
 
     this.details = function (id) {
