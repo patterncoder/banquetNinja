@@ -1,7 +1,13 @@
 div(flex="100")
     list-header
+    div.padding-bottom-md(flex="100" layout="row" layout-align="end" style="padding-bottom: 10px;")
+        div.btn-group(layout-align="end")
+            label.btn.btn-success(ng-model="vm.radioModel" uib-btn-radio="'pending'" ) Pending
+            label.btn.btn-success(ng-model="vm.radioModel" uib-btn-radio="'booked'" ) Contracts
+            label.btn.btn-success(ng-model="vm.radioModel" uib-btn-radio="''" ) All
     table.table.table-responsive
         colgroup
+            col(span="1")
             col(span="1")
             col(span="1")
             col(span="1")
@@ -9,6 +15,7 @@ div(flex="100")
             col.tableNav(span="1")
         thead
             th Event Name
+            th Service Type
             th Venue
             th Date
             th Guests
@@ -16,8 +23,9 @@ div(flex="100")
             th.text-right
                 button.btn.btn-primary.btn-xs(ng-click="vm.addContract()") {{::vm.constructorArgs.addHeaderText}}
         tbody
-            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:vm.sortOrder")
+            tr(ng-repeat="item in vm.items | filter:searchText | filter:vm.radioModel | orderBy:vm.sortOrder | orderBy:item.time" ng-class="{trLightBlue: item.status === 'pending'}")
                 td {{::item.eventName }} ({{::item.customer.firstName}} {{::item.customer.lastName}})
+                td {{::item.serviceType}}
                 td 
                     div(ng-repeat="venue in item.venues")
                         div {{::venue.name}}

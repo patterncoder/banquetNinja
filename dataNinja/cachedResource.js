@@ -36,7 +36,7 @@ export default class CachedResource {
             self.Resource.query(queryString, function (data) {
                 var json = JSON.stringify(data.data || {});
                 var jsonParsed = JSON.parse(json, jsonReviver);
-                self.List = !noCache ? null : jsonParsed;
+                self.List = noCache ? null : jsonParsed;
                 deferred.resolve(jsonParsed);
             });
         }
@@ -174,16 +174,18 @@ export default class CachedResource {
             // the item is in the returned query so don't push onto the list.
             var json = JSON.stringify(response.data);
             var parsedJson = JSON.parse(json, jsonReviver);
-            if (!self.List && !options.skipRequery) {
-                return self.query().then(function () {
-                    return parsedJson;
-                });
-            } else if (!options.skipRequery) {
-                self.List.push(parsedJson);
-                return parsedJson;
-            } else {
-                return parsedJson;
-            }
+            return parsedJson;
+            // Gotta get rid of this cached list stuff...
+            // if (!self.List && !options.skipRequery) {
+            //     return self.query().then(function () {
+            //         return parsedJson;
+            //     });
+            // } else if (!options.skipRequery) {
+            //     self.List.push(parsedJson);
+            //     return parsedJson;
+            // } else {
+            //     return parsedJson;
+            // }
 
 
 

@@ -12,20 +12,28 @@ class tmContractsPendingCtrl {
       detailView: 'root.contractDetail',
       printView: 'root.contracts.print',
       addHeaderText: 'Add New Bid',
-      listTitle: 'Event Bids'
+      listTitle: 'Event Bids',
+      $scope: $scope
     };
 
     this.__proto__ = tmListFactory(constructorArgs);
-
-    //http://localhost:3001/api/v1/events/contracts?where[status]=pending
-
-    this.loadData({
+    var self = this;
+    this.listQuery = {
       select: 'eventName eventDate time customer venues',
       'where[status]': 'pending',
       "populate[customer]": "firstName lastName"
-    }, true);
-    // this.loadData({sel: 'eventName eventDate startTime', 'where[status]': 'pending'}); 
-    //this.loadData();
+    };
+
+
+    this.$scope.$on('$stateChangeSuccess', 
+        function(event, toState, toParams, fromState, fromParams, options) {
+          if (toState.name == "root.contractsPending") {
+            self.loadData(self.listQuery, true);
+          }
+        }
+    );
+
+    // this.loadData(this.listQuery, true);
 
     /*
       This is used only for historical SQL imported data, as date and time stamps 
@@ -83,7 +91,8 @@ class tmContractsPendingCtrl {
           detailView: this.constructorArgs.detailView,
           headerText: this.constructorArgs.addHeaderText,
           hideCustomerInput: false,
-          customerId: null
+          customerId: null,
+          contractToClone: null
         }
       };
       self.tmDialogSvc.showDialog(dialogConfig);
