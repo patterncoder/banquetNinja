@@ -84,7 +84,7 @@ function BaseDetail(
                 };
                 self.tmDialogSvc.showDialog({}, dialogOptions).then(function () {
                     //were not supposed to actually delete, only MARK deleted...
-                    
+                    // TODO: status abandoned is not generic to be in tmDetailFactory...this is a concern of contracts
                     self.docSvc.doc.status = "abandoned";
 
                     try {
