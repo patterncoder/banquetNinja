@@ -85,6 +85,8 @@ function BaseDetail(
                 self.tmDialogSvc.showDialog({}, dialogOptions).then(function () {
                     //were not supposed to actually delete, only MARK deleted...
                     // TODO: status abandoned is not generic to be in tmDetailFactory...this is a concern of contracts
+                    // TODO: this is not a concern of the detail factory...this should be removed and 
+                    // handled in an overide in the tmContractDetailCtrl more functions
                     self.docSvc.doc.status = "abandoned";
 
                     try {
@@ -93,9 +95,17 @@ function BaseDetail(
                         console.log(e);
                     }
 
+                    let backState = self.$state.back.fromState.name;
+                    if (backState && backState != "" && !($state.data === backState)) {
+                        self.$state.go(backState, $state.back.fromParams);
+                    } else {
+                        // we are going back to the list so clear out the $state.data for next circular issue
+                        $state.data = null;
+                        self.$state.go(self.constructorArgs.listView);
+                    }
                     //self.docSvc.deleteDocument();
                     //$state.go(self.constructorArgs.listView);
-                    self.$state.go(self.$state.back.fromState, self.$state.back.fromParams );
+                    // self.$state.go(self.$state.back.fromState, self.$state.back.fromParams );
                     // self.Model.remove(id).then(function (collection) {
                     //     self.tmNotifier.notify("The item has been deleted");
                     //     self.items = collection;
@@ -143,7 +153,8 @@ function BaseDetail(
                         listView: self.constructorArgs.listView,
                         detailView: self.constructorArgs.detailView,
                         headerText: self.constructorArgs.addHeaderText,
-                        hideDetailButton: self.constructorArgs.hideDetailButton
+                        hideDetailButton: self.constructorArgs.hideDetailButton,
+                        documentToClone: null
                     }
                 };
                 self.tmDialogSvc.showDialog(dialogConfig);
@@ -192,10 +203,10 @@ function BaseDetail(
         var self = this;
         this.canILeave().then(function (canILeave) {
             if (canILeave) {
-                let backState = self.$state.back.fromState.name;
                 self.docSvc.clearDocument();
                 // !($state.data === backState) handle circlular issue with back button
                 // the back state and the to state are the same
+                let backState = self.$state.back.fromState.name;
                 if (backState && backState != "" && !($state.data === backState)) {
                     self.$state.go(backState, $state.back.fromParams);
                 } else {

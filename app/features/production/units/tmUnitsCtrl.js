@@ -5,7 +5,7 @@ class tmUnitsCtrl {
     constructor($scope, tmListFactory) {
 
         var constructorArgs = {
-            schema: ninjaSchemas.production.Ingredient,
+            schema: ninjaSchemas.production.Unit,
             model: 'Unit',
             listView: 'root.units',
             detailView: 'root.unitDetail',
@@ -19,7 +19,7 @@ class tmUnitsCtrl {
 
 
         let loadDataConfig = {
-          select: "name",
+          select: "name description",
           "sort[name]": 1
         };
 
