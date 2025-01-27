@@ -23,5 +23,26 @@ export default [
             methods: {update: { method: 'PUT', isArray: false },
                         query: { method: 'GET', isArray: false}}
         });
+        $dataSourceProvider.addApiRoute({
+            key: 'Ingredient', 
+            url: config.apiBase + '/production/ingredients/:_id', 
+            defaults: { _id: "@id" },
+            methods: {update: { method: 'PUT', isArray: false },
+                        query: { method: 'GET', isArray: false}}
+        });
+        $dataSourceProvider.addApiRoute({
+            key: 'Recipe', 
+            url: config.apiBase + '/production/recipes/:_id', 
+            defaults: { _id: "@id" },
+            methods: {update: { method: 'PUT', isArray: false },
+                        query: { method: 'GET', isArray: false}}
+        });
+        $dataSourceProvider.addApiRoute({
+            key: 'Unit', 
+            url: config.apiBase + '/production/units/:_id', 
+            defaults: { _id: "@id" },
+            methods: {update: { method: 'PUT', isArray: false },
+                        query: { method: 'GET', isArray: false}}
+        });
     }
 ]
