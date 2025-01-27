@@ -184,9 +184,11 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     };
 
     this.addItem = (item) => {
-        //vm.docSvc.doc.sections[vm.docSvc.activeObj.index].title
+        let itemCopy = angular.copy(item);
+        itemCopy.menuItemId = itemCopy._id;
+        delete iteitemCopy._id;
         let selSection = this.doc.sections[this.activeObj.index];
-        selSection.items.push(item);
+        selSection.items.push(itemCopy);
     };
 
     let getDateLastYear = (o) => {
@@ -393,11 +395,14 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
     this.updateSection = function (section) { };
 
     this.addMenuItem = function (section, menuItem) {
-        menuItem.prices = [{
+        let itemCopy = angular.copy(menuItem);
+        itemCopy.menuItemId = itemCopy._id;
+        delete itemCopy._id;
+        itemCopy.prices = [{
             price: 0,
             priceFor: 'regular'
         }]
-        this.doc.sections[section].items.push(menuItem);
+        this.doc.sections[section].items.push(itemCopy);
      };
 
     this.removeMenuItem = function (section, menuItem) { };

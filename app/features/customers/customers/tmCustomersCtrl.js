@@ -4,7 +4,7 @@
 
 import ninjaSchemas from 'ninjaSchemas';
 
-class tmMenuGroupsCtrl {
+class tmCustomersCtrl {
     constructor($scope, tmListFactory) {
 
         var constructorArgs = {
@@ -70,9 +70,9 @@ class tmMenuGroupsCtrl {
 
 }
 
-tmMenuGroupsCtrl.$inject = ['$scope', 'tmListFactory'];
+tmCustomersCtrl.$inject = ['$scope', 'tmListFactory'];
 
-export default tmMenuGroupsCtrl;
+export default tmCustomersCtrl;
 
 
 
