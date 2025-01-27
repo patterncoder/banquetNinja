@@ -27,6 +27,8 @@ import tmRecipeDetailCtrl from './recipes/tmRecipeDetailCtrl';
 import tmUnitsCtrl from './units/tmUnitsCtrl';
 import tmUnitDetailCtrl from './units/tmUnitDetailCtrl';
 import tmUnitDocSvc from './units/tmUnitDocSvc';
+import tmRecipeDocSvc from './recipes/tmRecipeDocSvc';
+import tmIngredientDocSvc from './ingredients/tmIngredientDocSvc';
 
 
 
@@ -39,6 +41,8 @@ export default angular.module('production', [uirouter])
     .factory('tmMenuDocSvc', tmMenuDocSvc)
     .factory('tmMenuGroupDocSvc', tmMenuGroupDocSvc)
     .factory('tmUnitDocSvc', tmUnitDocSvc)
+    .factory('tmRecipeDocSvc', tmRecipeDocSvc)
+    .factory('tmIngredientDocSvc', tmIngredientDocSvc)
     .controller('tmMenuGroupDetailCtrl', tmMenuGroupDetailCtrl)
     .controller('tmMenuDetailCtrl', tmMenuDetailCtrl)
     .controller('tmMenuGroupsCtrl', tmMenuGroupsCtrl)
