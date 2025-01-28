@@ -17,9 +17,21 @@ class tmRecipesCtrl {
         this.__proto__ = tmListFactory(constructorArgs);
         var self = this;
 
+
         let loadDataConfig = {
-          select: "name",
+          select: "name categories",
+          "startsWith[name]": self.$stateParams.alpha || 'A',
           "sort[name]": 1
+        };
+
+        this.changeFilter = function (value) {
+          self.$state.go(self.constructorArgs.listView, { alpha: value.value });
+          var filter = {
+              select: "name categories",
+              "startsWith[name]": value.value,
+              "sort[name]": 1
+          };
+          this.loadData(filter, true);
         };
 
         this.sortOptions = [{ value: "name", text: "Sort by Name A-Z" }, { value: "-name", text: "Sort by Name Z-A" }];

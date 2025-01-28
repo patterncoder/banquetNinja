@@ -6,7 +6,8 @@ export default function states($stateProvider){
     $stateProvider
     
     .state('root.customers', {
-            url: '/customers',
+            url: '/customers?alpha',
+            reloadOnSearch: false,
             roles: ['gold', 'admin', 'superUser'],
             // Can't remember how the isModal flag works...I'm getting alzheimers!
             // Oh yeah!!! in the index.html master page the header/nav/footer are visible
