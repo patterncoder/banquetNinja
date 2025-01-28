@@ -3,7 +3,8 @@ function tmListFactory(
     $dataSource,
     tmNotifier,
     tmDialogSvc,
-    $state
+    $state,
+    $stateParams
 ) {
     return function (constructorArgs) {
         return new BaseList(
@@ -12,6 +13,7 @@ function tmListFactory(
             tmNotifier,
             tmDialogSvc,
             $state,
+            $stateParams,
             constructorArgs
         );
     };
@@ -22,7 +24,8 @@ tmListFactory.$inject = [
     '$dataSource',
     'tmNotifier',
     'tmDialogSvc',
-    '$state'
+    '$state',
+    '$stateParams'
 ];
 
 export default tmListFactory;
@@ -33,6 +36,7 @@ function BaseList(
     tmNotifier,
     tmDialogSvc,
     $state,
+    $stateParams,
     constructorArgs
 ) {
     this.constructorArgs = constructorArgs;
@@ -42,6 +46,7 @@ function BaseList(
     this.Model = $dataSource.load(this.constructorArgs.model);
     this.tmDialogSvc = tmDialogSvc;
     this.$state = $state;
+    this.$stateParams = $stateParams;
     this.$http = $http;
     this.sortOptions = [{ value: "name", text: "Sort by Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
     

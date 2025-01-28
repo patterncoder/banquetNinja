@@ -59,7 +59,8 @@ export default function states($stateProvider){
         }
     )
     .state('root.menuitems', {
-        url:'/menuitems',
+        url:'/menuitems?alpha',
+        reloadOnSearch: false,
         roles: ['gold', 'admin', 'superUser'],
         views: {
             'content@': {
@@ -86,7 +87,8 @@ export default function states($stateProvider){
         }
     )
     .state('root.ingredients', {
-        url:'/production/ingredients',
+        url:'/production/ingredients?alpha',
+        reloadOnSearch: false,
         roles: ['gold', 'admin', 'superUser'],
         views: {
             'content@': {
@@ -110,7 +112,8 @@ export default function states($stateProvider){
         }
     )
     .state('root.recipes', {
-        url:'/production/recipes',
+        url:'/production/recipes?alpha',
+        reloadOnSearch: false,
         roles: ['gold', 'admin', 'superUser'],
         views: {
             'content@': {
@@ -157,17 +160,4 @@ export default function states($stateProvider){
             }
         }
     )
-    // .state('root.ingredientDetail', {
-    //     url: '/production/ingredients/:id',
-    //     roles: ['gold', 'admin', 'superUser'],
-    //     isModal: true,
-    //     views: {
-    //     'content@': {
-    //         template: require('./ingredients/ingredient-detail.jade'),
-    //         controller: 'tmIngredientDetailCtrl',
-    //         controllerAs: 'vm'
-    //         }
-    //     }
-    // })
-        
 }
