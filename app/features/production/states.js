@@ -15,6 +15,22 @@ export default function states($stateProvider){
             }
         }
     })
+    .state('root.menuGroupDetail', {
+            url: '/production/menusgroups/:id',
+            roles: ['gold', 'admin', 'superUser'],
+            // Can't remember how the isModal flag works...I'm getting alzheimers!
+            // Oh yeah!!! in the index.html master page the header/nav/footer are visible
+            // when the isModal is false
+            isModal: true,
+            views: {
+            'content@': {
+                template: require('./menugroups/menugroup-detail.jade'),
+                controller: 'tmMenuGroupDetailCtrl',
+                controllerAs: 'vm'
+                }
+            }
+        }
+    )
     .state('root.menus', {
         url:'/menus',
         roles: ['gold', 'admin', 'superUser'],
@@ -26,70 +42,6 @@ export default function states($stateProvider){
             }
         }
     })
-    // .state('root.menuDetail', {
-    //     url:'/menus/:id',
-    //     roles: ['gold', 'admin', 'superUser'],
-    //     views: {
-    //         'content@': {
-    //             template: require('./menus/menu-detail.jade'),
-    //             controller: 'tmMenuDetailCtrl',
-    //             controllerAs: 'vm'
-    //         }
-    //     }
-    // })
-    .state('root.menuitems', {
-        url:'/menuitems',
-        roles: ['gold', 'admin', 'superUser'],
-        views: {
-            'content@': {
-                template: require('./menuitems/menuItems-list.jade'),
-                controller: 'tmMenuItemsCtrl',
-                controllerAs: 'vm'
-            }
-        }
-    })
-    // .state('menuItemDetail', {
-    //         url: '/production/menuitems/:id',
-    //         roles: ['gold', 'admin', 'superUser'],
-    //         onEnter: ['$stateParams', '$state', '$modal', '$mdDialog',  function($stateParams, $state, $modal, $mdDialog){
-                
-    //             var parentEl = angular.element(document.body);
-    //             $mdDialog.show({
-    //                 parent: parentEl,
-    //                 template: require('apply!./menuitems/menuItem-detail.jade'),
-    //                 locals: {
-    //                 },
-    //                 fullscreen: true,
-    //                 controller: 'tmMenuItemDetailCtrl as vm'
-    //             });
-    //             // $modal.open({
-    //             //     animation: true,
-    //             //     template: require('apply!./menuitems/menuItem-detail.jade'),
-    //             //     controller: 'tmMenuItemDetailCtrl as vm',
-    //             //     resolve: {itemId: function(){return $stateParams.id;}},
-    //             //     size: 'fs'
-    //             // }).result.finally(function(){
-    //             //     $state.go('^');
-    //             // })
-    //         }]
-    //     }
-    // );
-    .state('root.menuItemDetail', {
-            url: '/production/menuitems/:id',
-            roles: ['gold', 'admin', 'superUser'],
-            // Can't remember how the isModal flag works...I'm getting alzheimers!
-            // Oh yeah!!! in the index.html master page the header/nav/footer are visible
-            // when the isModal is false
-            isModal: true,
-            views: {
-            'content@': {
-                template: require('./menuitems/menuItem-detail.jade'),
-                controller: 'tmMenuItemDetailCtrl',
-                controllerAs: 'vm'
-                }
-            }
-        }
-    )
     .state('root.menuDetail', {
             url: '/production/menus/:id',
             roles: ['gold', 'admin', 'superUser'],
@@ -106,8 +58,20 @@ export default function states($stateProvider){
             }
         }
     )
-    .state('root.menuGroupDetail', {
-            url: '/production/menusgroups/:id',
+    .state('root.menuitems', {
+        url:'/menuitems?alpha',
+        reloadOnSearch: false,
+        roles: ['gold', 'admin', 'superUser'],
+        views: {
+            'content@': {
+                template: require('./menuitems/menuItems-list.jade'),
+                controller: 'tmMenuItemsCtrl',
+                controllerAs: 'vm'
+            }
+        }
+    })
+    .state('root.menuItemDetail', {
+            url: '/production/menuitems/:id',
             roles: ['gold', 'admin', 'superUser'],
             // Can't remember how the isModal flag works...I'm getting alzheimers!
             // Oh yeah!!! in the index.html master page the header/nav/footer are visible
@@ -115,12 +79,85 @@ export default function states($stateProvider){
             isModal: true,
             views: {
             'content@': {
-                template: require('./menugroups/menugroup-detail.jade'),
-                controller: 'tmMenuGroupDetailCtrl',
+                template: require('./menuitems/menuItem-detail.jade'),
+                controller: 'tmMenuItemDetailCtrl',
                 controllerAs: 'vm'
                 }
             }
         }
-    );
-        
+    )
+    .state('root.ingredients', {
+        url:'/production/ingredients?alpha',
+        reloadOnSearch: false,
+        roles: ['gold', 'admin', 'superUser'],
+        views: {
+            'content@': {
+                template: require('./ingredients/ingredients-list.jade'),
+                controller: 'tmIngredientsCtrl',
+                controllerAs: 'vm'
+            }
+        }
+    })
+    .state('root.ingredientDetail', {
+            url: '/production/ingredients/:id',
+            roles: ['gold', 'admin', 'superUser'],
+            isModal: true,
+            views: {
+            'content@': {
+                template: require('./ingredients/ingredient-detail.jade'),
+                controller: 'tmIngredientDetailCtrl',
+                controllerAs: 'vm'
+                }
+            }
+        }
+    )
+    .state('root.recipes', {
+        url:'/production/recipes?alpha',
+        reloadOnSearch: false,
+        roles: ['gold', 'admin', 'superUser'],
+        views: {
+            'content@': {
+                template: require('./recipes/recipes-list.jade'),
+                controller: 'tmRecipesCtrl',
+                controllerAs: 'vm'
+            }
+        }
+    })
+    .state('root.recipeDetail', {
+            url: '/production/recipes/:id',
+            roles: ['gold', 'admin', 'superUser'],
+            isModal: true,
+            views: {
+            'content@': {
+                template: require('./recipes/recipe-detail.jade'),
+                controller: 'tmRecipeDetailCtrl',
+                controllerAs: 'vm'
+                }
+            }
+        }
+    )
+    .state('root.units', {
+        url:'/production/units',
+        roles: ['gold', 'admin', 'superUser'],
+        views: {
+            'content@': {
+                template: require('./units/units-list.jade'),
+                controller: 'tmUnitsCtrl',
+                controllerAs: 'vm'
+            }
+        }
+    })
+    .state('root.unitDetail', {
+            url: '/production/units/:id',
+            roles: ['gold', 'admin', 'superUser'],
+            isModal: true,
+            views: {
+            'content@': {
+                template: require('./units/unit-detail.jade'),
+                controller: 'tmUnitDetailCtrl',
+                controllerAs: 'vm'
+                }
+            }
+        }
+    )
 }

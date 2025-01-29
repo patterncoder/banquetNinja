@@ -12,62 +12,32 @@ class tmMenuItemsCtrl {
         };
 
         this.__proto__ = tmListFactory(constructorArgs);
-        // this.loadData();
+        var self = this;
 
         this.sortOptions = [ { value: "name", text: "Sort by Item" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
 
         this.sortOrder = this.sortOptions[0].value;
 
 
+        let loadDataConfig = {
+          select: "name title description active",
+          "startsWith[name]":self .$stateParams.alpha || 'A',
+          "sort[name]": 1
+        };
+
         
         this.changeFilter = function (value) {
+            self.$state.go(self.constructorArgs.listView, { alpha: value.value });
             var filter = {
                 select: "name title description active",
                 "sort[name]": 1,
                 "startsWith[name]": value.value,
             };
-            this.loadData(filter, true, true);
+            this.loadData(filter, true);
         };
 
-        // this.activeFilter = "A";
 
-        // this.activeMenuItems = [];
-
-        // let alphaSorted = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": [] };
-
-        // this.stripNums = (menuObj) => {
-        //     let nwName = "";
-        //     if (menuObj.hasOwnProperty("name")) {
-        //         let name = menuObj.name;
-        //         for (let i = 0; i < name.length; ++i) {
-        //             if (isNaN(name[i])) {
-        //                 nwName += name[i];
-        //             }
-        //         }
-        //     } else {
-        //     }
-        //     return nwName;
-        // };
-
-        // this.getFilterChar = (nwName) => {
-        //     let alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-        //     let str = nwName.toUpperCase();
-        //     let char = str[0];
-        //     if (alphabet.indexOf(char) > -1) {
-        //         return char;
-        //     }
-
-        //     return "A";
-        // };
-
-
-        
-
-        this.loadData({
-            select: "name title description active",
-            "sort[name]": 1,
-            "startsWith[name]": "A",
-        }, true, true);
+        this.loadData(loadDataConfig, true, true);
     }
 }
 

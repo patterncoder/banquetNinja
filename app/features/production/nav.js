@@ -23,6 +23,30 @@ export default ['navigationProvider', function(navigationProvider){
             sortOrder: 50,
             sref: 'root.menuitems',
             parent: 'Production',
+            endSection: true,
+            roles: [ 'gold', 'admin', 'superUser']
+        });
+        navigationProvider.addNav({
+            name: 'Recipes',
+            sortOrder: 50,
+            sref: 'root.recipes',
+            parent: 'Production',
+            endSection: false,
+            roles: [ 'gold', 'admin', 'superUser']
+        });
+        navigationProvider.addNav({
+            name: 'Ingredients',
+            sortOrder: 50,
+            sref: 'root.ingredients',
+            parent: 'Production',
+            endSection: false,
+            roles: [ 'gold', 'admin', 'superUser']
+        });
+        navigationProvider.addNav({
+            name: 'Units',
+            sortOrder: 50,
+            sref: 'root.units',
+            parent: 'Production',
             endSection: false,
             roles: [ 'gold', 'admin', 'superUser']
         });

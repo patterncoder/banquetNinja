@@ -231,7 +231,30 @@ function tmContractDetailCtrl(
 
         self.tmDialogSvc.showDialog(dialogConfig);
       }
-    }
+    };
+
+    this.moreFunctions.delete = {
+      label: "Delete",
+      method: function () {
+          var dialogOptions = {
+              closeButtonText: 'No',
+              actionButtonText: 'Yes',
+              headerText: 'Delete?',
+              bodyText: 'Do you want to delete this record and all associated data?'
+          };
+          self.tmDialogSvc.showDialog({}, dialogOptions).then(function () {
+              self.docSvc.doc.status = "abandoned";
+              try {
+                  self.docSvc.saveChanges();
+              } catch (e) {
+                  console.log(e);
+              }
+              self.$state.go(self.$state.back.fromState, self.$state.back.fromParams );
+              }, function (error) {
+                console.log(error);
+              });
+      }
+  }
 
     this.contractStatusOptions = constructorArgs.schema.paths.status.enumValues.map((status) => {
         return {

@@ -4,7 +4,7 @@
 
 import ninjaSchemas from 'ninjaSchemas';
 
-class tmMenuGroupsCtrl {
+class tmCustomersCtrl {
     constructor($scope, tmListFactory) {
 
         var constructorArgs = {
@@ -15,21 +15,21 @@ class tmMenuGroupsCtrl {
             addHeaderText: 'Add Customer',
             listTitle: 'Our Customers'
         };
-        this.sortOptions = [{ value: "lastName", text: "Sort by Last Name" }, { value: "firstName", text: "Sort by First Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
-        this.sortOrder = this.sortOptions[0].value;
+
+
         this.__proto__ = tmListFactory(constructorArgs);
-        this.loadData({
-            select: "firstName lastName phoneNumbers",
-            "startsWith[lastName]": "A",
-            "sort[lastName]": 1
-        });
+        var self = this;
 
-        this.afterLoad = function () {
-            // this.setPagination();
-            // this.pageChanged();
-        };
+        let loadDataConfig = {
+          select: "firstName lastName phoneNumbers",
+          "startsWith[lastName]": self.$stateParams.alpha || 'A',
+          "sort[lastName]": 1
+        }
 
+        this.loadData(loadDataConfig, true);
+        
         this.changeFilter = function (value) {
+            self.$state.go(self.constructorArgs.listView, { alpha: value.value });
             var filter = {
                 select: "firstName lastName phoneNumbers",
                 "startsWith[lastName]": value.value,
@@ -37,6 +37,15 @@ class tmMenuGroupsCtrl {
             };
             this.loadData(filter, true);
         };
+
+        this.sortOptions = [{ value: "lastName", text: "Sort by Last Name" }, { value: "firstName", text: "Sort by First Name" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
+        this.sortOrder = this.sortOptions[0].value;
+
+        this.afterLoad = function () {
+            // this.setPagination();
+            // this.pageChanged();
+        };
+
 
 
 
@@ -70,9 +79,9 @@ class tmMenuGroupsCtrl {
 
 }
 
-tmMenuGroupsCtrl.$inject = ['$scope', 'tmListFactory'];
+tmCustomersCtrl.$inject = ['$scope', 'tmListFactory'];
 
-export default tmMenuGroupsCtrl;
+export default tmCustomersCtrl;
 
 
 

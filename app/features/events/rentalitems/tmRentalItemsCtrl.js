@@ -9,83 +9,100 @@ class tmRentalItemsCtrl {
             listView: 'root.rentalitems',
             detailView: 'root.rentalitemDetail',
             addHeaderText: 'Add Rental Item',
-            listTitle: 'Rental Items'
+            listTitle: 'Rental Items',
+            hideDetailButton: true
         };
 
         this.__proto__ = tmListFactory(constructorArgs);
-        // this.loadData();
+        var self = this;
 
-        // this.sortOptions = [ { value: "name", text: "Sort by Item" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
-
-        // this.sortOrder = this.sortOptions[0].value;
-
-        this.activeFilter = "A";
-
-        this.activeRentals = [];
-
-        let alphaSorted = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": [] };
-
-        this.stripNums = (rentObj) => {
-            let nwName = "";
-            if (rentObj.hasOwnProperty("name")) {
-                let name = rentObj.name;
-                for (let i = 0; i < name.length; ++i) {
-                    if (isNaN(name[i])) {
-                        nwName += name[i];
-                    }
-                }
-            } else {
-            }
-            return nwName;
+        let loadDataConfig = {
+          select: "name",
+          "startsWith[name]": self.$stateParams.alpha || 'A',
+          "sort[name]": 1
         };
 
-        this.getFilterChar = (nwName) => {
-            let alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-            let str = nwName.toUpperCase();
-            let char = str[0];
-            if (alphabet.indexOf(char) > -1) {
-                return char;
-            }
-
-            return "A";
-        };
-
+        this.loadData(loadDataConfig, true);
 
         this.changeFilter = function (value) {
-            //refresh the list, in case a new item was added.
-            alphaSorted = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": [] };
-            this.activateAndSort();
-
-            this.activeFilter = value.value;
-            this.activeRentals = alphaSorted[this.activeFilter];
-
+          self.$state.go(self.constructorArgs.listView, { alpha: value.value });
+          var filter = {
+              select: "name",
+              "startsWith[name]": value.value,
+              "sort[name]": 1
+          };
+          this.loadData(filter, true);
         };
 
-        this.activateAndSort = () => {
+        this.sortOptions = [ { value: "name", text: "Sort by Item" }, { value: "meta.datecreated", text: "Sort by Date Created" }];
 
-            if (this.items.length < 25) {
-                this.activeFilter = "*";
-            }
+        this.sortOrder = this.sortOptions[0].value;
 
-            this.items.map((obj) => {
-                obj.nwName = this.stripNums(obj);
-                obj.filterChar = this.getFilterChar(obj.nwName);
-                alphaSorted[obj.filterChar].push(obj);
-                alphaSorted["*"].push(obj); //store all in this one
-            });
+        // this.activeFilter = "A";
 
-            this.activeRentals = alphaSorted[this.activeFilter]; //Usually "A".
-        }
+        // this.activeRentals = [];
 
-        this.afterLoad = () => {
-            //this.items.reverse() //comes in from db oldest first...
-            this.activateAndSort();
+        // let alphaSorted = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": [] };
 
-        };
+        // this.stripNums = (rentObj) => {
+        //     let nwName = "";
+        //     if (rentObj.hasOwnProperty("name")) {
+        //         let name = rentObj.name;
+        //         for (let i = 0; i < name.length; ++i) {
+        //             if (isNaN(name[i])) {
+        //                 nwName += name[i];
+        //             }
+        //         }
+        //     } else {
+        //     }
+        //     return nwName;
+        // };
+
+        // this.getFilterChar = (nwName) => {
+        //     let alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        //     let str = nwName.toUpperCase();
+        //     let char = str[0];
+        //     if (alphabet.indexOf(char) > -1) {
+        //         return char;
+        //     }
+
+        //     return "A";
+        // };
+
+
+        // this.changeFilter = function (value) {
+        //     //refresh the list, in case a new item was added.
+        //     alphaSorted = { "A": [], "B": [], "C": [], "D": [], "E": [], "F": [], "G": [], "H": [], "I": [], "J": [], "K": [], "L": [], "M": [], "N": [], "O": [], "P": [], "Q": [], "R": [], "S": [], "T": [], "U": [], "V": [], "W": [], "X": [], "Y": [], "Z": [], "*": [] };
+        //     this.activateAndSort();
+
+        //     this.activeFilter = value.value;
+        //     this.activeRentals = alphaSorted[this.activeFilter];
+
+        // };
+
+        // this.activateAndSort = () => {
+
+        //     if (this.items.length < 25) {
+        //         this.activeFilter = "*";
+        //     }
+
+        //     this.items.map((obj) => {
+        //         obj.nwName = this.stripNums(obj);
+        //         obj.filterChar = this.getFilterChar(obj.nwName);
+        //         alphaSorted[obj.filterChar].push(obj);
+        //         alphaSorted["*"].push(obj); //store all in this one
+        //     });
+
+        //     this.activeRentals = alphaSorted[this.activeFilter]; //Usually "A".
+        // }
+
+        // this.afterLoad = () => {
+        //     //this.items.reverse() //comes in from db oldest first...
+        //     this.activateAndSort();
+
+        // };
 
         //loadData needs to be async or return a promise.
-        this.loadData().then((tmp) => {
-        });
 
     }
 
