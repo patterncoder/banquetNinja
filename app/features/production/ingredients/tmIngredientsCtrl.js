@@ -42,7 +42,7 @@ class tmIngredientsCtrl {
 
 
         this.afterAddItemDialogClose = () => {
-            this.loadData(loadDataConfig, true).then(function (data) {});
+            this.loadData(loadDataConfig, true);
         };
 
     }

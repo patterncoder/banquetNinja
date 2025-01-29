@@ -7,13 +7,13 @@ div(flex="100")
             col.tableNav(span="1")
         thead
             th Staff Members
-            th Description
+            th Job Title
             th Charge
             th.text-right
                 button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
         tbody
             //- tr(ng-repeat="item in vm.items | filter:searchText | orderBy:vm.sortOrder")
-            tr(ng-repeat="item in vm.activeStaff | filter:searchText | orderBy:sortOrder")
+            tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
                 td {{::item.memberName}}
                 td {{::item.jobTitle}}
                 td {{::item.price}}

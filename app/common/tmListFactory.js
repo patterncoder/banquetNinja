@@ -97,6 +97,8 @@ function BaseList(
         });
     };
 
+
+
     this.details = function (id) {
         this.$state.go(this.constructorArgs.detailView, { id: id });
     };

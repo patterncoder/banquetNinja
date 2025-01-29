@@ -13,7 +13,6 @@ div(flex="100")
             //- tr(ng-repeat="item in vm.items | filter:searchText | orderBy:vm.sortOrder")
             tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
                 td 
-                  span
-                    a(ng-click="vm.details(item._id)") {{::item.name}}
+                  button.textonlyblue(ng-click="vm.details(item._id)") {{::item.name}}
                 td(style="padding: 4px;")
                     list-item-buttons(id-val="item._id" delete-fn="vm.deleteItem(idVal)" edit-fn="vm.details(idVal)")

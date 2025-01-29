@@ -25,8 +25,7 @@ div(flex="100")
         tbody
             tr(ng-repeat="item in vm.items | filter:searchText | filter:vm.radioModel | orderBy:vm.sortOrder | orderBy:item.time" ng-class="{trLightBlue: item.status === 'pending'}")
                 td 
-                  span
-                    a(ng-click="vm.details(item._id)") {{::item.eventName }} ({{::item.customer.firstName}} {{::item.customer.lastName}})
+                  button.textonlyblue(ng-click="vm.details(item._id)") {{::item.eventName }} ({{::item.customer.firstName}} {{::item.customer.lastName}})
                 td {{::item.serviceType}}
                 td 
                     div(ng-repeat="venue in item.venues")

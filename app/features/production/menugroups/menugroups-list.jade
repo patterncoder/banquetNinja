@@ -15,8 +15,7 @@ div(flex="100")
         tbody
             tr(ng-repeat="item in vm.items | filter:searchText | orderBy:sortOrder")
                 td 
-                  span
-                    a(ng-click="vm.details(item._id)") {{::item.name}}
+                  button.textonlyblue(ng-click="vm.details(item._id)") {{::item.name}}
                 td {{::item.description}}
                 td(style="padding: 4px;")
                     md-checkbox(ng-model="item.active" ng-disabled="true" aria-label="{{::item.name}}" style="margin-bottom: 0px;")
