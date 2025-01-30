@@ -62,11 +62,6 @@ class tmMenuItemDetailCtrl {
 
     }
 
-    // addTitle(item){
-    //     console.log('in add title');
-    //     this.docSvc.addTitle(this.newTitle);
-    //     this.newTitle = null;
-    // }
 
 }
 

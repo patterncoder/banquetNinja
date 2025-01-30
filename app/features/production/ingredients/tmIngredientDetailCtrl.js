@@ -14,10 +14,10 @@ function tmIngredientDetailCtrl(
         $dataSource: $dataSource,
         docSvc: tmIngredientDocSvc,
         schema: ninjaSchemas.production.Recipe,
-        model: "Recipe",
-        listView: "root.recipes",
-        detailView: "root.recipeDetail",
-        addHeaderText: "Add Recipe"
+        model: 'Ingredient',
+        listView: 'root.ingredients',
+        detailView: 'root.ingredientDetail',
+        addHeaderText: "Add Ingredient"
     }
 
     this.__proto__ = tmDetailFactory(constructorArgs);
@@ -34,7 +34,10 @@ function tmIngredientDetailCtrl(
         }
     });
 
-
+    this.categoryPanelOpen = false;
+    this.toggleCategoryPanelOpen = () => {
+        this.categoryPanelOpen = !this.categoryPanelOpen;
+    }
 
     this.loadData().then(() => {});
 
