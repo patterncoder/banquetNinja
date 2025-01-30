@@ -25,6 +25,14 @@ function tmMenuItemDocSvc(tmDocFactory) {
             throw new Error("Category already exists");
         }
     }
+    
+    this.removeCategory = function (category) {
+        var index = this.doc.categories.indexOf(category);
+        if (index > -1) {
+            this.doc.categories.splice(index, 1);
+        }
+    }
+
 
     this.addTitle = function (title) {
         if (!this.doc.hasOwnProperty("title")) {
@@ -50,13 +58,6 @@ function tmMenuItemDocSvc(tmDocFactory) {
 
     this.getCategories = function () {
         return this.doc.categories;
-    }
-
-    this.removeCategory = function (category) {
-        var index = this.doc.categories.indexOf(category);
-        if (index > -1) {
-            this.doc.categories.splice(index, 1);
-        }
     }
 
 

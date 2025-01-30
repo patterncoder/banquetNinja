@@ -2,22 +2,29 @@ form(name="vm.detailForm")
     div(flex layout="row")
         div(flex="100" align-content="flex-start" layout="column")
             div(layout="row")
-                .form-group(flex="25")
+                .form-group(flex="30")
                     label.control-label(for="name") Group Name
                     input.form-control(ng-model="vm.docSvc.doc.name" )
-                .form-group(flex="60")
+                .form-group(flex="70")
                     label.control-label(for="description") Description
                     input.form-control(ng-model="vm.docSvc.doc.description")
-            //-     .form-group(flex="15")
-            //-         label.control-label(for="description") Set as active group
-            //-         div
-            //-             md-checkbox(ng-model="vm.docSvc.doc.active" ng-change="vm.setActive()" aria-label="IsGroupActive")
-            //- div(layout="row")
-            //-     .form-group(flex="25")
-            //-         label.control-label(for="subtitle") Title
-            //-         input.form-control(ng-model="vm.docSvc.doc.title")
-            //-     .form-group(flex="75")
-            //-         label.control-label(for="description") Sub Title
-            //-         input.form-control(ng-model="vm.docSvc.doc.subtitle")
-            //- div(layout="row")
-                
+            div(layout="row")
+                .form-group(flex="15")
+                    label.control-label(for="name") Shelf Life (days)
+                    input.form-control(ng-model="vm.docSvc.doc.shelfLife" )
+                .form-group(flex="85")
+                    label.control-label(for="name") Storage Instructions
+                    input.form-control(ng-model="vm.docSvc.doc.storageInstructions" )
+            div(layout="row")
+                .form-group(flex="100")
+                    label.control-label(for="name") Notes
+                    input.form-control(ng-model="vm.docSvc.doc.notes" )
+            div(layout="row")
+                .form-group(layout="column")
+                    label Categories
+                    div(layout="row")
+                        button.btn.btn-primary(type="button" ng-repeat="item in vm.docSvc.doc.categories" style="margin-right: 4px;" ng-click="vm.docSvc.removeCategory(item)") {{item}} &nbsp;&nbsp;
+                            span.badge
+                                span.glyphicon.glyphicon-remove
+                        .btn-round.btn-sm(ng-show="!vm.categoryPanelOpen"  ng-click="vm.categoryPanelOpen = !vm.categoryPanelOpen"  style="padding-left: 4px; margin-top:3px; padding-top: 4px; color: white; background-color: #337ab7")
+                            span.glyphicon.glyphicon-plus( style="margin-left: 4px; margin-top: 3px;")
