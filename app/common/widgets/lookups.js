@@ -39,7 +39,7 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', '$timeout', fu
         self.updateList();
     });
     
-    Data.query().then(function(data){
+    Data.query({}, true).then(function(data){
         console.log(data);
         if(list === "root"){
             self.data = data;

@@ -153,11 +153,11 @@ export default class CachedResource {
     remove(id) {
         var self = this;
         return this.Resource.remove({ _id: id }).$promise.then(function () {
-            var item = self.List.map(function (i) {
-                return i._id;
-            }).indexOf(id);
-            self.List.splice(item, 1);
-            return self.List;
+            // var item = self.List.map(function (i) {
+            //     return i._id;
+            // }).indexOf(id);
+            // self.List.splice(item, 1);
+            // return self.List;
         }, function (err) {
             return err;
         });

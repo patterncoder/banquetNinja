@@ -10,11 +10,12 @@
                         md-tab( label="Units")
                             .panel.panel-default
                                 .panel-body This tab will catalog how the ingredient will be used in recipes and inventory lists
+                        md-tab( label="Storage Locations")
+                            .panel.panel-default
+                                .panel-body This tab will catalog where the ingredient will be stored.  This will be used to print inventory sheets for a specific location.
                         md-tab( label="Vendors")
                             .panel.panel-default
                                 .panel-body This will catalog how the ingredient is purchases and from what vendors
-                //- div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
-                //-     div Some text here.
         div.detailRightPanel(ng-show="vm.categoryPanelOpen" flex="20"  layout-padding)
             md-content(layout-padding style="background: transparent")
                 div(layout="row" layout-align="end start")

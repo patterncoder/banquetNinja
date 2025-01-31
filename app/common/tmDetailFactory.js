@@ -83,14 +83,9 @@ function BaseDetail(
                     bodyText: 'Do you want to delete this record and all associated data?'
                 };
                 self.tmDialogSvc.showDialog({}, dialogOptions).then(function () {
-                    //were not supposed to actually delete, only MARK deleted...
-                    // TODO: status abandoned is not generic to be in tmDetailFactory...this is a concern of contracts
-                    // TODO: this is not a concern of the detail factory...this should be removed and 
-                    // handled in an overide in the tmContractDetailCtrl more functions
-                    self.docSvc.doc.status = "abandoned";
-
+                    
                     try {
-                        self.docSvc.saveChanges();
+                        self.docSvc.deleteDocument();
                     } catch (e) {
                         console.log(e);
                     }
