@@ -117,8 +117,11 @@ function BaseList(
         };
         self.tmDialogSvc.showDialog({}, dialogOptions).then(function () {
             self.Model.remove(id).then(function (collection) {
+                var item = self.items.map(function (i) {
+                    return i._id;
+                }).indexOf(id);
+                self.items.splice(item, 1);
                 self.tmNotifier.notify("The item has been deleted");
-                self.items = collection;
             });
         }, function () {
 

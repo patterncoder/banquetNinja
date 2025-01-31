@@ -49,6 +49,7 @@
     "lodash": "^3.10.1",
     "mongoose": "^5.8.11",
     "ng-annotate-loader": "0.0.10",
+    "ng-quill": "^4.5.3",
     "node-loader": "^0.5.0",
     "raw-loader": "^0.5.1",
     "rx-angular": "^1.0.4",
@@ -61,8 +62,8 @@
     "webpack": "^1.15.0"
   },
   "devDependencies": {
+    "html-webpack-plugin": "^3.2.0",
     "stylus-loader": "^3.0.2",
-    "webpack-dev-server": "^1.12.0",
-    "html-webpack-plugin": "^3.2.0"
+    "webpack-dev-server": "^1.12.0"
   }
 }
