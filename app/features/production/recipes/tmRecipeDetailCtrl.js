@@ -34,6 +34,8 @@ function tmRecipeDetailCtrl(
         }
     });
 
+    this.categoryPanelOpen = false;
+
 
 
     this.loadData().then(() => {});

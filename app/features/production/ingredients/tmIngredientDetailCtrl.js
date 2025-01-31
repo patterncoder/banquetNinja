@@ -35,9 +35,7 @@ function tmIngredientDetailCtrl(
     });
 
     this.categoryPanelOpen = false;
-    this.toggleCategoryPanelOpen = () => {
-        this.categoryPanelOpen = !this.categoryPanelOpen;
-    }
+    
 
     this.loadData().then(() => {});
 

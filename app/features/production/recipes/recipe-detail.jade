@@ -4,12 +4,28 @@
         div.detailLeftPanel(flex layout="column")
             div.detailLeftPanelContainer(layout-fill)
                 div.detailTopPanel(layout-padding)
-                    include ./tabs/top-panel.jade                
-        //-         div.detailSection(layout-padding)
-        //-             md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
-        //-                 md-tab( label="User Roles")
-        //-                     include ./tabs/tab-roles.jade
-        //-         div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
-        //- div.detailRightPanel(flex="20" ng-show="vm.sideTab.roles" layout-padding)
-        //-     include ./tabs/addRole.jade               
+                    include ./tabs/top-panel.jade
+                div.detailSection(layout-padding)
+                    md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
+                        md-tab( label="Ingredients")
+                            include ./tabs/tab-ingredients.jade
+                        md-tab( label="Sub Recipes")
+                            .panel.panel-default
+                                .panel-body This tab will list out the sub recipes used.
+                        md-tab( label="Vendors")
+                            .panel.panel-default
+                                .panel-body This will catalog how the ingredient is purchases and from what vendors
+        div.detailRightPanel(ng-show="vm.categoryPanelOpen" flex="20"  layout-padding)
+            md-content(layout-padding style="background: transparent")
+                div(layout="row" layout-align="end start")
+                    md-button(ng-click="vm.categoryPanelOpen = !vm.categoryPanelOpen") Close
+                div(layout="row" )
+                    div(layout="column")
+                        h3 Add Category
+                        //- a(href="") Add categories to the list
+                        lookups(tm-data-source="RecipeCategories" limit-to-list doc-list="vm.docSvc.doc.categories" list="root" doc-service-add-method="tmRecipeDocSvc.addCategory")
+                            div.itemCard(style="border: solid black 1px; background-color: white")
+                                a(href="" ng-click="dCtrl.addItem(item)") 
+                                    span.glyphicon.glyphicon-circle-arrow-left 
+                                span &nbsp; {{item}}
     detail-footer
