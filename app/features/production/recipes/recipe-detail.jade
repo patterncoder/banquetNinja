@@ -12,9 +12,8 @@
                         md-tab( label="Sub Recipes")
                             .panel.panel-default
                                 .panel-body This tab will list out the sub recipes used.
-                        md-tab( label="Vendors")
-                            .panel.panel-default
-                                .panel-body This will catalog how the ingredient is purchases and from what vendors
+                        md-tab( label="Instructions")
+                            include ./tabs/tab-instructions.jade
         div.detailRightPanel(ng-show="vm.categoryPanelOpen" flex="20"  layout-padding)
             md-content(layout-padding style="background: transparent")
                 div(layout="row" layout-align="end start")
