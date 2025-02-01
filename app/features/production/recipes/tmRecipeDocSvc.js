@@ -26,8 +26,58 @@ function tmRecipeDocSvc(tmDocFactory, $dataSource) {
         }
     }
 
+
+    this.addStation = function (station) {
+      this.doc.stations = this.doc.stations || [];
+      var index = this.doc.stations.indexOf(station);
+      if (index === -1) {
+          this.doc.stations.push(station);
+          return this.doc.stations;
+      } else {
+          return;
+      }
+  }
+
+  this.removeStation = function (station) {
+      var index = this.doc.stations.indexOf(station);
+      if (index > -1) {
+          this.doc.stations.splice(index, 1);
+      }
+  }
+
+  this.addIngredient = (ingredient) => {
+    const newIng = {
+      quantity: 0,
+      unit: null,
+      name: ingredient.name,
+      ingredientId: ingredient._id,
+      prepNotes: ''
+    }
+    this.doc.ingredients.push(newIng);
+  };
+
+
+  this.removeIngredient = (indx) => {
+    this.doc.ingredients.splice(indx, 1);
+  };
+
+  this.addRecipe = (recipe) => {
+    const newRec = {
+      quantity: 0,
+      unit: null,
+      name: recipe.name,
+      recipeId: recipe._id,
+      prepNotes: ''
+    }
+    this.doc.recipes.push(newRec);
+  };
+
+
+  this.removeRecipe = (indx) => {
+    this.doc.recipes.splice(indx, 1);
+  };
   
-    return this;
+  return this;
 
 }
 

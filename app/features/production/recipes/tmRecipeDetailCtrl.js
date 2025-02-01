@@ -23,6 +23,7 @@ function tmRecipeDetailCtrl(
     this.__proto__ = tmDetailFactory(constructorArgs);
     this.$dataSource = $dataSource;
 
+
     this.$scope.$watch(function () {
         return self.docSvc.isDirty();
     }, function (newVal, oldVal, scope) {
@@ -34,7 +35,68 @@ function tmRecipeDetailCtrl(
         }
     });
 
-    this.categoryPanelOpen = false;
+    this.panels = {
+      cateoryPanel: false,
+      stationPanel: false,
+      ingredientPanel: false,
+      recipePanel: false
+    }
+
+    this.openIngredientPanel = () => {
+      this.openPanel('ingredientPanel');
+    }
+    this.openRecipePanel = () => {
+      this.openPanel('recipePanel');
+    }
+
+    this.openPanel = (panelToOpen) => {
+      this.closePanels();
+      this.panels[panelToOpen] = true;
+    }
+
+    this.closePanels = () => {
+      Object.keys(this.panels).forEach((panel) => {
+        this.panels[panel] = false;
+      });
+    };
+
+    this.searchForIngredients = (nameLike, categoryLike) => {
+      if(!nameLike && !categoryLike) return;
+      let ingredientsResource = self.$dataSource.load("Ingredient");
+      ingredientsResource.query({
+        select: 'name categories',
+        "like[name]": nameLike,
+        "like[categories]": categoryLike
+      }, true, true).then((data) => {
+        console.log(data);
+        self.selectableIngredients = data; 
+      });
+    };
+
+
+    this.searchForRecipes = (nameLike, categoryLike) => {
+      if(!nameLike && !categoryLike) return;
+      let recipesResource = self.$dataSource.load("Recipe");
+      recipesResource.query({
+        select: 'name categories',
+        "like[name]": nameLike,
+        "like[categories]": categoryLike
+      }, true, true).then((data) => {
+        console.log(data);
+        self.selectableRecipes = data; 
+      });
+    };
+
+    this.unitOptions = [];
+    this.loadUnits = () => {
+      
+      let unitsResource = self.$dataSource.load("Unit");
+      unitsResource.query({select: 'name', "sort[name]": 1}, true, true)
+        .then((data) => {
+          this.unitOptions = data.map(u => u.name);
+        });
+    };
+    this.loadUnits();
 
 
 

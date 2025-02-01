@@ -8,14 +8,12 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', '$timeout', fu
     var docSvc = $attrs.docServiceAddMethod.split('.')[0];
     var addMethod = $attrs.docServiceAddMethod.split('.')[1];
     var list = $attrs.list;
-    //console.log({docSvc: docSvc, addMethod: addMethod, list: list});
     self.docList = [];
     var Data = $dataSource.load($attrs.tmDataSource);
     self.docService = $injector.get(docSvc);
     self.fullList = [];
     self.data = [];
     self.dataTest = [];
-    //console.log($scope);
     
     this.updateList = function(){
         if(!self.docList)return;
@@ -40,7 +38,6 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', '$timeout', fu
     });
     
     Data.query({}, true).then(function(data){
-        console.log(data);
         if(list === "root"){
             self.data = data;
             self.fullList = angular.copy(data);
@@ -56,7 +53,6 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', '$timeout', fu
     
     
     this.addItem = function(item){
-        console.log(item);
         self.docService[addMethod](item);
         self.updateList();
     };

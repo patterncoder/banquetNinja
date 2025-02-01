@@ -59,6 +59,7 @@ function BaseDetail(
     this.constructorArgs = constructorArgs;
 
 
+    
 
     this.moreFunctions = {
         addItem: {

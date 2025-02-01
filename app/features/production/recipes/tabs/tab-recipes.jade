@@ -1,16 +1,16 @@
 
 //- "item in vm.docSvc.doc.sections[vm.docSvc.activeObj.index].items"
 //- create-method="vm.docSvc.openAddFood"
-ninja-grid(no-data-text="No ingredients yet..." 
-        grid-title="Ingredients" 
+ninja-grid(no-data-text="No recipes yet..." 
+        grid-title="Recipes" 
         doc-svc="vm.docSvc" 
-        list="vm.docSvc.doc.ingredients" 
-        create-method="openAddIngredient" 
+        list="vm.docSvc.doc.recipes" 
+        create-method="" 
         update-method="" 
-        delete-method="removeIngredient"
-        add-toggle="vm.openIngredientPanel"
+        delete-method="removeRecipe"
+        add-toggle="vm.openRecipePanel"
         fields="{quantity: {input: 'text', header: 'Quantity', order: 10, width: 10, type: 'number'}, " +
-            "unit: {input: 'text', header: 'Unit', order: 20, width: 15, type: 'string'}," +
+            "unit: {input: 'select', header: 'Unit', order: 20, width: 15, type: 'select', selectOptions: vm.unitOptions}," +
             "name: {input: 'text', header: 'Ingredient', order: 30, width: 30, type: 'string'}, " +
             "prepNotes: {input: 'text', header: 'Prep Notes', order: 40, width: 45, type: 'string'}}"
         )
