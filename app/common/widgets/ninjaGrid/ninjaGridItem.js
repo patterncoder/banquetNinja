@@ -40,9 +40,9 @@ function ninjaGridItemCtrl ($timeout, $filter, $scope) {
                 } else {
                     return value;
                 }
-            } else if (typeof value === 'object') {
+            } /* else if (typeof value === 'object') {  // this is a first attempt at showing a nested object property in the grid
               return value[viewDisplayAs];
-            }
+            } */
               else {
                 return value;
             }
