@@ -2,6 +2,8 @@ import angular from 'angular';
 import lodash from 'lodash';
 import ninjaSchemas from 'ninjaSchemas';
 
+import config from 'config';
+
 function tmMenuDetailCtrl(
     $scope,
     $dataSource,
@@ -36,26 +38,34 @@ function tmMenuDetailCtrl(
 
 
     this.moreFunctions.cloneMenu = {
-        label: "Clone Menu",
-        method: () => {
-          var dialogConfig = {
-            template: require('apply!../../../common/tmDialogAddItem.jade'),
-            controller: 'tmDialogAddItemCtrl as vm',
-            locals: {
-                model: 'Menu',
-                schema: self.constructorArgs.schema,
-                listView: self.constructorArgs.listView,
-                detailView: self.constructorArgs.detailView,
-                headerText: 'Clone Menu',
-                hideCustomerInput: true,
-                hideDetailButton: true,
-                documentToClone: self.docSvc.getDoc()
-            }
-          };
-  
-          self.tmDialogSvc.showDialog(dialogConfig);
-        }
+      label: "Clone Menu",
+      method: () => {
+        var dialogConfig = {
+          template: require('apply!../../../common/tmDialogAddItem.jade'),
+          controller: 'tmDialogAddItemCtrl as vm',
+          locals: {
+              model: 'Menu',
+              schema: self.constructorArgs.schema,
+              listView: self.constructorArgs.listView,
+              detailView: self.constructorArgs.detailView,
+              headerText: 'Clone Menu',
+              hideCustomerInput: true,
+              hideDetailButton: true,
+              documentToClone: self.docSvc.getDoc()
+          }
+        };
+
+        self.tmDialogSvc.showDialog(dialogConfig);
       }
+    };
+
+    this.moreFunctions.printMenuHTML = {
+      label: "Print HTML",
+      method: () => {
+        let url = `${config.apiBase}/production/menus/${self.$stateParams.id}/html`;
+        window.open(url);
+      }
+    }
 
     this.toggleAddMenuItems = false;
 
