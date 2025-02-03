@@ -52,6 +52,9 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
                 focus="$ctrl.item.clickedField[key]" placeholder="dd/mm/yy"
                 ng-keydown="$ctrl.arrowKeyOut($ctrl.item, $event, key)" 
                 ng-blur="$ctrl.detailBlur($ctrl.item, $event)")
+            select.form-control(rows="3" ng-if="val.input==='select'" ng-model="$ctrl.item[key]" ng-options="item for item in val.selectOptions"
+                focus="$ctrl.item.clickedField[key]" placeholder="select unit"
+                )
         ng-transclude
         div(flex="5" layout="column" layout-align="center center")
             a(href= "" ng-click="$ctrl.doneEditing($ctrl.item)" ng-blur="$ctrl.detailBlur($ctrl.item, $event)" )

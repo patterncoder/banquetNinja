@@ -1,0 +1,18 @@
+div.detailRightPanel(flex="20" ng-show="vm.panels.ingredientPanel" layout-padding)
+    div(layout="row" layout-align="end start")
+        md-button( ng-click="vm.closePanels()") Close
+    div(layout="row" )
+        div(layout="column")
+            h3 Ingredients
+            //- md-button( ng-click="vm.createIngredient()") Create New
+            h5 Name like:
+            input.form-control(ng-model="nameLike")
+            h5 Category like:
+            input.form-control(ng-model="categoryLike")
+            .form-group
+              span.help-block(id="companyName-helpBlock" ng-show="true") {{'At least one search criteria is required.'}}
+            md-button( ng-click="vm.searchForIngredients(nameLike, categoryLike)") Search
+            div.itemCard(ng-repeat="item in vm.selectableIngredients" style="border: solid black 1px; background-color: white")
+                a(href="" ng-click="vm.docSvc.addIngredient(item)") 
+                    span.glyphicon.glyphicon-circle-arrow-left 
+                span() &nbsp; {{item.name}}

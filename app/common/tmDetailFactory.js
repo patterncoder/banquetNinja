@@ -59,6 +59,7 @@ function BaseDetail(
     this.constructorArgs = constructorArgs;
 
 
+    
 
     this.moreFunctions = {
         addItem: {
@@ -211,6 +212,11 @@ function BaseDetail(
                 }
             }
         });
+    };
+
+    this.isValid = () => {
+      console.log('inhere');
+      return true;
     };
 
     this.saveChanges = function (saveAndGo) {

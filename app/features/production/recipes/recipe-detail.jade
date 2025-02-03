@@ -10,21 +10,11 @@
                         md-tab( label="Ingredients")
                             include ./tabs/tab-ingredients.jade
                         md-tab( label="Sub Recipes")
-                            .panel.panel-default
-                                .panel-body This tab will list out the sub recipes used.
+                            include ./tabs/tab-recipes.jade
                         md-tab( label="Instructions")
                             include ./tabs/tab-instructions.jade
-        div.detailRightPanel(ng-show="vm.categoryPanelOpen" flex="20"  layout-padding)
-            md-content(layout-padding style="background: transparent")
-                div(layout="row" layout-align="end start")
-                    md-button(ng-click="vm.categoryPanelOpen = !vm.categoryPanelOpen") Close
-                div(layout="row" )
-                    div(layout="column")
-                        h3 Add Category
-                        //- a(href="") Add categories to the list
-                        lookups(tm-data-source="RecipeCategories" limit-to-list doc-list="vm.docSvc.doc.categories" list="root" doc-service-add-method="tmRecipeDocSvc.addCategory")
-                            div.itemCard(style="border: solid black 1px; background-color: white")
-                                a(href="" ng-click="dCtrl.addItem(item)") 
-                                    span.glyphicon.glyphicon-circle-arrow-left 
-                                span &nbsp; {{item}}
+        include ./tabs/panel-categories.jade
+        include ./tabs/panel-stations.jade
+        include ./tabs/panel-ingredients.jade
+        include ./tabs/panel-recipes.jade
     detail-footer

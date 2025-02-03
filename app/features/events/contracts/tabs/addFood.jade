@@ -10,11 +10,11 @@ div(layout="row" )
             h5 Select Menu Group
             select.form-control(name="menuGroup" ng-model="vm.selectedMenuGroup", ng-options="idx as group.name for (idx, group) in vm.activeMenuGroups" ng-change="vm.resetGroupSelectors()")
             h5 Select Menu
-            select.form-control(name="menuGroup" ng-model="vm.selectedMenu", ng-options="idx as menu.name for (idx, menu) in vm.activeMenuGroups[vm.selectedMenuGroup].menus")
+            select.form-control(name="menuGroup" ng-model="vm.selectedMenu", ng-options="idx as menu.menuId.name for (idx, menu) in vm.activeMenuGroups[vm.selectedMenuGroup].groupMenus")
             h5 Select Section
-            select.form-control(name="menuGroup" ng-model="vm.selectedSection", ng-options="idx as section.title for (idx, section) in vm.activeMenuGroups[vm.selectedMenuGroup].menus[vm.selectedMenu].sections")
+            select.form-control(name="menuGroup" ng-model="vm.selectedSection", ng-options="idx as section.title for (idx, section) in vm.activeMenuGroups[vm.selectedMenuGroup].groupMenus[vm.selectedMenu].menuId.sections")
             hr
-            div.itemCard(ng-repeat="item in vm.activeMenuGroups[vm.selectedMenuGroup].menus[vm.selectedMenu].sections[vm.selectedSection].items" style="border: solid black 1px; background-color: white" uib-tooltip="{{item.description || 'No description'}}" tooltip-popup-delay='500' tooltip-placement="left")
+            div.itemCard(ng-repeat="item in vm.activeMenuGroups[vm.selectedMenuGroup].groupMenus[vm.selectedMenu].menuId.sections[vm.selectedSection].items" style="border: solid black 1px; background-color: white" uib-tooltip="{{item.description || 'No description'}}" tooltip-popup-delay='500' tooltip-placement="left")
                 a(href="" ng-click="vm.docSvc.addMenuItem(item)") 
                     span.glyphicon.glyphicon-circle-arrow-left 
                 span() &nbsp; {{item.name}}

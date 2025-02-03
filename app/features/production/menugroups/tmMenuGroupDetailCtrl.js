@@ -1,5 +1,7 @@
 
 import ninjaSchemas from 'ninjaSchemas';
+
+import mongoose from "mongoose";
 import config from 'config';
 
 function tmMenuGroupDetailCtrl (
@@ -43,19 +45,10 @@ function tmMenuGroupDetailCtrl (
         this.menuSelectorLabel = this._menuSelectorOpen ? 'Close Menu Selector' : 'Add Menu';
     }
 
-    // /**
-    //  * @description sets the menugroup to active
-    //  */
-    // this.setActive = () => {
-    //     let req = {
-    //         method: "PUT",
-    //         url: `${config.apiBase}/production/menugroups/active/${this.$stateParams.id}`
-    //     };
-    //     this.$http(req).then((response) => {
-    //         if(response.status == 200) {
-    //         }
-    //     });
-    // };
+    this.editAssignedMenu = (idVal) => {
+      console.log(idVal);
+    };
+
 
     /**
      * @description standard header title called after loading the document
@@ -70,7 +63,7 @@ function tmMenuGroupDetailCtrl (
     /**
      * @description gets the menu groups with menu name, title and subtitle populated
      */
-    this.loadData({"populate[menus]": '{"select":"name title subtitle"}'}).then(() => {
+    this.loadData({"populate[menus]": { "select": "name title subtitle" }, "populate[groupMenus.menuId]": { "select": "name title subtitle" }}).then(() => {
         this.getDetailTitle();
         this.getMenusForSelector();
     });
@@ -79,6 +72,11 @@ function tmMenuGroupDetailCtrl (
     
 
     this.saveChanges = (saveAndGo) => {
+        const urlNames = this.docSvc.doc.groupMenus.map(m => m.referenceName);
+        const uniqueUrls = (new Set(urlNames).size) === urlNames.length;
+        if(!uniqueUrls) {
+          return self.tmNotifier.error("Cannot save a menu group with duplicate menu URLs.");
+        }
         this.__proto__.saveChanges(saveAndGo);
     }
     
@@ -101,8 +99,50 @@ function tmMenuGroupDetailCtrl (
         this.docSvc.removeMenu(item);
     }
 
+    this.deleteGroupMenu = (item) => {
+        this.docSvc.removeGroupMenu(item);
+    }
+
+
+    this.editMenuInGroup = function (index, item) {
+        // var itemCopy;
+        // if (!item) {
+        //     itemCopy = {};
+        // } else {
+        //     itemCopy = angular.copy(item);
+        // }
+        var schema = mongoose.Schema({
+          referenceName: String,
+          notes: String
+        })
+        var dialogConfig = {
+            template: require('apply!./editMenuInGroup.jade'),
+            controller: 'tmDialogAddDocPartCtrl as vm',
+            locals: {
+                schema: schema,
+                headerText: 'Edit Menu in Group',
+                item: item
+            }
+        };
+        self.tmDialogSvc.showDialog(dialogConfig).then(function (item) {
+            
+            // self.docSvc.saveChanges().then(function () {
+            //     self.docSvc.refreshFromServer();
+            // });
+        });
+    };
+
+
     this.addMenu = (item) => {
-        this.docSvc.addMenu(item);
+        let newItem = {
+          menuId: { 
+            _id: item._id,
+            name: item.name
+          },
+          referenceName: 'Add URL reference',
+          notes: ''
+        }
+        this.docSvc.addMenuToGroup(newItem);
     }
 
 

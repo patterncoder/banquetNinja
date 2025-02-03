@@ -40,7 +40,10 @@ function ninjaGridItemCtrl ($timeout, $filter, $scope) {
                 } else {
                     return value;
                 }
-            } else {
+            } else if (typeof value === 'object') {
+              return value[viewDisplayAs];
+            }
+              else {
                 return value;
             }
         }

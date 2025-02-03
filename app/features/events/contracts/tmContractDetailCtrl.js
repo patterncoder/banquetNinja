@@ -318,7 +318,7 @@ function tmContractDetailCtrl(
         let menuGroups = this.$dataSource.load("MenuGroup");
         menuGroups.query({
             select: "name title subtitle",
-            "populate[menus]": 'all',
+            "populate[groupMenus.menuId]": 'all',
             "where[active]": true
         }, true).then((data) => {
             self.activeMenuGroups = data;

@@ -19,37 +19,16 @@
                                 td {{item.description}}
                                 td(style="padding: 4px;")
                                     list-item-buttons(id-val="item._id" delete-fn="vm.deleteMenu(idVal)" details-fn="vm.detailsLink(idVal)")
-                div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
+                    h4 Assigned Menus New Section
+                    include ./tabs/tab-menus.jade
         div.detailRightPanel(flex="20" ng-show="vm._menuSelectorOpen" layout-padding)
             md-content(layout-padding style="background: transparent")
                 div()
                     h3 Add Menu
                     .form-group
                         input.form-control(ng-model="searchText", placeholder="Filter Visible")
-                    //- label() Filter By Date 
-                    //- select.form-control(ng-model="vm.rangeType")
-                    //-     option(value="before") Before 
-                    //-     option(value="after") After
-                    //- select.form-control(ng-model="vm.selectedMonth", ng-options="month for month in vm.docSvc.months")
-                    //-     option(value="") Select Month
-                    //- select.form-control(ng-model="vm.selectedYear", ng-options="hour for hour in vm.docSvc.years")
-                    //-     option(value="") Select Year
-                    //- md-button.md-raised(ng-click="vm.docSvc.fltr({range: vm.rangeType, m: vm.selectedMonth, y: vm.selectedYear})") Filter 
-                    //- br
-                    //- br
-                    //- label Results
-                    //- br
-                    //- div Add menus to this group
                     div(ng-repeat="item in vm.menusForSelector | filter:searchText | orderBy:'-name'")
                         a(href="" ng-click="vm.addMenu(item)") 
                             span.glyphicon.glyphicon-circle-arrow-left 
                         span &nbsp; {{item.name}}
-                    //- div
-                    //-     a(ng-hide="vm.selectedYear" href="" ng-click="vm.docSvc.loadMore()") Load More
-                            //- span.glyphicon.glyphicon-circle-arrow-left 
-                        
-                    //- lookups(tm-data-source="Lookups" doc-list="vm.tmMenuItemDocSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
-                    //-     a(href="" ng-click="dCtrl.addItem(item)") 
-                    //-         span.glyphicon.glyphicon-circle-arrow-left 
-                    //-     span &nbsp; {{item}}
     detail-footer
