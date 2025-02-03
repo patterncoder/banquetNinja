@@ -214,6 +214,11 @@ function BaseDetail(
         });
     };
 
+    this.isValid = () => {
+      console.log('inhere');
+      return true;
+    };
+
     this.saveChanges = function (saveAndGo) {
         var self = this;
         self.setLoading(true);
