@@ -5,6 +5,15 @@ function tmMenuItemDocSvc(tmDocFactory) {
 
     this.__proto__ = tmDocFactory('MenuItem', ninjaSchemas.production.MenuItem);
 
+    this.linkRecipe = (recipeInfo) => {
+        let newLink = {
+            size: 'regular',
+            scaleFactor: 1,
+            recipeId: recipeInfo._id,
+            recipeName: recipeInfo.name
+        };
+        this.doc.sizes.push(newLink);
+    };
 
     this.addContactType = function (contactType) {
         var index = this.doc.contactTypes.indexOf(contactType);
@@ -33,28 +42,32 @@ function tmMenuItemDocSvc(tmDocFactory) {
         }
     }
 
-
-    this.addTitle = function (title) {
-        if (!this.doc.hasOwnProperty("title")) {
-            this.doc.title = [title];
-        } else {
-            var index = this.doc.title.indexOf(title)
-            if (index === -1) {
-                // this.doc.title = title;
-                this.doc.title.push(title);
-                return;
-            } else {
-                throw new Error("Title already exists");
-            }
-        }
+    this.removeSize = (sizeIndex) => {
+        this.doc.sizes.splice(sizeIndex, 1);
     }
 
-    this.removeTitle = function (title) {
-        var index = this.doc.title.indexOf(title);
-        if (index > -1) {
-            this.doc.title.splice(index, 1);
-        }
-    }
+
+    // this.addTitle = function (title) {
+    //     if (!this.doc.hasOwnProperty("title")) {
+    //         this.doc.title = [title];
+    //     } else {
+    //         var index = this.doc.title.indexOf(title)
+    //         if (index === -1) {
+    //             // this.doc.title = title;
+    //             this.doc.title.push(title);
+    //             return;
+    //         } else {
+    //             throw new Error("Title already exists");
+    //         }
+    //     }
+    // }
+
+    // this.removeTitle = function (title) {
+    //     var index = this.doc.title.indexOf(title);
+    //     if (index > -1) {
+    //         this.doc.title.splice(index, 1);
+    //     }
+    // }
 
     this.getCategories = function () {
         return this.doc.categories;

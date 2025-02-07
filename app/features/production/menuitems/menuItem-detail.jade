@@ -8,51 +8,11 @@
                     include ./tabs/top-panel.jade
                 div.detailSection(layout-padding)
                     md-tabs(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
-                        md-tab( label="Descriptions")
-                                div(layout="row" flex layout-fill layout-padding)
-                                    div(flex='33')
-                                        h3 Menu Descriptions
-                                        p Depending on menu printing requirements each menu item can save multiple descriptions.  
-                                            | <em>Romaine lettuce tossed with Caesar dressing</em>
-                                            | <em>Romaine | Caesar Dressing | Croutons</em>
-                                    div(flex)
-                                        h3 Titles
-                                        input(ng-Model="vm.newTitle")
-                                        md-button(ng-click="vm.addTitle()")
-                                            md-icon.glyphicon.glyphicon-plus
-                                            | Add Title
-                                        div(ng-repeat="title in vm.docSvc.doc.title track by $index")
-                                            div(layout="row" style="width: 150px")
-                                                span {{title}}
-                                                span(flex)
-                                                a(href="" ng-click="vm.docSvc.removeTitle(title)")
-                                                    span.glyphicon.glyphicon-remove
-                        md-tab(label="Categories")
-                            div(layout="row" layout-padding)
-                                div(flex=33)
-                                    h3 Categories
-                                    p Categories are used to filter menu items and help with searching.  Categories are added from the Selector Bar over there on the left.
-                                    div(ng-repeat="item in vm.docSvc.doc.categories")
-                                        div(layout="row" style="width: 150px")
-                                            span  {{item}} 
-                                            span(flex)
-                                            a(href="" ng-click="vm.docSvc.removeCategory(item)")
-                                                span.glyphicon.glyphicon-remove
-                        md-tab(label="Notes")
-                            md-content
-                                md-input-container.md-block
-                                    label Notes
-                                    textarea(ng-model="vm.docSvc.doc.notes") 
-                div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
-                    div Some footer text here
-        div.detailRightPanel(flex="20" ng-show="vm.tabIndex === 1" layout-padding)
-            md-content(layout-padding style="background: transparent")
-                div()
-                    h3 Add Category
-                    a(href="") Add categories to the list
-                    lookups(tm-data-source="Lookups" limit-to-list doc-list="vm.docSvc.doc.categories" list="menuItemTags" doc-service-add-method="tmMenuItemDocSvc.addCategory")
-                        div.itemCard(style="border: solid black 1px; background-color: white")
-                            a(href="" ng-click="dCtrl.addItem(item)") 
-                                span.glyphicon.glyphicon-circle-arrow-left 
-                            span &nbsp; {{item}}
+                        md-tab( label="Recipes and Sizes")
+                            include ./tabs/tab-recipes-sizes.jade
+                        // md-tab( label="Used On")
+                        md-tab( label="Notes")
+                            include ./tabs/tab-notes.jade
+        include ./tabs/panel-categories.jade
+        include ./tabs/panel-recipes-sizes.jade
     detail-footer

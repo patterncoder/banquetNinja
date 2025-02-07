@@ -18,8 +18,15 @@ div.itemCard(id="{{$parent.$index}}" style="padding: 3px" ng-class="{activeCard:
                 aria-label="Print On Menu")
         ng-transclude
         div.gridItemCell(flex="5" layout="column" layout-align="center center")
+            //- div(layout="row")
+              //- span(ng-show="$ctrl.details")
+              //-   a(href= "" ng-click="$ctrl.details(item)"  ng-blur="vm.detailBlur(item, $index, $event)" )
+              //-     span.glyphicon.glyphicon-link(style="margin-left: -1px; margin-top: 2px")
             a(href= "" ng-click="$ctrl.deleteItem()"  ng-blur="vm.detailBlur(item, $index, $event)" )
-                 span.glyphicon.glyphicon-remove 
+                  span.glyphicon.glyphicon-remove
+        div.gridItemCell(ng-show="$ctrl.showDetailsLink" flex="5" layout="column" layout-align="center center")
+            a(href= "" ng-click="$ctrl.onDetails(item)"  ng-blur="vm.detailBlur(item, $index, $event)" )
+                  span.glyphicon.glyphicon-link(style="margin-left: -1px; margin-top: 2px")
     div.foodEditDiv(ng-show="$ctrl.item.isEditing"  layout="row"  )
         div(flex="5" layout="row" layout-align="center center" )
             span.glyphicon.glyphicon-sort

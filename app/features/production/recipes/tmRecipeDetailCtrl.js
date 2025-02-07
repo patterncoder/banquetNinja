@@ -60,6 +60,18 @@ function tmRecipeDetailCtrl(
       });
     };
 
+    this.addNewCategory = (categoryName) => {
+      if (!categoryName) return;
+      this.docSvc.addCategory(categoryName);
+      this.$scope.nameLike = null;
+    };
+
+    this.addNewStation = (newStationName) => {
+      if (!newStationName) return;
+      this.docSvc.addStation(newStationName);
+      this.$scope.newStationName = null;
+    };
+
     this.searchForIngredients = (nameLike, categoryLike) => {
       if(!nameLike && !categoryLike) return;
       let ingredientsResource = self.$dataSource.load("Ingredient");

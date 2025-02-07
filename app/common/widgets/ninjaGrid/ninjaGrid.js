@@ -75,6 +75,8 @@ var ninjaGridComponent =  {
         docSvc: '<',
         list: '<',
         fields: '<',
+        showDetailsLink: '=',
+        detailsLinkMethod: '<',
         optionsList: '<',
         gridTitle: '@',
         noDataText: '@',

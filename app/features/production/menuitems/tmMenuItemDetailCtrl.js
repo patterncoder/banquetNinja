@@ -9,7 +9,8 @@ class tmMenuItemDetailCtrl {
 
         $scope,
         tmDetailFactory,
-        tmMenuItemDocSvc) {
+        tmMenuItemDocSvc,
+        $dataSource) {
         var self = this;
 
         var constructorArgs = {
@@ -23,6 +24,7 @@ class tmMenuItemDetailCtrl {
         };
 
         this.__proto__ = tmDetailFactory(constructorArgs);
+        this.$dataSource = $dataSource;
 
         this.dialogOptions = {
             closeButtonText: 'No',
@@ -53,14 +55,49 @@ class tmMenuItemDetailCtrl {
             };
         };
 
+        this.openSizesPanel = () => {
+            this.openPanel('sizesPanel');
+        }
+
+
+        this.panels = {
+            cateoryPanel: false,
+            sizesPanel: false
+        }
+
+        this.openPanel = (panelToOpen) => {
+          this.closePanels();
+          this.panels[panelToOpen] = true;
+        }
+    
+        this.closePanels = () => {
+          Object.keys(this.panels).forEach((panel) => {
+            this.panels[panel] = false;
+          });
+        };
+
 
         this.addTitle = function () {
-            console.log('in add title');
             this.docSvc.addTitle(this.newTitle);
             this.newTitle = null;
         };
 
-    }
+
+        this.searchForRecipes = (nameLike, categoryLike) => {
+            if(!nameLike && !categoryLike) return;
+            let recipesResource = this.$dataSource.load("Recipe");
+            recipesResource.query({
+            select: 'name categories',
+            "like[name]": nameLike,
+            "like[categories]": categoryLike,
+            "andIn[categories]": 'Menu Item'
+            }, true, true).then((data) => {
+            console.log(data);
+            self.selectableRecipes = data; 
+            });
+        };
+
+        }
 
 
 }
@@ -69,7 +106,8 @@ tmMenuItemDetailCtrl.$inject = [
 
     '$scope',
     'tmDetailFactory',
-    'tmMenuItemDocSvc'
+    'tmMenuItemDocSvc',
+    '$dataSource'
 ];
 
 export default tmMenuItemDetailCtrl;
