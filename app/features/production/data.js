@@ -15,7 +15,13 @@ export default [
             defaults: { _id: "@id" },
             methods: {update: { method: 'PUT', isArray: false },
                         query: { method: 'GET', isArray: false}}
-        });
+        });// get route only...the api enpoint just returns distinct category values
+        $dataSourceProvider.addApiRoute({
+            key: 'MenuItemCategories',
+            url: config.apiBase + '/production/menuitems/categories',
+            methods: {update: { method: 'PUT', isArray: false },
+                        query: { method: 'GET', isArray: false}}
+        })
         $dataSourceProvider.addApiRoute({
             key: 'Menu', 
             url: config.apiBase + '/production/menus/:_id', 

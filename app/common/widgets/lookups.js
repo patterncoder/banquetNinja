@@ -37,7 +37,7 @@ var Controller = ['$dataSource', '$attrs', '$injector', '$scope', '$timeout', fu
         self.updateList();
     });
     
-    Data.query({}, true).then(function(data){
+    Data.query({}, true, true).then(function(data){
         if(list === "root"){
             self.data = data;
             self.fullList = angular.copy(data);

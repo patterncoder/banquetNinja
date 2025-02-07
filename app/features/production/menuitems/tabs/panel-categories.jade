@@ -6,13 +6,7 @@ div.detailRightPanel(ng-show="vm.panels.categoryPanel" flex="20"  layout-padding
             div(layout="column")
                 h3 Add Category
                 //- a(href="") Add categories to the list
-                .form-group() 
-                    label New Category
-                    div(layout="row")
-                        .btn-round.btn-sm(ng-click="vm.addNewCategory(nameLike)"  style="padding-left: 4px; margin-top:3px; padding-top: 4px; color: white; background-color: #337ab7")
-                            span.glyphicon.glyphicon-arrow-left( style="margin-left: 4px; margin-top: 3px;")
-                        input.form-control(ng-model="nameLike" style="margin-left: 3px;")
-                lookups(tm-data-source="RecipeCategories" limit-to-list doc-list="vm.docSvc.doc.categories" list="root" doc-service-add-method="tmRecipeDocSvc.addCategory")
+                lookups(tm-data-source="MenuItemCategories" limit-to-list doc-list="vm.docSvc.doc.categories" list="root" doc-service-add-method="tmMenuItemDocSvc.addCategory")
                     div.itemCard(style="border: solid black 1px; background-color: white")
                         a(href="" ng-click="dCtrl.addItem(item)") 
                             span.glyphicon.glyphicon-circle-arrow-left 

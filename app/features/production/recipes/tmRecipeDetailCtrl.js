@@ -60,6 +60,12 @@ function tmRecipeDetailCtrl(
       });
     };
 
+    this.addNewCategory = (categoryName) => {
+      this.docSvc.addCategory(categoryName);
+      console.log('here');
+      console.log(categoryName);
+    };
+
     this.searchForIngredients = (nameLike, categoryLike) => {
       if(!nameLike && !categoryLike) return;
       let ingredientsResource = self.$dataSource.load("Ingredient");
