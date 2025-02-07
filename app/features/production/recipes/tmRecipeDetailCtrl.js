@@ -61,9 +61,15 @@ function tmRecipeDetailCtrl(
     };
 
     this.addNewCategory = (categoryName) => {
+      if (!categoryName) return;
       this.docSvc.addCategory(categoryName);
-      console.log('here');
-      console.log(categoryName);
+      this.$scope.nameLike = null;
+    };
+
+    this.addNewStation = (newStationName) => {
+      if (!newStationName) return;
+      this.docSvc.addStation(newStationName);
+      this.$scope.newStationName = null;
     };
 
     this.searchForIngredients = (nameLike, categoryLike) => {
