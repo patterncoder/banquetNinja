@@ -124,6 +124,15 @@ function tmMenuDetailCtrl(
         });
     }
 
+
+    this.ninjaGridDetailsLink = (item) => {
+
+      // capture jumping to another state from detail...this is needed to prevent circular
+      // close button issue...without it will keep bouncing between two details states
+      self.$state.data = 'root.menuItemDetail';
+      self.$state.go('root.menuItemDetail', { id: item._id });
+    }
+
     return this;
 
 }

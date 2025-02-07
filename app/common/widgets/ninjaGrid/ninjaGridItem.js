@@ -52,6 +52,11 @@ function ninjaGridItemCtrl ($timeout, $filter, $scope) {
     $ctrl.deleteItem = function() {
         $ctrl.onDeleteItem({$itemIndex: this.itemIndex});
     };
+
+    // $ctrl.details = function(item) {
+    //   console.log(item);
+    //   $ctrl.onDetails(item);
+    // }
     
     $ctrl.doneEditing = function(item){
         delete item.isEditing;
@@ -113,6 +118,8 @@ var ninjaGridItem = {
         onUpdateItem: '&',
         onCreateItem: '&',
         onArrowKeyOut: '&',
+        showDetailsLink: '=',
+        onDetails: '&',
         onSort: '&'
     }
 };
