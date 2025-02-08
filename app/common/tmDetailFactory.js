@@ -1,3 +1,5 @@
+
+import _ from 'lodash';
 function tmDetailFactory(
     $http,
     $q,
@@ -202,6 +204,15 @@ function BaseDetail(
                 self.docSvc.clearDocument();
                 // !($state.data === backState) handle circlular issue with back button
                 // the back state and the to state are the same
+                // this is a new approach that is working good...a stack is added to the state
+                // popped off on the back button..states are added on the recipe recipes detail link
+                if (self.$state.routeStack && self.$state.routeStack.length > 0) {
+                  const mostRecentState = self.$state.routeStack.pop();
+                  self.$state.go(mostRecentState.to.toState.name, mostRecentState.to.toParams);
+                  return;
+                } else {
+                  self.$state.routeStack = undefined;
+                }
                 let backState = self.$state.back.fromState.name;
                 if (backState && backState != "" && !($state.data === backState)) {
                     self.$state.go(backState, $state.back.fromParams);
