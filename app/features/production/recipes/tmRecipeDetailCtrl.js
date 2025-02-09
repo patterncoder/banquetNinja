@@ -1,6 +1,7 @@
 import angular from 'angular';
 import lodash from 'lodash';
 import ninjaSchemas from 'ninjaSchemas';
+import config from 'config';
 
 function tmRecipeDetailCtrl(
     $scope,
@@ -34,6 +35,36 @@ function tmRecipeDetailCtrl(
             self.detailForm.$setUntouched();
         }
     });
+
+
+    this.moreFunctions.pdf = {
+        label: "Print Recipe",
+        method: function () {
+            let openPDF = () => {
+                let url = `${config.apiBase}/production/recipes/${self.$stateParams.id}/view/pdf`;
+                var req = {
+                    method: 'GET',
+                    url: url,
+                    responseType: 'arraybuffer'
+                };
+                self.$http(req).then(function (result) {
+                    var file = new Blob([result.data], { type: 'application/pdf' });
+                    var fileURL = URL.createObjectURL(file);
+                    window.open(fileURL);
+                });
+            };
+
+            //lets save the contract before trying to print it!
+            self.setLoading(true);
+            self.docSvc.saveChanges().then(() => {
+                openPDF();
+                self.setLoading(false);
+            }, (err) => {
+                self.tmNotifier.error("There was a problem with saving...");
+                self.setLoading(false);
+            });
+        }
+    };
 
     this.ninjaGridDetailsLink = (item) => {
 
