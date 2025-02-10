@@ -37,6 +37,36 @@ function tmMenuDetailCtrl(
     });
 
 
+        this.moreFunctions.pdf = {
+            label: "Print Recipes",
+            method: function () {
+                let openPDF = () => {
+                    let url = `${config.apiBase}/production/menus/${self.$stateParams.id}/recipes-report`;
+                    var req = {
+                        method: 'GET',
+                        url: url,
+                        responseType: 'arraybuffer'
+                    };
+                    self.$http(req).then(function (result) {
+                        var file = new Blob([result.data], { type: 'application/pdf' });
+                        var fileURL = URL.createObjectURL(file);
+                        window.open(fileURL);
+                    });
+                };
+    
+                //lets save the contract before trying to print it!
+                self.setLoading(true);
+                self.docSvc.saveChanges().then(() => {
+                    openPDF();
+                    self.setLoading(false);
+                }, (err) => {
+                    self.tmNotifier.error("There was a problem with saving...");
+                    self.setLoading(false);
+                });
+            }
+        };
+
+
     this.moreFunctions.cloneMenu = {
       label: "Clone Menu",
       method: () => {
@@ -130,6 +160,10 @@ function tmMenuDetailCtrl(
       // capture jumping to another state from detail...this is needed to prevent circular
       // close button issue...without it will keep bouncing between two details states
       self.$state.data = 'root.menuItemDetail';
+      self.$state.routeStack = self.$state.routeStack || [];
+      self.$state.routeStack.push({
+        to: self.$state.to,
+        from: self.$state.from});
       self.$state.go('root.menuItemDetail', { id: item._id });
     }
 

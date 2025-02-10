@@ -71,6 +71,8 @@ module.exports = angular.module('app', [Shell, Features, Common])
         
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
             $state.back = {fromState: fromState, fromParams: fromParams};
+            $state.from = { fromState, fromParams };
+            $state.to = { toState, toParams }
             var fromStateName = fromState.name || 'root.home';
             if(tmIdentity.isAuthenticated() && toState.prohibitStateWhenLoggedIn){
                 $state.transitionTo(fromState.name);
