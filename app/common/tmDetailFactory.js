@@ -212,15 +212,17 @@ function BaseDetail(
                   return;
                 } else {
                   self.$state.routeStack = undefined;
+                  $state.data = null;
+                  self.$state.go(self.constructorArgs.listView);
                 }
-                let backState = self.$state.back.fromState.name;
-                if (backState && backState != "" && !($state.data === backState)) {
-                    self.$state.go(backState, $state.back.fromParams);
-                } else {
-                    // we are going back to the list so clear out the $state.data for next circular issue
-                    $state.data = null;
-                    self.$state.go(self.constructorArgs.listView);
-                }
+                // let backState = self.$state.back.fromState.name;
+                // if (backState && backState != "" && !($state.data === backState)) {
+                //     self.$state.go(backState, $state.back.fromParams);
+                // } else {
+                //     // we are going back to the list so clear out the $state.data for next circular issue
+                //     $state.data = null;
+                //     self.$state.go(self.constructorArgs.listView);
+                // }
             }
         });
     };

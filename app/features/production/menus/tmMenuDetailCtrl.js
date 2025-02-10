@@ -160,6 +160,10 @@ function tmMenuDetailCtrl(
       // capture jumping to another state from detail...this is needed to prevent circular
       // close button issue...without it will keep bouncing between two details states
       self.$state.data = 'root.menuItemDetail';
+      self.$state.routeStack = self.$state.routeStack || [];
+      self.$state.routeStack.push({
+        to: self.$state.to,
+        from: self.$state.from});
       self.$state.go('root.menuItemDetail', { id: item._id });
     }
 
