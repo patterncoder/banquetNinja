@@ -97,6 +97,14 @@ function tmMenuDetailCtrl(
       }
     }
 
+    this.moreFunctions.printMenuPDF = {
+      label: "Print PDF",
+      method: () => {
+        let url = `${config.apiBase}/production/menus/${self.$stateParams.id}/pdf`;
+        window.open(url);
+      }
+    }
+
     this.toggleAddMenuItems = false;
 
     this.loadData().then(() => {});
