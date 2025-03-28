@@ -1,6 +1,6 @@
-div.detailRightPanel(flex="20" ng-show="vm.panels.ingredientPanel" layout-padding)
+div.detailRightPanel(flex="20" ng-show="vm.panels.ingredientPanel && vm.tabIndex == 0" layout-padding)
     div(layout="row" layout-align="end start")
-        md-button( ng-click="vm.closePanels()") Close
+        md-button( ng-click="vm.closePanels('ingredientPanel')") Close
     div(layout="row" )
         div(layout="column")
             h3 Ingredients

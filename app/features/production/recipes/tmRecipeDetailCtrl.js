@@ -100,14 +100,15 @@ function tmRecipeDetailCtrl(
     }
 
     this.openPanel = (panelToOpen) => {
-      this.closePanels();
+      // this.closePanels();
       this.panels[panelToOpen] = true;
     }
 
-    this.closePanels = () => {
-      Object.keys(this.panels).forEach((panel) => {
-        this.panels[panel] = false;
-      });
+    this.closePanels = (panel) => {
+      this.panels[panel] = false;
+      // Object.keys(this.panels).forEach((panel) => {
+        
+      // });
     };
 
     this.addNewCategory = (categoryName) => {
@@ -144,7 +145,7 @@ function tmRecipeDetailCtrl(
         "like[name]": nameLike,
         "like[categories]": categoryLike
       }, true, true).then((data) => {
-        console.log(data);
+        data = data.filter(r => r._id !== self.docSvc.doc._id)
         self.selectableRecipes = data; 
       });
     };
