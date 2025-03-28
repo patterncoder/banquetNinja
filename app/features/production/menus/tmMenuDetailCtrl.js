@@ -37,6 +37,18 @@ function tmMenuDetailCtrl(
     });
 
 
+    /**
+     * @description standard header title called after loading the document
+     */
+    this.getDetailTitle = function () {
+        self.detailTitle = {
+            leader: 'Menu Detail: ',
+            text: self.docSvc.doc.name
+        };
+    };
+
+
+
         this.moreFunctions.pdf = {
             label: "Print Recipes",
             method: function () {

@@ -6,6 +6,7 @@
                 div.detailTopPanel(layout-padding)
                     include ./tabs/top-panel.jade
                 div.detailSection(layout-padding)
+                    div(style="font-size: 1.5em; font-weight: bold;") Menu Sections
                     md-tabs.with-overflow(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
                         //- md-tab(ng-repeat="tabs in vm.docSvc.doc.sections | orderBy:'printOrder' track by $index" label="{{tabs.title}}" ng-click="vm.docSvc.setIndex(vm.tabIndex)")
                         md-tab(ng-repeat="tabs in vm.docSvc.doc.sections track by $index" label="{{tabs.title}}" ng-click="vm.docSvc.setIndex(vm.tabIndex)")

@@ -25,6 +25,13 @@ function tmRecipeDetailCtrl(
     this.$dataSource = $dataSource;
 
 
+    this.getDetailTitle = function () {
+      self.detailTitle = {
+          leader: 'Recipe Detail: ',
+          text: self.docSvc.doc.name
+      };
+    };
+
     this.$scope.$watch(function () {
         return self.docSvc.isDirty();
     }, function (newVal, oldVal, scope) {

@@ -50,7 +50,7 @@ class tmMenuItemDetailCtrl {
 
         this.getDetailTitle = function () {
             self.detailTitle = {
-                leader: 'Detail for: ',
+                leader: 'Menu Item Detail: ',
                 text: tmMenuItemDocSvc.doc.name
             };
         };

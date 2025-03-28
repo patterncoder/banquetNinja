@@ -14,7 +14,7 @@ function EllipsisTitleDirective ($compile){
                 if(!(v && v.text)) return;
                 var totalLen = v.text.length + v.leader.length;
                 var newText = totalLen > scope.charSize ? v.text.substring(0, scope.charSize - v.leader.length) + '...' : v.text;
-                var html =`<div><span class="md-headline">`+ v.leader +`</span><span class="md-subhead">`+ newText +`</span></div>`;
+                var html =`<div><span class="md-display-1"><strong>`+ v.leader +`</strong></span><span class="md-title">`+ newText +`</span></div>`;
                 var e =$compile(html)(scope);
                 element.replaceWith(e);
                 element = e;
