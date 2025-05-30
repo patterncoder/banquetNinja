@@ -25,6 +25,13 @@ function tmRecipeDetailCtrl(
     this.$dataSource = $dataSource;
 
 
+    this.getDetailTitle = function () {
+      self.detailTitle = {
+          leader: 'Recipe Detail: ',
+          text: self.docSvc.doc.name
+      };
+    };
+
     this.$scope.$watch(function () {
         return self.docSvc.isDirty();
     }, function (newVal, oldVal, scope) {
@@ -93,14 +100,15 @@ function tmRecipeDetailCtrl(
     }
 
     this.openPanel = (panelToOpen) => {
-      this.closePanels();
+      // this.closePanels();
       this.panels[panelToOpen] = true;
     }
 
-    this.closePanels = () => {
-      Object.keys(this.panels).forEach((panel) => {
-        this.panels[panel] = false;
-      });
+    this.closePanels = (panel) => {
+      this.panels[panel] = false;
+      // Object.keys(this.panels).forEach((panel) => {
+        
+      // });
     };
 
     this.addNewCategory = (categoryName) => {
@@ -137,7 +145,7 @@ function tmRecipeDetailCtrl(
         "like[name]": nameLike,
         "like[categories]": categoryLike
       }, true, true).then((data) => {
-        console.log(data);
+        data = data.filter(r => r._id !== self.docSvc.doc._id)
         self.selectableRecipes = data; 
       });
     };

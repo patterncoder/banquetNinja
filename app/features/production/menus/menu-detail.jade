@@ -6,18 +6,12 @@
                 div.detailTopPanel(layout-padding)
                     include ./tabs/top-panel.jade
                 div.detailSection(layout-padding)
+                    div(style="font-size: 1.5em; font-weight: bold;") Menu Sections
                     md-tabs.with-overflow(md-dynamic-height  layout="column" md-selected="vm.tabIndex")
-                        //- md-tab(ng-repeat="tabs in vm.docSvc.doc.sections | orderBy:'printOrder' track by $index" label="{{tabs.title}}" ng-click="vm.docSvc.setIndex(vm.tabIndex)")
                         md-tab(ng-repeat="tabs in vm.docSvc.doc.sections track by $index" label="{{tabs.title}}" ng-click="vm.docSvc.setIndex(vm.tabIndex)")
                             include ./tabs/section-food.jade
-                        //- md-tab(ng-click="console.log('click!')")
-                        //-     span.glyphicon.glyphicon-plus
                         md-tab(label="Sections Details")
                             include ./tabs/tab-sections2.jade
-                        //- md-tab(label="Groups")
-                        //-     include ./tabs/tab-groups.jade
-                        //- md-tab(label="Notes")
-                        //-     include ./tabs/tab-notes.jade
                 div.insideDetailFooter(layout="row" layout-padding layout-align="start start")
         div.detailRightPanel(flex="20" ng-show="vm.toggleAddMenuItems" layout-padding)
             div(layout="row" layout-align="end start")

@@ -37,6 +37,18 @@ function tmMenuDetailCtrl(
     });
 
 
+    /**
+     * @description standard header title called after loading the document
+     */
+    this.getDetailTitle = function () {
+        self.detailTitle = {
+            leader: 'Menu Detail: ',
+            text: self.docSvc.doc.name
+        };
+    };
+
+
+
         this.moreFunctions.pdf = {
             label: "Print Recipes",
             method: function () {
@@ -93,6 +105,14 @@ function tmMenuDetailCtrl(
       label: "Print HTML",
       method: () => {
         let url = `${config.apiBase}/production/menus/${self.$stateParams.id}/html`;
+        window.open(url);
+      }
+    }
+
+    this.moreFunctions.printMenuPDF = {
+      label: "Print PDF",
+      method: () => {
+        let url = `${config.apiBase}/production/menus/${self.$stateParams.id}/pdf`;
         window.open(url);
       }
     }
