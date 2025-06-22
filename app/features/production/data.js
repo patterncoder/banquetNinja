@@ -44,6 +44,14 @@ export default [
             methods: {update: { method: 'PUT', isArray: false },
                         query: { method: 'GET', isArray: false}}
         })
+        // get route only...the api enpoint just returns distinct category values
+        $dataSourceProvider.addApiRoute({
+            key: 'IngredientStorageLocations',
+            url: config.apiBase + '/production/ingredients/storageLocations',
+            
+            methods: {update: { method: 'PUT', isArray: false },
+                        query: { method: 'GET', isArray: false}}
+        })
         $dataSourceProvider.addApiRoute({
             key: 'Recipe', 
             url: config.apiBase + '/production/recipes/:_id', 

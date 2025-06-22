@@ -42,8 +42,28 @@ function tmIngredientDetailCtrl(
         }
     });
 
-    this.categoryPanelOpen = false;
-    
+
+    this.panels = {
+      cateoryPanel: false,
+      storageLocatPanel: false
+    }
+
+
+    this.openPanel = (panelToOpen) => {
+      this.panels[panelToOpen] = true;
+    }
+
+    this.closePanels = (panel) => {
+      this.panels[panel] = false;
+    };
+
+
+    this.addNewStorLocat = (newStorageLocation) => {
+      if (!newStorageLocation) return;
+      this.docSvc.addStorLocat(newStorageLocation);
+      this.$scope.newStorageLocation = null;
+    };
+
 
     this.loadData().then(() => {});
 

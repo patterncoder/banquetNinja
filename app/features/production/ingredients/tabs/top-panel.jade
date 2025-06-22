@@ -17,11 +17,19 @@ form(name="vm.detailForm")
                     label.control-label(for="name") Notes
                     input.form-control(ng-model="vm.docSvc.doc.notes" )
             div(layout="row")
-                .form-group(layout="column")
+                .form-group(layout="column" flex="50")
                     label Categories
                     div(layout="row")
                         button.btn.btn-primary(type="button" ng-repeat="item in vm.docSvc.doc.categories" style="margin-right: 4px;" ng-click="vm.docSvc.removeCategory(item)") {{item}} &nbsp;&nbsp;
                             span.badge
                                 span.glyphicon.glyphicon-remove
-                        .btn-round.btn-sm(ng-show="!vm.categoryPanelOpen"  ng-click="vm.categoryPanelOpen = !vm.categoryPanelOpen"  style="padding-left: 4px; margin-top:3px; padding-top: 4px; color: white; background-color: #337ab7")
+                        .btn-round.btn-sm(ng-show="!vm.panels.categoryPanel"  ng-click="vm.openPanel('categoryPanel')"  style="padding-left: 4px; margin-top:3px; padding-top: 4px; color: white; background-color: #337ab7")
+                            span.glyphicon.glyphicon-plus( style="margin-left: 4px; margin-top: 3px;")
+                .form-group(layout="column" flex="50")
+                    label Storage Locations
+                    div(layout="row")
+                        button.btn.btn-primary(type="button" ng-repeat="item in vm.docSvc.doc.storageLocations" style="margin-right: 4px;" ng-click="vm.docSvc.removeStorLocat(item)") {{item}} &nbsp;&nbsp;
+                            span.badge
+                                span.glyphicon.glyphicon-remove
+                        .btn-round.btn-sm(ng-show="!vm.panels.storageLocatPanel"  ng-click="vm.openPanel('storageLocatPanel')"  style="padding-left: 4px; margin-top:3px; padding-top: 4px; color: white; background-color: #337ab7")
                             span.glyphicon.glyphicon-plus( style="margin-left: 4px; margin-top: 3px;")
