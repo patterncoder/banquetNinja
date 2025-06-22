@@ -5,10 +5,12 @@ div(flex="100")
         colgroup
             col(span="1")
             col(span="1")
+            col(span="1")
             col.tableNav(span="1")
         thead
             th Ingredient
             th Categories
+            th Storage Locations
             th.text-right
                 button.btn.btn-primary.btn-xs(ng-click="vm.addItemDialog()") {{::vm.constructorArgs.addHeaderText}}
         tbody
@@ -18,6 +20,9 @@ div(flex="100")
                   button.textonlyblue(ng-click="vm.details(item._id)") {{::item.name}}
                 td
                   span(ng-repeat="cat in item.categories") {{::cat }}
+                    span(ng-if="!$last")&nbsp;|&nbsp;
+                td
+                  span(ng-repeat="locat in item.storageLocations") {{::locat }}
                     span(ng-if="!$last")&nbsp;|&nbsp;
                 td(style="padding: 4px;")
                     list-item-buttons(id-val="item._id" delete-fn="vm.deleteItem(idVal)" edit-fn="vm.details(idVal)")

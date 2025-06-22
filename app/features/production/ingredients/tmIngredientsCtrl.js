@@ -19,7 +19,7 @@ class tmIngredientsCtrl {
 
 
         let loadDataConfig = {
-          select: "name categories",
+          select: "name categories storageLocations",
           "startsWith[name]": self.$stateParams.alpha || 'A',
           "sort[name]": 1
         };
