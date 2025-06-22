@@ -30,7 +30,7 @@ class tmIngredientsCtrl {
         this.changeFilter = function (value) {
           self.$state.go(self.constructorArgs.listView, { alpha: value.value });
           var filter = {
-              select: "name categories",
+              select: "name categories storageLocations",
               "startsWith[name]": value.value,
               "sort[name]": 1
           };
