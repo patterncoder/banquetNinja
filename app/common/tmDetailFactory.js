@@ -213,7 +213,7 @@ function BaseDetail(
                 } else {
                   self.$state.routeStack = undefined;
                   $state.data = null;
-                  self.$state.go(self.constructorArgs.listView);
+                  self.$state.go(self.constructorArgs.listView, $state.from.fromParams);
                 }
                 // let backState = self.$state.back.fromState.name;
                 // if (backState && backState != "" && !($state.data === backState)) {

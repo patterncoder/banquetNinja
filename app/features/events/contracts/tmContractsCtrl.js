@@ -100,6 +100,17 @@ class tmContractsCtrl {
       });
     }
 
+    this.upcomingEventsReport = function() {
+      let url = `${config.apiBase}/events/contracts/upcomingContractsReport`;
+      var req = { method: 'GET', url: url, responseType: 'arraybuffer' };
+      this.$http(req).then(function (result) {
+        var file = new Blob([result.data], { type: 'application/pdf' }); 
+        var fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
+    }
+
+
     this.addContract = function () {
       var self = this;
       var dialogConfig = {

@@ -1,6 +1,8 @@
 div(flex="100")
     list-header
     div.padding-bottom-md(flex="100" layout="row" layout-align="end" style="padding-bottom: 10px;")
+        div
+            label.btn(ng-click="vm.upcomingEventsReport()") Upcoming Events Report
         div.btn-group(layout-align="end")
             label.btn.btn-success(ng-model="vm.radioModel" uib-btn-radio="'pending'" ) Pending
             label.btn.btn-success(ng-model="vm.radioModel" uib-btn-radio="'booked'" ) Contracts
