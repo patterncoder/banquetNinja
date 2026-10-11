@@ -134,7 +134,8 @@ function tmMenuDetailCtrl(
                         listView: '', // don't transition away
                         detailView: 'root.menuitems', // root.menuItem
                         headerText: 'Add Menu Item',
-                        hideDetailButton: true
+                        hideDetailButton: true,
+                        documentToClone: null
                     }
                 };
                 self.tmDialogSvc.showDialog(dialogConfig).then((item) => {
@@ -184,7 +185,7 @@ function tmMenuDetailCtrl(
       self.$state.routeStack.push({
         to: self.$state.to,
         from: self.$state.from});
-      self.$state.go('root.menuItemDetail', { id: item._id });
+      self.$state.go('root.menuItemDetail', { id: item.menuItemId });
     }
 
     return this;
