@@ -2,7 +2,7 @@ import ninjaSchemas from 'ninjaSchemas';
 import angular from 'angular';
 import _ from 'lodash';
 
-function tmContractDocSvc(tmDocFactory, tmIdentity) {
+function tmContractDocSvc(tmDocFactory, tmIdentity, tmMenuItemDescSync) {
 
     this.__proto__ = tmDocFactory('Contract', ninjaSchemas.events.Contract);
 
@@ -193,6 +193,8 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
                 data = convertDateStrings(data);
                 self.doc = data;
                 self.master = angular.copy(data);
+                // offer to promote contract-line descriptions to blank base MenuItems
+                tmMenuItemDescSync.offerToSave(self.doc.menuItems, 'baseId').catch((e) => console.log(e));
                 deferred.resolve();
             });
         });
@@ -206,6 +208,6 @@ function tmContractDocSvc(tmDocFactory, tmIdentity) {
 }
 
 
-tmContractDocSvc.$inject = ['tmDocFactory', 'tmIdentity'];
+tmContractDocSvc.$inject = ['tmDocFactory', 'tmIdentity', 'tmMenuItemDescSync'];
 
 export default tmContractDocSvc;

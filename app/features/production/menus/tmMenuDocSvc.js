@@ -3,10 +3,20 @@ import angular from 'angular';
 import config from 'config';
 import mongoose from "mongoose";
 
-function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
+function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource, tmMenuItemDescSync) {
 
     this.__proto__ = tmDocFactory('Menu', ninjaSchemas.production.Menu);
 
+
+    // after a successful save, offer to promote section-item descriptions to blank base MenuItems
+    const baseSaveChanges = this.saveChanges;
+    this.saveChanges = function () {
+        return baseSaveChanges.apply(this, arguments).then((result) => {
+            const lines = [].concat(...(this.doc.sections || []).map((s) => s.items || []));
+            tmMenuItemDescSync.offerToSave(lines, 'menuItemId').catch((e) => console.log(e));
+            return result;
+        });
+    };
 
     this.doc.sections = this.doc["sections"] ? this.doc.sections : [];
 
@@ -415,6 +425,6 @@ function tmMenuDocSvc(tmDocFactory, tmIdentity, $dataSource) {
 }
 
 
-tmMenuDocSvc.$inject = ['tmDocFactory', "tmIdentity", "$dataSource"];
+tmMenuDocSvc.$inject = ['tmDocFactory', "tmIdentity", "$dataSource", "tmMenuItemDescSync"];
 
 export default tmMenuDocSvc;

@@ -3,6 +3,7 @@ import tmNotifier from './tmNotifier';
 import toastr from 'toastr';
 import tmModalSvc from './tmModalSvc';
 import tmDialogSvc from './tmDialogSvc';
+import tmMenuItemDescSync from './tmMenuItemDescSync';
 import mongoose from 'mongoose/browser';
 // config items
 import data from './data';
@@ -51,6 +52,7 @@ export default angular.module('common', [ninjaGrid, datePickers, alphaSelect])
     .factory('tmNotifier', tmNotifier)
     .service('tmModalSvc', tmModalSvc)
     .service('tmDialogSvc', tmDialogSvc)
+    .service('tmMenuItemDescSync', tmMenuItemDescSync)
     .directive('isLoading', isLoading)
     .directive('lookups', lookups)
     .directive('inject', inject)
