@@ -7,7 +7,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: '',
             parent: null,
             endSection: false,
-            roles: ['bronze', 'silver', 'gold', 'admin', 'superUser']
+            roles: ['superUser']
         });
         navigationProvider.addNav({
             name: 'Events',
@@ -15,7 +15,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: '',
             parent: null,
             endSection: false,
-            roles: ['bronze', 'silver', 'gold', 'admin', 'superUser']
+            roles: ['superUser']
         });
         navigationProvider.addNav({
             name: 'Production',
@@ -23,7 +23,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: '',
             parent: null,
             endSection: false,
-            roles: ['bronze', 'silver', 'gold', 'admin', 'superUser']
+            roles: ['superUser']
         });
         navigationProvider.addNav({
             name: 'Administration',
@@ -31,7 +31,7 @@ export default ['navigationProvider', function(navigationProvider){
             sref: '',
             parent: null,
             endSection: false,
-            roles: ['admin', 'superUser']
+            roles: ['superUser']
         });
         // navigationProvider.addNav({
         //     name: 'Feature Admin',

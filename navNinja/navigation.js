@@ -25,7 +25,8 @@ export default function Navigation(graph, tmIdentity){
             list.forEach(function(obj) {
                 if(_.intersection(tmIdentity.currentUser.user.roles, obj['roles']).length > 0){
                     if (obj[parentAttr] != null) {
-                        lookup[obj[parentAttr]][childrenAttr].push(obj);
+                        // skip children whose parent is hidden from this user
+                        if (lookup[obj[parentAttr]]) lookup[obj[parentAttr]][childrenAttr].push(obj);
                     } else {
                         treeList.push(obj);
                     }

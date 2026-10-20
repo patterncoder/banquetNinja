@@ -1,34 +1,5 @@
-//div(ng-class="{'col-md-10': vm.tmIdentity.isAuthenticated(), 'col-md-12': vm.tmIdentity.isAuthenticated()}")
 div(layout="column" flex="100")
     .jumbotron
         img.img-responsive(src=require("../../assets/banquetNinja2.png"))
-        p Kick ass event contract software
-div(layout="row" flex="100")
-    md-card(flex="33" ng-show="vm.tmIdentity.isAuthenticated()")
-        md-card-title
-            md-card-title-text 
-                span.md-headline Upcoming Bids To Win
-        md-card-content
-            div(ng-repeat="event in vm.upcomingBids")
-                a(ui-sref=("root.contractDetail({id:event._id})")) {{event.eventDate}} | {{event.customer.lastName}}
-        md-card-actions(layout="row")
-            md-button(ui-sref="root.contractsPending") ...More
-    md-card(flex="33" ng-show="vm.tmIdentity.isAuthenticated()")
-        md-card-title
-            md-card-title-text 
-                span.md-headline Upcoming Events
-        md-card-content
-            div(ng-repeat="event in vm.upcomingEvents")
-                a(ui-sref=("root.contractDetail({id:event._id})")) {{(event.eventDate || 'no-date')}} | {{(event.customer.lastName || event.customer.firstName)}} 
-        md-card-actions(layout="row")
-            md-button(ui-sref="root.contracts") ...More
-    md-card(flex="33" ng-show="vm.tmIdentity.isAuthenticated()")
-        md-card-title
-            md-card-title-text 
-                span.md-headline Active Menu Groups
-        md-card-content
-            div(ng-repeat="menuGroup in vm.activeMenuGroups")
-                a(ui-sref=("root.menuGroupDetail({id:menuGroup._id})")) {{menuGroup.name}} 
-        md-card-actions(layout="row")
-            md-button(ui-sref="root.menugroups") ...More
-        
+        h2 This app has been retired
+        p banquet.ninja has been replaced by Restaurant Ninja. Please sign in there to manage your events and contracts.
